@@ -1,0 +1,31 @@
+.main {
+    font-size : 40px;
+    color : #101820;
+}
+
+.container1 {
+    display : flex;
+    width : 100vw;
+    color : black;
+}
+
+.item {
+    margin-left : 20px;
+}
+
+.container2 {
+    display : flex;
+    width : 100vw;
+    height : 100%;
+    flex-wrap : wrap;
+    justify-content: center;
+}
+
+.content{
+    width : 300px;
+    height : 300px;
+    margin :15px;
+    justify-content : center;
+    align-items : center;
+    background : white;
+}
