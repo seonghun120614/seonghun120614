@@ -1,12 +1,8 @@
 ⌨️ Programming Language
 <br/>
+<!-- <img alt="C" src ="https://img.shields.io/badge/C-A8B9CC.svg?&style=for-the-badge&logo=C&logoColor=white" />
+<img alt="C++" src ="https://img.shields.io/badge/C++-00599C.svg?&style=for-the-badge&logo=C%2B%2B&logoColor=white" /> -->
 
-<img alt="Csharp" src="https://img.shields.io/badge/Csharp-239120.svg?&style=for-the-badge&logo (sharp&logoColor-white" />
-<img alt="Unity" src ="https://img.shields.io/badge/Unity-FAFAFA.svg?&style=for-the-badge&logo=Unity&logoColor=black" />
-<img alt="UnrealEngine" src ="https://img.shields.io/badge/Unreal-01128.svg?&style=for-the-badge&logo Unreal Engine&logoColor=white" />
-<br/>
-<img alt="C" src ="https://img.shields.io/badge/C-A8B9CC.svg?&style=for-the-badge&logo=C&logoColor=white" />
-<img alt="C++" src ="https://img.shields.io/badge/C++-00599C.svg?&style=for-the-badge&logo=C%2B%2B&logoColor=white" />
 <img alt="Python" src ="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white" />
 <img alt="Java" src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white" />
 <img alt="Android" src ="https://img.shields.io/badge/Android-3DDC84.svg?&style=for-the-badge&logo=Android&logoColor=white" />
