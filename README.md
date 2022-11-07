@@ -7,9 +7,9 @@
     <h3>🛠️ Tools</h3><br/><br/><img src="https://img.shields.io/badge/VSC-0067a3?style=for-the-badge&logo=VisualStudioCode&logoColor=white" /><img src="https://img.shields.io/badge/Intellij-8b00ff?style=for-the-badge&logo=Intellij&logoColor=white" /><img src="https://img.shields.io/badge/Pycharm-3ed4be?style=for-the-badge&logo=Pycharm&logoColor=white" /><img src="https://img.shields.io/badge/RStudio-75AADB?style=for-the-badge&logo=RStudio&logoColor=white" /><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white" /></br></br>
     <h3>💳 FrameWork</h3>
     <img src="https://img.shields.io/badge/RStudio-75AADB?style=for-the-badge&logo=RStudio&logoColor=white" />
-    ![Seonghun's GitHub stats](https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical)
-    
 </div>
+
+![Seonghun's GitHub stats](https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical)
 
 <!--
 <img alt="C" src ="https://img.shields.io/badge/C-A8B9CC.svg?&style=for-the-badge&logo=C&logoColor=white" />
