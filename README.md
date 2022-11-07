@@ -1,3 +1,4 @@
+<div align="center">
 ⌨️ Programming Language
 <br/>
 <!--
@@ -8,7 +9,6 @@
 <img alt="Npm" src ="https://img.shields.io/badge/npm-CB3837.svg?&style=for-the-badge&logo=npm&logoColor=white" />
 <img alt="JQuery" src ="https://img.shields.io/badge/)Query-0769AD svg?&style=for-the-badge&logo=JQuery&logoColor=white"/>
 -->
-
 <img alt="Python" src ="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white" /><img alt="Java" src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white" />
 
 📑 WEB</br>
@@ -20,3 +20,4 @@
 ![Seonghun's GitHub stats](https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical)
 
 
+</div>
