@@ -18,7 +18,7 @@
 <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=white" /><img alt="Spring" src ="https://img.shields.io/badge/Spring-6DB33F.svg?&style=for-the-badge&logo=Spring&logoColor=white" />
 
 🛠️ Tools
-<img src="https://img.shields.io/badge/PyCharm-fffff.svgf?style=for-the-badge&logo=PyCharm&logoColor=#000000" /><img src="https://img.shields.io/badge/Intellij-fffff.svgf?style=for-the-badge&logo=PyCharm&logoColor=#000000" />
+<img src="https://img.shields.io/badge/Pycharm-F05138?style=for-the-badge&logo=Pycharm&logoColor=white"/>
 
 ![Seonghun's GitHub stats](https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical)
 
