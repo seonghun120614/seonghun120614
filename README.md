@@ -9,7 +9,9 @@
     <img src="https://img.shields.io/badge/RStudio-75AADB?style=for-the-badge&logo=RStudio&logoColor=white" />
 </div>
 <br/><br/><br/><br/>
+
 ![Seonghun's GitHub stats](https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical)
+
 <!--
 <img alt="C" src ="https://img.shields.io/badge/C-A8B9CC.svg?&style=for-the-badge&logo=C&logoColor=white" />
 <img alt="C++" src ="https://img.shields.io/badge/C++-00599C.svg?&style=for-the-badge&logo=C%2B%2B&logoColor=white" />
