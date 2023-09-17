@@ -10,10 +10,10 @@
     <img alt="Java" src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=JAVA&logoColor=white" />⭐⭐<br/>
     <img alt="R" src="https://img.shields.io/badge/R-276DC3.svg?&style=for-the-badge&logo=R&logoColor=white">⭐<br/>
     <br/><br/><h3>📑 WEB</h3>
-    <img alt="Spring" src ="https://img.shields.io/badge/Spring-6DB33F.svg?&style=for-the-badge&logo=Spring&logoColor=white" />⭐<br/>
-    <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=white" />⭐<br/>
     <img alt="Html" src ="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white" />⭐⭐<br/>
     <img alt="CSS3" src ="https://img.shields.io/badge/CSS3-FF9933.svg?&style=for-the-badge&logo=CSS3&logoColor=white" />⭐⭐<br/>
+    <img alt="Spring" src ="https://img.shields.io/badge/Spring-6DB33F.svg?&style=for-the-badge&logo=Spring&logoColor=white" />⭐<br/>
+    <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=white" />⭐<br/>
     <br/><br/><h3>🛠️ Tools</h3>
     <img src="https://img.shields.io/badge/VSC-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" />⭐⭐⭐<br/>
     <img src="https://img.shields.io/badge/Pycharm-3ed4be?style=for-the-badge&logo=Pycharm&logoColor=white" />⭐⭐<br/>
