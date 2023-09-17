@@ -1,4 +1,4 @@
-<div align="center">
+<div align="left">
     <br/><br/><h3>💻 Using</h3>
     <img art="macOS" src="https://img.shields.io/badge/macOS-000000.svg?&style=for-the-badge&logo=macOS&logoColor=white" />
     <img art="instagram" src="https://img.shields.io/badge/Instagram-E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white" /><br/><br/>❤️<br/>
