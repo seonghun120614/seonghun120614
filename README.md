@@ -7,7 +7,7 @@
     <img art="Tistory" src="https://img.shields.io/badge/Tistory-000000.svg?&style=for-the-badge&logo=Tistory&logoColor=white" /><br/>
     <br/><br/><h3>⌨️ Programming Language</h3>
     <img alt="Python" src="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white" />⭐⭐⭐<br/>
-    <img alt="Java" src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=JAVA&logoColor=white" />⭐⭐<br/>
+    <img alt="Java" src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=JAVA&logoColor=white" />⭐⭐⭐<br/>
     <img alt="R" src="https://img.shields.io/badge/R-276DC3.svg?&style=for-the-badge&logo=R&logoColor=white">⭐<br/>
     <br/><br/><h3>📑 WEB</h3>
     <img alt="Html" src ="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white" />⭐⭐<br/>
