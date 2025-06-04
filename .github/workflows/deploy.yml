@@ -1,15 +1,15 @@
-name: Deploy Jekyll site to GitHub Pages
+name: Deploy Jekyll site to main
 
 on:
   push:
     branches:
-      - gh-pages  # gh-pages 브랜치에 push될 때마다 작동
+      - gh-pages  # 원본이 gh-pages에 있음
 
 permissions:
-  contents: write  # gh-pages 브랜치에 write 권한
+  contents: write
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,19 +19,20 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1  # 필요시 로컬 Ruby 버전에 맞춰 조정
+          ruby-version: 3.1
 
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install
 
-      - name: Build site with Jekyll
+      - name: Build site
         run: bundle exec jekyll build
 
-      - name: Deploy to GitHub Pages
+      - name: Push to main (HTML only)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
-          publish_branch: gh-pages
+          publish_branch: main
+          force_orphan: true  # 👉 main 내용을 정적으로만 유지
