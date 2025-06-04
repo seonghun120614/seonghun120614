@@ -32,7 +32,7 @@ twitter_username: jekyllrb
 github_username:  jekyll
 
 # Build settings
-theme: minima
+theme: plainwhite
 plugins:
   - jekyll-feed
 
@@ -55,3 +55,25 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+plainwhite:
+  name: Seonghun Park
+  tagline: Developer.
+  date_format: "%b %-d, %Y"
+  html_lang: "kor"
+
+  social_links:
+    twitter: samarsault
+    github: samarsault
+    linkedIn: in/samarsault # format: locale/username
+
+  navigation:
+    - title: My Work
+      url: "/my-work"
+    - title: Resume
+      url: "/resume"
+
+  condensed_mobile:
+    - home
+    - post
+    - page
