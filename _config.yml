@@ -32,6 +32,9 @@ baseurl: "/seonghun120614"
 twitter_username: jekyllrb
 github_username:  seonghun120614
 
+exclude:
+  - _posts/template.md
+
 # Build settings
 remote_theme: samarsault/plainwhite-jekyll
 plugins:
