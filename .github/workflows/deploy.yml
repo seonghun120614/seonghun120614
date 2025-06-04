@@ -13,9 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Copy README to _site before deploy
-        run: cp README.md ./_site/
-
       - name: Checkout source
         uses: actions/checkout@v4
 
@@ -31,6 +28,12 @@ jobs:
 
       - name: Build site
         run: bundle exec jekyll build
+      
+      - name: Copy README.md to _site
+        run: cp README.md _site/
+      
+      - name: Add .nojekyll (to prevent GitHub from ignoring underscored folders)
+        run: touch _site/.nojekyll
 
       - name: Push to main (HTML only)
         uses: peaceiris/actions-gh-pages@v3
@@ -38,4 +41,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
           publish_branch: main
-          force_orphan: true  # 👉 main 내용을 정적으로만 유지
+          force_orphan: true
