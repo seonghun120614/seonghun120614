@@ -43,16 +43,16 @@ plainwhite:
   date_format: "%b %-d, %Y"
   html_lang: "kor"
   analytics-id: "G-RQTWJRLWGD"
-  portfolio-image: "assets/portfolio.png"
+  portfolio_image: "assets/portfolio.png"
 
   social_links:
-    twitter: samarsault
-    github: samarsault
-    linkedIn: in/samarsault # format: locale/username
+    twitter:
+    github: seonghun120614
+    linkedIn: # format: locale/username
 
   navigation:
     - title: About Me
-      url: "/about"
+      url: "about"
 
   condensed_mobile:
     - home
