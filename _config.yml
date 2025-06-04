@@ -34,6 +34,7 @@ github_username:  seonghun120614
 
 exclude:
   - _posts/template.md
+  - new_post.sh
 
 # Build settings
 remote_theme: samarsault/plainwhite-jekyll
