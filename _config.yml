@@ -28,6 +28,7 @@ description: >- # this means to ignore newlines
 # url: "" # the base hostname & protocol for your site, e.g. http://example.com
 domain: seonghun120614.github.io
 url: https://seonghun120614.github.io
+baseurl: "/seonghun"
 twitter_username: jekyllrb
 github_username:  seonghun120614
 
