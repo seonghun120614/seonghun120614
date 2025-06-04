@@ -33,7 +33,7 @@ twitter_username: jekyllrb
 github_username:  seonghun120614
 
 # Build settings
-theme: plainwhite
+remote_theme: plainwhite-jekyll
 plugins:
   - jekyll-feed
 

@@ -3,7 +3,7 @@ name: Deploy Jekyll site to GitHub Pages
 on:
   push:
     branches:
-      - gh-pages  # main 브랜치에 push될 때마다 작동
+      - gh-pages  # gh-pages 브랜치에 push될 때마다 작동
 
 permissions:
   contents: write  # gh-pages 브랜치에 write 권한
