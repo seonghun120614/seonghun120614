@@ -1,0 +1,159 @@
+---
+layout: post
+title:  Spring Boot 처음 시작하기
+date:   2025-06-05 18:18:53 +0900
+categories: Java Spring
+---
+{% include math.html %}
+## 🪛 한계점
+
+Java EE 의 복잡성과 비효율성을 극복하기 위해 나온 단순하면서 테스트 가능한 [POJO](#POJO) 기반 개발
+
+Java EE 의 한계
+- 많은 XML 설정 및 복잡한 라이프사이클 관리
+- 비즈니스 로직 작성 시도에도 무거운 클래스 계층 요구
+- 테스트 어려움 (EJB 중심 구조)
+
+이로 인해 나온게 Spring Framework 인데, 여기서도 단점은
+- 설정이 너무 많다
+- 프로젝트 초기 셋업 시간이 길다
+- 톰캣 따로 설치 & 배포가 필요하다
+
+이로 인해 나온게 Spring Boot 이다.
+
+---
+
+## 📂 목차
+- [Spring Boot](#spring-boot)
+    - [spring-boot](#spring-boot-1)
+    - [spring-boot-autoconfigure](#spring-boot-autoconfigure)
+    - [spring-boot-starter](#spring-boot-starter)
+    - [spring-boot-CLI](#spring-boot-CLI)
+    - [spring-boot-actuator](#spring-boot-actuator)
+    - [spring-boot-actuator-autoconfigure](#spring-boot-actuator-autoconfigure)
+    - [spring-boot-test](#spring-boot-test)
+    - [spring-boot-loader](#spring-boot-loader)
+    - [spring-boot-devtools](#spring-boot-devtools)
+
+---
+
+## 📚 본문
+
+Spring 을 쉽게 시작하고, 실무 중심으로 접할 수 있도록 '거시적인' 개념을 본다.
+
+### Spring Boot
+
+Spring Boot 는 Spring Framework 의 확장판으로 설정 없이도 어플리케이션을 빠르게 실행할 수 있게 도와준다.
+
+자주 사용하는 Spring 컴포넌트를 보자.
+
+#### spring-boot
+
+스프링 부트의 기본 컴포넌트로 다른 컴포넌트를 사용할 수 있도록 지원한다.
+
+spring-boot 의 `SpringApplication` 클래스는 spring-boot 에 내장된 웹 서버 기능 지원, 어플리케이션 설정 정보 외부화 기능 지원 등의 다양한 서로 다른 컴포넌트들을 연결한다.
+
+| 항목           | Spring Boot Application                        | Spring Application                          |
+|----------------|-----------------------------------------------|---------------------------------------------|
+| 설정 방식      | 자동 설정 (`@SpringBootApplication`)           | 수동 설정 (XML 또는 Java Config)            |
+| 서버 실행      | 내장 Tomcat/Jetty 등 사용, JAR로 실행 가능     | 외부 WAS 필요, WAR로 배포                   |
+| 실행 진입점    | `main()`에서 `SpringApplication.run()` 호출   | 외부 서버의 web.xml에서 초기화              |
+| 의존성 관리    | `spring-boot-starter-*`, BOM으로 버전 관리     | 개별 라이브러리 수동 설정                   |
+| 개발 생산성    | 빠름 – 설정 없이 바로 시작 가능                 | 느림 – 많은 설정 필요                       |
+| 파일 구조      | `application.yml`, Java Config 중심           | `applicationContext.xml` 등 XML 설정 사용   |
+| 테스트 및 도구 | DevTools, Actuator 등 내장 도구 제공           | 별도 설정 필요                              |
+
+#### spring-boot-autoconfigure
+
+`Spring Application` 을 자동 구성 할 수 있게 하는 [Component](#component)이다.
+
+테스트 환경, 개발 환경, 배포 환경은 서로 다르다. 또한 DB 연결도 어떤 Database 를 쓰는지에 따라 다르다. 그에 맞는 `Spring Application` 의 설정 값들을 자동으로 바꾸도록 한다.
+
+#### spring-boot-starter
+
+개발자 편의를 위해 제공되는 패키지들의 모음이다.
+
+여러 기술을 개발자에게 제공하여 이 스타터가 없다면 쓸 패키지들을 일일히 다 써서 설정해줘야 한다.
+
+#### spring-boot-CLI
+
+[Groovy](#groovy) 코드를 컴파일하고 실행할 수 있는 개발자 친화적 명령행 도구이다.
+
+파일 내용을 감지하는 기능이 있어 어플리케이션 수정 시 직접 재부팅을 할 필요가 없다.
+
+#### spring-boot-actuator
+
+스프링 부트 어플리케이션을 모니터링한다.
+
+액추에이터 엔드포인트를 제공하고, 어플리케이션의 여러 상태를 감지할 수 있고 미리 정의된 여러 가지 액추에이터 엔드포인트를 사용하거나 커스텀 액추에이터 엔드포인트를 사용하여 새로운 엔드포인트를 만들 수도 있다.
+
+#### spring-boot-actuator-autoconfigure
+
+클래스를 기반으로 액추에이터 엔드포인트를 자동으로 구성해주는 컴포넌트이다.
+
+만약 Micrometer 의 의존관계가 있다면, 스프링부트가 자동으로 `MetricsEndpoint` 를 액추에이터 엔드포인트로 추가해준다.
+
+#### spring-boot-test
+
+스프링 부트 어플리케이션 테스트 케이스 작성에 필요한 [Annotation](#annotation) 과 메서드가 포함되어 있다.
+
+#### spring-boot-loader
+
+스프링 부트 어플리케이션을 실행가능한 하나의 JAR 파일로 패키징 하는데 필요한 모든 라이브러리들과 독립 실행형으로 실행되는 내장 웹 서버를 포함하고 있다. 이 컴포넌트는 독립적으로 사용하지 않고, [Maven](#maven), [Gradle](#gradle) 플러그인과 함께 사용된다.
+
+#### spring-boot-devtools
+
+스프링 부트 어플리케이션 개발을 도와주는 여러 가지 개발자 도구를 지원한다.
+
+코드 변경 자동 감지, HTML 변경 시 자동 새로고침 LiveReload 기능이 있다.
+
+---
+
+## 🔗 출처
+- 도서 [Spring Boot in Practice](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK)
+
+---
+
+## 📁 관련 글
+- []: 
+
+---
+
+## ✒️ 용어
+
+###### POJO
+
+Pain Old Java Object 의 약자로,  지향적인 원리에 충실하면서 환경과 기술에 종속되지 않고, 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트이다.
+
+- Java 나 Java 에서 정의한 규정만 따른다.
+- 환경에 독립적이어야 한다.
+
+###### Component
+
+정의된 기능을 수행하고, 재사용이 가능한 소프트웨어 모듈이다.
+
+외부와의 인터페이스가 명확하기 때문에 독립적으로 배포, 수정, 교체, 조립이 가능한 단위다.
+
+###### Groovy
+
+Java 를 확장한 동적 객체 지향 프로그래밍 언어이다. 여기서 동적이라는 말은 변수 타입을 컴파일이 아니라 런타임때 정한다. 자바 코드를 그대로 쓸 수도 있고, 스크립팅 언어이다.
+
+###### Annotation
+
+클래스, 메서드, 필드, 파라미터 등에 부착하여 프레임워크나 컴파일러가 특정 작업을 하도록 만드는 기능이다.
+
+책임 분리가 가능하도록 하며, 이 덕분에 Single Responsibility 를 챙겨갈 수 있다.
+
+또한 사용자 정의 애너테이션을 정의할 수도 있다.
+
+###### Maven
+
+Java 기반의 프로젝트 빌드 자동화 도구이다.
+
+의존성 관리, 빌드 테스트, 패키징, 배포 등을 스크립트화하여 자동화한다.
+
+###### Gradle
+
+Java 기반의 프로젝트 빌드 자동화 도구이다.
+
+의존성 관리, 빌드 테스트, 패키징, 배포 등을 스크립트화하여 자동화한다.

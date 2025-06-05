@@ -48,15 +48,19 @@ plainwhite:
   html_lang: "kor"
   analytics-id: "G-RQTWJRLWGD"
   portfolio_image: "assets/portfolio.png"
+  disqus_shortname: seonghun
+  sitemap: true
+  show_excerpts: true
+  search: true
 
   social_links:
-    twitter:
     github: seonghun120614
-    linkedIn: # format: locale/username
+    google: seonghun120614
+    instagram: stellar__cloud.ig
 
   navigation:
     - title: About Me
-      url: "about"
+      url: "/seonghun120614/about"
 
   condensed_mobile:
     - home

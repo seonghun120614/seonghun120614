@@ -21,30 +21,31 @@ categories: CATEGORIES_PLACEHOLDER
 
 {% include math.html %}
 
-## 0. 초록 (Abstraction)
-
-- 문제 제시
-- 문제 원인
-- 글 요약
-- 결과 요약
-
-## 1. 서론 (Introduction)
-
-- 주제에 대한 소개
-- 문제의 중요성 및 정의
-- 독자에게 전달할 핵심 의도
-
-## 2. 본론 (Main Body)
-
-
-## 3. 결론 (Conclusion)
+## 🪛 한계점
 
 
 
-## 📚 References
+## 📂 목차
 - []()
 - []()
 - []()
+
+## 📚 본문
+
+
+## 🔗 출처
+- []()
+- []()
+
+## 📁 관련 글
+- []:
+- []:
+
+## ✒️ 용어
+
+###### 
+
+###### 
 EOF
 
 # sed 로 실제 값 치환
