@@ -46,8 +46,7 @@ categories: CATEGORIES_PLACEHOLDER
 ---
 
 ## 📁 관련 글
-- []:
-- []:
+- [][]
 
 ---
 

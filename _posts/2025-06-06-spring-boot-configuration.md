@@ -17,7 +17,9 @@ Application 의 설정값만 바꿔 기능을 서비스와 환경에 맞게 조�
 - [Spring Application 의 setDefaultProperties() 메서드로 구성 정보 설정하기](#spring-application-의-setdefaultproperties-메서드로-구성-정보-설정하기)
 - [Spring Application 의 properties 파일로 구성 정보 설정하기](#spring-application-의-properties-파일로-구성-정보-설정하기)
     - [properties 파일을 @PropertySource 로 매핑시켜 코드 단에서 다루기](#properties-파일을-propertysource-로-매핑시켜-코드-단에서-다루기)
-    - []
+- [구성 정보 집합 Configuration 의 정보를 출력해보기](#구성-정보-집합-configuration-의-정보를-출력해보기)
+    - [@EnvironmentCapable 인터페이스](#environmentcapable-인터페이스)
+    - [@PropertyResolver 인터페이스](#propertyresolver-인터페이스)
 
 ---
 
@@ -239,8 +241,7 @@ public class MyApplication {
 ---
 
 ## 📁 관련 글
-- []:
-- []:
+- [][]
 
 ---
 
@@ -265,5 +266,5 @@ SpringBootApplication 의 entry point 에 사용하는 애너테이션이며, �
 
 ###### @Bean
 
-Spring 은 **IoC** 라는 컨테이너가 있는데, 이 컨테이너가 관리하는 대상 객체가 Bean 이다. [글을 참고][#bean]하자.
+Spring 은 **IoC** 라는 컨테이너가 있는데, 이 컨테이너가 관리하는 대상 객체가 Bean 이다. [글을 참고][bean]하자.
 [bean]: /2025/06/06/bean-이란
