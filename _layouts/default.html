@@ -11,6 +11,20 @@
     {% assign condensed_class = "" %}
     {%- endif -%}
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
     <body>
         <main class="container">
             <section class="about">
@@ -219,24 +233,22 @@
             </footer>
         </main>
         {% if site.plainwhite.dark_mode %}
-        <script type="text/javascript" src="{{ "/assets/js/darkmode.js" |
-            relative_url }}"></script>
+        <script type="text/javascript" src="{{ "/assets/js/darkmode.js" | relative_url }}"></script>
         {% endif %}
 
         {%- if site.plainwhite.analytics_id -%}
         <script async
             src="https://www.googletagmanager.com/gtag/js?id={{ site.plainwhite.analytics_id }}"></script>
         <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', '{{ site.plainwhite.analytics_id }}');
-  </script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', '{{ site.plainwhite.analytics_id }}');
+        </script>
         {%- endif -%}
 
         {% if site.plainwhite.search %}
-        <script src="{{ "/assets/js/simple-jekyll-search.min.js" | relative_url
-            }}"></script>
+        <script src="{{ "/assets/js/simple-jekyll-search.min.js" | relative_url}}"></script>
         <script src="{{ "/assets/js/search.js" | relative_url }}"></script>
         {% endif %}
     </body>
