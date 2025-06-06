@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="{{ site.plainwhite.html_lang }}">
+
+    <head>
+        {%- include head.html -%}
+    </head>
+
+    {%- if site.plainwhite.condensed_mobile contains page.layout -%}
+    {% assign condensed_class = "condensed" %}
+    {% else %}
+    {% assign condensed_class = "" %}
+    {%- endif -%}
+
+    <body>
+        <main class="container">
+            <section class="about">
+                <div class="about-header {{condensed_class}}">
+                    <div class="about-title">
+                        <a href="{{ "/" | relative_url}}">
+                            {% if site.plainwhite.portfolio_image_dark and
+                            site.plainwhite.dark_mode %}
+                            <img class="light"
+                                src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}"
+                                alt="{{ site.plainwhite.name }}" />
+                            <img class="dark"
+                                src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image_dark }}"
+                                alt="{{ site.plainwhite.name }}" />
+                            {% else %}
+                            <img
+                                src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}"
+                                alt="{{ site.plainwhite.name }}" />
+                            {% endif %}
+                        </a>
+                        <h2 id="title">
+                            <a href="{{ "/" | relative_url }}">{{
+                                site.plainwhite.name }}</a>
+                        </h2>
+                    </div>
+                    {%- if site.plainwhite.tagline -%}
+                    <p class="tagline">{{ site.plainwhite.tagline }}</p>
+                    {%- endif -%}
+                </div>
+                {% capture footer %}
+                {%- if site.plainwhite.social_links != '' -%}
+                <ul class="social about-footer {{condensed_class}}">
+                    {%- if site.plainwhite.social_links.github -%}
+                    <li>
+                        <a
+                            href="https://github.com/{{ site.plainwhite.social_links.github }}"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.gitlab -%}
+                    <li>
+                        <a
+                            href="https://gitlab.com/{{ site.plainwhite.social_links.gitlab }}"
+                            target="_blank" rel="noopener" aria-label="gitlab">
+                            <i class="icon-gitlab"></i>
+                        </a>
+                    </li>
+
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.linkedIn -%}
+                    <li>
+                        <a
+                            href="https://www.linkedin.com/{{ site.plainwhite.social_links.linkedIn }}"
+                            target="_blank" rel="noopener"
+                            aria-label="linkedIn">
+                            <i class="icon-linkedin-squared"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.twitter -%}
+                    <li>
+                        <a
+                            href="https://twitter.com/{{ site.plainwhite.social_links.twitter }}"
+                            target="_blank" rel="noopener" aria-label="twitter">
+                            <i class="icon-twitter-squared"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.instagram -%}
+                    <li>
+                        <a
+                            href="https://instagram.com/{{ site.plainwhite.social_links.instagram }}"
+                            target="_blank" rel="noopener"
+                            aria-label="instagram">
+                            <i class="icon-instagram"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.facebook -%}
+                    <li>
+                        <a
+                            href="https://facebook.com/{{ site.plainwhite.social_links.facebook }}"
+                            target="_blank" rel="noopener"
+                            aria-label="facebook">
+                            <i class="icon-facebook-squared"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.youtube -%}
+                    <li>
+                        <a
+                            href="https://youtube.com/{{ site.plainwhite.social_links.youtube }}"
+                            target="_blank" rel="noopener" aria-label="youtube">
+                            <i class="icon-youtube"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.pinterest -%}
+                    <li>
+                        <a
+                            href="https://pinterest.com/{{ site.plainwhite.social_links.pinterest }}"
+                            target="_blank" rel="noopener"
+                            aria-label="pinterest">
+                            <i class="icon-pinterest-squared"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.dribbble -%}
+                    <li>
+                        <a
+                            href="https://dribbble.com/{{ site.plainwhite.social_links.dribbble }}"
+                            target="_blank" rel="noopener" aria-label="dribble">
+                            <i class="icon-dribbble"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.flickr -%}
+                    <li>
+                        <a
+                            href="https://flickr.com/{{ site.plainwhite.social_links.flickr }}"
+                            target="_blank" rel="noopener" aria-label="flickr">
+                            <i class="icon-flickr"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.telegram -%}
+                    <li>
+                        <a
+                            href=" https://t.me/{{ site.plainwhite.social_links.telegram }}"
+                            target="_blank" rel="noopener"
+                            aria-label="telegram">
+                            <i class="icon-telegram"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.soundcloud -%}
+                    <li>
+                        <a
+                            href=" https://soundcloud.com/{{ site.plainwhite.social_links.soundcloud }}"
+                            target="_blank" rel="noopener"
+                            aria-label="soundcloud">
+                            <i class="icon-soundcloud"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.email -%}
+                    <li>
+                        <a
+                            href="mailto:{{ site.plainwhite.social_links.email }}"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                    {%- if site.plainwhite.social_links.stackoverflow -%}
+                    <li>
+                        <a
+                            href="https://stackoverflow.com/users/{{ site.plainwhite.social_links.stackoverflow }}"
+                            target="_blank" rel="noopener"
+                            aria-label="stack-overflow">
+                            <i class="icon-stack-overflow"></i>
+                        </a>
+                    </li>
+                    {%- endif -%}
+                </ul>
+                {%- endif -%}
+                {%- if site.plainwhite.navigation -%}
+                <nav class="navigation about-footer {{condensed_class}}">
+                    <ul>
+                        {% for link in site.plainwhite.navigation %}
+                        <li>
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                {%- endif -%}
+                <p class="about-footer {{condensed_class}}">&copy;
+                    {{ "now" | date: "%Y" }}</p>
+                {%- if site.plainwhite.dark_mode -%}
+                <div class="about-footer {{condensed_class}}">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+                {%- endif -%}
+                {% endcapture %}
+                {{ footer }}
+            </section>
+            <section class="content">
+                {{ content }}
+            </section>
+            <footer class="{{condensed_class}}">
+                {{ footer }}
+            </footer>
+        </main>
+        {% if site.plainwhite.dark_mode %}
+        <script type="text/javascript" src="{{ "/assets/js/darkmode.js" |
+            relative_url }}"></script>
+        {% endif %}
+
+        {%- if site.plainwhite.analytics_id -%}
+        <script async
+            src="https://www.googletagmanager.com/gtag/js?id={{ site.plainwhite.analytics_id }}"></script>
+        <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ site.plainwhite.analytics_id }}');
+  </script>
+        {%- endif -%}
+
+        {% if site.plainwhite.search %}
+        <script src="{{ "/assets/js/simple-jekyll-search.min.js" | relative_url
+            }}"></script>
+        <script src="{{ "/assets/js/search.js" | relative_url }}"></script>
+        {% endif %}
+    </body>
+
+</html>

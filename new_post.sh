@@ -19,13 +19,11 @@ date:   DATE_PLACEHOLDER
 categories: CATEGORIES_PLACEHOLDER
 ---
 
-{% include math.html %}
+<!--more-->
 
 ## 🪛 한계점
 
 
-
----
 
 ## 📂 목차
 - []()
@@ -41,9 +39,6 @@ categories: CATEGORIES_PLACEHOLDER
 
 ## 🔗 출처
 - []()
-- []()
-
----
 
 ## 📁 관련 글
 - [][]
@@ -51,8 +46,6 @@ categories: CATEGORIES_PLACEHOLDER
 ---
 
 ## ✒️ 용어
-
-###### 
 
 ###### 
 EOF
