@@ -173,7 +173,7 @@ public class MyApplication {
         ConfigurableApplicationContext context = springApplication.run(args);
     }
 }
-{% highlightend %}
+{% endhighlight %}
 
 위를 통해 확인이 가능하다. 여기서 `ConfigurableApplicationContext` 인터페이스는 `ApplicationContext` 인터페이스를 상속받는다.
 
