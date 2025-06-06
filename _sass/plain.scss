@@ -2,7 +2,7 @@
 @import "ext/normalize";
 @import "syntax";
 
-$linkColor: #3A5A98;
+$linkColor: #3a5a98;
 $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
@@ -44,6 +44,18 @@ h2 {
     margin: 0.3em 0;
   }
 }
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(to right, #4a90e2, #8e44ad);
+  z-index: 9999;
+  transition: width 0.15s ease-out;
+}
+
 main {
   margin: 0 90px;
   display: flex;
@@ -139,7 +151,7 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   a {
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
   li {
     i {
@@ -164,7 +176,7 @@ main {
 
     a {
       display: block;
-      font-family: 'Merriweather';
+      font-family: "Merriweather";
       text-align: center;
       padding: 1rem 0;
       text-decoration: none;
@@ -246,18 +258,40 @@ main {
   padding-top: 3em;
   padding-bottom: 3em;
   font-family: "Merriweather", sans-serif;
-  font-weight: 300;
+  font-weight: 500;
   color: #222;
   line-height: 2em;
   p {
     margin-top: 10px;
+  }
+  ul {
+    list-style: none;
+    margin-left: 1em;
+    padding-left: 1.2em;
+    border-left: 1px solid #d0d0d0;
+  }
+  
+  ul li {
+    position: relative;
+    margin: 0.5em 0;
+    padding-left: 0.5em;
+    font-weight: 500;
+    color: #222;
+  }
+  
+  ul li::before {
+    content: "›";
+    position: absolute;
+    left: -1em;
+    font-size: 0.8em;
+    color: #666;
   }
   a {
     color: $linkColor;
     text-decoration: none;
     position: relative;
     transition: color 0.3s ease;
-  
+
     &::after {
       content: "";
       position: absolute;
@@ -270,10 +304,10 @@ main {
       transform-origin: left;
       transition: transform 0.3s ease;
     }
-  
+
     &:hover {
       color: darken($linkColor, 10%);
-      
+
       &::after {
         transform: scaleX(1);
       }
@@ -286,10 +320,7 @@ main {
   h5,
   h6 {
     font-family: Raleway, sans-serif;
-  }
-  hr {
-    margin-top: 3em;
-    margin-bottom: 3em;
+    line-height: 3em;
   }
   pre.highlight-dark,
   code {
@@ -344,7 +375,8 @@ main {
   transition: width 0.1s;
 }
 table {
-  th, td {
+  th,
+  td {
     padding: 8px 13px;
     border: 1px solid #dfe2e5;
   }
@@ -386,7 +418,7 @@ footer {
     flex-direction: column;
     align-items: center;
     margin: 0 40px;
-    @media screen and (max-width: $smallMobileW){
+    @media screen and (max-width: $smallMobileW) {
       margin: 0 20px;
     }
     border-top: 1px solid #eee;

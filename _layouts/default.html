@@ -26,6 +26,7 @@
     </script>
 
     <body>
+        <div id="scroll-progress"></div>
         <main class="container">
             <section class="about">
                 <div class="about-header {{condensed_class}}">
@@ -251,6 +252,14 @@
         <script src="{{ "/assets/js/simple-jekyll-search.min.js" | relative_url}}"></script>
         <script src="{{ "/assets/js/search.js" | relative_url }}"></script>
         {% endif %}
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
     </body>
 
 </html>

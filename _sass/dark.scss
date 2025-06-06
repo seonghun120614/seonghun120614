@@ -8,6 +8,10 @@
   color: $dark_text_color;
   border-color: #e6e6e6;
 
+  #scroll-progress {
+    background: linear-gradient(to right, #00c3ff, #ff6ec4);
+  }
+
   .about {
     img.light {
       display: none;
@@ -48,35 +52,26 @@
   pre {
     background-color: $dark_code_bg_color;
     color: #f8f8f2;
-    font-family: "Fira Code", "Courier New", monospace;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    padding: 1em 1.5em;
-    border-radius: 0.75rem;
     border: 1px solid $dark_code_border_color;
-    overflow-x: auto;
-    white-space: pre-wrap;
-
-    // 그림자 효과
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-    // 스크롤바 숨김 (웹킷 기준)
-    &::-webkit-scrollbar {
-      height: 6px !important;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
-      border-radius: 10px;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
   }
 
   .post-categories {
     li {
       background-color: #333;
       color: #fff;
+    }
+  }
+  .post {
+    ul {
+      border-left: 1px solid #444;
+    }
+    
+    ul li {
+      color: #eee;
+    }
+    
+    ul li::before {
+      color: #aaa;
     }
   }
 

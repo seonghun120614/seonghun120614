@@ -116,7 +116,7 @@ abbr[title] {
 
 b,
 strong {
-    font-weight: bold;
+    font-weight: 900;
 }
 
 //
@@ -207,11 +207,14 @@ figure {
 //
 // Address differences between Firefox and other browsers.
 //
-
 hr {
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    height: 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #aaa, transparent);
+    margin: 2rem auto;
+    margin-top: 3em;
+    margin-bottom: 3em;
+    width: 80%;
 }
 
 //
