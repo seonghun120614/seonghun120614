@@ -48,8 +48,10 @@ plainwhite:
   html_lang: "kor"
   analytics-id: "G-RQTWJRLWGD"
   portfolio_image: "assets/portfolio.png"
+  portfolio_image_dark: "assets/portfolio.png"
   disqus_shortname: seonghun
   sitemap: true
+  dark_mode: true
   show_excerpts: true
   search: true
 
