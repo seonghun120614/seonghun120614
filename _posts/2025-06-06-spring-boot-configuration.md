@@ -1,0 +1,269 @@
+---
+layout: post
+title:  Spring Boot Configuration
+date:   2025-06-06 14:20:04 +0900
+categories: Java Spring
+---
+
+{% include math.html %}
+
+## 🪛 한계점
+
+Application 의 설정값만 바꿔 기능을 서비스와 환경에 맞게 조절하는게 필요하다.
+
+---
+
+## 📂 목차
+- [Spring Application 의 setDefaultProperties() 메서드로 구성 정보 설정하기](#spring-application-의-setdefaultproperties-메서드로-구성-정보-설정하기)
+- [Spring Application 의 properties 파일로 구성 정보 설정하기](#spring-application-의-properties-파일로-구성-정보-설정하기)
+    - [properties 파일을 @PropertySource 로 매핑시켜 코드 단에서 다루기](#properties-파일을-propertysource-로-매핑시켜-코드-단에서-다루기)
+    - []
+
+---
+
+## 📚 본문
+
+개발, 테스트, 스테이징, 상용 환경 등의 여러 환경에서 어플리케이션의 설정 정보를 다르게 가져갈 수 있게 해야한다.
+
+이는 어플리케이션이 비대해짐에 따라 더 관리하기 어려워진다.
+
+해야 할 것은 환경이 달라지면 어플리케이션 소스코드는 거의 달라지지 않아야 하며, 보안 설정, DB 초기화, DB 설정 정보 등이 관리되어야 한다.
+
+### Spring Application 의 setDefaultProperties() 메서드로 구성 정보 설정하기
+
+Spring Boot 는 SpringApplication 클래스를 사용하여 어플리케이션 설정 정보를 저장한다.
+
+클래스 자체가 `setDefaultProperties()` 메서드로 `Properties` 혹은 `Map<String, Object>` 의 인자를 받고,
+
+메서드 호출 시 설정 정보가 어플리케이션에 적용된다. 아래는 설정 정보를 코드 단에서 정의하는 과정이다.
+
+{% highlight java %}
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+
+import java.util.*;
+
+@[SpringBootApplication]()
+public class ExampleApplication {
+    public static void main(String[] args) {
+        SpringApplication springApplication = new SpringApplication(ExampleApplication.class);
+
+        Properties properties = new Properties();
+
+        properties.setProperty("spring.config.import", "additional-application.properties");
+        properties.setProperty("spring.config.test", "hi");
+
+        springApplication.setDefaultProperties(properties);
+
+        springApplication.run();
+    }
+}
+{% endhighlight %}
+
+소스코드로 적용하면 한 번 정의 시 나중에 바뀌지 않기 때문에 **나중에 변경안해도 되는 설정 정보**만 넣는게 좋다.
+
+### Spring Application 의 properties 파일로 구성 정보 설정하기
+
+`application.properties` 를 통해 설정 정보를 key/value 형식으로 정의 가능하다.
+
+| key | value | description |
+|--------|-------|----------|
+| `server.shutdown` | **graceful**, immediate | immediate가 기본값이며, 실행 중인 요청에 대해 즉시 끊을지, 아니면 요청을 완료하고 끊을지 여부 |
+| `spring.lifecycle.timeout-per-shutdown-phase` | ISO-8601 duration-like 표기법 | graceful shutdown 에 대해 요청 완료를 기다리는 시간을 설정한다. |
+| `server.port` | \[open port number\] | 어떤 열려 있는 포트 번호로 request 를 받을지 설정, 기본 8080 |
+| `spring.config.import` | [classpath](#classpath):(파일명).properties | 해당 파일의 설정 정보를 읽어 반영한다. |
+| `spring.config.on-not-found` | ignore, warn, fail | 설정 파일의 부재에 대한 피드백, 기본값은 ignore |
+| ... | ... | ... |
+
+{% highlight properties %}
+# application.properties
+spring.application.name=study
+server.port=8080
+server.shutdown=graceful
+spring.lifecycle.timeout-per-shutdown-phase=1m
+
+spring.config.import=classpath:additional-application.properties
+spring.config.on-not-found=ignore
+
+# Logger 에서 나중에 다룸
+logging.level.root=INFO
+logging.level.com.example=DEBUG
+logging.file.name=app.log
+
+# DB / JPA Configure 나중에 다룸
+spring.datasource.url=jdbc:h2:mem:study
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driverClassName=org.h2.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# 웹 서버 설정
+server.servlet.contextPath=/api
+server.error.includeMessage=always
+server.compression.enabled=true
+
+# Cache 설정
+spring.cache.type=simple
+spring.cache.cache-names=users,products
+spring.cache.caffeine.spec=maximumSize=500,expireAfterWrite=60s
+
+# Security
+spring.security.user.name=admin
+spring.security.user.password=1234
+spring.security.user.roles=USER,ADMIN
+
+# Actuator
+management.endpoints.web.exposure.include=*
+management.endpoint.shutdown.enabled=true
+management.server.port=9091
+
+# File
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=20MB
+
+# Message
+spring.messages.basename=messages
+spring.messages.encoding=UTF-8
+...
+{% endhighlight %}
+추후에 다룬다.
+
+#### properties 파일을 @PropertySource 로 매핑시켜 코드 단에서 다루기
+
+위처럼 정적으로 properties 파일을 생성해서 key-value 를 입력 할 수도 있는데, 코드 단에서 이 설정 정보들을 가져오고 싶으면 class 로의 매핑을 시키게 할 수 있다.
+
+{% highlight properties%}
+# custom-application.properties
+username=sa
+password=1234
+{% endhighlight %}
+
+위와 같이 세팅해주자.
+
+{% highlight java %}
+import org.springframework.context.annotation.*;
+
+@Configuration
+@PropertySource("classpath:custom-application.properties")
+public class CustomConfiguration { }
+{% endhighlight %}
+
+이제 실행 시 Spring 은 `@Configuration` 가 붙은 클래스들을 환경 설정으로 받아들이고, `@PropertySource` 애너테이션을 통해 클래스패스의 `custom-application.properties` 를 가져와 구성 정보를 읽어 등록시키게 된다.
+
+### 구성 정보 집합 Configuration 의 정보를 출력해보기
+
+실행 후에 서버에서는 어떤 형태로 properties 가 존재하는지 추적이 되어야 한다. 실제로 적용이 완료가 되었는지 보고 싶다면 `run()` 의 반환값을 Context 로 받아서 Context 가 가지는 Environment Bean 을 들고와서 key 에 대한 값이 잘 있는지 봐야 한다.
+
+#### @EnvironmentCapable 인터페이스
+
+{% highlight java %}
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.context.*;
+import org.springframework.core.env.*;
+
+@SpringBootApplication
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication springApplication = new SpringApplication(MyApplication.class);
+
+        ConfigurableApplicationContext context = springApplication.run(args);
+    }
+}
+{% highlightend %}
+
+위를 통해 확인이 가능하다. 여기서 `ConfigurableApplicationContext` 인터페이스는 `ApplicationContext` 인터페이스를 상속받는다.
+
+`ApplicationContext` 인터페이스는 다시 `EnvironmentCapable`, `ListableBeanFactory`, `HierarchicalBeanFactory`, `MessageSource`, `ApplicationEventPublisher`, `ResourcePatternResolver` 인터페이스들을 상속받게 된다.
+
+- `ConfigurableApplicationContext`
+    - `ApplicationContext`
+        - `EnvironmentCapable`,
+        `ListableBeanFactory`,
+        `HierarchicalBeanFactory`,
+        `MessageSource`,
+        `ApplicationEventPublisher`,
+        `ResourcePatternResolver`
+
+각 의미는 다음과 같다.
+
+- `@EnvironmentCapable`: `Environment` 객체를 반환할 수 있는 기능을 제공, `getEnvironment()`
+- `@ListenableBeanFactory`: 이름 기반 혹은 타입 기반으로 여러 개의 Bean 을 조회 할 수 있는 기능을 제공, `getBeansOfType(Class<T> type)`, `getBeanDefinitionNames()`
+- `@HierarchicalBeanFactory`: 부모-자식 구조로 된 컨테이너 체계 지원, `getParentBeanFactory()`, `containsLocalBean(String name)`
+- `@MessageSource`: 다국어 메시지(i18n)을 관리하는 인터페이스, `getMessage(String code, Object[] args, Locale locale)`
+- `@ApplicationEventPublisher`: Spring 의 이벤트 발행기 인터페이스, `publishEvent(ApplicationEvent event)`
+- `@ResourcePatternResolver`: 리소스 패턴을 통해 파일 등을 조회하는 기능을 제공, `getResource(String locationPattern)`, 용도는 file:, classpath: 등을 url에 쓸 수 있도록 하여 간편한 path 기능 제공
+
+우선은 `@EnvironmentCapable` 만 보자. 이를 통해 다음 메서드를 실행시킨다.
+
+
+#### @PropertyResolver 인터페이스
+
+{% highlight java %}
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.context.*;
+import org.springframework.core.env.*;
+
+@SpringBootApplication
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication springApplication = new SpringApplication(MyApplication.class);
+
+        ConfigurableApplicationContext context = springApplication.run(args);
+
+        Environment env = context.getBean(Environment.class);
+
+        System.out.println("\n\n\n");
+        System.out.println(env.getProperty("username"));
+        System.out.println(env.getProperty("password"));
+        System.out.println("\n\n\n");
+    }
+}
+{% highlightend %}
+
+`@Environment` 인터페이스는 `@PropertyResolver` 인터페이스를 상속받는다. PropertyResolver 는 말 그대로 String 으로 된 Property 정보를 key/value 로 잘 해석하여 객체로 변환하는 역할을 한다.
+
+- `@PropertyResolver`: 어플리케이션 설정 값들을 다양한 소스에서 읽고, 가공하고, 변환하는 기능을 제공, `containsProperty(String key)`, `getProperty()`, `getRequiredProperty()`, `resolvePlaceholders()` 등의 메서드를 지원한다.
+
+실행시 제대로 출력됨을 볼 수 있다.
+
+---
+
+## 🔗 출처
+- 도서 [Spring Boot in Practice](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK)
+
+---
+
+## 📁 관련 글
+- []:
+- []:
+
+---
+
+## ✒️ 용어
+
+###### classpath
+
+JVM 이 리소스를 찾기 위해 검색하는 디렉토리, JAR 파일들의 경로 목록이며, Spring Boot 은 다음 폴더들을 포함한다.
+
+- `src/main/java`
+- `src/main/resources`
+- `dependencies`: JAR 로 포함된 외부 라이브러리
+- `build/classes/java/main`: Gradle
+
+###### @SpringBootApplication
+
+SpringBootApplication 의 entry point 에 사용하는 애너테이션이며, 다음 애너테이션들을 포함한다.
+
+- `@Configuration`: 이 클래스가 설정 클래스임을 명시
+- `@EnableAutoConfiguration`: 자동 설정 활성화하여 classpath 에 있는 라이브러리 기반으로 자동 Bean 등록
+- `@ComponentScan(basePackage="")`: 같은 패키지 및 하위 패키지를 스캔하여 Bean 으로 등록
+
+###### @Bean
+
+Spring 은 **IoC** 라는 컨테이너가 있는데, 이 컨테이너가 관리하는 대상 객체가 Bean 이다. [글을 참고][#bean]하자.
+[bean]: /2025/06/06/bean-이란
