@@ -223,7 +223,7 @@ public class MyApplication {
         System.out.println("\n\n\n");
     }
 }
-{% highlightend %}
+{% endhighlight %}
 
 `@Environment` 인터페이스는 `@PropertyResolver` 인터페이스를 상속받는다. PropertyResolver 는 말 그대로 String 으로 된 Property 정보를 key/value 로 잘 해석하여 객체로 변환하는 역할을 한다.
 
