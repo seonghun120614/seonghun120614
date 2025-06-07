@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://seonghun120614.github.io/seonghun120614/feed.xml" rel="self" type="application/atom+xml" /><link href="https://seonghun120614.github.io/seonghun120614/" rel="alternate" type="text/html" /><updated>2025-06-07T01:28:21+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/feed.xml</id><title type="html">Seonghun’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</subtitle><author><name>Seonghun Park</name></author><entry><title type="html">1.1 What Operating Systems Do</title><link href="https://seonghun120614.github.io/seonghun120614/os/2025/06/06/1.1-what-operating-systems-do.html" rel="alternate" type="text/html" title="1.1 What Operating Systems Do" /><published>2025-06-06T23:46:04+00:00</published><updated>2025-06-06T23:46:04+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/os/2025/06/06/1.1-what-operating-systems-do</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/os/2025/06/06/1.1-what-operating-systems-do.html">&lt;!--more--&gt;
+&lt;p&gt;Operating System 이 컴퓨터에서 어떤 역할을 하는지 본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#111-user-view&quot;&gt;1.1.1 User View&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#112-system-view&quot;&gt;1.1.2 System View&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#113-defining-operating-systems&quot;&gt;1.1.3 Defining Operating Systems&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#본질적인-정의&quot;&gt;본질적인 정의&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#운영체제의-구성-범주&quot;&gt;운영체제의 구성 범주&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#modern-os&quot;&gt;Modern OS&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;어려운 내용인 만큼 영어가 많이 등장한다. 내가 대학 커리큘럼의 정리했던 내용을 다시 읊는다. 외우는게 아니라 몸으로 받아들인다.&lt;/p&gt;
+
+&lt;p&gt;컴퓨터 시스템을 살펴보자. 크게 4가지로 나뉠 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hardware: CPU, I/O Devices, Volatile Memory, Non-volatile Memory, System Bus, Motherboard, PSU, Interface(Socket)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Operating System&lt;/strong&gt;: 하드웨어를 제어 및 하드웨어 자원의 사용을 관리(최근에는 Hardware 까지의 영역도 일부 포함된다 - 교수님께서 그러셨다)&lt;/li&gt;
+  &lt;li&gt;Application: 운영체제(OS) 위에서 동작하며, 특정 목적을 달성하기 위해 실행 가능한(executable) 독립적인 소프트웨어.&lt;/li&gt;
+  &lt;li&gt;User: 우리들, end point 에서 계산 가능한 기기들을 다루는 행위자&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;111-user-view&quot;&gt;1.1.1 User View&lt;/h3&gt;
+
+&lt;p&gt;사용자가 컴퓨터를 바라보는 관점으로 가보자. 사용자가 컴퓨터를 볼 때는 &lt;strong&gt;사용 중인 인터페이스에 따라 달라진다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;일반적인 개인용 컴퓨터 환경은 &lt;strong&gt;단일 사용자가 시스템 자원을 전부 독점적으로 사용하는 것&lt;/strong&gt;을 전제로 설계되어 있다. 부수적으로는 &lt;strong&gt;성능(performance)과 보안(security)&lt;/strong&gt;에도 일정 부분 신경을 쓰지만, &lt;strong&gt;자원 활용률(resource utilization)&lt;/strong&gt;—즉, 시스템 자원을 여러 사용자나 프로세스 간에 어떻게 효율적으로 배분할지—는 고려 대상이 아니다.&lt;/p&gt;
+
+&lt;p&gt;따라서 사용자는 OS에 대해 다음과 같이 인식한다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;단일 사용자 환경&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;사용자 편의성(ease of use)&lt;/strong&gt; 최우선 ⭐️&lt;/li&gt;
+  &lt;li&gt;성능/보안은 부가적 고려&lt;/li&gt;
+  &lt;li&gt;자원 공유 최적화 중요하지 않음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;사용자들은 위 사항들을 기준 삼아서 다음 OS 를 맞게 사용하게 된다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mobile Devices: UI 를 통한 직접적이고 시각적인 피드백 제공&lt;/li&gt;
+  &lt;li&gt;Desktop/Laptop: I/O Device 를 통한 상호작용&lt;/li&gt;
+  &lt;li&gt;Embedded Computers: 사용자 개입이 거의 없는 자동화된 장치&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;따라서 사용자들은 편의성에 맞는 인터페이스를 선택하여 목적과 사용자 행동 방식에 따라 OS의 인식이 완전히 달라지고, 정리하면 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;운영체제 = 인터페이스(행동 방식과 목적)에 따른 인식 → Mobild Devices, Desktop/Laptop, Embedded Systems&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;112-system-view&quot;&gt;1.1.2 System View&lt;/h3&gt;
+
+&lt;p&gt;첫번째로 컴퓨터 시스템 입장에서 OS는 하드웨어와 가장 밀접하게 연결된 프로그램이며 OS는 &lt;strong&gt;자원할당자(Resource Allocator)&lt;/strong&gt;의 기능을 수행한다고 이해할 수 있다. 컴퓨터 시스템은 문제를 해결하기 위해 다양한 자원이 필요한데 다음과 같다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CPU Time&lt;/li&gt;
+  &lt;li&gt;Memory Space&lt;/li&gt;
+  &lt;li&gt;Storage Space&lt;/li&gt;
+  &lt;li&gt;I/O Devices&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;운영체제는 이 자원들을 관리하고, 수많은 동시적 요청들을 알맞게 처리할 수 있는 능력을 가져야 한다. 운영체제는 &lt;strong&gt;어떤 자원을 어떤 프로그램과 사용자에게 어떻게 배분할 것인지 결정하는 일&lt;/strong&gt;을 담당하게 되고, 그 목적은 &lt;strong&gt;효율성, 공정성&lt;/strong&gt;을 가져야 한다.&lt;/p&gt;
+
+&lt;p&gt;두번째로 컴퓨터 시스템은 OS를 &lt;strong&gt;입출력 장치&lt;/strong&gt;와 &lt;strong&gt;사용자 프로그램을 제어&lt;/strong&gt;하는 &lt;strong&gt;제어 프로그램(Control Program)&lt;/strong&gt;으로도 볼 수 있다. 운영체제는 &lt;strong&gt;사용자 프로그램의 실행을 관리&lt;/strong&gt;하고 &lt;strong&gt;에러 발생이나 시스템의 오용을 방지하는 역할&lt;/strong&gt;을 수행하며 &lt;strong&gt;특히 입출력 장치의 제어와 동작에 큰 비중&lt;/strong&gt;을 둔다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;System View&lt;/strong&gt; 에서는 다음과 같이 정리 할 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;운영체제 = 자원 관리자 (Resource Allocator) → CPU, 메모리, I/O 등의 자원을 효율적이고 공정하게 할당&lt;/li&gt;
+  &lt;li&gt;운영체제 = 제어 프로그램 (Control Program) → 사용자 프로그램 실행을 관리하고 오류와 오용을 방지 → I/O 장치 제어에 특히 집중&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;113-defining-operating-systems&quot;&gt;1.1.3 Defining Operating Systems&lt;/h3&gt;
+
+&lt;p&gt;운영체제는 하나로 단정할 수 없는 포괄적 개념이며, 시대와 용도에 따라 진화해 왔다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;초기: 하드웨어 제어를 단순화하는 수단으로 등장&lt;/li&gt;
+  &lt;li&gt;발전: 문제 해결을 지원하는 &lt;strong&gt;응용 프로그램과의 연결 고리 역할&lt;/strong&gt; 수행&lt;/li&gt;
+  &lt;li&gt;오늘날: 모바일/임베디드 환경 등 다양한 분야에 적용되며 구조 복잡도 증가&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;본질적인-정의&quot;&gt;본질적인 정의&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컴퓨터를 &lt;strong&gt;사용 가능하게 만드는 공통 기능 집합&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;입출력 제어&lt;/strong&gt;, &lt;strong&gt;자원 관리&lt;/strong&gt;, &lt;strong&gt;응용 프로그램 실행 환경&lt;/strong&gt;을 제공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;운영체제의-구성-범주&quot;&gt;운영체제의 구성 범주&lt;/h4&gt;
+
+&lt;p&gt;위를 총합하여 볼때, 운영체제는 다음과 같이 경계를 나눌 수 있다:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Kernel&lt;/strong&gt;: 항상 실행 중이며, 자원과 프로세스를 직접 관리하는 핵심 소프트웨어&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;System Programs&lt;/strong&gt;: 운영체제 기능을 보조하는 도구 (예: 셸, 파일 유틸리티)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Application Programs&lt;/strong&gt;: 사용자 목적의 소프트웨어, OS와는 직접 관련 없음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;운영체제 = 보통 커널을 중심으로 정의되며, 시스템 프로그램은 포함될 수도 있고, 애플리케이션은 별개로 취급됨&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;modern-os&quot;&gt;Modern OS&lt;/h4&gt;
+
+&lt;p&gt;오늘날 모바일 기기를 위한 운영체제를 살펴보자면,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;모바일 OS (예: iOS, Android)는 &lt;strong&gt;커널 + 미들웨어 + 일부 시스템 프로그램&lt;/strong&gt;까지 포함&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;#middleware&quot;&gt;미들웨어(Middleware)&lt;/a&gt;&lt;/strong&gt;는 DB, 멀티미디어, 그래픽 등 &lt;strong&gt;고급 기능을 프레임워크 형태로 제공&lt;/strong&gt;하여 개발자 편의성을 높임&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;운영체제를 구성하는 기능 수가 점점 증가하고 있으며 코어 커널(Core Kernel) 뿐 아니라 미들웨어(Middleware) 까지도 포함된다. 따라서 새로운 용어까지 포함된 형태가 현대적인 시각에서 OS 를 바라보는 가장 가까운 정의가 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;📌 현대적 정의:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;운영체제 = Kernel + Middleware Frameworks + Partial System Programs&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;도서&lt;a href=&quot;&quot;&gt;Operating System Concepts 10th Edition&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;middleware&quot;&gt;Middleware&lt;/h6&gt;
+
+&lt;p&gt;미들웨어는 커널과 애플리케이션 사이에서 개발자를 위한 공통 기능을 제공하는 중간 계층 소프트웨어이다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="OS" /><summary type="html">Operating System 이 컴퓨터에서 어떤 역할을 하는지 본다.</summary></entry><entry><title type="html">보조. Bean 이란</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/06/%EB%B3%B4%EC%A1%B0.-bean-%EC%9D%B4%EB%9E%80.html" rel="alternate" type="text/html" title="보조. Bean 이란" /><published>2025-06-06T06:25:50+00:00</published><updated>2025-06-06T06:25:50+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/06/%EB%B3%B4%EC%A1%B0.-bean-%EC%9D%B4%EB%9E%80</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/06/%EB%B3%B4%EC%A1%B0.-bean-%EC%9D%B4%EB%9E%80.html">&lt;!--more--&gt;
+&lt;p&gt;Bean 개념 설명 및 사용법&lt;/p&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;Spring 을 사용함에 있어 효율적인 Java 의 인스턴스 관리가 필요하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#bean-lifecycle-scope&quot;&gt;Bean Lifecycle Scope&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bean-수동-등록하기&quot;&gt;Bean 수동 등록하기&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bean-component-scan-방식으로-자동-등록하기&quot;&gt;Bean Component Scan 방식으로 자동 등록하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;Bean 이라는 것은 순수 자바에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;new&lt;/code&gt; 로 생성하는 인스턴스들을 가르키고 만약 Spring 이 이를 관리하게 된다면 이를 Bean 이라고 부르게 된다.&lt;/p&gt;
+
+&lt;p&gt;Bean 은 RAM -&amp;gt; JVM -&amp;gt; IoC 안에 있으며 한 번 등록이 되면 이를 어떤 클래스에서든 쉽게 쉽게 가져올 수 있고 객체의 생명주기를 자동으로 쉽게 관리할 수 있다. 이런 이점 때문에 Bean 을 쓰고 Bean 으로 등록하려면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt; 클래스 안에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt; 을 &lt;strong&gt;메서드&lt;/strong&gt;에 넣어주면 된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;bean-lifecycle-scope&quot;&gt;Bean Lifecycle Scope&lt;/h3&gt;
+
+&lt;p&gt;Bean 의 관리 범위는 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;singleton(기본값): 컨테이너 당 하나만 생성&lt;/li&gt;
+  &lt;li&gt;prototype: 요청 시마다 새로 생성&lt;/li&gt;
+  &lt;li&gt;request: HTTP 요청마다 하나(웹에서만 적용되는 인자)&lt;/li&gt;
+  &lt;li&gt;session: HTTP 세션마다 하나&lt;/li&gt;
+  &lt;li&gt;application: servlet context마다 하나&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bean-수동-등록하기&quot;&gt;Bean 수동 등록하기&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;orderService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;OrderService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Order processed&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;위와 같이 작성하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderService&lt;/code&gt; 클래스는 Bean으로 등록될 때 기본 스코프가 singleton이기 때문에 하나만 생성되며, 이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderService&lt;/code&gt;를 의존하는 다른 Bean들에게 자동으로 주입된다. 이러한 과정을 &lt;strong&gt;DI (Dependency Injection)&lt;/strong&gt;이라고 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;bean-component-scan-방식으로-자동-등록하기&quot;&gt;Bean Component Scan 방식으로 자동 등록하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;#componentscan&quot;&gt;@ComponentScan&lt;/a&gt; 은 Spring이 자동으로 Component 를 찾아 Bean 으로 등록하도록 범위를 지정하는 애너테이션이다. Spring Boot에서는 보통 자동으로 포함되지만, 커스터마이징이 필요할 땐 직접 사용해야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;basePackages&lt;/code&gt; 로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;String[]&lt;/code&gt;의 인자를 받고 해당 String 의 패키지에 있는 모든 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt; 들을 Bean에 등록하게 된다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@ComponentScan&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;basePackages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;com.example.study.config&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;com.example.study.service&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;config, service 패키지들의 Component 들을 전부 가져와 Bean 으로 등록한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;도서 &lt;a href=&quot;https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&amp;amp;srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK&quot;&gt;Spring Boot in Practice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;componentscan&quot;&gt;@ComponentScan&lt;/h6&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ComponentScan&lt;/code&gt; 애너테이션은 Spring이 자동으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt; 의 Bean을 찾아 등록하도록 범위를 지정하는 애너테이션이다. Spring Boot에서는 보통 자동으로 포함되지만, 커스터마이징이 필요할 땐 직접 사용해야 한다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html">Bean 개념 설명 및 사용법</summary></entry><entry><title type="html">2. Spring Boot Configuration</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/06/2.-spring-boot-configuration.html" rel="alternate" type="text/html" title="2. Spring Boot Configuration" /><published>2025-06-06T05:20:04+00:00</published><updated>2025-06-06T05:20:04+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/06/2.-spring-boot-configuration</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/06/2.-spring-boot-configuration.html">&lt;!--more--&gt;
+&lt;p&gt;Spring Application 구성 정보 설정 및 properties 파일 세팅&lt;/p&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;Application 의 설정값만 바꿔 기능을 서비스와 환경에 맞게 조절하는게 필요하다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-application-의-setdefaultproperties-메서드로-구성-정보-설정하기&quot;&gt;Spring Application 의 setDefaultProperties() 메서드로 구성 정보 설정하기&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-application-의-properties-파일로-구성-정보-설정하기&quot;&gt;Spring Application 의 properties 파일로 구성 정보 설정하기&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#properties-파일을-propertysource-로-매핑시켜-코드-단에서-다루기&quot;&gt;properties 파일을 @PropertySource 로 매핑시켜 코드 단에서 다루기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#구성-정보-집합-configuration-의-정보를-출력해보기&quot;&gt;구성 정보 집합 Configuration 의 정보를 출력해보기&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#environmentcapable-인터페이스&quot;&gt;@EnvironmentCapable 인터페이스&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#propertyresolver-인터페이스&quot;&gt;@PropertyResolver 인터페이스&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;개발, 테스트, 스테이징, 상용 환경 등의 여러 환경에서 어플리케이션의 설정 정보를 다르게 가져갈 수 있게 해야한다. 이는 어플리케이션이 비대해지면서 더 관리하기 어려워진다. 해야 할 것은 &lt;strong&gt;환경이 달라지면 어플리케이션 소스코드는 거의 달라지지 않아야&lt;/strong&gt; 하며, 보안 설정, DB 초기화, DB 설정 정보 등이 관리되어야 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-application-의-setdefaultproperties-메서드로-구성-정보-설정하기&quot;&gt;Spring Application 의 setDefaultProperties() 메서드로 구성 정보 설정하기&lt;/h3&gt;
+
+&lt;p&gt;Spring Boot 는 SpringApplication 클래스를 사용하여 어플리케이션 설정 정보를 저장한다. 클래스 자체가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setDefaultProperties()&lt;/code&gt; 메서드로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Properties&lt;/code&gt; 혹은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Map&amp;lt;String, Object&amp;gt;&lt;/code&gt; 의 인자를 받고 메서드 호출 시 설정 정보가 어플리케이션에 적용된다. 아래는 설정 정보를 코드 단에서 정의하는 과정이다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.autoconfigure.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExampleApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;ExampleApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;Properties&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Properties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;spring.config.import&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;additional-application.properties&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;spring.config.test&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hi&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setDefaultProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;소스코드로 적용하면 한 번 정의 시 나중에 바뀌지 않기 때문에 &lt;strong&gt;나중에 변경안해도 되는 설정 정보&lt;/strong&gt;만 넣는게 좋다.&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-application-의-properties-파일로-구성-정보-설정하기&quot;&gt;Spring Application 의 properties 파일로 구성 정보 설정하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application.properties&lt;/code&gt; 를 통해 설정 정보를 key/value 형식으로 정의 가능하다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;key&lt;/th&gt;
+      &lt;th&gt;value&lt;/th&gt;
+      &lt;th&gt;description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.shutdown&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;graceful&lt;/strong&gt;, immediate&lt;/td&gt;
+      &lt;td&gt;immediate가 기본값이며, 실행 중인 요청에 대해 즉시 끊을지, 아니면 요청을 완료하고 끊을지 여부&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.lifecycle.timeout-per-shutdown-phase&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;ISO-8601 duration-like 표기법&lt;/td&gt;
+      &lt;td&gt;graceful shutdown 에 대해 요청 완료를 기다리는 시간을 설정한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.port&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;[open port number]&lt;/td&gt;
+      &lt;td&gt;어떤 열려 있는 포트 번호로 request 를 받을지 설정, 기본 8080&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.config.import&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;#classpath&quot;&gt;classpath&lt;/a&gt;:(파일명).properties&lt;/td&gt;
+      &lt;td&gt;해당 파일의 설정 정보를 읽어 반영한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.config.on-not-found&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;ignore, warn, fail&lt;/td&gt;
+      &lt;td&gt;설정 파일의 부재에 대한 피드백, 기본값은 ignore&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;# application.properties
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;spring.application.name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;study&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;server.port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8080&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;server.shutdown&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;graceful&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.lifecycle.timeout-per-shutdown-phase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1m&lt;/span&gt;
+
+&lt;span class=&quot;py&quot;&gt;spring.config.import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;classpath:additional-application.properties&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.config.on-not-found&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ignore&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Logger 에서 나중에 다룸
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;logging.level.root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;INFO&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;logging.level.com.example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;DEBUG&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;logging.file.name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;app.log&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# DB / JPA Configure 나중에 다룸
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;spring.datasource.url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jdbc:h2:mem:study&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.datasource.username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;root&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.datasource.password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.datasource.driverClassName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;org.h2.Driver&lt;/span&gt;
+
+&lt;span class=&quot;py&quot;&gt;spring.jpa.hibernate.ddl-auto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;update&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.jpa.show-sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.jpa.properties.hibernate.format_sql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 웹 서버 설정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;server.servlet.contextPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/api&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;server.error.includeMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;always&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;server.compression.enabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Cache 설정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;spring.cache.type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;simple&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.cache.cache-names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;users,products&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.cache.caffeine.spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;maximumSize=500,expireAfterWrite=60s&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Security
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;spring.security.user.name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;admin&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.security.user.password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1234&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.security.user.roles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;USER,ADMIN&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Actuator
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;management.endpoints.web.exposure.include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;management.endpoint.shutdown.enabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;management.server.port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;9091&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# File
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;spring.servlet.multipart.max-file-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;10MB&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.servlet.multipart.max-request-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;20MB&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Message
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;spring.messages.basename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;messages&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.messages.encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;UTF-8&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;추후에 다룬다.&lt;/p&gt;
+
+&lt;h4 id=&quot;properties-파일을-propertysource-로-매핑시켜-코드-단에서-다루기&quot;&gt;properties 파일을 @PropertySource 로 매핑시켜 코드 단에서 다루기&lt;/h4&gt;
+
+&lt;p&gt;위처럼 정적으로 properties 파일을 생성해서 key-value 를 입력 할 수도 있는데, 코드 단에서 이 설정 정보들을 가져오고 싶으면 class 로의 매핑을 시키게 할 수 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;# custom-application.properties
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;sa&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1234&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;위와 같이 세팅해주자.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@PropertySource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;classpath:custom-application.properties&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomConfiguration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이제 실행 시 Spring 은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt; 가 붙은 클래스들을 환경 설정으로 받아들이고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PropertySource&lt;/code&gt; 애너테이션을 통해 클래스패스의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;custom-application.properties&lt;/code&gt; 를 가져와 구성 정보를 읽어 등록시키게 된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;구성-정보-집합-configuration-의-정보를-출력해보기&quot;&gt;구성 정보 집합 Configuration 의 정보를 출력해보기&lt;/h3&gt;
+
+&lt;p&gt;실행 후에 서버에서는 어떤 형태로 properties 가 존재하는지 추적이 되어야 한다. 실제로 적용이 완료가 되었는지 보고 싶다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run()&lt;/code&gt; 의 반환값을 Context 로 받아서 Context 가 가지는 Environment Bean 을 들고와서 key 에 대한 값이 잘 있는지 봐야 한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;environmentcapable-인터페이스&quot;&gt;@EnvironmentCapable 인터페이스&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.autoconfigure.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.core.env.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MyApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;ConfigurableApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;위를 통해 확인이 가능하다. 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConfigurableApplicationContext&lt;/code&gt; 인터페이스는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationContext&lt;/code&gt; 인터페이스를 상속받는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationContext&lt;/code&gt; 인터페이스는 다시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EnvironmentCapable&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ListableBeanFactory&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HierarchicalBeanFactory&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MessageSource&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationEventPublisher&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ResourcePatternResolver&lt;/code&gt; 인터페이스들을 상속받게 된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConfigurableApplicationContext&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationContext&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EnvironmentCapable&lt;/code&gt;,
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ListableBeanFactory&lt;/code&gt;,
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HierarchicalBeanFactory&lt;/code&gt;,
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MessageSource&lt;/code&gt;,
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationEventPublisher&lt;/code&gt;,
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ResourcePatternResolver&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각 의미는 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EnvironmentCapable&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Environment&lt;/code&gt; 객체를 반환할 수 있는 기능을 제공, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getEnvironment()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ListenableBeanFactory&lt;/code&gt;: 이름 기반 혹은 타입 기반으로 여러 개의 Bean 을 조회 할 수 있는 기능을 제공, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getBeansOfType(Class&amp;lt;T&amp;gt; type)&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getBeanDefinitionNames()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@HierarchicalBeanFactory&lt;/code&gt;: 부모-자식 구조로 된 컨테이너 체계 지원, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getParentBeanFactory()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;containsLocalBean(String name)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@MessageSource&lt;/code&gt;: 다국어 메시지(i18n)을 관리하는 인터페이스, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getMessage(String code, Object[] args, Locale locale)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ApplicationEventPublisher&lt;/code&gt;: Spring 의 이벤트 발행기 인터페이스, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;publishEvent(ApplicationEvent event)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResourcePatternResolver&lt;/code&gt;: 리소스 패턴을 통해 파일 등을 조회하는 기능을 제공, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getResource(String locationPattern)&lt;/code&gt;, 용도는 file:, classpath: 등을 url에 쓸 수 있도록 하여 간편한 path 기능 제공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;우선은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EnvironmentCapable&lt;/code&gt; 만 보자. 이를 통해 다음 메서드를 실행시킨다.&lt;/p&gt;
+
+&lt;h4 id=&quot;propertyresolver-인터페이스&quot;&gt;@PropertyResolver 인터페이스&lt;/h4&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.autoconfigure.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.core.env.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MyApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;ConfigurableApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;Environment&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\n\n\n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\n\n\n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Environment&lt;/code&gt; 인터페이스는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PropertyResolver&lt;/code&gt; 인터페이스를 상속받는다. PropertyResolver 는 말 그대로 String 으로 된 Property 정보를 key/value 로 잘 해석하여 객체로 변환하는 역할을 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PropertyResolver&lt;/code&gt;: 어플리케이션 설정 값들을 다양한 소스에서 읽고, 가공하고, 변환하는 기능을 제공, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;containsProperty(String key)&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getProperty()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getRequiredProperty()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;resolvePlaceholders()&lt;/code&gt; 등의 메서드를 지원한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;실행시 제대로 출력됨을 볼 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;도서 &lt;a href=&quot;https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&amp;amp;srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK&quot;&gt;Spring Boot in Practice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;classpath&quot;&gt;classpath&lt;/h6&gt;
+
+&lt;p&gt;JVM 이 리소스를 찾기 위해 검색하는 디렉토리, JAR 파일들의 경로 목록이며, Spring Boot 은 다음 폴더들을 포함한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/main/java&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/main/resources&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dependencies&lt;/code&gt;: JAR 로 포함된 외부 라이브러리&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build/classes/java/main&lt;/code&gt;: Gradle&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;springbootapplication&quot;&gt;@SpringBootApplication&lt;/h6&gt;
+
+&lt;p&gt;SpringBootApplication 의 entry point 에 사용하는 애너테이션이며, 다음 애너테이션들을 포함한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;: 이 클래스가 설정 클래스임을 명시&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EnableAutoConfiguration&lt;/code&gt;: 자동 설정 활성화하여 classpath 에 있는 라이브러리 기반으로 자동 Bean 등록&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ComponentScan(basePackage=&quot;&quot;)&lt;/code&gt;: 같은 패키지 및 하위 패키지를 스캔하여 Bean 으로 등록&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;bean&quot;&gt;@Bean&lt;/h6&gt;
+
+&lt;p&gt;Spring 은 &lt;strong&gt;IoC&lt;/strong&gt; 라는 컨테이너가 있는데, 이 컨테이너가 관리하는 대상 객체가 Bean 이다. [글을 참고][bean]하자.
+[bean]: /2025/06/06/bean-이란&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html">Spring Application 구성 정보 설정 및 properties 파일 세팅</summary></entry><entry><title type="html">1. Spring Boot 처음 시작하기</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/05/1.-spring-boot-%EC%B2%98%EC%9D%8C-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html" rel="alternate" type="text/html" title="1. Spring Boot 처음 시작하기" /><published>2025-06-05T09:18:53+00:00</published><updated>2025-06-05T09:18:53+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/05/1.-spring-boot-%EC%B2%98%EC%9D%8C-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/05/1.-spring-boot-%EC%B2%98%EC%9D%8C-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.html">&lt;!--more--&gt;
+&lt;p&gt;Spring Boot 기본 설명&lt;/p&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;Java EE 의 복잡성과 비효율성을 극복하기 위해 나온 단순하면서 테스트 가능한 &lt;a href=&quot;#POJO&quot;&gt;POJO&lt;/a&gt; 기반 개발&lt;/p&gt;
+
+&lt;p&gt;Java EE 의 한계&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;많은 XML 설정 및 복잡한 라이프사이클 관리&lt;/li&gt;
+  &lt;li&gt;비즈니스 로직 작성 시도에도 무거운 클래스 계층 요구&lt;/li&gt;
+  &lt;li&gt;테스트 어려움 (EJB 중심 구조)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이로 인해 나온게 Spring Framework 인데, 여기서도 단점은&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;설정이 너무 많다&lt;/li&gt;
+  &lt;li&gt;프로젝트 초기 셋업 시간이 길다&lt;/li&gt;
+  &lt;li&gt;톰캣 따로 설치 &amp;amp; 배포가 필요하다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이로 인해 나온게 Spring Boot 이다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-boot&quot;&gt;Spring Boot&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-1&quot;&gt;spring-boot&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-autoconfigure&quot;&gt;spring-boot-autoconfigure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-starter&quot;&gt;spring-boot-starter&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-CLI&quot;&gt;spring-boot-CLI&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-actuator&quot;&gt;spring-boot-actuator&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-actuator-autoconfigure&quot;&gt;spring-boot-actuator-autoconfigure&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-test&quot;&gt;spring-boot-test&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-loader&quot;&gt;spring-boot-loader&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#spring-boot-devtools&quot;&gt;spring-boot-devtools&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;Spring 을 쉽게 시작하고, 실무 중심으로 접할 수 있도록 ‘거시적인’ 개념을 본다.&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-boot&quot;&gt;Spring Boot&lt;/h3&gt;
+
+&lt;p&gt;Spring Boot 는 Spring Framework 의 확장판으로 설정 없이도 어플리케이션을 빠르게 실행할 수 있게 도와준다.&lt;/p&gt;
+
+&lt;p&gt;자주 사용하는 Spring 컴포넌트를 보자.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-1&quot;&gt;spring-boot&lt;/h4&gt;
+
+&lt;p&gt;스프링 부트의 기본 컴포넌트로 다른 컴포넌트를 사용할 수 있도록 지원한다.&lt;/p&gt;
+
+&lt;p&gt;spring-boot 의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SpringApplication&lt;/code&gt; 클래스는 spring-boot 에 내장된 웹 서버 기능 지원, 어플리케이션 설정 정보 외부화 기능 지원 등의 다양한 서로 다른 컴포넌트들을 연결한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;항목&lt;/th&gt;
+      &lt;th&gt;Spring Boot Application&lt;/th&gt;
+      &lt;th&gt;Spring Application&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;설정 방식&lt;/td&gt;
+      &lt;td&gt;자동 설정 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@SpringBootApplication&lt;/code&gt;)&lt;/td&gt;
+      &lt;td&gt;수동 설정 (XML 또는 Java Config)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;서버 실행&lt;/td&gt;
+      &lt;td&gt;내장 Tomcat/Jetty 등 사용, JAR로 실행 가능&lt;/td&gt;
+      &lt;td&gt;외부 WAS 필요, WAR로 배포&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;실행 진입점&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main()&lt;/code&gt;에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SpringApplication.run()&lt;/code&gt; 호출&lt;/td&gt;
+      &lt;td&gt;외부 서버의 web.xml에서 초기화&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;의존성 관리&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-*&lt;/code&gt;, BOM으로 버전 관리&lt;/td&gt;
+      &lt;td&gt;개별 라이브러리 수동 설정&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;개발 생산성&lt;/td&gt;
+      &lt;td&gt;빠름 – 설정 없이 바로 시작 가능&lt;/td&gt;
+      &lt;td&gt;느림 – 많은 설정 필요&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;파일 구조&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application.yml&lt;/code&gt;, Java Config 중심&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;applicationContext.xml&lt;/code&gt; 등 XML 설정 사용&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;테스트 및 도구&lt;/td&gt;
+      &lt;td&gt;DevTools, Actuator 등 내장 도구 제공&lt;/td&gt;
+      &lt;td&gt;별도 설정 필요&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;spring-boot-autoconfigure&quot;&gt;spring-boot-autoconfigure&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring Application&lt;/code&gt; 을 자동 구성 할 수 있게 하는 &lt;a href=&quot;#component&quot;&gt;Component&lt;/a&gt;이다.&lt;/p&gt;
+
+&lt;p&gt;테스트 환경, 개발 환경, 배포 환경은 서로 다르다. 또한 DB 연결도 어떤 Database 를 쓰는지에 따라 다르다. 그에 맞는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring Application&lt;/code&gt; 의 설정 값들을 자동으로 바꾸도록 한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-starter&quot;&gt;spring-boot-starter&lt;/h4&gt;
+
+&lt;p&gt;개발자 편의를 위해 제공되는 패키지들의 모음이다.&lt;/p&gt;
+
+&lt;p&gt;여러 기술을 개발자에게 제공하여 이 스타터가 없다면 쓸 패키지들을 일일히 다 써서 설정해줘야 한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-cli&quot;&gt;spring-boot-CLI&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;#groovy&quot;&gt;Groovy&lt;/a&gt; 코드를 컴파일하고 실행할 수 있는 개발자 친화적 명령행 도구이다.&lt;/p&gt;
+
+&lt;p&gt;파일 내용을 감지하는 기능이 있어 어플리케이션 수정 시 직접 재부팅을 할 필요가 없다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-actuator&quot;&gt;spring-boot-actuator&lt;/h4&gt;
+
+&lt;p&gt;스프링 부트 어플리케이션을 모니터링한다.&lt;/p&gt;
+
+&lt;p&gt;액추에이터 엔드포인트를 제공하고, 어플리케이션의 여러 상태를 감지할 수 있고 미리 정의된 여러 가지 액추에이터 엔드포인트를 사용하거나 커스텀 액추에이터 엔드포인트를 사용하여 새로운 엔드포인트를 만들 수도 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-actuator-autoconfigure&quot;&gt;spring-boot-actuator-autoconfigure&lt;/h4&gt;
+
+&lt;p&gt;클래스를 기반으로 액추에이터 엔드포인트를 자동으로 구성해주는 컴포넌트이다.&lt;/p&gt;
+
+&lt;p&gt;만약 Micrometer 의 의존관계가 있다면, 스프링부트가 자동으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MetricsEndpoint&lt;/code&gt; 를 액추에이터 엔드포인트로 추가해준다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-test&quot;&gt;spring-boot-test&lt;/h4&gt;
+
+&lt;p&gt;스프링 부트 어플리케이션 테스트 케이스 작성에 필요한 &lt;a href=&quot;#annotation&quot;&gt;Annotation&lt;/a&gt; 과 메서드가 포함되어 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-loader&quot;&gt;spring-boot-loader&lt;/h4&gt;
+
+&lt;p&gt;스프링 부트 어플리케이션을 실행가능한 하나의 JAR 파일로 패키징 하는데 필요한 모든 라이브러리들과 독립 실행형으로 실행되는 내장 웹 서버를 포함하고 있다. 이 컴포넌트는 독립적으로 사용하지 않고, &lt;a href=&quot;#maven&quot;&gt;Maven&lt;/a&gt;, &lt;a href=&quot;#gradle&quot;&gt;Gradle&lt;/a&gt; 플러그인과 함께 사용된다.&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-devtools&quot;&gt;spring-boot-devtools&lt;/h4&gt;
+
+&lt;p&gt;스프링 부트 어플리케이션 개발을 도와주는 여러 가지 개발자 도구를 지원한다.&lt;/p&gt;
+
+&lt;p&gt;코드 변경 자동 감지, HTML 변경 시 자동 새로고침 LiveReload 기능이 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;도서 &lt;a href=&quot;https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&amp;amp;srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK&quot;&gt;Spring Boot in Practice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;pojo&quot;&gt;POJO&lt;/h6&gt;
+
+&lt;p&gt;Pain Old Java Object 의 약자로,  지향적인 원리에 충실하면서 환경과 기술에 종속되지 않고, 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Java 나 Java 에서 정의한 규정만 따른다.&lt;/li&gt;
+  &lt;li&gt;환경에 독립적이어야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;component&quot;&gt;Component&lt;/h6&gt;
+
+&lt;p&gt;정의된 기능을 수행하고, 재사용이 가능한 소프트웨어 모듈이다.&lt;/p&gt;
+
+&lt;p&gt;외부와의 인터페이스가 명확하기 때문에 독립적으로 배포, 수정, 교체, 조립이 가능한 단위다.&lt;/p&gt;
+
+&lt;p&gt;Spring 에서는 &lt;strong&gt;중요한 개념으로 클래스에 애너테이션으로 붙여 정의&lt;/strong&gt; 할 수 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;groovy&quot;&gt;Groovy&lt;/h6&gt;
+
+&lt;p&gt;Java 를 확장한 동적 객체 지향 프로그래밍 언어이다. 여기서 동적이라는 말은 변수 타입을 컴파일이 아니라 런타임때 정한다. 자바 코드를 그대로 쓸 수도 있고, 스크립팅 언어이다.&lt;/p&gt;
+
+&lt;h6 id=&quot;annotation&quot;&gt;Annotation&lt;/h6&gt;
+
+&lt;p&gt;클래스, 메서드, 필드, 파라미터 등에 부착하여 프레임워크나 컴파일러가 특정 작업을 하도록 만드는 기능이다.&lt;/p&gt;
+
+&lt;p&gt;책임 분리가 가능하도록 하며, 이 덕분에 Single Responsibility 를 챙겨갈 수 있다.&lt;/p&gt;
+
+&lt;p&gt;또한 사용자 정의 애너테이션을 정의할 수도 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;maven&quot;&gt;Maven&lt;/h6&gt;
+
+&lt;p&gt;Java 기반의 프로젝트 빌드 자동화 도구이다.&lt;/p&gt;
+
+&lt;p&gt;의존성 관리, 빌드 테스트, 패키징, 배포 등을 스크립트화하여 자동화한다.&lt;/p&gt;
+
+&lt;h6 id=&quot;gradle&quot;&gt;Gradle&lt;/h6&gt;
+
+&lt;p&gt;Java 기반의 프로젝트 빌드 자동화 도구이다.&lt;/p&gt;
+
+&lt;p&gt;의존성 관리, 빌드 테스트, 패키징, 배포 등을 스크립트화하여 자동화한다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html">Spring Boot 기본 설명</summary></entry></feed>
