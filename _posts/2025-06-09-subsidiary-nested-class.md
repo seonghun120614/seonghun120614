@@ -28,7 +28,7 @@ Map 안의 구성요소로 자리잡은 Entry 는 다른 클래스에선 전혀 
 - [Nested Class 의 사용으로 인한 Logical Grouping](#nested-class-의-사용으로-인한-logical-grouping)
 - [Encapsulation 와 노출 최소화](#encapsulation-와-노출-최소화)
 - [static 을 통한 상태를 공유할지 말지 명시적 선택 가능](#static-을-통한-상태를-공유할지-말지-명시적-선택-가능)
-- [Nested Class 의 용도][#]
+- [Nested Class 의 용도](#nested-class-의-용도)
 
 ---
 
@@ -107,4 +107,4 @@ public class Person {
 ## 📁 관련 글
 - [3. Spring Boot Custom Property][spring-boot-custom-property]
 
-[spring-boot-custom-property]: /2025/06/09/3.-spring-boot-custom-property
+[spring-boot-custom-property]: {{ site.baseurl }}/java/spring/2025/06/09/3.-spring-boot-custom-property.html

@@ -87,4 +87,5 @@ public class Main {
 
 ## 📁 관련 글
 - [3. Spring Boot Custom Property][spring-boot-custom-property]
-[spring-boot-custom-property]: /2025/06/09/3.-spring-boot-custom-property
+
+[spring-boot-custom-property]: {{ site.baseurl }}/java/spring/2025/06/09/3.-spring-boot-custom-property.html

@@ -100,8 +100,15 @@ appProperties 는 자동적으로 `@Autowired`를 통해 Bean 에 등록된 객�
 
 ---
 
+## 📁 관련 글
+- [2. Spring Boot Custom Property][spring-boot-configuration]
+
+---
+
 ## ✒️ 용어
 
 ###### @ComponentScan
 
 `@ComponentScan` 애너테이션은 Spring이 자동으로 `@Component` 의 Bean을 찾아 등록하도록 범위를 지정하는 애너테이션이다. Spring Boot에서는 보통 자동으로 포함되지만, 커스터마이징이 필요할 땐 직접 사용해야 한다.
+
+[spring-boot-configuration]: {{ site.baseurl }}/java/spring/2025/06/06/2.-spring-boot-configuration
