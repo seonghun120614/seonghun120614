@@ -36,18 +36,13 @@ categories: CATEGORIES_PLACEHOLDER
 
 ---
 
-## 📁 관련 글
-- [][]
-
----
-
 ## ✒️ 용어
 
 ###### 
 
 ---
 
-## 🔗 출처
+## 🔗 관련 출처
 - []()
 EOF
 
