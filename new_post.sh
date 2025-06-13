@@ -41,15 +41,14 @@ categories: CATEGORIES_PLACEHOLDER
 
 ---
 
-## 🔗 출처
-- []()
-
----
-
 ## ✒️ 용어
 
 ###### 
 
+---
+
+## 🔗 출처
+- []()
 EOF
 
 # sed 로 실제 값 치환
