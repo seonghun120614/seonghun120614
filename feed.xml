@@ -1,0 +1,1594 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://seonghun120614.github.io/seonghun120614/feed.xml" rel="self" type="application/atom+xml" /><link href="https://seonghun120614.github.io/seonghun120614/" rel="alternate" type="text/html" /><updated>2025-06-14T11:24:25+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/feed.xml</id><title type="html">Seonghun’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</subtitle><author><name>Seonghun Park</name></author><entry><title type="html">1. TDD Definition</title><link href="https://seonghun120614.github.io/seonghun120614/softwareengineering/softwaredevelopment/2025/06/14/1.-tdd-definition.html" rel="alternate" type="text/html" title="1. TDD Definition" /><published>2025-06-14T09:08:49+00:00</published><updated>2025-06-14T09:08:49+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/softwareengineering/softwaredevelopment/2025/06/14/1.-tdd-definition</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/softwareengineering/softwaredevelopment/2025/06/14/1.-tdd-definition.html">&lt;!--more--&gt;
+&lt;p&gt;실무에 근거하여 Test-Driven Development 의 탄생과 개념을 본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#고전-소프트웨어-개발-방식&quot;&gt;고전 소프트웨어 개발 방식&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#고전-소프트웨어-개발-방식의-문제점&quot;&gt;고전 소프트웨어 개발 방식의 문제점&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tdd의-정의&quot;&gt;TDD의 정의&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tdd의-목표&quot;&gt;TDD의 목표&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#개발에서-tdd의-위치&quot;&gt;개발에서 TDD의 위치&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tdd의-진행-방식&quot;&gt;TDD의 진행 방식&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#junit5-실습&quot;&gt;JUnit5 실습&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#테스트-환경-구성&quot;&gt;테스트 환경 구성&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#질문&quot;&gt;질문 Red&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#응답&quot;&gt;응답 Green&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#정제&quot;&gt;정제 Refactoring&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#반복&quot;&gt;반복 Repeat&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;고전-소프트웨어-개발-방식&quot;&gt;고전 소프트웨어 개발 방식&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;문제 영역 설정&lt;/li&gt;
+  &lt;li&gt;요구사항 발생&lt;/li&gt;
+  &lt;li&gt;기능 구현&lt;/li&gt;
+  &lt;li&gt;검증 및 테스팅&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;고전-소프트웨어-개발-방식의-문제점&quot;&gt;고전 소프트웨어 개발 방식의 문제점&lt;/h3&gt;
+
+&lt;p&gt;작성된 코드의 문제 유무 판단을 개발자 자신의 두뇌에 상당히 의존하게 된다.&lt;br /&gt;
+하지만 이런 개발자 한 명의 환경에 맞추다 보면 여러 다른 상황들이 무시되며,&lt;br /&gt;
+이는 작성자의 판단에 근거한 개발이며 여러 환경에 대해서 테스트 한 경우는 아니다.&lt;/p&gt;
+
+&lt;p&gt;가벼운 개발의 경우는 위의 방식으로 전부 퉁칠 수 있다. 하지만 대게로&lt;br /&gt;
+코드의 크기가 커지기 때문에 커질수록 버그 수정에 필요한 부분을 찾아내기 어려워진다.&lt;/p&gt;
+
+&lt;p&gt;코드의 크기가 커질수록 다음 상황을 야기한다:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;틀정 모듈의 개발 기간이 길어질수록 개발자의 목표의식이 흐려진다.&lt;/li&gt;
+  &lt;li&gt;작업 분량이 늘어날수록 확인이 어려워진다.&lt;/li&gt;
+  &lt;li&gt;개발자의 집중력이 필요해진다.&lt;/li&gt;
+  &lt;li&gt;논리적인 오류를 찾기 어렵다.&lt;/li&gt;
+  &lt;li&gt;코드의 사용법과 변경 이력을 개발자의 기억력에 의존하게 되는 경우가 많다.&lt;/li&gt;
+  &lt;li&gt;테스트 케이스가 적혀 있는 엑셀 파일을 보며 매번 테스트를 실행하는 게 점차 귀찮아져 점차 간소화하는 항목들이 늘어난다.&lt;/li&gt;
+  &lt;li&gt;코드 수정 시에 기존 코드의 정상 동작에 대한 보장이 어렵다.&lt;/li&gt;
+  &lt;li&gt;테스트를 해보려면 소스코드에 변경을 가하거나 번거로운 선행 작업이 필요하다.&lt;/li&gt;
+  &lt;li&gt;소스코드를 변경할때 해야하는 회귀 테스트는 곧잘 희귀 테스트가 되기 쉽다.&lt;/li&gt;
+  &lt;li&gt;테스트는 개발자의 귀중한 노동력을 많이 소모한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이를 해결하기 위해 XP 프로그래밍 기법에서 TDD 라는 개념이 나온다.&lt;/p&gt;
+
+&lt;h3 id=&quot;tdd의-정의&quot;&gt;TDD의 정의&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;TDD 정의&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;프로그램을 작성하기 전에 테스트 먼저 작성하라.&lt;br /&gt;
+Test the program before you write it. - Kent Beck&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;TDD 는 메소드나 함수 같은 프로그램 모듈을 작성할 때 &lt;strong&gt;‘작성 종료조건을 미리 정해놓고 코딩을 시작하라’&lt;/strong&gt;는 의미다. 작성 종료조건을 만족했을때 비로소 코딩이 끝나게 된다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;메서드 이름&lt;/th&gt;
+      &lt;th&gt;sum&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;argument&lt;/td&gt;
+      &lt;td&gt;int a, int b&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;return&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;종료 조건&lt;/td&gt;
+      &lt;td&gt;a와 b를 더한 값을 결과로 돌려줌&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;간단한 테스트 문서이다. 하지만 TDD와 설계문서의 차이점은 “문서로 만들어 머리로 생각하고 눈으로 확인할 것인지”, “예상 결과를 코드로 표현해놓고 해당 코드가 자동으로 판단하게 할 것인지”가 차이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;tdd의-목표&quot;&gt;TDD의 목표&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;잘 동작하는 깔끔한 코드&lt;br /&gt;
+Clean code that works - Ron Jeffries&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;제대로 &lt;strong&gt;동작(works)&lt;/strong&gt;하며, &lt;strong&gt;명백함(clean, 작성한 코드가 명확한 의미를 전달하냐)&lt;/strong&gt;이 함유되어 있어야 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;개발에서-tdd의-위치&quot;&gt;개발에서 TDD의 위치&lt;/h3&gt;
+
+&lt;p&gt;TDD에서 말하는 단위 테스트는 일반적인 &lt;strong&gt;메소드 단위의 테스트&lt;/strong&gt;를 뜻하며,&lt;br /&gt;
+전통적인 테스트 방법론에서 이야기하는 단위 테스트는 &lt;strong&gt;사용자 측면에서 제품의 기능을 테스트&lt;/strong&gt;하는 쪽에 가깝다.&lt;/p&gt;
+
+&lt;p&gt;따라서 여기서 나오는 단위 테스트는 전부 메소드 단위의 테스트 임을 기억하자.&lt;/p&gt;
+
+&lt;h3 id=&quot;tdd의-진행-방식&quot;&gt;TDD의 진행 방식&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;ARRR&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Ask(Red)&lt;/strong&gt;: 테스트 결과가 실패하거나 코드가 멈추는 코드를 작성한다&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Respond(Green)&lt;/strong&gt;: 테스트를 통과하는 코드를 작성해서 질문에 대답한다(테스트 결과는 성공)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Refine(Refactor)&lt;/strong&gt;: 아이디어를 통합하고, 불필요한 것은 제거하고, 모모한 것은 명확히 해서 대답을 정제한다(Refactoring)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Repeat&lt;/strong&gt;: 다음 질문을 통해 대화를 계속한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;질문-응답-정제가 계속 반복되어야 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;junit5-실습&quot;&gt;JUnit5 실습&lt;/h3&gt;
+
+&lt;h4 id=&quot;테스트-환경-구성&quot;&gt;테스트 환경 구성&lt;/h4&gt;
+&lt;p&gt;Spring 에서 사용할 테스트 라이브러리인 &lt;strong&gt;JUnit&lt;/strong&gt;을 불러오고 간단한 은행 계좌를 만드는 것을 테스트 해보자.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;testImplementation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;springframework&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;boot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;boot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;starter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;module:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// JUnit 4 제외&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;mockito&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;module:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mockito&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;core&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 필요 시&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;vintage&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;module:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vintage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;engine&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// JUnit 3/4 호환 제거&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;n&quot;&gt;testImplementation&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;testRuntimeOnly&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;engine&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;질문&quot;&gt;질문&lt;/h4&gt;
+
+&lt;p&gt;다음 비어있는 계좌 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;인터페이스&lt;/code&gt;(설계도) 를 생성하자.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/main/entity/account/AbstractAccount.class&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/main/entity/account/Account.class&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;구현된 Account 클래스에서 &amp;lt;command + shift + t&amp;gt; 를 통해 test class 를 자동 생성시킨다. 이때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Junit5&lt;/code&gt; 로 설정후 생성한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.api.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assertions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AccountTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이제 생성하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Unit Test&lt;/code&gt;를 작성한다. 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Test&lt;/code&gt; 애너테이션을 붙여야 테스트 수행중에 해당 메서드를 테스트로 인식하여 수행한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.api.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assertions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AccountTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이처럼 계좌를 생성시킬 수 있다. 지금은 실패한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;응답&quot;&gt;응답&lt;/h4&gt;
+
+&lt;p&gt;성공하는 테스트케이스를 작성한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.api.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assertions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AccountTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertInstanceOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;정제&quot;&gt;정제&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;리팩토링을 적용할 부분이 있는지 살핀다.&lt;/li&gt;
+  &lt;li&gt;To-do 목록에서 완료된 부분을 지운다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;사람이 좀 더 이해하기 쉽고, 변경용이한 구조로 바꾸는 것이다.&lt;/p&gt;
+
+&lt;p&gt;가독성이 적절한지, 중복된 코드가 없는지, 이름이 명확하지 않거나, 오버 구현을 하지 않았는지, 구조의 개선이 필요한 부분이 있는지 본다.&lt;/p&gt;
+
+&lt;p&gt;살펴보면 계좌번호는 인자로 따로 빼낼 수 있는 부분이고, 여기서 테스트 케이스가 갈라지게 된다. 따라서 다음과 같이 고쳐주며, 테스트 케이스를 여러개 넣을 수 있도록 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ParameterizedTest&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ValueSource&lt;/code&gt;를 넣어준다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.params.ParameterizedTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.params.provider.ValueSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assertions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AccountTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@ParameterizedTest&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@ValueSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ints&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9999&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertInstanceOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;반복&quot;&gt;반복&lt;/h4&gt;
+
+&lt;p&gt;다음 단위 테스트 작성으로 넘어간다.&lt;/p&gt;
+
+&lt;p&gt;이후에는 계좌번호 검증, 계좌번호 조회, 계좌 유일성 검증 등의 추가적인 기능에 대한 테스팅 할 수 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;다음은 필자가 최종적으로 작성한 테스트 코드이다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.api.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.params.ParameterizedTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.junit.jupiter.params.provider.ValueSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;junit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;jupiter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Assertions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AccountTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@ParameterizedTest&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@ValueSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ints&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MIN_VALUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9999&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MAX_VALUE&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createAccount1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertInstanceOf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;계좌 종속정 테스트&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertNotNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;계좌 존재성 테스트&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@ParameterizedTest&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@ValueSource&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ints&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MIN_VALUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MAX_VALUE&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createAccount2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;계좌 번호 유효성 검증&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;createAccount3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;IAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;account1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertThrows&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;계좌 번호 유일성 검증&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;아직 위 테스트 작성은 부족한게 많다. 메서드 명이 명확하지 않고, TDD의 기본적인 것인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Red-Green-Refactor&lt;/code&gt; 에서 &lt;strong&gt;Red&lt;/strong&gt; 만 정상적으로 작성한 코드이다. 여기서는 TDD 이기에 Test만을 잘 작성하는 쪽으로 구현했다. 이를 토대로 이제 개발을 해나가면 된다.&lt;/p&gt;
+
+&lt;p&gt;⭐️ &lt;strong&gt;처음 Red 를 잘 작성해놓으면 Repeat이 거의 필요없게 되는 수준에 이를 수 있다.&lt;/strong&gt;&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="SoftwareEngineering" /><category term="SoftwareDevelopment" /><summary type="html">실무에 근거하여 Test-Driven Development 의 탄생과 개념을 본다.</summary></entry><entry><title type="html">5. Spring Boot Application Logging Customizing with Log4j2</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/13/5.-spring-boot-application-logging-customizing.html" rel="alternate" type="text/html" title="5. Spring Boot Application Logging Customizing with Log4j2" /><published>2025-06-13T06:55:11+00:00</published><updated>2025-06-13T06:55:11+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/13/5.-spring-boot-application-logging-customizing</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/13/5.-spring-boot-application-logging-customizing.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;스프링 어플리케이션이 띄우는 서버 정보에 대해 가독성이 부족하며, 추적 가능한 로그 기능이 필요하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#log4j2&quot;&gt;Log4j2&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#log4j2.properties&quot;&gt;log4j2.properties 설정&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#로깅-레벨-계층-와-이름-설정&quot;&gt;로깅 레벨 계층 와 이름 설정&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#filter-기능을-사용한-로그-이벤트-상세-제어&quot;&gt;Filter 기능을 사용한 로그 이벤트 상세 제어&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#appenders-구성하기&quot;&gt;Appenders 구성하기&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#-루트-로그-레벨-및-appender-참조&quot;&gt;루트 로거 설정 (기본 레벨 및 Appender 연결)&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;Logger 객체를 가져와 출력해보기&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;log4j2&quot;&gt;Log4j2&lt;/h3&gt;
+
+&lt;p&gt;우선 Log4j2 는 Asynchronous Logger + LMAX Disruptor 기반으로 1800만 건/s 로깅이 가능하며,&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;XML/JSON/YAML 설정 등을 지원&lt;/li&gt;
+  &lt;li&gt;Lambda 기반 지연 로깅&lt;/li&gt;
+  &lt;li&gt;MDC, Marker, 사용자 정의 Message API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;등의 고급 기능들을 지원한다. 사용하려면 다음 의존성을 추가해준다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// log4j2&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;org.springframework.boot:spring-boot-starter-log4j2&apos;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;기존에 있는 starter 팩에 Logback과의 충돌을 막기 위해 다음을 추가한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-groovy&quot; data-lang=&quot;groovy&quot;&gt;&lt;span class=&quot;n&quot;&gt;configurations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;org.springframework.boot&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;module:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;spring-boot-starter-logging&apos;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;log4j2properties&quot;&gt;log4j2.properties&lt;/h4&gt;
+
+&lt;p&gt;log4j2 는 기본적으로 resources에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log4j2.properties&lt;/code&gt; 를 참조하여 로깅 구성 설정을 할 수 있다. 기본적으로 Logging을 할 때의 기능들을 수행하는 컴포넌트 &lt;strong&gt;&lt;a href=&quot;#appender&quot;&gt;Appender&lt;/a&gt;, &lt;a href=&quot;#logger&quot;&gt;Logger&lt;/a&gt;&lt;/strong&gt; 가 있다.&lt;/p&gt;
+
+&lt;p&gt;아래의 용어들을 보고 오길 바란다.&lt;/p&gt;
+
+&lt;h5 id=&quot;로깅-레벨-계층-와-이름-설정&quot;&gt;로깅 레벨 계층 와 이름 설정&lt;/h5&gt;
+
+&lt;p&gt;로그를 띄울 때도 특정 정보들만 띄울 수 있도록 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;로그 레벨 계층은 다음과 같다&lt;br /&gt;
+ALL → TRACE → DEBUG → INFO → WARN → ERROR → FATAL → OFF&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ALL: 모든 로그 레벨 허용&lt;/li&gt;
+  &lt;li&gt;TRACE: 가장 세밀한 단계(디테일 메서드 호출, 루프 등)&lt;/li&gt;
+  &lt;li&gt;DEBUG: 개발 및 디버깅 시 유용한 정보-변수 상태, 흐름 등&lt;/li&gt;
+  &lt;li&gt;INFO: 운영 중 기본적으로 남기는 일반 정보-시작/종료, 상태 전환 등&lt;/li&gt;
+  &lt;li&gt;WARN: 문제는 아니지만 주의가 필요한 상황-성능 저하, 비추천 API 사용 등&lt;/li&gt;
+  &lt;li&gt;ERROR: 기능 일부 실패 등 처리 중에 장애 발생&lt;/li&gt;
+  &lt;li&gt;FATAL: 치명적인 오류로 어플리케이션 종료 수준&lt;/li&gt;
+  &lt;li&gt;OFF: 모든 로그를 비활성화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;status 의 프로퍼티를 주면 해당 status 보다 &lt;strong&gt;하위의 로그 메시지들을 출력&lt;/strong&gt;하게 된다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;## log4j2.properties
+# ▼ 내부 로깅 레벨
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;warn&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;PropertiesConfig&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;name으로는 로깅 설정 전체의 이름을 지정하는 식별자이다.&lt;/p&gt;
+
+&lt;h5 id=&quot;filter-기능을-사용한-로그-이벤트-상세-제어&quot;&gt;Filter 기능을 사용한 로그 이벤트 상세 제어&lt;/h5&gt;
+
+&lt;p&gt;Log4j2는 필터를 사용하여 어떻게 처리해야 할지 제어할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;우선 이벤트를 평가하는 것부터 보자면 기본적인 필터 로직은 로그 이벤트를 평가하고, ACCEPT, DENY, NEUTRAL 중 하나의 결과를 반환하게 된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ACCEPT: 해당 로그를 즉시 수용하고 다음 필터는 검사하지 않음(바로 출력)&lt;/li&gt;
+  &lt;li&gt;DENY: 해당 로그를 즉시 버리고 이후 단계로 전달하지 않음(버림)&lt;/li&gt;
+  &lt;li&gt;NEUTRAL: 판단을 보류하고 다음 필터로 넘김(다음 필터한테 인계)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위 3가지를 결정내리는 단계는 크게 4단계로 나뉘고, 각 필터 단계에서 위의 결과 중 하나를 가지게 된다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Context-wide: 전체 설정에 대한 초기 필터&lt;/li&gt;
+  &lt;li&gt;Logger-level: 특정 로거에 설정된 필터&lt;/li&gt;
+  &lt;li&gt;AppenderReference: 어떤 Appender에 보낼지 결정&lt;/li&gt;
+  &lt;li&gt;Appender-level: 실제 Appender 내부 필터&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;아래 코드는 threshold 라는 필터를 통해 전역 필터를 설정하고 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;# ▼ 전역 필터 설정: 디버그 이상 로그만 출력
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;filters&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;threshold     # 전역필터 이름은 threshold&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# filters 뒤에 나열된 필터 이름은 이후 설정에서
+# filter.&amp;lt;name&amp;gt;.type, filter.&amp;lt;name&amp;gt;.level 같이 참조 가능
+&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 전역 필터 threshold 의 타입으로 ThresholdFilter 라는 레벨 기반 필터를 사용한다.
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;filter.threshold.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ThresholdFilter&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 메시지의 레벨이 설정한 기준 이상인지 비교하여 처리한다.
+&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 해당 ThresholdFilter 가 적용할 기준 레벨을 정의한다.
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;filter.threshold.level&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;debug&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 기본적으로 onMatch=NEUTRAL, onMismatch=DENY 이므로
+# DEBUG 이상이면 NEUTRAL로 넘어가 다음 레벨 검사 후 출력 가능
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;TRACE&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;이하는&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;DENY로&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;바로&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;차단됨&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;대표적인 필터 종류로는&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ThresholdFilter: 특정 기준 이상인지 아닌지 필터링&lt;/li&gt;
+  &lt;li&gt;BurstFilter&lt;/li&gt;
+  &lt;li&gt;CompositeFilter&lt;/li&gt;
+  &lt;li&gt;DynamicThresholdFilter&lt;/li&gt;
+  &lt;li&gt;RegexFilter: 정규표현식을 사용한 필터링&lt;/li&gt;
+  &lt;li&gt;MapFilter, MarkerFilter, TimeFilter 등등
+등이 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;appenders-구성하기&quot;&gt;Appenders 구성하기&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;# ▼ 콘솔 Appender 구성
+&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 사용할 Appender 나열
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appenders&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;console, rolling&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Appender 의 타입 지정, 여기서는 Console로, System.out, System.err 같은 출력 형식으로 내보냄
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.console.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Console&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Appender 에 식별자를 붙임
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.console.name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;STDOUT&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Appender 에 로그 메시지를 어떤 형식으로 변환할지 정함
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.console.layout.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;PatternLayout&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Appender 의 로그 출력 포맷을 지정함
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.console.layout.pattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c{1}:%L - %m%n&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;로그 출력 포맷&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;%d{…}: 날짜/시간의 포맷 지정&lt;/li&gt;
+  &lt;li&gt;%t: 스레드 이름(main 등)&lt;/li&gt;
+  &lt;li&gt;%-5p: 고정 폭 5자리의 로그 레벨(INFO, DEBUG 등)&lt;/li&gt;
+  &lt;li&gt;%c{1}: 로거 이름의 마지막 컴포넌트, 일반적으로 클래스 명&lt;/li&gt;
+  &lt;li&gt;%L: 로그 발생 코드 라인 번호&lt;/li&gt;
+  &lt;li&gt;%m: 실제 메시지&lt;/li&gt;
+  &lt;li&gt;%n: 줄바꿈&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;# ▼ 롤링 파일 Appender 구성
+&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 로그 파일 내용을 어디 저장할지 지정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.fileName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;logs/app.log&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 파일명을 어떻게 쓸건지 설정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.filePattern&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;logs/app-%d{yyyy-MM-dd}-%i.log.gz&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Policies 라는 롤오버 조건 그룹(wrapper)를 지정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.policies.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Policies&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 시간 기반 트리거 정책 사용, 특정 주기마다 로그 파일이 자동으로 Rollover
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.policies.time.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TimeBasedTriggeringPolicy&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Rollover 간격을 1단위로 지정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.policies.time.interval&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 파일 크기 기반 트리거 정책 지정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.policies.size.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;SizeBasedTriggeringPolicy&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 파일이 10MB를 초과 시 Rollover 실행
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.policies.size.size&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;10 MB&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Rollover 전 후의 처리 전략을 지정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.strategy.type&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;DefaultRolloverStrategy&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Rollover 파일의 최대 개수를 7개로 설정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;appender.rolling.strategy.max&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;7&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h5 id=&quot;루트-로거-설정-기본-레벨-및-appender-연결&quot;&gt;루트 로거 설정 (기본 레벨 및 Appender 연결)&lt;/h5&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;c&quot;&gt;# ▼ 루트 로그 레벨 및 Appender 참조
+&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 로그 레벨 설정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;rootLogger.level&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;info&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 기본 로그 레벨과 appender 매핑 설정
+&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;rootLogger.appenderRefs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;stdout, rolling&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;rootLogger.appenderRef.stdout.ref&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;STDOUT&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;rootLogger.appenderRef.rolling.ref&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ROLLING&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;logger-객체를-가져와-출력해보기&quot;&gt;Logger 객체를 가져와 출력해보기&lt;/h4&gt;
+
+&lt;p&gt;Logging 메시지를 출력할 클래스 컨텍스트에 다음을 입력한다:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.slf4j.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;StudyApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;출력할 메시지가 살아있는 function 의 context 에서 다음을 입력한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nc&quot;&gt;ConfigurableApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The application is completely running&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;다음이 출력됨을 볼 수 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[restartedMain] INFO  StudyApplication:73 - The application is completely running&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;logger&quot;&gt;Logger&lt;/h6&gt;
+
+&lt;p&gt;한 개 이상의 Appender 를 사용하여 로그 메시지 표시를 담당하는 로깅 프레임워크의 컴포넌트&lt;/p&gt;
+
+&lt;h6 id=&quot;appender&quot;&gt;Appender&lt;/h6&gt;
+
+&lt;p&gt;어펜더를 사용하여 로그가 출력되는 대상과 로깅 포맷을 지정할 수 있다. 로그 메시지가 출력되는 매체에 따라 다양한 어펜더가 있고, 콘솔 어펜더는 어플리케이션의 콘솔에 로그를 출력하고, 파일 어펜더는 로그 메시지를 파일에 출력한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RollingFileAppender: 시간과 날짜 기반으로 별도의 파일에 로그를 출력하게 된다.&lt;/li&gt;
+  &lt;li&gt;SMTP Appender: 정해진 이메일 주소로 로그를 출력한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-출처&quot;&gt;🔗 관련 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html"></summary></entry><entry><title type="html">1.3 Computer System Architecture</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/13/1.3-computer-system-architecture.html" rel="alternate" type="text/html" title="1.3 Computer System Architecture" /><published>2025-06-13T05:25:51+00:00</published><updated>2025-06-13T05:25:51+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/13/1.3-computer-system-architecture</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/13/1.3-computer-system-architecture.html">&lt;!--more--&gt;
+&lt;p&gt;컴퓨터 시스템의 여러 가지 방식의 구성을 본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#131-single-processor-systems&quot;&gt;1.3.1 Single-Processor Systems&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#single-core&quot;&gt;Single Core&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#special-purpose-processor&quot;&gt;Special-purpose Processor&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#132-multiprocessor-systems&quot;&gt;1.3.2 Multiprocessor Systems&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#symmetric-multiprocessing-smp&quot;&gt;Symmetric MultiProcessing, SMP&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;
+        &lt;h2&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;일반적인 컴퓨터 시스템은 사용되는 범용 프로세서의 수에 따라 대략적으로 분류 가능하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;131-single-processor-systems&quot;&gt;1.3.1 Single-Processor Systems&lt;/h3&gt;
+
+&lt;p&gt;컴퓨터 시스템은 &lt;strong&gt;사용되는 프로세서 수와 구조&lt;/strong&gt;에 따라 다음과 같이 구분된다.&lt;/p&gt;
+
+&lt;h4 id=&quot;single-core&quot;&gt;Single Core&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;하나의 &lt;a href=&quot;#cpu&quot;&gt;CPU&lt;/a&gt; + 하나의 &lt;a href=&quot;#core&quot;&gt;Core&lt;/a&gt;를 가지는 시스템이다.&lt;/li&gt;
+  &lt;li&gt;CPU는 &lt;strong&gt;&lt;a href=&quot;#general-purpose-instruction-set&quot;&gt;General-purpose Instruction Set&lt;/a&gt;&lt;/strong&gt; 및 &lt;strong&gt;&lt;a href=&quot;#사용자-프로세스&quot;&gt;사용자 프로세스&lt;/a&gt;&lt;/strong&gt;를 실행 가능하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;special-purpose-processor&quot;&gt;Special-purpose Processor&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;디스크, 키보드, 그래픽 컨트롤러등에 &lt;strong&gt;전용 마이크로프로세서&lt;/strong&gt;가 탑재된 걸 &lt;strong&gt;특수 목적 프로세서&lt;/strong&gt;라고 한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;전용 명령어 집합(special-purpose instruction set)&lt;/strong&gt;만을 실행하고, 일반적인 프로세스를 실행하지 않는다.&lt;/li&gt;
+  &lt;li&gt;운영체제가 이들을 직접 제어하거나 상태를 모니터링 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예시
+디스크 컨트롤러 마이크로프로세서: 메인 CPU로 부터 요청을 받아서 자체 &lt;strong&gt;디스크 큐 및 스케줄링 알고리즘&lt;/strong&gt;을 실행
+키보드 내부 마이크로 프로세서: &lt;strong&gt;키 입력을 감지하고 코드로 변환&lt;/strong&gt;하여 CPU로 전송하는 마이크로프로세서가 내장&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;다른 시스템이나 상황에서는 이러한 특수 목적 프로세서가 하드웨어에 저수준 컴포넌트로 내장되어 있다.&lt;br /&gt;
+운영체제는 이들과 직접 통신은 못하고 프로세서가 독립적으로 작업을 수행하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;특수 목적 마이크로 프로세서가 여러개 있다고 시스템이 멀티 프로세서 시스템이 되는 것은 아니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;132-multiprocessor-systems&quot;&gt;1.3.2 Multiprocessor Systems&lt;/h3&gt;
+
+&lt;p&gt;단일 처리는 느릴 수 있고 CPU가 연산 처리하는데 있어 다수의 Device의 요청을 받게 되면 지연될 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이러한 시스템은 컴퓨터 하나에 두 개 이상의 Processor를 가지는 형태로 구성하여 &lt;strong&gt;Throughput(처리량)&lt;/strong&gt;과 속도를 늘릴 수 있다. 프로세서들은 &lt;strong&gt;&lt;a href=&quot;#computer-bus&quot;&gt;Computer Bus&lt;/a&gt;&lt;/strong&gt;를 공유하며 &lt;strong&gt;&lt;a href=&quot;#clock-signal&quot;&gt;Clock Signal&lt;/a&gt;&lt;/strong&gt;, 메모리, 주변 장치를 공유한다. 하지만 &lt;strong&gt;N개의 프로세서를 사용한다고 해서 성능이 N배 빨라지는 것은 아니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;이는 각 구성 요소들이 제대로 작동하도록 유지하는 데 드는 오버헤드가 발생하기 때문이며, 공유 자원에 대한 &lt;strong&gt;Contention(경쟁)&lt;/strong&gt; 도 추가로 발생하기 때문에 기대에 못미치는 성능 향상을 얻을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;멀티프로세서 시스템에서도 두 가지로 크게 나눌 수 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;symmetric-multiprocessing-smp&quot;&gt;Symmetric MultiProcessing, SMP&lt;/h4&gt;
+
+&lt;p&gt;각 CPU 프로세서가 동등한 입장에서 운영체제의 기능과 사용자 프로세스를 모두 처리할 수 있는 시스템을 Symmetric MultiProcessing System 이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/symmetric-multiprocessing-architecture.png&quot; alt=&quot;symmetric-multiprocessing-architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;각 CPU는 자신만의 &lt;strong&gt;Register Set&lt;/strong&gt;과 &lt;strong&gt;Local Cache&lt;/strong&gt;를 가지고 있지만, 모든 프로세서는 &lt;strong&gt;System Bus&lt;/strong&gt;를 통해 물리적 메모리를 공유한다.&lt;/p&gt;
+
+&lt;p&gt;장점으로는:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;N개의 CPU가 있다면 N개의 프로세스가 동시에 실행이 가능하다.&lt;/li&gt;
+  &lt;li&gt;전체 시스템의 성능이 크게 저하되지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;단점으로는:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;어떤 CPU 는 &lt;strong&gt;Idle&lt;/strong&gt; 인 반면, 다른 CPU 는 &lt;strong&gt;Overrloaded&lt;/strong&gt; 상태가 되는 비효율이 발생할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;프로세서 간에 특정 데이터 구조나 자원을 공유함으로써 이를 완화할 수 있다. 이런 시스템은 프로세스나 자원을 동적으로 여러 프로세서 사이에서 공유할 수 있어서 프로세서 간 작업량의 편차를 줄이는데 도움이 많이 된다. 하지만 공유에 있어서 자원의 제어권을 명백히 구분해야하기 때문에 매우 신중하게 설계되어야 한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;multi-core-system&quot;&gt;Multi-Core System&lt;/h4&gt;
+
+&lt;p&gt;멀티프로세서 시스템에서 &lt;strong&gt;하나의 칩에 여러 연산 코어가 존재하는 멀티 코어 시스템&lt;/strong&gt;도 포함된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/a-dual-core-design-with-two-cores-on-the-same-chip.png&quot; alt=&quot;a-dual-core-design-with-two-cores-on-the-same-chip&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;칩 내부의 코어 간 통신(on-chip communication)&lt;/strong&gt; 이 &lt;strong&gt;칩 간 통신(between-chip communication)&lt;/strong&gt;보다 훨씬 빠르기 때문에 단일 코어를 여러 칩에 나눠 배치하는 구조보다 더 효율적&lt;/li&gt;
+  &lt;li&gt;전력을 훨씬 더 적게 소비&lt;/li&gt;
+  &lt;li&gt;각 코어는 &lt;strong&gt;Register Set&lt;/strong&gt; + &lt;strong&gt;&lt;a href=&quot;#l1-cache&quot;&gt;L1 Cache&lt;/a&gt;&lt;/strong&gt; 보유, 각 프로세스는 &lt;strong&gt;&lt;a href=&quot;#l2-cache&quot;&gt;L2 Cache&lt;/a&gt;&lt;/strong&gt;를 통해 칩끼리 메모리 공유&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;운영체제 입장에서는 N개의 일반적인 CPU 처럼 보이게 된다.&lt;/p&gt;
+
+&lt;p&gt;따라서 운영체제 설계자와 어플리케이션 프로그래머에게 이러한 처리 코어들을 효율적으로 활용해야 할 부담을 가지게 되는데 이는 추후에 다룬다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;연산 처리 계층적 구조 정리&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Processor (물리적 칩)
+    &lt;ul&gt;
+      &lt;li&gt;Core (실제 연산 단위)
+        &lt;ul&gt;
+          &lt;li&gt;Register Set (가장 빠르고 가장 작은 기억장소)&lt;/li&gt;
+          &lt;li&gt;L1 Cache (코어별 고속 캐시)&lt;/li&gt;
+          &lt;li&gt;L2 Cache (대부분 코어 간 공유되는 캐시)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;확장성의-한계와-numa&quot;&gt;확장성의 한계와 NUMA&lt;/h4&gt;
+
+&lt;p&gt;멀티 프로세서 시스템에 CPU를 추가하면 계산 성능은 증가하지만, 무한히 확장되지는 않는다.&lt;br /&gt;
+또한 CPU를 너무 많이 추가하면 시스템 버스에 대한 경쟁이 병목되어서 성능이 오히려 저하가 된다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하기 위해&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;각 CPU에 &lt;strong&gt;&lt;a href=&quot;#전용-로컬-메모리&quot;&gt;전용 로컬 메모리&lt;/a&gt;&lt;/strong&gt;를 제공&lt;/li&gt;
+  &lt;li&gt;CPU 간에는 &lt;strong&gt;&lt;a href=&quot;#system-interconnect&quot;&gt;System Interconnect&lt;/a&gt;&lt;/strong&gt; 로 연결 -&amp;gt; &lt;strong&gt;모든 CPU가 하나의 물리적 주소 공간 보유&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/NUMA-multiprocessing-architecture.png&quot; alt=&quot;NUMA-multiprocessing-architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;blade-server&quot;&gt;Blade Server&lt;/h4&gt;
+
+&lt;p&gt;여러 개의 &lt;strong&gt;Processor Board&lt;/strong&gt;, &lt;strong&gt;I/O Boad&lt;/strong&gt;, &lt;strong&gt;Network Board&lt;/strong&gt; 등이 하나의 &lt;strong&gt;&lt;a href=&quot;#chassis&quot;&gt;Chassis&lt;/a&gt;&lt;/strong&gt; 안에 포함된 시스템이다.&lt;/p&gt;
+
+&lt;p&gt;각 블레이드 &lt;strong&gt;Processor Board&lt;/strong&gt;가 독립적으로 부팅되고, 자체 운영체제를 실행하는 구조이며, 여러 개의 독립적인 멀티프로세서 시스템으로 구성된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;cpu&quot;&gt;CPU&lt;/h6&gt;
+
+&lt;p&gt;명령어들을 수행하는 하드웨어이다.&lt;/p&gt;
+
+&lt;h6 id=&quot;core&quot;&gt;Core&lt;/h6&gt;
+
+&lt;p&gt;&lt;strong&gt;명령어를 실행&lt;/strong&gt;하고 데이터를 저장하기 위한 &lt;strong&gt;Register 집합을 포함하는 구성요소이며 CPU의 가장 기본적 연산 단위&lt;/strong&gt;이다.&lt;/p&gt;
+
+&lt;h6 id=&quot;processor&quot;&gt;Processor&lt;/h6&gt;
+
+&lt;p&gt;하나 이상의 코어를 포함할 수 있는 연산 장치로, 일반적으로는 &lt;strong&gt;하나의 물리적인 CPU 칩&lt;/strong&gt;을 말한다.&lt;/p&gt;
+
+&lt;h6 id=&quot;multicore&quot;&gt;Multicore&lt;/h6&gt;
+
+&lt;p&gt;다수의 Core들을 동일 CPU 에 배치한 형태이다.&lt;/p&gt;
+
+&lt;h6 id=&quot;multiprocessor&quot;&gt;Multiprocessor&lt;/h6&gt;
+
+&lt;p&gt;다수의 프로세서를 포함하는 형태이다.&lt;/p&gt;
+
+&lt;h6 id=&quot;smp-symmetric-multiprocessing&quot;&gt;SMP (Symmetric Multiprocessing)&lt;/h6&gt;
+
+&lt;p&gt;각 CPU가 동등한 권한으로 OS와 사용자 작업을 수행하는 구조로, 물리 메모리를 공유함&lt;/p&gt;
+
+&lt;h6 id=&quot;l1-cache&quot;&gt;L1 Cache&lt;/h6&gt;
+
+&lt;p&gt;각 코어에 직접 연결된 매우 작은 용량의 고속 캐시 메모리&lt;/p&gt;
+
+&lt;h6 id=&quot;l2-cache&quot;&gt;L2 Cache&lt;/h6&gt;
+
+&lt;p&gt;같은 칩 내부의 여러 코어가 공유하는 중간 속도의 캐시 메모리&lt;/p&gt;
+
+&lt;h6 id=&quot;numa-non-uniform-memory-access&quot;&gt;NUMA (Non-Uniform Memory Access)&lt;/h6&gt;
+
+&lt;p&gt;각 CPU에 전용 메모리를 두고, 전체적으로는 공유 주소 공간을 유지하는 구조&lt;/p&gt;
+
+&lt;h6 id=&quot;on-chip-communication&quot;&gt;On-Chip Communication&lt;/h6&gt;
+
+&lt;p&gt;동일한 칩 내부에서 발생하는 통신으로, 매우 빠르고 전력 효율이 높음&lt;/p&gt;
+
+&lt;h6 id=&quot;blade-server-1&quot;&gt;Blade Server&lt;/h6&gt;
+
+&lt;p&gt;여러 개의 독립적인 시스템 보드(CPU, I/O, 네트워크 등)를 하나의 섀시에 탑재한 서버 형태&lt;/p&gt;
+
+&lt;h6 id=&quot;general-purpose-instruction-set&quot;&gt;General-purpose Instruction Set&lt;/h6&gt;
+
+&lt;p&gt;운영체제와 사용자 애플리케이션에서 사용하는 일반적인 계산, 논리, 제어, 데이터 이동 등의 명령들을 포함한 CPU의 명령어 집합이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;ADD, MOV, JMP, LOAD, STORE, AND, OR&lt;/strong&gt; 등이 있음&lt;/li&gt;
+  &lt;li&gt;범용 CPU는 이 명령어들을 기반으로 모든 종류의 소프트웨어를 실행할 수 있음&lt;/li&gt;
+  &lt;li&gt;이는 특정 작업만 수행하는 &lt;strong&gt;전용 명령어 집합(special-purpose instruction set)&lt;/strong&gt; 과 대비됨&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;사용자-프로세스&quot;&gt;사용자 프로세스&lt;/h6&gt;
+
+&lt;p&gt;일반 사용자가 실행하는 응용 프로그램이나 작업을 의미하며, 운영체제가 생성하고 관리하는 프로세스 중 하나이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예: 웹 브라우저, 텍스트 편집기, 게임 등&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h6 id=&quot;전용-로컬-메모리&quot;&gt;전용 로컬 메모리&lt;/h6&gt;
+
+&lt;p&gt;NUMA 구조에서 각 CPU가 독립적으로 접근 가능한 메모리 공간을 의미하며, 해당 CPU가 직접 연결되어 빠르게 접근할 수 있는 메모리이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;다른 CPU가 접근할 경우 지연(latency)이 발생할 수 있음&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h6 id=&quot;clock-signal&quot;&gt;Clock Signal&lt;/h6&gt;
+
+&lt;p&gt;컴퓨터의 모든 부품이 &lt;strong&gt;동기화된 속도로 작동하도록 주기적으로 발생하는 신호&lt;/strong&gt;로, CPU를 비롯한 각 하드웨어 장치가 일정한 타이밍에 동작하게 만든다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예: 3.0GHz의 Clock Signal는 1초에 30억 번 신호가 발생함을 의미함&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h6 id=&quot;system-interconnect&quot;&gt;System Interconnect&lt;/h6&gt;
+
+&lt;p&gt;여러 CPU의 전용 로컬 메모리를 서로 연결하는 고속 데이터 통신 경로이다.&lt;br /&gt;
+연결은 &lt;strong&gt;고속 버스, 크로스바, HyperTransport, Intel QPI&lt;/strong&gt; 등 다양하다.&lt;/p&gt;
+
+&lt;p&gt;이때 Interconnect 를 통한 &lt;strong&gt;원격 메모리 접근은 지연(latency)&lt;/strong&gt;이 크므로 운영체제가 CPU 스케줄링 시 최대한 로컬 메모리를 사용하도록 조정해야 한다.&lt;/p&gt;
+
+&lt;h6 id=&quot;chassis&quot;&gt;Chassis&lt;/h6&gt;
+
+&lt;p&gt;서버나 컴퓨터 시스템에서 &lt;strong&gt;여러 개의 보드(Processor, I/O, Network 등)&lt;/strong&gt; 를 물리적으로 탑재하고 고정하는 &lt;strong&gt;외형적 하드웨어 프레임&lt;/strong&gt; 또는 케이스를 의미한다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html">컴퓨터 시스템의 여러 가지 방식의 구성을 본다.</summary></entry><entry><title type="html">1.2.3 I/O Structure</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/11/1.2.3-io-structure.html" rel="alternate" type="text/html" title="1.2.3 I/O Structure" /><published>2025-06-11T06:51:26+00:00</published><updated>2025-06-11T06:51:26+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/11/1.2.3-io-structure</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/11/1.2.3-io-structure.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#공통버스를-통한-데이터-전송의-한계점&quot;&gt;공통버스를 통한 데이터 전송의 한계점&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#dma를-통한-한계점-해결&quot;&gt;DMA를 통한 한계점 해결&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#switch-구조를-통한-dma-효율-상승&quot;&gt;Switch 구조를 통한 DMA 효율 상승&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;운영체제의 상당 부분이 I/O 관리를 위해 있다. I/O 는 시스템의 신뢰성과 성능에 매우 민감하고, 장치들의 형태와 특성이 다양하기 때문에 이 기능에 초점을 맞춘다.&lt;/p&gt;
+
+&lt;h3 id=&quot;공통버스를-통한-데이터-전송의-한계점&quot;&gt;공통버스를 통한 데이터 전송의 한계점&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/device-controllers.png&quot; alt=&quot;device-controllers&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이전의 &lt;strong&gt;인터럽트 I/O 방식&lt;/strong&gt;을 통해 명령을 수행하는 과정을 보자.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;CPU&lt;/strong&gt; 가 &lt;strong&gt;Control Bus&lt;/strong&gt; 와 &lt;strong&gt;Address Bus&lt;/strong&gt; 를 통해 &lt;strong&gt;Device Controller&lt;/strong&gt; 에게 명령 전달&lt;/li&gt;
+  &lt;li&gt;수신 받은 &lt;strong&gt;Device Controller&lt;/strong&gt; 는 I/O Device 와 직접 통신하여 해당 작업을 수행
+    &lt;ul&gt;
+      &lt;li&gt;여기서 &lt;strong&gt;Device Controller&lt;/strong&gt; 는 자체 &lt;strong&gt;Local Buffer&lt;/strong&gt;로 데이터를 준비하고 있는 상태임&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;I/O 작업이 완료되고, &lt;strong&gt;Device Controller&lt;/strong&gt; 는 인터럽트 신호를 &lt;strong&gt;Control Bus&lt;/strong&gt;를 통해 CPU에게 보냄&lt;/li&gt;
+  &lt;li&gt;CPU 가 인터럽트를 감지하여 &lt;strong&gt;Context Switching&lt;/strong&gt; 을 한 후, &lt;strong&gt;Interrupt Handler&lt;/strong&gt; 를 호출
+    &lt;ul&gt;
+      &lt;li&gt;이 과정에서 인터럽트 벡터 테이블의 핸들러 주소를 조회&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CPU가 &lt;strong&gt;Interrupt Handler Code&lt;/strong&gt; 에서 &lt;strong&gt;Device Controller&lt;/strong&gt; 로 부터 처리된 데이터를 요청&lt;/li&gt;
+  &lt;li&gt;CPU가 &lt;strong&gt;Interrupt&lt;/strong&gt; 처리 완료 후 실행중인 &lt;strong&gt;Context&lt;/strong&gt;로 복귀&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;모든 장치가 단일 System Bus를 공유하므로, 다중 장치가 동시에 데이터를 전송하거나 수신하려고 할 경우 버스 충돌 및 지연(latency) 이 발생한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;dma를-통한-한계점-해결&quot;&gt;DMA를 통한 한계점 해결&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;DMA(직접 메모리 접근, Direct Memory Access)&lt;/strong&gt; 의 데이터 전송 방식은 &lt;strong&gt;장치 버퍼, 포인터, 카운터 등을 설정하여서&lt;/strong&gt; 장치 컨트롤러가 CPU 개입이 없이 &lt;strong&gt;장치와 주기억 장치 사이에서 전체 데이터 블록(Block)을 직접 전송하는 기술&lt;/strong&gt;이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/how-a-modern-computer-system-works.png&quot; alt=&quot;how-a-modern-computer-system-works&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이때 데이터 블록 단위로 한 번의 인터럽트만 발생하여서, 작업 완료를 &lt;strong&gt;Device Driver&lt;/strong&gt; 에 알리게 된다.&lt;br /&gt;
+하지만 여기에도 단점이 있는데 시스템 버스는 단일 버스를 공유하기 때문에 사용중인 버스를 다른 장치 디바이스에서 전송은 불가하다(동시 전송 불가).&lt;/p&gt;
+
+&lt;p&gt;그래서 버스를 사용하려면 권한을 순서대로 조율해야 한다(&lt;strong&gt;Bus Arbitration&lt;/strong&gt;).&lt;br /&gt;
+이는 따라서 대량의 데이터 이동(NVS I/O 등) 에는 과도한 오버헤드를 유발한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;switch-구조를-통한-dma-효율-상승&quot;&gt;Switch 구조를 통한 DMA 효율 상승&lt;/h4&gt;
+
+&lt;p&gt;일부 고성능 시스템에서는 시스템 버스 구조가 아닌 스위치 구조를 사용하여 여러 컴포넌트 간에 동시에 서로 통신 할 수 있게 하여 공유된 버스에서 사이클을 경쟁하지 않아도 되는 DMA의 효율이 더욱 높아지게 된다.&lt;/p&gt;
+
+&lt;p&gt;바이트마다 인터럽트를 발생시키는 방식에 비해 훨씬 효율적이며, &lt;strong&gt;Device Controller&lt;/strong&gt; 가 전송 작업을 수행하는 동안, CPU는 다른 작업을 수행할 수 있기 때문에 전체 시스템 효율이 높아진다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;방식&lt;/th&gt;
+      &lt;th&gt;CPU 개입&lt;/th&gt;
+      &lt;th&gt;인터럽트 발생&lt;/th&gt;
+      &lt;th&gt;효율성&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Programmed I/O(옛날 방식)&lt;/td&gt;
+      &lt;td&gt;높음&lt;/td&gt;
+      &lt;td&gt;없음&lt;/td&gt;
+      &lt;td&gt;낮음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Interrupt I/O&lt;/td&gt;
+      &lt;td&gt;중간&lt;/td&gt;
+      &lt;td&gt;매 I/O 이벤트&lt;/td&gt;
+      &lt;td&gt;중간&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DMA&lt;/td&gt;
+      &lt;td&gt;낮음&lt;/td&gt;
+      &lt;td&gt;전송 완료 시&lt;/td&gt;
+      &lt;td&gt;높음&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html"></summary></entry><entry><title type="html">1.2.2 Storage Structure</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/11/1.2.2-storage-structure.html" rel="alternate" type="text/html" title="1.2.2 Storage Structure" /><published>2025-06-11T04:28:56+00:00</published><updated>2025-06-11T04:28:56+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/11/1.2.2-storage-structure</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/11/1.2.2-storage-structure.html">&lt;!--more--&gt;
+&lt;p&gt;컴퓨터의 데이터 저장이 어떻게 되는지 전반적인 구조를 본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#overview&quot;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#저장-장치-구조-von-neumann-architecture&quot;&gt;저장 장치 구조 von Neumann Architecture&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#von-neumann-architecture-의-메인메모리-한계점&quot;&gt;von Neumann Architecture 의 메인메모리 한계점&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#보조-저장장치secondary-storage&quot;&gt;보조 저장장치(Secondary Storage)&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#계층적-저장장치-구조&quot;&gt;계층적 저장장치 구조&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#저장-시스템-설계-시-고려사항&quot;&gt;저장 시스템 설계 시 고려사항&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;overview&quot;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;프로그램 실행의 전제 조건은 메모리(RAM)에서만 명령어를 불러올 수 있기 때문에, 모든 프로그램은 먼저 &lt;strong&gt;메모리에 적재되어야 실행&lt;/strong&gt;할 수 있다. 대부분 &lt;strong&gt;&lt;a href=&quot;#dram&quot;&gt;DRAM(Dynamic Random Access Memory)&lt;/a&gt;&lt;/strong&gt; 기반의 RAM에서 실행된다. RAM은 &lt;strong&gt;휘발성&lt;/strong&gt;이므로 전원이 꺼지면 데이터가 사라진다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예시: 문서를 메모장에서 작성 중일 때 저장하지 않고 컴퓨터를 꺼버리면 내용이 사라지는 것과 같다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;반면, 부팅 시 사용하는 &lt;strong&gt;&lt;a href=&quot;#eeprom&quot;&gt;EEPROM(Electrically Erasable Programmable Read Only Memory)&lt;/a&gt;&lt;/strong&gt; 및 &lt;strong&gt;&lt;a href=&quot;#firmware&quot;&gt;Firmware(펌웨어)&lt;/a&gt;&lt;/strong&gt;와 같은 &lt;strong&gt;비휘발성 저장소&lt;/strong&gt;는 전원이 꺼져도 데이터가 유지되어, &lt;strong&gt;&lt;a href=&quot;#bootstrap&quot;&gt;Bootstrap(부트스트랩)&lt;/a&gt;&lt;/strong&gt; 프로그램 등을 저장한다. 이러한 저장소는 &lt;strong&gt;수정 속도가 느려 잦은 변경에는 적합하지 않으며&lt;/strong&gt;, 정적인 프로그램이나 자주 변경되지 않는 데이터를 저장하는 데 사용된다.&lt;/p&gt;
+
+&lt;p&gt;모든 형태의 메모리에는 &lt;strong&gt;바이트 배열의 형태&lt;/strong&gt;로 제공되며, 각각의 바이트는 고유한 주소를 가지고 있고, 이 주소를 통해 상호작용한다. CPU는 load, store 명령어 등을 사용하여 특정 메모리 주소와 데이터를 주고받는다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;load: RAM -&amp;gt; CPU 레지스터 로의 워드, 바이트 데이터를 옮김(이 의미보다는 그냥 메모리에 기록한다의 의미로 보는게 좋다)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Main Memory -&amp;gt; CPU&lt;br /&gt;
+    1. CPU가 Address Bus에 주소를 보냄&lt;br /&gt;
+    2. CPU가 Control Bus에 ‘읽기’ 신호 전송&lt;br /&gt;
+    3. 메모리가 해당 주소에서 데이터를 찾아 Data Bus를 통해 데이터 전송&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;store: CPU -&amp;gt; RAM 의 데이터 저장&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CPU -&amp;gt; Main Memory&lt;br /&gt;
+    1. CPU가 Address Bus 에 주소를 보냄&lt;br /&gt;
+    2. CPU가 Data Bus에 데이터를 전송&lt;br /&gt;
+    3. CPU가 Control Bus에 ‘쓰기’ 신호 전송&lt;/p&gt;
+
+&lt;p&gt;CPU는 &lt;strong&gt;PC에 저장된 위치에서 메인 메모리로부터 명령어를 자동으로 로드하여 실행&lt;/strong&gt;한다. 이 명령어 실행을 어떻게 수행하는지 더 자세히 보자.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;️저장-장치-구조-von-neumann-architecture&quot;&gt;⭐️저장 장치 구조 von Neumann Architecture&lt;/h3&gt;
+
+&lt;p&gt;우선 전통적인 컴퓨터 시스템의 &lt;strong&gt;명령어 실행 사이클(Instruction Execution Cycle)&lt;/strong&gt;을 살펴보자.&lt;/p&gt;
+
+&lt;p&gt;명령어를 메모리에서 가져와(&lt;strong&gt;Instruction &lt;a href=&quot;#fetch&quot;&gt;Fetch&lt;/a&gt;&lt;/strong&gt;)&lt;br /&gt;
+-&amp;gt; &lt;strong&gt;&lt;a href=&quot;#instruction-register&quot;&gt;명령어 레지스터(Instruction Register)&lt;/a&gt;&lt;/strong&gt;에 저장&lt;br /&gt;
+-&amp;gt; 명령어를 &lt;strong&gt;디코딩(Decoding)&lt;/strong&gt;&lt;br /&gt;
+-&amp;gt; 필요한 피 연산자도 메모리에서 가져와 레지스터에 저장&lt;br /&gt;
+-&amp;gt; 연산 수행 후 결과를 다시 메모리에 저장&lt;/p&gt;
+
+&lt;p&gt;위와 같이 메모리는 단순히 &lt;strong&gt;&lt;a href=&quot;#address-stream&quot;&gt;Address Stream(주소 스트림)&lt;/a&gt;&lt;/strong&gt;만 인식하고 주소가 어떻게 생성되었는지, 명령어인지 데이터인지는 관심이 없다.&lt;/p&gt;
+
+&lt;h4 id=&quot;von-neumann-architecture-의-메인메모리-한계점&quot;&gt;von Neumann Architecture 의 메인메모리 한계점&lt;/h4&gt;
+
+&lt;p&gt;이렇게 된다면 프로그램과 데이터가 RAM에 항상 상주하는 것이 이상적이겠지만, Main Memory 만으로는 충분하지 않다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;메인 메모리는 &lt;strong&gt;모든 프로그램과 데이터를 담기에 용량이 부족&lt;/strong&gt;하다.&lt;/li&gt;
+  &lt;li&gt;램은 휘발성이기 때문에 &lt;strong&gt;전원이 꺼지면 내용이 사라진다&lt;/strong&gt;. 전원이 꺼진 뒤 다시 켜면 모든 데이터를 다시 메모리에 로드해야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;따라서 보조 저장장치가 필요하다.&lt;/p&gt;
+
+&lt;h4 id=&quot;보조-저장장치secondary-storage&quot;&gt;보조 저장장치(Secondary Storage)&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RAM 을 보완하여 대용량 데이터를 &lt;strong&gt;영구 저장&lt;/strong&gt;한다&lt;/li&gt;
+  &lt;li&gt;HDD, SSD, NVM 등이 있다&lt;/li&gt;
+  &lt;li&gt;프로그램과 데이터를 보관하고 실행 시 RAM으로 로드된다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;운영체제 및 대부분의 프로그램은 보조 저장장치에 저장되며, 실행 시 RAM으로 로드된다.&lt;br /&gt;
+하지만 보조 저장장치는 메인 메모리에 비해 느리기 때문에 데이터 저장과 접근 관리가 중요한 주제가 된다.&lt;/p&gt;
+
+&lt;p&gt;이 두 가지 메모리와는 달리 다른 &lt;strong&gt;&lt;a href=&quot;#tertiary-storage&quot;&gt;Tertiary Storage(3차 저장소)&lt;/a&gt;&lt;/strong&gt;도 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;️계층적-저장장치-구조&quot;&gt;⭐️계층적 저장장치 구조&lt;/h3&gt;
+
+&lt;p&gt;저장 장치는 capacity(용량)과 access time(접근 속도)에 따라 계층적 구조를 가진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/storage-device-hierarchy.png&quot; alt=&quot;storage-device-hierarchy&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;전형적인 구조는 &lt;strong&gt;레지스터 &amp;lt; &lt;a href=&quot;#cache&quot;&gt;캐시&lt;/a&gt; &amp;lt; 메인 메모리 &amp;lt; 보조 저장장치 &amp;lt; 3차 저장장치&lt;/strong&gt;이며, 작고 빠른 메모리는 CPU 가까이에, 크고 느린 저장장치는 멀리 배치된다. 작을수록 더 빠르고 반응성이 높다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예시: 계산기에 바로 붙어 있는 메모장이 레지스터이고, 그보다 좀 떨어진 노트가 캐시, 책상 서랍이 메인 메모리, 서재가 하드디스크라고 비유할 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;저장-시스템-설계-시-고려사항&quot;&gt;저장 시스템 설계 시 고려사항&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;고속이지만 비싼 메모리는 최소한만 사용하고&lt;/li&gt;
+  &lt;li&gt;느리지만 저렴하고 영구적인 저장소는 최대한 활용한다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예시: 자주 쓰는 물건은 책상 위에 두고, 가끔 쓰는 물건은 창고에 보관하는 것과 같다. 창고는 크지만 접근 시간이 오래 걸린다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;두 저장 장치 간 속도 차이가 클 경우에는 &lt;strong&gt;&lt;a href=&quot;#cache&quot;&gt;Cache(캐시)&lt;/a&gt;&lt;/strong&gt;를 사용하여 속도 차이를 줄여 전반적인 성능을 향상시킨다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;dram&quot;&gt;DRAM&lt;/h6&gt;
+
+&lt;p&gt;우리가 쓰는 DDR5 RAM이 DRAM 의 일종이다.&lt;/p&gt;
+
+&lt;p&gt;DRAM 모듈은 우리가 데이터를 접근할 때 비트 단위가 아닌 Byte 또는 Word 단위로 접근하므로 이에 따른 병렬성을 활용하기 위해 여러 개의 &lt;strong&gt;bank&lt;/strong&gt;로 구성되어 있으며,&lt;br /&gt;
+각 bank는 데이터를 읽을 row를 지정하는 &lt;strong&gt;row decoder&lt;/strong&gt;,&lt;br /&gt;
+메모리 값을 증폭해 0 또는 1로 만드는 &lt;strong&gt;sense amp&lt;/strong&gt;,&lt;br /&gt;
+데이터가 저장되어 있는 &lt;strong&gt;array&lt;/strong&gt;를 포함한다.&lt;/p&gt;
+
+&lt;p&gt;SRAM에 비해 속도가 느리지만 트랜지스터 하나와 캐패시터 하나로 만들어져 있기에 고집적화가 가능하여 고용량을 만들 수 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;eeprom&quot;&gt;EEPROM&lt;/h6&gt;
+
+&lt;p&gt;비휘발성 메모리의 한 유형으로, 전원을 꺼도 데이터가 유지된다. 전기적으로 데이터를 지우고 다시 쓸 수 있으며, 부트로더나 BIOS 저장에 주로 사용된다.&lt;/p&gt;
+
+&lt;h6 id=&quot;firmware&quot;&gt;Firmware&lt;/h6&gt;
+
+&lt;p&gt;하드웨어를 제어하기 위해 장치에 탑재된 영구 소프트웨어. 주로 비휘발성 메모리 ROM에 저장되며, &lt;a href=&quot;#bios&quot;&gt;BIOS(Basic Input Output System)&lt;/a&gt;나 임베디드 시스템에 널리 쓰인다.&lt;/p&gt;
+
+&lt;h6 id=&quot;️bootstrap&quot;&gt;⭐️Bootstrap&lt;/h6&gt;
+
+&lt;p&gt;컴퓨터가 전원을 켰을 때 운영체제를 실행하기 위해 수행하는 일련의 초기화 과정이다. 이 과정을 &lt;strong&gt;Bootstrap(부트스트랩)&lt;/strong&gt; 또는 줄여서 &lt;strong&gt;Booting(부팅)&lt;/strong&gt;이라 부른다.&lt;/p&gt;
+
+&lt;p&gt;일반적인 부트스트랩 과정은 다음과 같은 단계로 이루어진다:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;전원 공급 및 하드웨어 초기화:&lt;/strong&gt; 전원이 들어오면 CPU는 하드웨어 리셋 상태로 진입하며, 지정된 위치에서 BIOS 또는 UEFI 펌웨어 실행을 시작한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;BIOS/UEFI 실행:&lt;/strong&gt; 하드웨어 구성 요소(RAM, 키보드, 디스크 등)를 검사하고 초기화한다. 이를 &lt;strong&gt;POST(Power-On Self Test)&lt;/strong&gt;라고 한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;부트 디바이스 탐색:&lt;/strong&gt; 설정된 순서에 따라 부팅 가능한 저장 장치(HDD, SSD, USB 등)를 찾는다.&lt;/li&gt;
+  &lt;li&gt;⭐️ &lt;strong&gt;부트로더 실행:&lt;/strong&gt; 부팅 가능한 장치의 &lt;strong&gt;MBR(또는 UEFI 환경의 ESP - 여기서 ESP는 레지스터가 아닌 파티션을 말함)&lt;/strong&gt;에서 부트로더(예: &lt;strong&gt;&lt;a href=&quot;#grub&quot;&gt;GRUB&lt;/a&gt;, Windows Boot Manager&lt;/strong&gt; 등)를 메모리로 로드하고 실행한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;운영체제 로딩:&lt;/strong&gt; 부트로더는 &lt;strong&gt;커널 이미지&lt;/strong&gt;를 메모리에 적재하고, 운영체제 실행을 시작한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이 과정을 통해 저장 장치에 있는 운영체제를 CPU가 실행 가능한 상태로 만들 수 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;bios&quot;&gt;BIOS&lt;/h6&gt;
+
+&lt;p&gt;메인보드에 내장된 펌웨어로, 컴퓨터가 켜졌을 때 가장 먼저 실행되는 프로그램이며,&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;하드웨어 초기화(RAM, CPU, 키보드 등)&lt;/li&gt;
+  &lt;li&gt;부트 장치 탐색 및 부트스트랩 로더 실행&lt;/li&gt;
+  &lt;li&gt;간단한 I/O 인터페이스 제공
+의 역할을 수행한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;grub&quot;&gt;GRUB&lt;/h6&gt;
+
+&lt;p&gt;GNU GRUB(Grand Unified Bootloader)은 리눅스 및 기타 운영체제를 부팅할 수 있게 해주는 대표적인 &lt;strong&gt;부트로더&lt;/strong&gt;이다. BIOS 또는 UEFI가 부트로더를 메모리에 로드하면, GRUB은 사용자에게 운영체제 선택 메뉴를 제공하거나 자동으로 설정된 운영체제를 로드한다. GRUB은 멀티 부트 환경, 커널 파라미터 설정, 복구 모드 진입 등의 기능도 제공하며, 리눅스 배포판에서 널리 사용된다.&lt;/p&gt;
+
+&lt;h6 id=&quot;fetch&quot;&gt;Fetch&lt;/h6&gt;
+
+&lt;p&gt;CPU가 메모리에 저장된 명령어를 가져오는 과정을 말하며, 코드 조각이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;#program-counter&quot;&gt;프로그램 카운터(PC, Program Counter)&lt;/a&gt;&lt;/strong&gt; 가 다음에 실행할 명령어의 메모리 주소를 가리킨다.&lt;/li&gt;
+  &lt;li&gt;CPU 는 해당 주소 기반으로 메모리에서 명령어를 가져와 &lt;strong&gt;&lt;a href=&quot;#instruction-register&quot;&gt;Instruction Register(IR)&lt;/a&gt;&lt;/strong&gt; 에 저장한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h6 id=&quot;program-counter&quot;&gt;Program Counter&lt;/h6&gt;
+
+&lt;p&gt;CPU 내부에 있는 특수한 레지스터로, 다음에 실행할 명령어의 메모리 주소를 저장한다. Fetch 단계에서 이 값을 참조하여 메모리에서 명령어를 가져오고, 명령어가 실행된 후에는 자동으로 &lt;strong&gt;다음 명령어 주소로 증가&lt;/strong&gt;하거나, &lt;strong&gt;분기(branch) 명령에 따라 새로운 주소로 갱신&lt;/strong&gt;된다. 명령어 실행 흐름을 제어하는 핵심 요소이다.&lt;/p&gt;
+
+&lt;h6 id=&quot;instruction-register&quot;&gt;Instruction Register&lt;/h6&gt;
+
+&lt;p&gt;CPU 내부에 있는 레지스터로, 현재 &lt;strong&gt;실행 중인 명령어&lt;/strong&gt;를 저장한다. Fetch 단계에서 메모리로부터 가져온 명령어는 이 레지스터에 임시로 저장되며, 이후 &lt;strong&gt;Decode&lt;/strong&gt; 및 &lt;strong&gt;Execute&lt;/strong&gt; 단계에서 참조된다. 프로그램 카운터(PC)가 다음 명령어를 가리키는 반면, Instruction Register는 &lt;strong&gt;현재 실행될 명령어의 내용&lt;/strong&gt;을 담고 있다는 차이가 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;address-stream&quot;&gt;Address Stream&lt;/h6&gt;
+
+&lt;p&gt;CPU가 메모리에 접근할 때 발생하는 연속적인 주소의 흐름이다. 즉, 메모리 주소를 순서대로 참조, 점프하여 다음 메모리 주소를 참조의 여러과정을 통해 주소들이 시간의 흐름에 따라 나열된 형태를 주소 스트림이라고 한다.&lt;/p&gt;
+
+&lt;h6 id=&quot;tertiary-storage&quot;&gt;Tertiary Storage&lt;/h6&gt;
+
+&lt;p&gt;3차 저장장치는 주로 &lt;strong&gt;백업 및 아카이빙&lt;/strong&gt; 목적으로 사용되는 저장 장치이다. 접근 속도는 매우 느리지만, &lt;strong&gt;저장 용량이 크고 비용이 저렴&lt;/strong&gt;하다. 예로는 &lt;strong&gt;자기 테이프(magnetic tape)&lt;/strong&gt;, &lt;strong&gt;광디스크(optical disc)&lt;/strong&gt; 등이 있으며, 데이터를 장기간 보관하거나 자주 접근하지 않는 정보의 저장에 적합하다. 필요할 때만 로드되기 때문에 자동화된 장치(예: 테이프 라이브러리)를 사용하는 경우도 많다.&lt;/p&gt;
+
+&lt;h6 id=&quot;cache&quot;&gt;Cache&lt;/h6&gt;
+
+&lt;p&gt;자주 접근되는 데이터를 빠른 메모리에 미리 저장하여, 느린 메모리 접근을 줄이고 전체 시스템 응답 속도를 개선한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://namu.wiki/w/DRAM&quot;&gt;DRAM 나무위키&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/EEPROM#:~:text=%EC%9D%B4%20%EB%91%98%EC%9D%84%20%EA%B5%AC%EB%B6%84%ED%95%98%EB%8A%94,%EC%84%A4%EB%AA%85%ED%95%98%EB%8A%94%20%EB%8D%B0%20%EC%82%AC%EC%9A%A9%EB%90%A9%EB%8B%88%EB%8B%A4.&quot;&gt;EEPROM 위키백과&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html">컴퓨터의 데이터 저장이 어떻게 되는지 전반적인 구조를 본다.</summary></entry><entry><title type="html">보조. Component</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/subsidiary-component.html" rel="alternate" type="text/html" title="보조. Component" /><published>2025-06-09T09:45:16+00:00</published><updated>2025-06-09T09:45:16+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/subsidiary-component</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/subsidiary-component.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#service&quot;&gt;@Service&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#repository&quot;&gt;@Repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#controller&quot;&gt;@Controller&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#component-와-bean-과의-차이&quot;&gt;@Component 와 @Bean 과의 차이&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt; 는 클래스 위에 붙는 애너테이션이며, Spring 이 해당 클래스를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ComponentScan&lt;/code&gt; 시 자동으로 빈으로 등록하도록 만든다.&lt;/p&gt;
+
+&lt;p&gt;@Component 만이 아니라 이를 구현하는 다른 interface 또한 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;service&quot;&gt;@Service&lt;/h3&gt;
+
+&lt;p&gt;@Component의 특수한 형태로&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;비즈니스 로직을 수행하는 클래스에 사용&lt;/li&gt;
+  &lt;li&gt;@Component 의 기능을 포함하고 서비스 클래스 임을 명시&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;#aop&quot;&gt;AOP(예: 트랜잭션 처리)&lt;/a&gt;&lt;/strong&gt;와 같은 부가 기능을 적용할 수 있는 힌트로 활용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;OrderService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;processOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;repository&quot;&gt;@Repository&lt;/h3&gt;
+
+&lt;p&gt;@Component의 특수한 형태로&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터베이스에 접근하는 &lt;strong&gt;&lt;a href=&quot;#dao&quot;&gt;DAO(Data Access Object) 클래스&lt;/a&gt;&lt;/strong&gt;에 사용&lt;/li&gt;
+  &lt;li&gt;데이터 접근 계층에 대한 예외를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring DataAccessException&lt;/code&gt;으로 통일&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;#jpa&quot;&gt;JPA&lt;/a&gt;&lt;/strong&gt;나 &lt;strong&gt;&lt;a href=&quot;#mybatis&quot;&gt;MyBatis&lt;/a&gt;&lt;/strong&gt;와 같이 &lt;strong&gt;&lt;a href=&quot;#orm&quot;&gt;ORM&lt;/a&gt;&lt;/strong&gt; 또는 &lt;strong&gt;SQL 매퍼 라이브러리&lt;/strong&gt;와 함께 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;controller&quot;&gt;@Controller&lt;/h3&gt;
+
+&lt;p&gt;@Component의 특수한 형태로&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;웹 요청을 처리하는 프레젠테이션 계층(Controller Layer) 클래스에 사용&lt;/li&gt;
+  &lt;li&gt;Spring MVC에서 요청을 받아 처리하고 뷰에 결과를 반환하는 역할&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt; 등의 애너테이션과 함께 사용(나중에 나옴)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;component-와-bean-과의-차이&quot;&gt;@Component 와 @Bean 과의 차이&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;은 수동 등록이며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt; 클래스 내의 메서드에 붙여서 해당 메서드의 리턴값을 Bean 으로 등록한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;myService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MyService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이는 외부 라이브러리 클래스의 수정이 불가할 때, 즉 &lt;strong&gt;@Component 를 직접 사용할 수 없을 때 해당 외부 클래스를 Bean으로 등록하는 경우&lt;/strong&gt; 유용하다. 복잡한 초기화 로직이 필요한 객체를 생성하는 경우에도 사용한다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-글&quot;&gt;📁 관련 글&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/seonghun120614/java/spring/2025/06/09/4.-spring-boot-application-initialization&quot;&gt;4. Spring Boot Application Initialization&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;aop&quot;&gt;AOP&lt;/h6&gt;
+&lt;p&gt;관점 지향 프로그래밍(Aspect-Oriented Programming)의 줄임말로, 로깅, 트랜잭션, 보안 등 부가 기능을 핵심 로직과 분리하여 모듈화할 수 있게 해주는 프로그래밍 패러다임&lt;/p&gt;
+
+&lt;h6 id=&quot;jpa&quot;&gt;JPA&lt;/h6&gt;
+&lt;p&gt;자바 진영의 ORM(Object-Relational Mapping) 표준 인터페이스이며 개발자가 &lt;strong&gt;직접 SQL을 작성하지 않고도 Java 객체와 데이터베이스 테이블을 매핑&lt;/strong&gt;하여 다룰 수 있게 해준다.&lt;/p&gt;
+
+&lt;h6 id=&quot;dao&quot;&gt;DAO&lt;/h6&gt;
+&lt;p&gt;Data Access Object의 약자로, 데이터베이스에 접근하는 로직을 담당하는 객체이고 &lt;strong&gt;비즈니스 로직과 데이터 접근 로직을 분리하여 코드의 책임을 명확히&lt;/strong&gt; 할 수 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;mybatis&quot;&gt;MyBatis&lt;/h6&gt;
+&lt;p&gt;SQL 기반의 &lt;strong&gt;데이터 매퍼 프레임워크&lt;/strong&gt;로, XML 또는 애너테이션을 사용하여 SQL 문을 작성하고 Java 객체와 매핑한다. 복잡한 SQL 작성이 필요한 경우 유용하다.&lt;/p&gt;
+
+&lt;h6 id=&quot;mvc&quot;&gt;MVC&lt;/h6&gt;
+&lt;p&gt;Model-View-Controller의 약자로, 사용자 인터페이스와 로직을 분리하기 위한 소프트웨어 아키텍처 패턴이다. 전공 공부에서도 나오고, 정처기에서도 나온다.&lt;/p&gt;
+
+&lt;h6 id=&quot;orm&quot;&gt;ORM&lt;/h6&gt;
+&lt;p&gt;Object-Relational Mapping의 약자로, 객체 지향 프로그래밍 언어를 사용하여 &lt;strong&gt;관계형 데이터베이스의 데이터를 객체처럼 다룰 수 있게&lt;/strong&gt; 해주는 기술&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html"></summary></entry><entry><title type="html">4. Spring Boot Application Initialization</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/4.-spring-boot-application-initialization.html" rel="alternate" type="text/html" title="4. Spring Boot Application Initialization" /><published>2025-06-09T09:23:34+00:00</published><updated>2025-06-09T09:23:34+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/4.-spring-boot-application-initialization</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/4.-spring-boot-application-initialization.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;스프링 부트 어플리케이션을 시작하기 전에 특정 코드를 실행시켜야 함.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터베이스 초기화&lt;/li&gt;
+  &lt;li&gt;무거운 클래스 사전 로딩&lt;/li&gt;
+  &lt;li&gt;외부 REST API 연결 테스트&lt;/li&gt;
+  &lt;li&gt;외부 API 데이터 사전 로드&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위를 해결하기 위해 스프링 부트에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CommandLineRunner&lt;/code&gt; 인터페이스를 제공한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#commandlinerunner-로-스프링-부트-어플리케이션-시작-시-특정-코드-실행&quot;&gt;@CommandLineRunner 로 스프링 부트 어플리케이션 시작 시 특정 코드 실행&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;commandlinerunner-로-스프링-부트-어플리케이션-시작-시-특정-코드-실행&quot;&gt;@CommandLineRunner 로 스프링 부트 어플리케이션 시작 시 특정 코드 실행&lt;/h3&gt;
+
+&lt;p&gt;클래스가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CommandLineRunner&lt;/code&gt; 인터페이스를 구현하기만 한다면 클래스를 따로 둬서 사용할 수 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.core.annotation.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.stereotype.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomCommandLineRunner&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CommandLineRunner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\n\n\n\n\n This is Executed ! \n\n\n\n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Order&lt;/code&gt; 는 서로 같이 실행될때 누가 먼저 실행될지 우선순위를 부여하는 애너테이션이다.&lt;br /&gt;
+CommandLineRunner 구현체가 언제 실행되는지 궁금할 수 있는데, SpringApplication 이 빈 등록, 초기화 과정 등을 전부 끝마친 뒤에 수행하도록 되어 있기에 어떤 Bean 이든 주입 받아서 CommandLineRunner 컨텍스트에서 사용할 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;도서 &lt;a href=&quot;https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&amp;amp;srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK&quot;&gt;Spring Boot in Practice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-글&quot;&gt;📁 관련 글&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/seonghun120614/java/spring/2025/06/09/subsidiary-component&quot;&gt;보조. Component&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html"></summary></entry><entry><title type="html">보조. Lombok</title><link href="https://seonghun120614.github.io/seonghun120614/java/2025/06/09/subsidiary-lombok.html" rel="alternate" type="text/html" title="보조. Lombok" /><published>2025-06-09T07:47:48+00:00</published><updated>2025-06-09T07:47:48+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/2025/06/09/subsidiary-lombok</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/2025/06/09/subsidiary-lombok.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;Java 의 구조가 유사한 Constructor, Getter, Setter, toString, equalsTo 등등의 보일러플레이트 코드가 매우 빈번히 발생한다. 이를 위해 Lombok 에서 애너테이션을 추가하는 것만으로 클래스 자체에 보일러플레이트 코드들을 획기적으로 줄일 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#requiredargsconstructor&quot;&gt;@RequiredArgsConsturctor&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#builder&quot;&gt;@Builder&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#data&quot;&gt;@Data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;Lombok 은 Java 에서 반복적으로 작성해야 하는 보일러플레이트 코드를 줄이기 위한 라이브러리이다.&lt;br /&gt;
+읽기전에 밑의 기본적인 애너테이션은 숙지하고 간다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;애너테이션&lt;/th&gt;
+      &lt;th&gt;기능 설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Getter&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Setter&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;각 필드에 대해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getter&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setter&lt;/code&gt; 자동 생성&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ToString&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;객체의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toString()&lt;/code&gt; 메서드 자동 생성&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EqualsAndHashCode&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;equals()&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hashCode()&lt;/code&gt; 메서드 자동 생성&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@NoArgsConstructor&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;파라미터가 없는 기본 생성자 자동 생성&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@AllArgsConstructor&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;모든 필드를 포함하는 생성자 자동 생성&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;requiredargsconstructor&quot;&gt;@RequiredArgsConstructor&lt;/h3&gt;
+
+&lt;p&gt;생성자가 전부 필요한 것, 전부 필요없는 것 뿐 아니라 필요한 필드만 생성자로 추가하도록 할 수도 있다.&lt;br /&gt;
+final, @NonNull 이 붙으면 무조건 Lombok 은 RequiredArgsConstructor의 생성자의 인자로 등록해준다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@RequiredArgsConstructor&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@NonNull&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 이건 포함 안됨&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;@NotEmpty, @NotNull 은 다른 패키지의 validation 애너테이션이다. 주의하자.&lt;/p&gt;
+
+&lt;h3 id=&quot;builder&quot;&gt;@Builder&lt;/h3&gt;
+
+&lt;p&gt;빌더 패턴 메서드를 자동 생성한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// User.class&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;lombok.Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;lombok.ToString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Builder&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@ToString&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Main.class&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Main&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;홍길동&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hong@example.com&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;data&quot;&gt;@Data&lt;/h3&gt;
+
+&lt;p&gt;@Data = @Getter + @Setter + @ToString + @EqualsAndHashCode + @RequiredArgsConstructor&lt;br /&gt;
+다른 설명은 하지 않겠다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-글&quot;&gt;📁 관련 글&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/seonghun120614/java/spring/2025/06/09/3.-spring-boot-custom-property.html&quot;&gt;3. Spring Boot Custom Property&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><summary type="html"></summary></entry><entry><title type="html">보조. Nested Class</title><link href="https://seonghun120614.github.io/seonghun120614/java/2025/06/09/subsidiary-nested-class.html" rel="alternate" type="text/html" title="보조. Nested Class" /><published>2025-06-09T07:47:41+00:00</published><updated>2025-06-09T07:47:41+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/2025/06/09/subsidiary-nested-class</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/2025/06/09/subsidiary-nested-class.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;p&gt;Java 의 특정 클래스에는 다른 클래스가 없다면 아무 쓸모가 없는 클래스가 있을 수 있다.&lt;br /&gt;
+가령 다음 Entry 라는 클래스를 보자.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Map.class&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Entry.class&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Entry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Map 안의 구성요소로 자리잡은 Entry 는 다른 클래스에선 전혀 쓸모가 없는 클래스가 된다.
+이렇게 된다면 파일 구조 자체를 Entry 를 따로 만들 필요 없고, 이는 &lt;strong&gt;응집도(Cohesion)&lt;/strong&gt;가 떨어지는 구조가 된다.&lt;/p&gt;
+
+&lt;p&gt;따라서 Java 에서는 이를 위해 Nested Class 를 지원한다&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#nested-class-의-사용으로-인한-logical-grouping&quot;&gt;Nested Class 의 사용으로 인한 Logical Grouping&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#encapsulation-와-노출-최소화&quot;&gt;Encapsulation 와 노출 최소화&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#static-을-통한-상태를-공유할지-말지-명시적-선택-가능&quot;&gt;static 을 통한 상태를 공유할지 말지 명시적 선택 가능&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#nested-class-의-용도&quot;&gt;Nested Class 의 용도&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;nested-class-의-사용으로-인한-logical-grouping&quot;&gt;Nested Class 의 사용으로 인한 Logical Grouping&lt;/h3&gt;
+
+&lt;p&gt;위 클래스를 아래와 같이 바꾸자:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Map.class&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Entry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;결과적으로 &lt;strong&gt;응집도가 높아지며&lt;/strong&gt;, 읽는 사람의 눈에도 한눈에 파악할 수 있게 된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;encapsulation-와-노출-최소화&quot;&gt;Encapsulation 와 노출 최소화&lt;/h3&gt;
+
+&lt;p&gt;외부적으로 이를 쓰는 클래스는 굳이 절대 쓸 일 없는 보조 클래스인 Entry 가 어떻게 흘러가는지 알 필요가 없다. 따라서 다음과 같이 바꿀 수도 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Map.class&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Entry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이를 통해 API 인터페이스 surface 를 줄이고, &lt;strong&gt;유지보수성&lt;/strong&gt;을 가져가게 된다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;static-을-통한-상태를-공유할지-말지-명시적-선택-가능&quot;&gt;static 을 통한 상태를 공유할지 말지 명시적 선택 가능&lt;/h3&gt;
+
+&lt;p&gt;static 이면 독립적인 클래스로(상위 클래스에 종속되지 않음), 바깥 인스턴스 없이도 동작한다. non-static 이면 outer class 의 인스턴스 상태에 의존한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// Map.class&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Entry&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Entry 는 굳이 독립적으로 존재하면 안되기에 static 을 빼준다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;nested-class-의-용도&quot;&gt;Nested Class 의 용도&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;외부 클래스의 인스턴스 없이도 의미가 있을 때&lt;/li&gt;
+  &lt;li&gt;Builder, DTO 구조화, Enum 안의 상태 표현 등에 쓰이게 된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-글&quot;&gt;📁 관련 글&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/seonghun120614/java/spring/2025/06/09/3.-spring-boot-custom-property.html&quot;&gt;3. Spring Boot Custom Property&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><summary type="html"></summary></entry><entry><title type="html">3. Spring Boot Custom Property</title><link href="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/3.-spring-boot-custom-property.html" rel="alternate" type="text/html" title="3. Spring Boot Custom Property" /><published>2025-06-09T06:57:34+00:00</published><updated>2025-06-09T06:57:34+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/3.-spring-boot-custom-property</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/java/spring/2025/06/09/3.-spring-boot-custom-property.html">&lt;!--more--&gt;
+
+&lt;p&gt;어플리케이션 정보를 properties 에서 key-value 로 지정할 수 있는 property 는 두 종류로 나눌 수 있다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;built-in property: Spring Boot 에서 자동으로 제공하는 property&lt;/li&gt;
+  &lt;li&gt;custom property: 사용자가 임의로 정하는 property, 필요한 만큼 사용이 가능&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이전까지는 built-in property 들을 보았지만, 이제부터는 custom property 들을 본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#configurationproperties-를-사용하여-커스텀-프로퍼티-정의&quot;&gt;@ConfigurationProperties 를 사용하여 커스텀 프로퍼티 정의&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#enableconfigurationproperties-로-bean-등록하기&quot;&gt;@EnableConfigurationProperties 로 Bean 등록하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;앞서서 Environment 인스턴스에 바인딩 되는 프로퍼티들을 출력해보았는데 Environment 인스턴스를 자동주입(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;)하고 프로퍼티 값들을 읽고 사용할 수 있기 때문에 어디서든 Environment 를 주입 받아서 프로퍼티를 읽어올 수 있다.&lt;/p&gt;
+
+&lt;p&gt;여기서 Environment 는 런타임에 한해서만 존재되는 인스턴스, 빈이다. 이렇듯 properties 를 파일로 선언하여 Env 로 가져오면 편리하지만 몇 가지 단점이 있다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로퍼티 값의 &lt;strong&gt;타입 안전성(type-safety)&lt;/strong&gt;이 보장되지 않음(URL인지 아닌지, 이메일 주소 인지 아닌지) -&amp;gt; 런타임 에러가 발생 우려&lt;/li&gt;
+  &lt;li&gt;프로퍼티 값을 일정 단위로 묶어서 읽을 수 없고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt; 애너테이션이나 스프링의 Environment 인스턴스를 사용해서 하나하나 개별적으로만 읽을 수 있음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이를 방지하기 위해 커스텀 프로퍼티를 사용해 &lt;strong&gt;type-safety&lt;/strong&gt; 와 &lt;strong&gt;valiation&lt;/strong&gt;, 그리고 여러 개를 한꺼번에 가져올 수 있게 해야 한다.&lt;/p&gt;
+
+&lt;p&gt;이에 대한 방법은 여러가지 이다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;configurationproperties-를-사용하여-커스텀-프로퍼티-정의&quot;&gt;@ConfigurationProperties 를 사용하여 커스텀 프로퍼티 정의&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ConfigurationProperties&lt;/code&gt; 애너테이션을 사용하면 특정 prefix 에 대한 프로퍼티 정보를 담는 클래스를 만들 수 있고, 이를 통해 값을 보장하고 유효성을 검증한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt; 애너테이션을 사용하거나 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Environment&lt;/code&gt; 빈을 자동 주입 받지 않아도 되는 방법이다.&lt;/p&gt;
+
+&lt;p&gt;우선 custom property 로 쓸 것들을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;application.properties&lt;/code&gt; 에 넣어주자&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span class=&quot;py&quot;&gt;app.sbip.ct.name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;StudyApplication&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;app.sbip.ct.ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;127.0.0.1&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;app.sbip.ct.port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;9090&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;app.sbip.ct.security.enabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;app.sbip.ct.security.token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;abc123&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;app.sbip.ct.security.roles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;USER,ADMIN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;위 property 는 전부 app.sbip.ct 의 prefix를 가진다. CustomProperties.class 하나를 생성하여 다음을 입력하자. 여기서는 Getter, Setter 등등의 &lt;strong&gt;&lt;a href=&quot;#보일러플레이트-코드&quot;&gt;보일러플레이트 코드(boilerplate code)&lt;/a&gt;&lt;/strong&gt;의 불편성을 위해 &lt;a href=&quot;#lombok&quot;&gt;&lt;strong&gt;Lombok&lt;/strong&gt;&lt;/a&gt; 을 사용했다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;lombok.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.context.properties.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@AllArgsConstructor&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Getter&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@ToString&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@ConfigurationProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;app.sbip.ct&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomProperties&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Security&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;security&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@AllArgsConstructor&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Getter&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@ToString&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Security&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;위처럼 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.sbip.ct&lt;/code&gt; 인 프로퍼티만 읽을 수 있고, 더 세부적으로 .으로 나뉘었다면, 그 안에 public static class를 선언하여 할 수도 있다(&lt;a href=&quot;/seonghun120614/java/2025/06/09/subsidiary-nested-class&quot;&gt;public static 으로 nested class 를 선언하는 이유&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;지금은 Lombok 을 써서 인자들을 가져오지만 원한다면 생성자에서 검증하는 코드를 넣을 수도 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;enableconfigurationproperties-로-bean-등록하기&quot;&gt;@EnableConfigurationProperties 로 Bean 등록하기&lt;/h3&gt;
+
+&lt;p&gt;기본적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ConfigurationProperties&lt;/code&gt; 에는 Bean 으로 등록하는 메커니즘이 없다.&lt;br /&gt;
+다음 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CustomService&lt;/code&gt; 클래스를 만들어 Bean이 자동 주입되는지 살펴보자.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.example.study.properties.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;lombok.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.beans.factory.annotation.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.stereotype.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Service&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Getter&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CustomProperties&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CustomService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomProperties&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;customProperties&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이제 아래와 같이 작성한다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@EnableConfigurationProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DemoApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;SpringApplication 을 밑과 같이 작성하여 실행해보고 실행하면&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DemoApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DemoApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;ConfigurableApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;springApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Consider defining a bean of type &apos;com.example.study.properties.CustomProperties&apos; in your configuration.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;와 같은 메시지를 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ConfigurationProperties&lt;/code&gt; 자체에 아래와 같이 interface 가 구현되고 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TYPE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ElementType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;METHOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Retention&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;RetentionPolicy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNTIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Documented&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Indexed&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ConfigurationProperties&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이는 그냥 프로퍼티를 만들고 어플리케이션에 적용을 안한 것과 같다. 선언한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CustomProperties&lt;/code&gt;를 적용하고 싶은 Application의 클래스에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@EnableConfigurationProperties&lt;/code&gt; 애너테이션을 사용하여 Bean 으로 등록할 수 있다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@EnableConfigurationProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DemoApplication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;customService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CustomService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\n\n\ngetCustomProperties&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getCustomProperties&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\n\n\n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;이제 Bean 이 제대로 불러와짐을 알 수 있고, 출력 또한 잘 되는 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-출처&quot;&gt;🔗 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;도서 &lt;a href=&quot;https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=279280319&amp;amp;srsltid=AfmBOoqOq7s5PrLMTe6aMGBXVD7AjNczIgN0e57lelyEY76kueqPkxeK&quot;&gt;Spring Boot in Practice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-글&quot;&gt;📁 관련 글&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/seonghun120614/java/2025/06/09/subsidiary-lombok&quot;&gt;보조. Lombok&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/seonghun120614/java/2025/06/09/subsidiary-nested-class&quot;&gt;보조. Nested Class&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;보일러플레이트-코드&quot;&gt;보일러플레이트 코드&lt;/h6&gt;
+
+&lt;p&gt;항상 비슷한 형태로 여기저기 반복적으로 작성해야 하는 코드이며 기능 구현과는 큰 관련이 없지만, 기능이나 구현에 있어서 자주 사용하여 필수적으로 작성해야하는 코드를 말한다. 예시로는 생성자, Getter, Setter 등이 있다.&lt;/p&gt;
+
+&lt;h6 id=&quot;lombok&quot;&gt;Lombok&lt;/h6&gt;
+
+&lt;p&gt;보일러플레이트 코드를 줄일 수 있도록 애너테이션을 지원해주는 패키지이다. 의존성 추가를 통해 사용가능하다.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compileOnly&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;projectlombok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;lombok:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;최신&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;버전&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;annotationProcessor&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;projectlombok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lombok&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;최신&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;버전&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;따로 &lt;a href=&quot;/seonghun120614/java/2025/06/09/subsidiary-lombok&quot;&gt;Lombok 을 정리한 글&lt;/a&gt;이다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="Java" /><category term="Spring" /><summary type="html"></summary></entry></feed>
