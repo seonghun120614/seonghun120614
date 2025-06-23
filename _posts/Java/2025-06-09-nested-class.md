@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  보조. Nested Class
+title:  Nested Class
 date:   2025-06-09 16:47:41 +0900
 categories: Java
 ---
