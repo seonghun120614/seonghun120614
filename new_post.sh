@@ -28,6 +28,7 @@ categories: CATEGORIES_PLACEHOLDER
 ## 📂 목차
 - []()
 - []()
+
 ---
 
 ## 📚 본문
