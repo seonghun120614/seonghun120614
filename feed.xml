@@ -1,0 +1,1254 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="https://seonghun120614.github.io/seonghun120614/feed.xml" rel="self" type="application/atom+xml" /><link href="https://seonghun120614.github.io/seonghun120614/" rel="alternate" type="text/html" /><updated>2025-07-10T12:05:20+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/feed.xml</id><title type="html">Seonghun’s Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</subtitle><author><name>Seonghun Park</name></author><entry><title type="html">정보처리기사 실기 제품 소프트웨어 패키징 정리</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%A0%9C%ED%92%88-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%ED%8C%A8%ED%82%A4%EC%A7%95-%EC%A0%95%EB%A6%AC.html" rel="alternate" type="text/html" title="정보처리기사 실기 제품 소프트웨어 패키징 정리" /><published>2025-07-10T11:36:53+00:00</published><updated>2025-07-10T11:36:53+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%A0%9C%ED%92%88-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%ED%8C%A8%ED%82%A4%EC%A7%95-%EC%A0%95%EB%A6%AC</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%A0%9C%ED%92%88-%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%ED%8C%A8%ED%82%A4%EC%A7%95-%EC%A0%95%EB%A6%AC.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;어플리케이션-배포-도구-세부-기술&quot;&gt;어플리케이션 배포 도구 세부 기술&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;공개키 기반 구조: (보안에서 다룸)&lt;/li&gt;
+  &lt;li&gt;대칭 및 비대칭 암호화: (보안에서 다룸)&lt;/li&gt;
+  &lt;li&gt;전자서명: 특정 전자문서에 첨부되거나 논리적으로 결합된 전자적 형태의 정보&lt;/li&gt;
+  &lt;li&gt;DOI: 바코드 시스템&lt;/li&gt;
+  &lt;li&gt;URI: 인터넷에 있는 자원의 유일한 주소&lt;/li&gt;
+  &lt;li&gt;XrML: 콘텐츠/서비스의 권리 표현을 위한 XML 기반 마크업 언어&lt;/li&gt;
+  &lt;li&gt;MPEG-21: 멀티미디어 관련&lt;/li&gt;
+  &lt;li&gt;XML: W3C에서 개발한 특수한 목적의 마크업 언어를 만드는 데 사용하도록 만든 다목적 마크업 언어&lt;/li&gt;
+  &lt;li&gt;CMS: 다양한 미디어 포맷을 생성, 수집, 관리, 배급 까지의 공급 전의 전 과정을 관리하는 시스템&lt;/li&gt;
+  &lt;li&gt;코드 난독화: 역공학을 막기 위해 소스 코드 indent 와 띄어쓰기 다 생략 등등&lt;/li&gt;
+  &lt;li&gt;Secure DB: 커널 암호화 방식으로 DB 파일을 직접 암호화&lt;/li&gt;
+  &lt;li&gt;SSO: 한 번의 시스템 인증을 통해 여러 정보시스템에 재인증 절차 없이 접근 가능&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;drm&quot;&gt;DRM&lt;/h3&gt;
+
+&lt;p&gt;디지털 콘텐츠의 권리정보를 지정 후 암호화 기술을 사용하여 허가된 사용자 만이 권한 범위 내에서 콘텐츠 이용이 가능&lt;/p&gt;
+
+&lt;h3 id=&quot;isoiec-9126-소프트웨어-품질-특성&quot;&gt;ISO/IEC 9126 소프트웨어 품질 특성&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;기능성: 요구사항 만족하는지&lt;/li&gt;
+  &lt;li&gt;신뢰성: 주어진 시간 동안 주어진 기능을 오류 없이 수행하는지&lt;/li&gt;
+  &lt;li&gt;사용성: 사용자가 이해하고 학습하고 선호하는 소프트웨어인지&lt;/li&gt;
+  &lt;li&gt;효율성: 자원의 양에 따라 요구된 성능을 제공하는지&lt;/li&gt;
+  &lt;li&gt;유지보수성: 수정/개선/개작 을 통해 변경되는 능력&lt;/li&gt;
+  &lt;li&gt;이식성: 하나 이상의 하드웨어에서 쉽게 수정될 수 있는 시스템 능력&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;isoiec-14598-소프트웨어-품질-특성&quot;&gt;ISO/IEC 14598 소프트웨어 품질 특성&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;반복성: 특정 제품을 동일 평가자가 동일 사양으로 평가시 동일한 결과가 나와야 함&lt;/li&gt;
+  &lt;li&gt;재현성: 특정 제품을 다른 평가자가 동일 사양을 평가하면 유사한 결과가 나와야 함&lt;/li&gt;
+  &lt;li&gt;공정성: 평가가 특정 결과에 편항되면 안됨&lt;/li&gt;
+  &lt;li&gt;객관성: 평가가 객관적 자료에 의해서 평가되어야 함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;squareisoiec-25000&quot;&gt;SQuaRE(ISO/IEC 25000)&lt;/h3&gt;
+
+&lt;p&gt;소프트웨어 품질 특성 및 품질 평가 방법을 통합한 소프트웨어 품질 평가 모델&lt;/p&gt;
+
+&lt;h3 id=&quot;소프트웨어-공학-관련-법칙&quot;&gt;소프트웨어 공학 관련 법칙&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;브룩스의 법칙: 지체되는 소프트웨어 개발에 인력을 추가하면 개발을 늦출 뿐이다(마비노기 모바일 - 내부 조직 구조 변경이 있었음 무려 8년의 개발이 걸림).&lt;/li&gt;
+  &lt;li&gt;파레토 법칙: 결과의 80%가 전체 원인의 20%에서 일어나는 현상 다시 말해 오류로 결과가 나면 모듈의 20% 에서 80% 의 결함이 발견됨&lt;/li&gt;
+  &lt;li&gt;롱테일 법칙: 80%의 다수가 20%의 소수 핵심 인력보다도 뛰어난 가치를 창출해낸다는 법칙, 파레토의 반대 법칙&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;빌드-자동화-구성-요소&quot;&gt;빌드 자동화 구성 요소&lt;/h3&gt;
+
+&lt;p&gt;그냥 외우자&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CI: Jenkins, Hudson, Git Actions, …&lt;/li&gt;
+  &lt;li&gt;SCM: SVN, Git, …&lt;/li&gt;
+  &lt;li&gt;Build Tool: Ant, Maven, Gradle, …&lt;/li&gt;
+  &lt;li&gt;Test Tool: Junit, Selenium, PyTest, …&lt;/li&gt;
+  &lt;li&gt;Test Coverage Tool: Emma, …&lt;/li&gt;
+  &lt;li&gt;Inspection Tool: CheckStyle, Cppcheck, …&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;p&gt;######&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-출처&quot;&gt;🔗 관련 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="정보처리기사" /><summary type="html"></summary></entry><entry><title type="html">정보처리기사 실기 통합 구현 정리</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%ED%86%B5%ED%95%A9-%EA%B5%AC%ED%98%84-%EC%A0%95%EB%A6%AC.html" rel="alternate" type="text/html" title="정보처리기사 실기 통합 구현 정리" /><published>2025-07-10T11:24:02+00:00</published><updated>2025-07-10T11:24:02+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%ED%86%B5%ED%95%A9-%EA%B5%AC%ED%98%84-%EC%A0%95%EB%A6%AC</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%ED%86%B5%ED%95%A9-%EA%B5%AC%ED%98%84-%EC%A0%95%EB%A6%AC.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;단위-모듈-구현의-원리&quot;&gt;단위 모듈 구현의 원리&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정보 은닉&lt;/li&gt;
+  &lt;li&gt;분할과 정복&lt;/li&gt;
+  &lt;li&gt;데이터 추상화&lt;/li&gt;
+  &lt;li&gt;모듈 독립성&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;재사용-기법&quot;&gt;재사용 기법&lt;/h3&gt;
+
+&lt;h4 id=&quot;재공학&quot;&gt;재공학&lt;/h4&gt;
+
+&lt;p&gt;기존 소프트웨어를 버리지 않고 기능을 개선시키거나 기능을 새로운 소프트웨어로 재활용&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;분석&lt;/li&gt;
+  &lt;li&gt;재구조&lt;/li&gt;
+  &lt;li&gt;역공학&lt;/li&gt;
+  &lt;li&gt;이식&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;재개발&quot;&gt;재개발&lt;/h4&gt;
+
+&lt;p&gt;기존 시스템 내용을 참조하여 완전히 새로운 시스템 개발&lt;/p&gt;
+
+&lt;h4 id=&quot;단위-모듈-테스트-종류&quot;&gt;단위 모듈 테스트 종류&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;블랙박스 테스트: 입력과 결과만 보는 것&lt;/li&gt;
+  &lt;li&gt;화이트박스 테스트: 모듈 내부 소스를 보며 수행&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;각종-기능-및-도구&quot;&gt;각종 기능 및 도구&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JDBC: DB에 접속할 수 있도록 자바에서 인터페이스 제공&lt;/li&gt;
+  &lt;li&gt;ODBC: MS에서 만든 데이터베이스에 접근하기 위한 소퍼트웨어의 표준 규격&lt;/li&gt;
+  &lt;li&gt;JIRA: 프로젝트 이슈 트래킹 기반 협업 도구&lt;/li&gt;
+  &lt;li&gt;CVS: 중앙 집중 서버 저장소를 두고 클라이언트가 접속하여 버전 관리&lt;/li&gt;
+  &lt;li&gt;SVN: 클라이언트-서버 방식으로 CVS의 단점을 보완, 롤백 가능&lt;/li&gt;
+  &lt;li&gt;Git: 설명 생략&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="정보처리기사" /><summary type="html"></summary></entry><entry><title type="html">정보처리기사 실기 인터페이스 구현 정리</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B5%AC%ED%98%84-%EC%A0%95%EB%A6%AC.html" rel="alternate" type="text/html" title="정보처리기사 실기 인터페이스 구현 정리" /><published>2025-07-10T10:57:24+00:00</published><updated>2025-07-10T10:57:24+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B5%AC%ED%98%84-%EC%A0%95%EB%A6%AC</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/10/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EA%B5%AC%ED%98%84-%EC%A0%95%EB%A6%AC.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#내외부-인터페이스-요구사항의-분류&quot;&gt;내/외부 인터페이스 요구사항의 분류&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#요구사항-개발-단계&quot;&gt;요구사항 개발 단계&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#요구사항-도출-기법&quot;&gt;요구사항 도출 기법&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#요구사항-명세-기법&quot;&gt;요구사항 명세 기법&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#비정형-명세-기법&quot;&gt;비정형 명세 기법&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#정형-명세-기법&quot;&gt;정형 명세 기법&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#요구사항-확인-및-검증-기법&quot;&gt;요구사항 확인 및 검증 기법&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#정형-기술-검토-기법&quot;&gt;정형 기술 검토 기법&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#시스템-구성요소&quot;&gt;시스템 구성요소&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;내외부-인터페이스-요구사항의-분류&quot;&gt;내/외부 인터페이스 요구사항의 분류&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;기능 요구사항: 기능과 관련하여 소프트웨어가 가져야 하는 기능적 속성에 대한 요구사항&lt;/li&gt;
+  &lt;li&gt;비기능 요구사항: 기능적 속성이 아닌 성능, 보안, 품질 등에 대한 요구사항&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;요구사항-개발-단계&quot;&gt;요구사항 개발 단계&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;도출&lt;/li&gt;
+  &lt;li&gt;분석&lt;/li&gt;
+  &lt;li&gt;명세&lt;/li&gt;
+  &lt;li&gt;확인 및 검증&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;요구사항-도출-기법&quot;&gt;요구사항 도출 기법&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;인터뷰: 이해관계자 대화&lt;/li&gt;
+  &lt;li&gt;브레인 스토밍: 편안한 분위기의 아이디어 회의&lt;/li&gt;
+  &lt;li&gt;델파이 기법: 전문가의 지식&lt;/li&gt;
+  &lt;li&gt;롤 플레잉: 각자 맡은 역을 연기&lt;/li&gt;
+  &lt;li&gt;워크숍: 모든 핵심 인물이 참여하여 공유&lt;/li&gt;
+  &lt;li&gt;설문조사: 설문, 여론조사&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;요구사항-명세-기법&quot;&gt;요구사항 명세 기법&lt;/h3&gt;
+
+&lt;h4 id=&quot;비정형-명세-기법&quot;&gt;비정형 명세 기법&lt;/h4&gt;
+
+&lt;p&gt;자연어 기반으로 서술&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;FSM&lt;/li&gt;
+  &lt;li&gt;Decision Table&lt;/li&gt;
+  &lt;li&gt;E-R Modeling&lt;/li&gt;
+  &lt;li&gt;State Chart&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;정형-명세-기법&quot;&gt;정형 명세 기법&lt;/h4&gt;
+
+&lt;p&gt;수학적 원리와 표기법을 이용하여 서술&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;VDM&lt;/li&gt;
+  &lt;li&gt;Z-Schema&lt;/li&gt;
+  &lt;li&gt;Petri-Nets&lt;/li&gt;
+  &lt;li&gt;CSP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;요구사항-확인-및-검증-기법&quot;&gt;요구사항 확인 및 검증 기법&lt;/h3&gt;
+
+&lt;h4 id=&quot;정형-기술-검토-기법&quot;&gt;정형 기술 검토 기법&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;동료 검토: 동료 2-3 명이 진행하는 리뷰&lt;/li&gt;
+  &lt;li&gt;워크 스루: 회의 전에 배포해서 사전검토한 후 짧은 시간 동안 회의를 진행&lt;/li&gt;
+  &lt;li&gt;인스펙션: 계획 → 사전 교육 → 준비 → 인스펙션 회의 → 수정 → 후속 조치&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;시스템-구성요소&quot;&gt;시스템 구성요소&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Input: 데이터&lt;/li&gt;
+  &lt;li&gt;Output: 결과&lt;/li&gt;
+  &lt;li&gt;Process: 처리 방법, 조건&lt;/li&gt;
+  &lt;li&gt;Control: 감독&lt;/li&gt;
+  &lt;li&gt;Feedback: 반복 개선&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="정보처리기사" /><summary type="html"></summary></entry><entry><title type="html">정보처리기사 실기 어플리케이션 설계 정리</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%84%A4%EA%B3%84-%EC%A0%95%EB%A6%AC.html" rel="alternate" type="text/html" title="정보처리기사 실기 어플리케이션 설계 정리" /><published>2025-07-09T11:08:10+00:00</published><updated>2025-07-09T11:08:10+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%84%A4%EA%B3%84-%EC%A0%95%EB%A6%AC</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%84%A4%EA%B3%84-%EC%A0%95%EB%A6%AC.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#재사용-유형&quot;&gt;재사용 유형&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#모듈&quot;&gt;모듈&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#공통-모듈-원칙&quot;&gt;공통 모듈 원칙&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#모듈화-기법&quot;&gt;모듈화 기법&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#모듈-개수-비용-간-상관관계&quot;&gt;모듈 개수-비용 간 상관관계&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#응집도&quot;&gt;응집도&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#결합도&quot;&gt;결합도&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#팬인-및-팬아웃&quot;&gt;팬인 및 팬아웃&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#소프트웨어-아키텍쳐-비용-평가-모델-종류&quot;&gt;소프트웨어 아키텍쳐 비용 평가 모델 종류&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#소프트웨어-아키텍처-패턴-유형&quot;&gt;소프트웨어 아키텍처 패턴 유형&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#객체-지향-기법&quot;&gt;객체 지향 기법&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#객체-지향-설계-원칙solid&quot;&gt;객체 지향 설계 원칙(SOLID)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#객체-지향-방법론-종류&quot;&gt;객체 지향 방법론 종류&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#️-디자인-패턴&quot;&gt;⭐️ 디자인 패턴&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#생성-패턴&quot;&gt;생성 패턴&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#구조-패턴&quot;&gt;구조 패턴&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#행위-패턴&quot;&gt;행위 패턴&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;재사용-유형&quot;&gt;재사용 유형&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;함수와 객체&lt;/li&gt;
+  &lt;li&gt;컴포넌트&lt;/li&gt;
+  &lt;li&gt;어플리케이션&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;모듈&quot;&gt;모듈&lt;/h3&gt;
+
+&lt;p&gt;자체적으로 컴파일 가능&lt;/p&gt;
+
+&lt;h3 id=&quot;공통-모듈-원칙&quot;&gt;공통 모듈 원칙&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정확성: 실제 시스템 구현 시 필요한지 아닌지를 알 수 있도록 정확하게 작성&lt;/li&gt;
+  &lt;li&gt;명확성: 일관되게 이해되고 한 가지로 해석될 수 있게 작성&lt;/li&gt;
+  &lt;li&gt;완전성: 필요하고 요구되는 모든 것을 기술&lt;/li&gt;
+  &lt;li&gt;일관성: 상호 충돌이 없도록 작성&lt;/li&gt;
+  &lt;li&gt;추적성: 공농 기능에 대한 요구사항 출처와 관련 시스템 등의 유기적 관계에 대한 식별 가능하도록 작성&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;모듈화-기법&quot;&gt;모듈화 기법&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;루틴: 특정 동작을 수행하는 일련의 코드로 기능을 가진 명령들의 모임&lt;/li&gt;
+  &lt;li&gt;메인루틴: 전체적인 동작 절차를 표시하도록 만들어진 루틴&lt;/li&gt;
+  &lt;li&gt;서브 루틴: 메인 루틴에 의해 호출되는 루틴&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;모듈-개수-비용-간-상관관계&quot;&gt;모듈 개수-비용 간 상관관계&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;모듈 개수가 늘어나면, 모듈 통합 비용은 커지며, 개발 비용은 줄어듦&lt;/li&gt;
+  &lt;li&gt;모듈 개수가 적어지면, 모듈 통합 비용은 줄지만, 개발 비용은 늘어남&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;응집도&quot;&gt;응집도&lt;/h3&gt;
+
+&lt;p&gt;모듈 내부 구성요소 간의 연관 정도&lt;/p&gt;
+
+&lt;p&gt;외우기 - 우논시절통순기&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;우연적(Coincidental) 응집도 - 서로 간에 어떠한 의미 있는 연관이 없을때&lt;/li&gt;
+  &lt;li&gt;논리적(Logical) 응집도 - 유사한 성격을 갖거나 특정 형태로 분류되는 처리요소들이 한 모듈에서 처리됨&lt;/li&gt;
+  &lt;li&gt;시간적(Temporal) 응집도 - 특정 시간에 처리되어야 하는 활동들을 한 모듈에서 처리&lt;/li&gt;
+  &lt;li&gt;절차적(Procedural) 응집도 - 구성요소들이 순차적으로 수행&lt;/li&gt;
+  &lt;li&gt;통신적(Communication) 응집도 - 동일한 입력과 출력을 사용하여 다른 기능을 수행하는 활동들이 모여 있음&lt;/li&gt;
+  &lt;li&gt;순차적(Sequential) 응집도 - 한 활동으로부터 나온 출력값을 다른 활동이 사용할 경우&lt;/li&gt;
+  &lt;li&gt;기능적(Functional) 응집도 - 모든 기능이 단일한 목적을 위해 수행&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;기준은 ‘한 모듈’&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;결합도&quot;&gt;결합도&lt;/h3&gt;
+
+&lt;p&gt;모듈과 모듈간의 상호의존성을 나타냄&lt;/p&gt;
+
+&lt;p&gt;외우기 - 내공외제스자&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;내용(Content) 결합도 - 다른 모듈의 변수나 기능을 다른 모듈에서 사용하는 경우&lt;/li&gt;
+  &lt;li&gt;공통(Common) 결합도 - 모듈 밖의 전역 변수를 참조하고 갱신하는 식의 상호작용&lt;/li&gt;
+  &lt;li&gt;외부(External) 결합도 - 데이터 포맷, 통신 프로토콜/디바이스 인터페이스를 공유할 경우&lt;/li&gt;
+  &lt;li&gt;제어(Control) 결합도 - 내부 논리 조직을 제어하기 위한 목적으로 제어 신호 이용&lt;/li&gt;
+  &lt;li&gt;스탬프(Stamp) 결합도 - 모듈 간 인터페이스로 객체, 구조 등이 전달되는 경우&lt;/li&gt;
+  &lt;li&gt;자료(Data) 결합도 - 전달되는 파라미터를 통해서만 모듈 간의 상호작용이 일어남&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;팬인-및-팬아웃&quot;&gt;팬인 및 팬아웃&lt;/h3&gt;
+
+&lt;p&gt;팬인: 어떤 모듈을 제어하는 모듈 수
+팬아웃: 어떤 모듈에 의해 제어되는 모듈 수&lt;/p&gt;
+
+&lt;h3 id=&quot;소프트웨어-아키텍쳐-비용-평가-모델-종류&quot;&gt;소프트웨어 아키텍쳐 비용 평가 모델 종류&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SAAM: 변경 용이성과 기능성에 집주, 평가가 용이&lt;/li&gt;
+  &lt;li&gt;ATAM: 아키텍처 품질 속성 판단&lt;/li&gt;
+  &lt;li&gt;CBAM: 비용 평가 모델&lt;/li&gt;
+  &lt;li&gt;ADR: 응집도 평가 모델&lt;/li&gt;
+  &lt;li&gt;ARID: 특정 부분에 대한 품질요소의 비용 평가&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;소프트웨어-아키텍처-패턴-유형&quot;&gt;소프트웨어 아키텍처 패턴 유형&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;계층화 패턴: 하위 모듈이 상위 모듈에게 서비스 제공&lt;/li&gt;
+  &lt;li&gt;클라이언트-서버 패턴&lt;/li&gt;
+  &lt;li&gt;파이프-필터 패턴: 데이터 스트림 생성, 처리하는 단반향 패턴, 필터 컴포넌트는 재사용성이 좋음&lt;/li&gt;
+  &lt;li&gt;브로커 패턴: 브로커가 통신 조정하는 역할&lt;/li&gt;
+  &lt;li&gt;모델-뷰-컨트롤러 패턴: 모델(핵심 기능과 데이터 보관), 뷰(정보 표시), 컨트롤러(입력 처리)&lt;/li&gt;
+  &lt;li&gt;마스터-슬레이브 패턴: 실시간 시스템에서 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;객체-지향-기법&quot;&gt;객체 지향 기법&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Encapsulation: 인터페이스 단순화&lt;/li&gt;
+  &lt;li&gt;Inheritance: re-define 없이 물려받아 사용하는 기법&lt;/li&gt;
+  &lt;li&gt;Polymorphism: 오버로딩(여러 생성자를 정의), 오버라이딩(메서드 재정의)&lt;/li&gt;
+  &lt;li&gt;Abstraction: 공통 성질을 추출하여 추상 클래스를 정의&lt;/li&gt;
+  &lt;li&gt;Information Hiding: 공개 인터페이스만을 통해서만 접근, Side-effect 최소화, 모듈 간 독립성 유지&lt;/li&gt;
+  &lt;li&gt;Relationship: 두 개 이상의 엔티티 형에서 데이터를 참조하는 관계를 나타내는 기법
+    &lt;ul&gt;
+      &lt;li&gt;연관화: is-member-of, 객체 참조&lt;/li&gt;
+      &lt;li&gt;집단화: part-whole, 모여서 하나의 상위 객체를 만듦&lt;/li&gt;
+      &lt;li&gt;분류화: is-instance-of, 포함관계이자 상속&lt;/li&gt;
+      &lt;li&gt;일반화: is-a, 상위 특성을 상속&lt;/li&gt;
+      &lt;li&gt;특수화: is-a, 상위 특성을 상속 후 그 특성을 수정&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;객체-지향-설계-원칙solid&quot;&gt;객체 지향 설계 원칙(SOLID)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Single Responsibility: 하나의 클래스는 하나의 목적을 위해서&lt;/li&gt;
+  &lt;li&gt;Open Close Principle: 확장에는 열려있고, 변경에는 닫혀있고&lt;/li&gt;
+  &lt;li&gt;Liskov Substitution Principle: “서브 타입은 어디서나 그 상위 타입으로 교체할 수 있어야 한다.”&lt;/li&gt;
+  &lt;li&gt;Interface Segregation Principle: 필요한 최소한의 인터페이스만 구현&lt;/li&gt;
+  &lt;li&gt;⭐️ Dependency Inversion(Injection) Principle: 실제 사용 관계는 바뀌지 않고 추상을 매개로 메시지를 주고받아 관계를 최대한 느슨하게 만드는 원칙&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;객체-지향-방법론-종류&quot;&gt;객체 지향 방법론 종류&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;OOSE: 분석-설계-구현, 기능 요구사항 중심&lt;/li&gt;
+  &lt;li&gt;OMT: 객체-동적-기능, 모델링 중심
+    &lt;ul&gt;
+      &lt;li&gt;Object Modeling: 객체 다이어그램&lt;/li&gt;
+      &lt;li&gt;Dynamic Modeling: 상태 다이어그램&lt;/li&gt;
+      &lt;li&gt;Functional Modeling: 자료 흐름도&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;OOD: 분석과 설계의 분리 불가능&lt;/li&gt;
+  &lt;li&gt;Coad-Yourdon: E-R 다이어그램&lt;/li&gt;
+  &lt;li&gt;Wirfs-Brock: 분석/설계 간의 구분이 없고 고객 명세서를 평가하여 설계 작업까지 연속적으로 수행&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;️-디자인-패턴&quot;&gt;⭐️ 디자인 패턴&lt;/h3&gt;
+
+&lt;h4 id=&quot;생성-패턴&quot;&gt;생성 패턴&lt;/h4&gt;
+
+&lt;p&gt;생빌 프로 팩앱싱&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Builder: 복합 객체를 생성하는 방법, 객체를 구현하는 방법을 분리, 보통 클래스 내부에 Builder nested class 를 작성&lt;/li&gt;
+  &lt;li&gt;Prototype: 일반적인 원형을 만든 후 해당 객체를 복제&lt;/li&gt;
+  &lt;li&gt;Factory Method: 객체를 생성하는 인터페이스를 정의 → 하위에서 객체를 생성하는 인터페이스 구현&lt;/li&gt;
+  &lt;li&gt;Abstract Factory: Composite Structure 를 가지는 인스턴스에 대한 팩토리를 만드는 객체&lt;/li&gt;
+  &lt;li&gt;Singleton: 전역 변수를 사용하지 않고 객체 하나만 생성&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;구조-패턴&quot;&gt;구조 패턴&lt;/h4&gt;
+
+&lt;p&gt;구 브데 퍼플 프록 컴 어&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bridge: ‘분리된’ 기능과 구현을 ‘연결시켜’ 추상화된 부분과 실제 구현 부분을 독립적으로 확장, &lt;strong&gt;구현 뿐 아니라 추상화 부분 까지 건드려야 하는 경우 유용&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Decorator: 필요한 기능을 추가해 확장이 필요할 때 객체 간의 결합을 통해 기능을 유연하게 확장, &lt;strong&gt;여러 곳에 기능을 쉽게 넣을 때 개발의 편의성을 위한 목적&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Facade: 사용자와 시스템, 시스템과 시스템 간의 통합된 단순한 인터페이스를 제공, &lt;strong&gt;느슨한 결합도 목적&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Flyweight: 다수 객체로 생성될 때, 공유 요소를 클래스 화하여 가상 인스턴스 공유로 메모리를 절약, &lt;strong&gt;클래스 경량화 목적&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Proxy: 실제 객체에 대한 대리 객체, &lt;strong&gt;특정 객체로 접근을 제어하기 위해 사용&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Composite: 객체들의 관계를 트리 구조로 구성, &lt;strong&gt;복합 객체와 단일 객체를 동일시&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Adapter: 기존 생성된 클래스를 &lt;strong&gt;재사용&lt;/strong&gt;할 수 있도록 인터페이스 역할을 함, &lt;strong&gt;인터페이스가 호환되지 않는 클래스들을 함께 이용하도록 할때 유용&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;행위-패턴&quot;&gt;행위 패턴&lt;/h4&gt;
+
+&lt;p&gt;메인아이템 옵스 비컴 스메체&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mediator: 객체의 수가 많아짐에 따라 서로 간의 통신이 복잡하여 &lt;strong&gt;통신을 위한 중재자(mediator)&lt;/strong&gt;를 둠&lt;/li&gt;
+  &lt;li&gt;Interpreter: 구문을 나누고, &lt;strong&gt;분리된 구문의 해석을 맡는 클래스를 ‘각각 작성’&lt;/strong&gt; 후 여러 형태의 언어 구문을 해석&lt;/li&gt;
+  &lt;li&gt;Iterator: 컬렉션 구현 방법을 노출시키지 않고, &lt;strong&gt;순회자(반복자) 클래스를 사용하여 접근&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Template: 추상 클래스에는 추상 메서드를 통해 기능의 골격을 제공, 메서드는 세부 처리를 구체화하는 방식으로 사용&lt;/li&gt;
+  &lt;li&gt;Observer: 한 객체의 상태가 바뀔 시 &lt;strong&gt;의존하는 다른 객체들에게 연락&lt;/strong&gt;이 가는 구조, 일대 다의 의존성을 가짐&lt;/li&gt;
+  &lt;li&gt;State: 객체 상태를 캡슐화하여, 참조하게 만드는 방식, &lt;strong&gt;상태에 따라 다른 처리&lt;/strong&gt;를 해야할 때 유용&lt;/li&gt;
+  &lt;li&gt;Visitor: 각 객체가 구조가 &lt;strong&gt;자주 변경되지 않고, 새로운 연산을 자주 추가&lt;/strong&gt;해야 할 때 사용, 보통 for 문으로 visitor를 매개변수로 넣는식으로 동작하며 그림 그리기 서비스에 유용하다.&lt;/li&gt;
+  &lt;li&gt;Command: 재사용성이 높은 클래스를 설계, 하나의 추상 클래스에 메서드를 만들어 각 명령이 들어오면 그에 맞는 서브 클래스가 선택되어 실행&lt;/li&gt;
+  &lt;li&gt;Strategy: 알고리즘 군을 정의(추상 클래스)하고, 같은 알고리즘을 각각 하나의 클래스로 캡슐화 후 필요할 때 서로 교환해서 사용&lt;/li&gt;
+  &lt;li&gt;Memento: 객체의 정보를 저장할 필요가 있을 때 적용하는 디자인 패턴, Undo 기능을 개발할 때 사용&lt;/li&gt;
+  &lt;li&gt;Chain of Responsibility: 정적으로 하드코딩 되어 있을 때 기능 처리의 연결 변경이 불가능, 동적으로 연결되어 있는 경우 다르게 처리될 수 있도록 연결한 디자인 패턴, 한 요청을 2개 이상의 객체에서 처리&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="정보처리기사" /><summary type="html"></summary></entry><entry><title type="html">정보처리기사 실기 화면 설계 정리</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84-%EC%A0%95%EB%A6%AC.html" rel="alternate" type="text/html" title="정보처리기사 실기 화면 설계 정리" /><published>2025-07-09T11:02:48+00:00</published><updated>2025-07-09T11:02:48+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84-%EC%A0%95%EB%A6%AC</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84-%EC%A0%95%EB%A6%AC.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#ui-유형&quot;&gt;UI 유형&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ui-화면-구성요소&quot;&gt;UI 화면 구성요소&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ui-제스쳐&quot;&gt;UI 제스쳐&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ui-설계-원칙&quot;&gt;UI 설계 원칙&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ui-설계-프로세스&quot;&gt;UI 설계 프로세스&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;h3 id=&quot;ui-유형&quot;&gt;UI 유형&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CLI&lt;/li&gt;
+  &lt;li&gt;GUI&lt;/li&gt;
+  &lt;li&gt;NUI: 신체를 기반으로 상호작용&lt;/li&gt;
+  &lt;li&gt;OUI: 입력장치가 곧 출력장치&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ui-화면-구성요소&quot;&gt;UI 화면 구성요소&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;그리드&lt;/li&gt;
+  &lt;li&gt;콤보 박스: 드롭 다운 메뉴가 뜸&lt;/li&gt;
+  &lt;li&gt;토글 버튼: Boolean&lt;/li&gt;
+  &lt;li&gt;텍스트 박스&lt;/li&gt;
+  &lt;li&gt;라디오 버튼: 택일&lt;/li&gt;
+  &lt;li&gt;체크 박스: 다중 선택&lt;/li&gt;
+  &lt;li&gt;Page 요소&lt;/li&gt;
+  &lt;li&gt;팝업 요소&lt;/li&gt;
+  &lt;li&gt;Alert 요소&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ui-제스쳐&quot;&gt;UI 제스쳐&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;탭: 짧고 가볍게 터치&lt;/li&gt;
+  &lt;li&gt;더블 탭: 빠르게 두 번&lt;/li&gt;
+  &lt;li&gt;프레스: 길게 꾹 누름&lt;/li&gt;
+  &lt;li&gt;플릭: 수평/수직으로 빠르게 밈&lt;/li&gt;
+  &lt;li&gt;스와이프: 드래그랑 같음&lt;/li&gt;
+  &lt;li&gt;팬&lt;/li&gt;
+  &lt;li&gt;드래그: 끌다가 손을 뗌&lt;/li&gt;
+  &lt;li&gt;핀치: 두 손가락 확대, 축소 제스쳐&lt;/li&gt;
+  &lt;li&gt;로테이트: 두 손가락 회전 제스쳐&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ui-설계-원칙&quot;&gt;UI 설계 원칙&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;직관성: 누구나 쉽게 이해하고, 쉽게 사용&lt;/li&gt;
+  &lt;li&gt;유효성: 정확하고 완벽하게 사용자의 목표가 달성되도록&lt;/li&gt;
+  &lt;li&gt;학습성: 쉽게 배우고 사용&lt;/li&gt;
+  &lt;li&gt;유연성: 상용자의 인터랙션 포용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ui-설계-프로세스&quot;&gt;UI 설계 프로세스&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;문제 정의&lt;/li&gt;
+  &lt;li&gt;사용자 모델 정의&lt;/li&gt;
+  &lt;li&gt;작업 분석&lt;/li&gt;
+  &lt;li&gt;컴퓨터 오브젝트 및 기능 정의&lt;/li&gt;
+  &lt;li&gt;사용자 인터페이스 정의&lt;/li&gt;
+  &lt;li&gt;디자인 평가&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="정보처리기사" /><summary type="html"></summary></entry><entry><title type="html">정보처리기사 실기 요구사항 확인 정리</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html" rel="alternate" type="text/html" title="정보처리기사 실기 요구사항 확인 정리" /><published>2025-07-09T09:35:11+00:00</published><updated>2025-07-09T09:35:11+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#요구사항-분석-단계-절차&quot;&gt;요구사항 분석 단계 절차&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#uml&quot;&gt;UML&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#uml-구성요소&quot;&gt;UML 구성요소&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#구조적-다이어그램&quot;&gt;구조적 다이어그램&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#클래스-다이어그램&quot;&gt;클래스 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#객체-다이어그램&quot;&gt;객체 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#컴포넌트-다이어그램&quot;&gt;컴포넌트 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#배치-다이어그램&quot;&gt;배치 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#복합체-구조-다이어그램&quot;&gt;복합체 구조 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#패키지-다이어그램&quot;&gt;패키지 다이어그램&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#동적-다이어그램&quot;&gt;동적 다이어그램&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#유스케이스-다이어그램&quot;&gt;유스케이스 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#시퀀스-다이어그램&quot;&gt;시퀀스 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#커뮤니케이션-다이어그램&quot;&gt;커뮤니케이션 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#상태-다이어그램&quot;&gt;상태 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#활동-다이어그램&quot;&gt;활동 다이어그램&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#타이밍-다이어그램&quot;&gt;타이밍 다이어그램&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#uml-관계&quot;&gt;UML 관계&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#uml-stereotype&quot;&gt;UML Stereotype&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#agile-개발-방법론&quot;&gt;Agile 개발 방법론&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#xp&quot;&gt;XP&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#scrum&quot;&gt;SCRUM&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#lean&quot;&gt;Lean&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#분석-자동화-도구&quot;&gt;분석 자동화 도구&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;Ctrl + P 인쇄 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;요구사항-분석-단계-절차&quot;&gt;요구사항 분석 단계 절차&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;요구사항 분류: 기능 요구사항, 비기능 요구사항을 구분하는 단계
+    &lt;ul&gt;
+      &lt;li&gt;기능 요구사항: 기능과 관련하여 소프트웨어가 가져야 하는 기능적 속성에 대한 요구사항&lt;/li&gt;
+      &lt;li&gt;비기능 요구사항: 기능적 속성이 아닌 성능, 보안, 품질 등에 대한 요구사항&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;개념 모델링 생성 및 분석: 현실 세계의 상황을 단순화, 개념적으로 표현하는 것을 모델링이라고 한다.
+    &lt;ul&gt;
+      &lt;li&gt;DFD: 데이터 흐름을 처리기(◯), 데이터 흐름(→), 데이터 저장소(=), 단말(□) 로 표현함. 시간의 흐름 ❌, 제어 흐름 ❌&lt;/li&gt;
+      &lt;li&gt;
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;DD: 시스템에 사용하는 모든 데이터에 대한 정의와 설명을 체계적으로 정리한 문서로 =(is composed of), +(연결), (생략), { , , }(반복), [&lt;/td&gt;
+              &lt;td&gt;](택일), **(주석) 을 통해 표현함.&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#uml&quot;&gt;UML&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;E-R&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;요구사항 할당&lt;/li&gt;
+  &lt;li&gt;요구사항 협상&lt;/li&gt;
+  &lt;li&gt;정형 분석&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;uml&quot;&gt;UML&lt;/h3&gt;
+
+&lt;p&gt;객체 지향 소프트웨어 개발 과정에서 산출물을 명세화, 시각화, 문서화 할 때 사용되는 모델링 기술과 방법론을 통합해서 만든 표준화된 범용 모델링 언어&lt;/p&gt;
+
+&lt;h4 id=&quot;uml-구성요소&quot;&gt;UML 구성요소&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;사물(Things): 주제를 나타내는 추상적 개념으로 명사, 동사 의미&lt;/li&gt;
+  &lt;li&gt;관계(Relationships): 사물-사물 연결로 형용사, 부사 의미&lt;/li&gt;
+  &lt;li&gt;다이어그램(Diagrams): 사물과 관계를 모아 그림으로 표현, 9가지로 정의&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;구조적-다이어그램&quot;&gt;구조적 다이어그램&lt;/h4&gt;
+
+&lt;p&gt;외우기 - 클객 컴배 복패&lt;/p&gt;
+
+&lt;h5 id=&quot;클래스-다이어그램&quot;&gt;클래스 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;시스탬 내 클래스의 정적 구조 표현&lt;/li&gt;
+  &lt;li&gt;속성과 동작으로 구성&lt;/li&gt;
+  &lt;li&gt;클래스와 클래스, 클래스와 속성 사이 관계 표현&lt;/li&gt;
+  &lt;li&gt;접근 제어자: public +, default ~, protected #, private -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;UML에서 클래스는 보통 직사각형으로 표현됨&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;객체-다이어그램&quot;&gt;객체 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;‘특정 시점’의 인스턴스와 인스턴스 사이의 관계를 표현&lt;/li&gt;
+  &lt;li&gt;객체 인스턴스를 나타내는 대신 실제 클래스를 사용&lt;/li&gt;
+  &lt;li&gt;연관된 모든 인스턴스를 표현&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;객체가 인스턴스이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;컴포넌트-다이어그램&quot;&gt;컴포넌트 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컴포넌트(Executable 단위) 기반의 물리적 구조 표현&lt;/li&gt;
+  &lt;li&gt;실질적 프로그래밍 작업에 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;배치-다이어그램&quot;&gt;배치 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컴포넌트 사이의 종속성을 표현&lt;/li&gt;
+  &lt;li&gt;소프트웨어가 실제 시스템에 어떻게 배포되는지를 시각화할 때 사용&lt;/li&gt;
+  &lt;li&gt;결과물, 프로세스, 컴포넌트 등 물리적 요소들의 위치를 표현&lt;/li&gt;
+  &lt;li&gt;아키텍처 설계나 배포 구조 문서화, 운영 인수인계 할 때 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;복합체-구조-다이어그램&quot;&gt;복합체 구조 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;클래스나 컴포넌트가 복합 구조를 갖는 경우 그 내부 구조를 표현&lt;/li&gt;
+  &lt;li&gt;일반적인 클래스 다이어그램은 이런 속성과 메서드를 가진다는 외형적인 관계만을 보여주지만, 이 클래스 내부에 어떤 역할과 부품이 있고, 어떻게 동작 객체를 통해 연결되는가 까지 설명하려면 이를 사용&lt;/li&gt;
+  &lt;li&gt;내부 구조를 정밀하게 모델링&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;패키지-다이어그램&quot;&gt;패키지 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;유스케이스나 클래스 등의 모델 요소들을 그룹화한 패키지들의 관계를 표현&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;동적-다이어그램&quot;&gt;동적 다이어그램&lt;/h4&gt;
+
+&lt;p&gt;외우기 - 유시커 상황타&lt;/p&gt;
+
+&lt;h5 id=&quot;유스케이스-다이어그램&quot;&gt;유스케이스 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;사용자 관점에서 시스템의 활동을 표현&lt;/li&gt;
+  &lt;li&gt;유스케이스는 시스템의 &lt;strong&gt;기능적 요구 정의에 활용&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;구성요소
+    &lt;ul&gt;
+      &lt;li&gt;유스케이스: ◯&lt;/li&gt;
+      &lt;li&gt;액터&lt;/li&gt;
+      &lt;li&gt;시스템: □&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;관계 표현
+    &lt;ul&gt;
+      &lt;li&gt;연관관계 (유스케이스)-(액터)&lt;/li&gt;
+      &lt;li&gt;포함 관계 (포함하는) - « include » - &amp;gt; (포함되는)&lt;/li&gt;
+      &lt;li&gt;확장 관계 (확장 기능) - « extend » -&amp;gt; (확장 대상, 더 넓은 개념)&lt;br /&gt;
+  ex) (비밀번호 재설정) - « extend » -&amp;gt; (로그인)&lt;/li&gt;
+      &lt;li&gt;일반화 관계 (추상화) ◁- (구현체)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;시퀀스-다이어그램&quot;&gt;시퀀스 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;객체 간 상호 작용을 메시지 흐름으로 표현&lt;/li&gt;
+  &lt;li&gt;객체 사이 메시지를 보내는 시간을 표현&lt;/li&gt;
+  &lt;li&gt;교류 다이어그램의 한 종류로 볼 수 있음&lt;/li&gt;
+  &lt;li&gt;구성 요소
+    &lt;ul&gt;
+      &lt;li&gt;객체: □&lt;/li&gt;
+      &lt;li&gt;생명선: 객체 아래로 이어진 ┆&lt;/li&gt;
+      &lt;li&gt;실행: 생명선 위의 □&lt;/li&gt;
+      &lt;li&gt;메시지: -▶&lt;/li&gt;
+      &lt;li&gt;회귀 메시지: Lifeline 에서 자신의 Activation 에 메시지로 연결&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;커뮤니케이션-다이어그램&quot;&gt;커뮤니케이션 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;시퀀스 다이어그램과 같이 동작에 참여하는 ‘객체’들이 주고 받는 메시지를 표현&lt;/li&gt;
+  &lt;li&gt;메시지 뿐만 아니라 객체 간의 연관까지 표현&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;상태-다이어그램&quot;&gt;상태 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;하나의 객체가 자신의 속한 클래스의 상태 변화 표현&lt;/li&gt;
+  &lt;li&gt;다른 객체와의 상호작용에 따라 상태가 어떻게 변화하는지 표현&lt;/li&gt;
+  &lt;li&gt;모든 가능한 상태와 전이를 표현&lt;/li&gt;
+  &lt;li&gt;진입 조건, 탈출 조건, 상태 전이 등을 기술&lt;/li&gt;
+  &lt;li&gt;구성요소
+    &lt;ul&gt;
+      &lt;li&gt;상태: 객체가 존재할 조건, 둥근 사각형으로 표현&lt;/li&gt;
+      &lt;li&gt;시작 상태: ●&lt;/li&gt;
+      &lt;li&gt;종료 상태: ⦿&lt;/li&gt;
+      &lt;li&gt;전이: -▶
+        &lt;ul&gt;
+          &lt;li&gt;이벤트: -이벤트-▶&lt;/li&gt;
+          &lt;li&gt;전이 조건: -[전이조건]-&amp;gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;활동-다이어그램&quot;&gt;활동 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;시스템이 어떤 기능을 수행하는지 객체의 처리 로직이나 조건에 따른 처리의 흐름을 순서대로 표현&lt;/li&gt;
+  &lt;li&gt;활동의 순서대로 흐름을 표현&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;타이밍-다이어그램&quot;&gt;타이밍 다이어그램&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;객체 상태 변화와 시간 제약을 명시적으로 표현&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;uml-관계&quot;&gt;UML 관계&lt;/h4&gt;
+
+&lt;p&gt;연의 일실 포집&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;연관 관계: -&amp;gt;&lt;/li&gt;
+  &lt;li&gt;의존 관계: - - -&amp;gt;&lt;/li&gt;
+  &lt;li&gt;일반화 관계: (Child Class) -▶ (Parent Class)&lt;/li&gt;
+  &lt;li&gt;실체화 관계: (Class) - - -▶ (Interface)&lt;/li&gt;
+  &lt;li&gt;포함 관계: (Class) ◆-&amp;gt; (Several Class)&lt;/li&gt;
+  &lt;li&gt;집합 관계: (Class) ◇-&amp;gt; (Several Class)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;포함은 강한 결합, 집합은 느슨한 결합&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;uml-stereotype&quot;&gt;UML Stereotype&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;« include »: Usecase&lt;/li&gt;
+  &lt;li&gt;« extend »: Usecase&lt;/li&gt;
+  &lt;li&gt;« interface »: Class Diag.&lt;/li&gt;
+  &lt;li&gt;« entity »: Usecase&lt;/li&gt;
+  &lt;li&gt;« boundary »: 외부 액터와의 상호작용을 담당하는 클래스 Sequence&lt;/li&gt;
+  &lt;li&gt;« control »: 로직 및 제어를 담당하는 클래스 Sequence&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;agile-개발-방법론&quot;&gt;Agile 개발 방법론&lt;/h3&gt;
+
+&lt;p&gt;반복적이고 점진적인 개발을 통해 변화하는 요구사항에 빠르게 대응&lt;/p&gt;
+
+&lt;h4 id=&quot;xp&quot;&gt;XP&lt;/h4&gt;
+
+&lt;p&gt;의사소통 개선과 즉각적 피드백으로 소프트웨어 품질을 높이기 위한 방법론&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1~3주의 반복 개발 주기&lt;/li&gt;
+  &lt;li&gt;5가지의 가치와 12개의 실천&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;scrum&quot;&gt;SCRUM&lt;/h4&gt;
+
+&lt;p&gt;매일 정해진 시간, 장소에서 짧은 시간의 개발을 하는 팀을 위한 프로젝트 관리 중심 방법론&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;제품 책임자(Product Owner)&lt;/li&gt;
+  &lt;li&gt;제품 백로그&lt;/li&gt;
+  &lt;li&gt;스프린트: 2~4주의 짧은 개발 기간 반복 수행&lt;/li&gt;
+  &lt;li&gt;스크럼 미팅: 매일 15분 정도의 미팅으로 To-Do List 수립&lt;/li&gt;
+  &lt;li&gt;스크럼 마스터: 스크럼 수행 시 문제를 인지하는 사람&lt;/li&gt;
+  &lt;li&gt;스프린트 회고: 스프린트 주기를 되돌아봄&lt;/li&gt;
+  &lt;li&gt;번 다운 차트: 백로그 대비 시간을 그래프로 나타냄&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;lean&quot;&gt;Lean&lt;/h4&gt;
+
+&lt;p&gt;JIT, 칸반 보드 이용&lt;/p&gt;
+
+&lt;h3 id=&quot;분석-자동화-도구&quot;&gt;분석 자동화 도구&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;상위 CASE(문서 기반): 계획 수립, 요구 분석, 기본 설계 단계를 다이어그램으로 표현, 자료흐름도 프로토타이핑 작성 지원 및 UI 설계 지원&lt;/li&gt;
+  &lt;li&gt;하위 CASE(코드 기반): 구문 중심 편집 및 정적, 동적 테스트 지원&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="정보처리기사" /><summary type="html"></summary></entry><entry><title type="html">1. Exercises</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/07/1.-exercises.html" rel="alternate" type="text/html" title="1. Exercises" /><published>2025-07-07T08:18:20+00:00</published><updated>2025-07-07T08:18:20+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/07/1.-exercises</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/07/1.-exercises.html">&lt;!--more--&gt;
+&lt;p&gt;🚧 작업중&lt;/p&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;다양한 LLM 을 사용하여 답변을 집계하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;운영체제의-세-가지-주요-목적은-무엇입니까&quot;&gt;운영체제의 세 가지 주요 목적은 무엇입니까?&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컴퓨터 자원(하드웨어) 관리&lt;/li&gt;
+  &lt;li&gt;사용자 어플리케이션이 구동 될 수 있는 환경 조성&lt;/li&gt;
+  &lt;li&gt;시스템 오류 및 오용 방지&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;우리는-컴퓨팅-하드웨어를-효율적으로-사용하기-위한-운영-체제의-필요성을-강조해-왔습니다-운영-체제가-이-원칙을-저버리고-자원을-낭비하는-것이-적절한-때는-언제일까요-그러한-시스템이-실제로-낭비적이지-않은-이유는-무엇일까요&quot;&gt;우리는 컴퓨팅 하드웨어를 효율적으로 사용하기 위한 운영 체제의 필요성을 강조해 왔습니다. 운영 체제가 이 원칙을 저버리고 자원을 “낭비”하는 것이 적절한 때는 언제일까요? 그러한 시스템이 실제로 낭비적이지 않은 이유는 무엇일까요?&lt;/h3&gt;
+
+&lt;p&gt;When? - &lt;strong&gt;사용자 경험 개선&lt;/strong&gt;이나 &lt;strong&gt;시스템 반응성 향상&lt;/strong&gt;을 위해 리소스 낭비가 발생할 때&lt;/p&gt;
+
+&lt;p&gt;Why? - 시스템을 &lt;strong&gt;더욱 안정적이고 반응성 있게&lt;/strong&gt; 만드는 이점이 있기 때문에 낭비가 아니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;실시간-환경을-위한-운영-체제를-작성할-때-프로그래머가-극복해야-하는-주요-어려움은-무엇입니까&quot;&gt;실시간 환경을 위한 운영 체제를 작성할 때 프로그래머가 극복해야 하는 주요 어려움은 무엇입니까?&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Strict timing constraints&lt;/strong&gt; 충족&lt;/p&gt;
+
+&lt;h3 id=&quot;운영-체제의-다양한-정의를-염두에-두고-웹-브라우저나-메일-프로그램과-같은-애플리케이션을-운영-체제에-포함해야-하는지-고려해-보세요-포함해야-한다는-주장과-포함해서는-안-된다는-주장을-모두-펼치고-자신의-주장을-뒷받침하세요&quot;&gt;운영 체제의 다양한 정의를 염두에 두고, &lt;strong&gt;웹 브라우저나 메일 프로그램&lt;/strong&gt;과 같은 애플리케이션을 운영 체제에 포함해야 하는지 고려해 보세요. 포함해야 한다는 주장과 포함해서는 안 된다는 주장을 모두 펼치고, 자신의 주장을 뒷받침하세요.&lt;/h3&gt;
+
+&lt;p&gt;운영 체제를 &lt;strong&gt;사용자 편의성을 포함하는 광범위한 개념&lt;/strong&gt;으로 본다면 웹 브라우저나 메일 프로그램과 같은 애플리케이션은 포함될 수 있지만,&lt;/p&gt;
+
+&lt;p&gt;운영 체제를 &lt;strong&gt;커널 중심 시스템 소프트웨어&lt;/strong&gt;로 정의한다면 이러한 애플리케이션은 포함되어서는 안된다.&lt;/p&gt;
+
+&lt;p&gt;특히 웹 브라우저를 운영체제에 통합하는 것은 운영체제의 핵심 역할과 무관할 뿐만 아니라, 특정 애플리케이션에 대한 독점 우려를 야기하기 때문에 시스템이 &lt;strong&gt;사용자 편의성에 중점을 둔 통합 환경으로 설계되지 않는 한&lt;/strong&gt;, 이러한 애플리케이션은 운영체제에 포함되어서는 안된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;커널-모드와-사용자-모드의-구분은-기본적인-보호보안-형태로-어떻게-기능합니까&quot;&gt;커널 모드와 사용자 모드의 구분은 기본적인 보호(보안) 형태로 어떻게 기능합니까?&lt;/h3&gt;
+
+&lt;p&gt;커널 모드와 유저 모드의 구분은 하드웨어와 운영체제로 구현되어 진다. &lt;strong&gt;모드 비트, 권한 분리, 시스템 호출, 예외처리&lt;/strong&gt; 등으로 시스템 자원을 보호하고 악의적인 행위나 오류로부터 시스템의 안전성과 보안을 유지한다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;모드 비트: CPU의 상태를 나타내는 flag 로써, 커널 모드(0), 유저 모드(1) 로 구분되어진다. 사용자 모드에서 특권 명령어를 수행하려하면, 예외를 발생시켜 커널에게 제어권이 넘어가게 된다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;권한 분리: 사용자 모드에서 실행되는 프로그램은 &lt;strong&gt;메모리의 특정 영역(커널 공간)에 접근할 수 없으며&lt;/strong&gt;, 이를 통해 커널 데이터와 다른 프로세스의 데이터를 보호한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;시스템 호출: 사용자 프로세스가 &lt;strong&gt;파일 입출력&lt;/strong&gt;, &lt;strong&gt;네트워크 통신&lt;/strong&gt; 등 시스템 자원에 접근하거나 저수준의 명령을 처리하려면 &lt;strong&gt;커널이 제공하는 안전한 인터페이스(시스템 호출)를 사용&lt;/strong&gt;해야 하며, 커널은 요청의 유효성을 검사하여 보안을 강화한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;예외 처리: 사용자 모드에서 잘못된 &lt;strong&gt;메모리 접근이나 금지된 명령을 시도&lt;/strong&gt;하면 운영 체제가 이를 감지하고 프로세스를 종료하거나 오류를 처리하여 시스템 안정성을 유지한다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이런 구분을 통해 &lt;strong&gt;악의적인 코드나 버그가 있는 프로그램이 시스템 전체를 손상시키는 것을 방지&lt;/strong&gt;한다. 예를 들어, 사용자 모드에서 실행되는 애플리케이션이 커널 메모리에 접근하려고 하면 운영 체제가 이를 차단하여 데이터 유출이나 시스템 충돌을 방지한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;다음-중-어떤-지시사항에-우선권을-주어야-합니까&quot;&gt;다음 중 어떤 지시사항에 우선권을 주어야 합니까?&lt;/h3&gt;
+
+&lt;p&gt;a. Set value of timer.
+b. Read the clock.
+c. Clear memory.
+d. Issue a trap instruction.
+e. Turn off interrupts.
+f. Modify entries in device-status table.
+g. Switch from user to kernel mode.
+h. Access I/O device.&lt;/p&gt;
+
+&lt;p&gt;a, c, e, f, g, h
+CRUD의 CUD 에 해당하는 동작은 다 특권이 필요하다. 여기서 d는 그저 요청만 보내는 것(발행하는 것)이지 실제 trap instruction 을 실행한다는 의미는 아니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;일부-초기-컴퓨터는-운영-체제를-사용자-작업이나-운영-체제-자체가-수정할-수-없는-메모리-파티션에-배치하여-보호했습니다-이러한-방식으로-인해-발생할-수-있는-두-가지-어려움을-설명하십시오&quot;&gt;일부 초기 컴퓨터는 운영 체제를 사용자 작업이나 운영 체제 자체가 수정할 수 없는 메모리 파티션에 배치하여 보호했습니다. 이러한 방식으로 인해 발생할 수 있는 두 가지 어려움을 설명하십시오.&lt;/h3&gt;
+
+&lt;p&gt;우선, 첫 번째로 운영체제의 노후화 이다. 이는 유지보수가 보급된 운영체제에 대해서 유지보수가 어렵다는 것이며, 사용자 입장에서는 OS가 들어있는 하드웨어를 아예 사야하는 비용이 큰 작업이며, 시스템 입장에서는 업데이트가 유연하지 못한 운영체제로 인해 보안 위협, 크로스 하드웨어 지원의 어려움 등을 꼽을 수 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;두 번째로 자원 할당의 어려움, 부족성 이다. 새로운 하드웨어에 대한 드라이버가 필요할 때는 이를 지원하기 위한 OS 영역의 메모리 파티션을 늘려서 할당하는게 힘들 것이며, 주메모리 내에서도 가지고 있는 장치 디바이스 테이블의 크기를 늘리기 힘들 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;일부-cpu는-두-가지-이상의-작동-모드를-제공합니다-이러한-여러-모드를-어떤-용도로-사용할-수-있을까요&quot;&gt;일부 CPU는 두 가지 이상의 작동 모드를 제공합니다. 이러한 여러 모드를 어떤 용도로 사용할 수 있을까요?&lt;/h3&gt;
+
+&lt;p&gt;CPU의 여러 작동 모드는 시스템의 보안, 자원 관리, 성능 최적화를 위해 사용된다. 첫째, 보안과 권한 분리를 위해 커널 모드와 사용자 모드를 구분하여, 특권 명령(예: I/O 접근, 인터럽트 제어)을 커널 모드에서만 실행 가능하게 한다. 이를 통해 사용자 프로그램이 시스템 자원(메모리, 디바이스)에 무단 접근하는 것을 방지하고, 다중 사용자 환경에서 프로세스 간 격리를 보장한다. 예를 들어, 사용자 모드에서 실행되는 응용 프로그램은 시스템 호출을 통해 커널 모드에 요청해야 하드웨어에 접근할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;둘째, 효율적인 자원 관리와 인터럽트 처리를 위해 사용된다. 커널 모드는 디바이스 드라이버를 통해 하드웨어 자원을 관리하고, 인터럽트를 처리하여 시스템의 응답성을 높인다. 예를 들어, 인터럽트 서비스 루틴(ISR)은 커널 모드에서 실행되어 디바이스 이벤트를 신속히 처리할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;셋째, 가상화와 시스템 확장성을 지원한다. 일부 CPU는 하이퍼바이저 모드를 제공하여 가상 머신(VM)을 실행할 수 있게 하며, 이는 클라우드 컴퓨팅이나 서버 환경에서 여러 운영 체제를 동시에 실행하는 데 사용된다. 이러한 모드 분리는 시스템 안정성을 높이고, 다양한 워크로드를 효율적으로 관리할 수 있게 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;타이머를-사용하여-현재-시간을-계산할-수-있습니다-이를-어떻게-구현할-수-있는지-간략하게-설명하세요&quot;&gt;타이머를 사용하여 현재 시간을 계산할 수 있습니다. 이를 어떻게 구현할 수 있는지 간략하게 설명하세요.&lt;/h3&gt;
+
+&lt;p&gt;타이머는 CPU의 클럭 신호를 기반으로 현재 시간을 계산할 수 있다. CPU는 수정 진동기(쿼츠 크리스털)에서 생성된 고정 주파수의 클럭 틱을 카운트하고, 운영 체제는 하드웨어 타이머(예: 실시간 클록 또는 시스템 타이머)를 설정하여 이 클럭 틱을 주기적으로 기록하고, 이를 누적하여 초, 분, 시간 단위로 변환한다. 부팅 시 기준 시간(예: BIOS의 RTC)을 참조하여 현재 시간을 계산하고, 타이머 인터럽트를 통해 지속적으로 업데이트한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;캐시가-유용한-두-가지-이유를-제시하십시오-캐시는-어떤-문제를-해결합니까-어떤-문제를-발생시킵니까-캐시-크기를-캐시-대상-장치디스크-크기만큼-큰-캐시만큼-크게-만들-수-있다면-캐싱-대상-장치를-없애는-것이-어떻겠습니까&quot;&gt;캐시가 유용한 두 가지 이유를 제시하십시오. 캐시는 어떤 문제를 해결합니까? 어떤 문제를 발생시킵니까? 캐시 크기를 캐시 대상 장치(디스크 크기만큼 큰 캐시)만큼 크게 만들 수 있다면, 캐싱 대상 장치를 없애는 것이 어떻겠습니까?&lt;/h3&gt;
+
+&lt;p&gt;어떤 문제를 해결하냐 - 캐시는 주메모리의 자주 참조 및 접근하는 주소에 대한 데이터를 미리 저장하여, 메모리 접근 지연을 최소화하며, 코어 간의 데이터 공유 또한 가능하게 된다.&lt;/p&gt;
+
+&lt;p&gt;어떤 문제를 발생시키냐 - 캐시를 사용하게 데이터 일관성이 깨질 우려가 있고, 이에 따라 동시성 문제를 해결해야 한다.&lt;/p&gt;
+
+&lt;p&gt;캐시 메모리가 어떻게 되어 있는지 먼저 보자. SRAM 기반의 일반 메모리 배열로 주소를 참조하여 접근하게 되는데, 코어 내부의 레지스터들로 되어 있는게 아니다. 코어 내부의 레지스터들은 전부 1클럭 내에 접근 할 수 있는데, 레지스터 마다 특정 역할이 있고, 특정 연산에 특화되어 있다. 이런 레지스터들을 2클럭 이상으로 접근하도록 하는 SRAM 기반의 일반 메모리 배열 주소를 참조하여 그 데이터로 ALU 등을 통해 연산을 하는 것은 굉장히 비효율적이며, 초고속 메모리인 레지스터들을 완전히 대체할 수도 없을 것이다.&lt;/p&gt;
+
+&lt;p&gt;RAM을 이걸로 대체한다고 쳐보자. RAM 은 기본적으로 수~수십 기가바이트인데, 이를 캐시로 전부 대체하려면 굉장히 큰 비용이 들어간다. 일반적인 사용자들이 이런 비싼 컴퓨터를 사지는 않을 터이다. 즉, 비용-효율성 측면에서 떨어진다(또한 전력소모도 심함).&lt;/p&gt;
+
+&lt;p&gt;보조 메모리를 이걸로 대체한다고 했을때, 비용도 비용이지만 대용량의 처리를 캐시 메모리가 할 수 없을뿐더러 휘발성이기 때문에 영구 저장이 불가능하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;클러스터링-시스템은-다중-프로세서-시스템과-어떻게-다릅니까-클러스터에-속한-두-머신이-협력하여-고가용성-서비스를-제공하려면-무엇이-필요합니까&quot;&gt;클러스터링 시스템은 다중 프로세서 시스템과 어떻게 다릅니까? 클러스터에 속한 두 머신이 협력하여 고가용성 서비스를 제공하려면 무엇이 필요합니까?&lt;/h3&gt;
+
+&lt;p&gt;클러스터링 시스템은 독립된 컴퓨팅 시스템이 노드라는 단위로 구분되어져 각각의 노드가 서로 다른 아키텍쳐를 구성할 수 있는 시스템이며, 네트워크로 서로 자원을 공유하는 형태이다.&lt;/p&gt;
+
+&lt;p&gt;다중 프로세서 시스템은 한 시스템 내에 CPU의 각 코어가 2개 이상의 프로세서를 가지는 형태이다. 하나의 아키텍쳐만이 구동되어질 수 있다는 점이 클러스터링 시스템과는 다른 점이다.&lt;/p&gt;
+
+&lt;p&gt;고가용성 서비스를 제공하려면 다중 프로세서 시스템 보다는 클러스터링 시스템을 사용하여 한 시스템이 장애가 나도 다른 시스템을 돌릴 수 있도록 할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;데이터베이스를-실행하는-두-개의-노드로-구성된-컴퓨팅-클러스터를-고려해-보세요-클러스터-소프트웨어가-디스크의-데이터에-대한-액세스를-관리하는-두-가지-방법을-설명하세요-각-방법의-장단점을-논하세요&quot;&gt;데이터베이스를 실행하는 두 개의 노드로 구성된 컴퓨팅 클러스터를 고려해 보세요. 클러스터 소프트웨어가 디스크의 데이터에 대한 액세스를 관리하는 두 가지 방법을 설명하세요. 각 방법의 장단점을 논하세요.&lt;/h3&gt;
+
+&lt;h3 id=&quot;인터럽트의-목적은-무엇인가요-인터럽트는-트랩과-어떻게-다른가요-사용자-프로그램에서-의도적으로-트랩을-생성할-수-있나요-그렇다면-어떤-목적으로-생성되나요&quot;&gt;인터럽트의 목적은 무엇인가요? 인터럽트는 트랩과 어떻게 다른가요? 사용자 프로그램에서 의도적으로 트랩을 생성할 수 있나요? 그렇다면 어떤 목적으로 생성되나요?&lt;/h3&gt;
+
+&lt;h3 id=&quot;linux-커널-변수-hz와-jiffies를-사용하여-시스템이-부팅된-이후-실행된-시간초을-확인하는-방법을-설명하세요&quot;&gt;Linux 커널 변수 HZ와 jiffies를 사용하여 시스템이 부팅된 이후 실행된 시간(초)을 확인하는 방법을 설명하세요.&lt;/h3&gt;
+
+&lt;h3 id=&quot;고속-io-장치에서는-cpu-실행-부하-증가를-방지하기-위해-직접-메모리-액세스가-사용됩니다&quot;&gt;고속 I/O 장치에서는 CPU 실행 부하 증가를 방지하기 위해 직접 메모리 액세스가 사용됩니다.&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;a. How does the CPU interface with the device to coordinate the
+transfer?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;b. CPU는 장치와 어떻게 상호 작용하여 전송을 조정합니까?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;c. DMA 컨트롤러가 데이터를 전송하는 동안 CPU는 다른 프로그램을 실행할 수 있습니다. 이 프로세스가 사용자 프로그램 실행을 방해합니까? 그렇다면 어떤 유형의 방해가 발생하는지 설명하십시오.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;일부-컴퓨터-시스템은-하드웨어에서-특권-작동-모드를-제공하지-않습니다-이러한-컴퓨터-시스템에-안전한-운영-체제를-구축하는-것이-가능할까요-가능하다는-주장과-불가능하다는-주장을-모두-제시하십시오&quot;&gt;일부 컴퓨터 시스템은 하드웨어에서 특권 작동 모드를 제공하지 않습니다. 이러한 컴퓨터 시스템에 안전한 운영 체제를 구축하는 것이 가능할까요? 가능하다는 주장과 불가능하다는 주장을 모두 제시하십시오.&lt;/h3&gt;
+
+&lt;h3 id=&quot;많은-smp-시스템은-서로-다른-수준의-캐시를-가지고-있습니다-한-수준은-각-처리-코어에-로컬이고-다른-수준은-모든-처리-코어에서-공유됩니다-캐싱-시스템이-이렇게-설계된-이유는-무엇일까요&quot;&gt;많은 SMP 시스템은 서로 다른 수준의 캐시를 가지고 있습니다. 한 수준은 각 처리 코어에 로컬이고, 다른 수준은 모든 처리 코어에서 공유됩니다. 캐싱 시스템이 이렇게 설계된 이유는 무엇일까요?&lt;/h3&gt;
+
+&lt;h3 id=&quot;다음-저장-시스템을-가장-느린-것부터-가장-빠른-것까지-순위를-매겨보세요&quot;&gt;다음 저장 시스템을 가장 느린 것부터 가장 빠른 것까지 순위를 매겨보세요:&lt;/h3&gt;
+
+&lt;p&gt;a. Hard-diskdrives
+b. Registers
+c. Opticaldisk
+d. Mainmemory
+e. Nonvolatilememory
+f. Magnetictapes
+g. Cache&lt;/p&gt;
+
+&lt;h3 id=&quot;그림에-표시된-것과-유사한-smp-시스템을-생각해-보세요-예를-들어-메모리에-있는-데이터가-실제로-각-로컬-캐시에서-어떻게-다른-값을-가질-수-있는지-보여주세요&quot;&gt;그림에 표시된 것과 유사한 SMP 시스템을 생각해 보세요. 예를 들어 메모리에 있는 데이터가 실제로 각 로컬 캐시에서 어떻게 다른 값을 가질 수 있는지 보여주세요.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/symmetric-multiprocessing-architecture.png&quot; alt=&quot;symmetric-multiprocessing-architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;다음-처리-환경에서-캐시된-데이터-매니페스트의-일관성을-유지하는-문제가-어떻게-발생하는지-예를-들어-설명하십시오&quot;&gt;다음 처리 환경에서 캐시된 데이터 매니페스트의 일관성을 유지하는 문제가 어떻게 발생하는지 예를 들어 설명하십시오.&lt;/h3&gt;
+
+&lt;p&gt;a. Single-processor systems
+b. Multi processor systems
+c. Distributed systems&lt;/p&gt;
+
+&lt;h3 id=&quot;프로그램이-다른-프로그램과-연결된-메모리를-수정하지-못하도록-메모리-보호를-적용하는-메커니즘을-설명하세요&quot;&gt;프로그램이 다른 프로그램과 연결된 메모리를 수정하지 못하도록 메모리 보호를 적용하는 메커니즘을 설명하세요.&lt;/h3&gt;
+
+&lt;h3 id=&quot;다음-환경에-가장-적합한-네트워크-구성lan-또는-wan은-무엇입니까&quot;&gt;다음 환경에 가장 적합한 네트워크 구성(LAN 또는 WAN)은 무엇입니까?&lt;/h3&gt;
+
+&lt;p&gt;a. A campus student union
+b. Several campus locations across a state wide university system
+c. A neighborhood&lt;/p&gt;
+
+&lt;p&gt;a - LAN
+b - WAN
+c - LAN&lt;/p&gt;
+
+&lt;h3 id=&quot;모바일-기기용-운영-체제를-설계할-때의-몇-가지-과제를-설명하십시오-기존-pc용-운영-체제를-설계할-때와-비교하십시오&quot;&gt;모바일 기기용 운영 체제를 설계할 때의 몇 가지 과제를 설명하십시오. 기존 PC용 운영 체제를 설계할 때와 비교하십시오.&lt;/h3&gt;
+
+&lt;h3 id=&quot;클라이언트-서버-시스템에-비해-p2p-시스템의-장점은-무엇입니까&quot;&gt;클라이언트-서버 시스템에 비해 P2P 시스템의 장점은 무엇입니까?&lt;/h3&gt;
+
+&lt;h3 id=&quot;p2p-시스템에-적합한-분산-애플리케이션을-몇-가지-설명하십시오&quot;&gt;P2P 시스템에 적합한 분산 애플리케이션을 몇 가지 설명하십시오.&lt;/h3&gt;
+
+&lt;h3 id=&quot;오픈-소스-운영-체제의-여러-가지-장단점을-파악하십시오-각-측면을-장점으로-생각하는-사람과-단점으로-생각하는-사람의-유형을-파악하십시오&quot;&gt;오픈 소스 운영 체제의 여러 가지 장단점을 파악하십시오. 각 측면을 장점으로 생각하는 사람과 단점으로 생각하는 사람의 유형을 파악하십시오.&lt;/h3&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html">🚧 작업중</summary></entry><entry><title type="html">1.11 Free and Open-Source Operating Systems</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/06/1.11-free-and-open-source-operating-systems.html" rel="alternate" type="text/html" title="1.11 Free and Open-Source Operating Systems" /><published>2025-07-06T09:59:15+00:00</published><updated>2025-07-06T09:59:15+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/06/1.11-free-and-open-source-operating-systems</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/06/1.11-free-and-open-source-operating-systems.html">&lt;!--more--&gt;
+&lt;p&gt;🚧 작업중&lt;/p&gt;
+
+&lt;h2 id=&quot;-한계점&quot;&gt;🪛 한계점&lt;/h2&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;p&gt;######&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-관련-출처&quot;&gt;🔗 관련 출처&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html">🚧 작업중</summary></entry><entry><title type="html">1.10 Computing Environments</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/05/1.10-computing-environments.html" rel="alternate" type="text/html" title="1.10 Computing Environments" /><published>2025-07-05T09:58:43+00:00</published><updated>2025-07-05T09:58:43+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/05/1.10-computing-environments</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/05/1.10-computing-environments.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-목차&quot;&gt;📂 목차&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#1101-traditional-computing&quot;&gt;1.10.1 Traditional Computing&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#사무실-환경의-변화&quot;&gt;사무실 환경의 변화&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#가정-환경의-변화&quot;&gt;가정 환경의 변화&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#컴퓨팅-자원-활용-방식의-변화&quot;&gt;컴퓨팅 자원 활용 방식의 변화&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1102-mobile-computing&quot;&gt;1.10.2 Mobile Computing&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#주요-변화&quot;&gt;주요 변화&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#남아있는-한계&quot;&gt;남아있는 한계&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#주요-운영체제&quot;&gt;주요 운영체제&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1103-client-server-computing&quot;&gt;1.10.3 Client-Server Computing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1104-peer-to-peer-computing&quot;&gt;1.10.4 Peer-to-Peer Computing&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#p2p-네트워크-참여-및-서비스-검색-방식&quot;&gt;P2P 네트워크 참여 및 서비스 검색 방식&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#1106-real-time-embedded-systems&quot;&gt;1.10.6 Real-Time Embedded Systems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;10.3 이후로 보기를 권장한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;1101-traditional-computing&quot;&gt;1.10.1 Traditional Computing&lt;/h3&gt;
+
+&lt;p&gt;과거의 컴퓨팅 환경은 PC, 서버, 제한적인 원격 접근, 노트북을 통한 휴대성 등으로 명확하게 구분되었지만 웹 기술의 발전과 WAN 대역폭의 증가는 이러한 전통적인 경계를 허물고 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;사무실-환경의-변화&quot;&gt;사무실 환경의 변화&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;기업들은 내부 서버에 대한 웹 접근성을 제공하는 &lt;strong&gt;포털&lt;/strong&gt;을 구축&lt;/li&gt;
+  &lt;li&gt;보안 및 유지보수가 용이한 &lt;strong&gt;네트워크 컴퓨터(씬 클라이언트)&lt;/strong&gt;가 전통적인 워크스테이션을 대체&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;모바일 컴퓨터와 장치&lt;/strong&gt;들은 PC와 동기화되거나 무선/셀룰러 네트워크를 통해 회사 정보 및 웹 리소스에 접근하며 휴대성과 연결성을 극대화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;가정-환경의-변화&quot;&gt;가정 환경의 변화&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;느린 모뎀으로 한정되었던 가정 내 인터넷 연결은 &lt;strong&gt;고속 광대역망&lt;/strong&gt;이 보편화되면서 데이터 접근성이 크게 향상&lt;/li&gt;
+  &lt;li&gt;웹 서버 혹은 프린터 및 클라이언트 PC를 포함하는 &lt;strong&gt;홈 네트워크 구축&lt;/strong&gt;까지 가능하며, &lt;strong&gt;방화벽&lt;/strong&gt;을 통해 보안을 강화&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;컴퓨팅-자원-활용-방식의-변화&quot;&gt;컴퓨팅 자원 활용 방식의 변화&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;20세기 후반에는 컴퓨팅 자원이 부족하여 &lt;strong&gt;배치(Batch) 시스템&lt;/strong&gt;과 &lt;strong&gt;상호작용(Interactive) 시분할(Time-sharing) 시스템&lt;/strong&gt;이 주를 이룸.&lt;/li&gt;
+  &lt;li&gt;오늘날 전통적인 다중 사용자 시분할 시스템은 드물어졌지만, &lt;strong&gt;시분할 스케줄링 기술 자체는 여전히 데스크톱, 노트북, 서버, 모바일 컴퓨터 등 다양한 장치에서 여전히 활용&lt;/strong&gt; 됨.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;결론적으로, 컴퓨팅은 중앙 집중적이고 분리된 환경에서 벗어나, 웹 기술, 고속 네트워크, 모바일 장치를 통해 더욱 유연하고 상호 연결된 분산 환경으로 진화했으며, 과거의 자원 활용 기술은 현대에서 &lt;strong&gt;다중 작업 환경을 지원하는 방식으로 적용&lt;/strong&gt;됨.&lt;/p&gt;
+
+&lt;h3 id=&quot;1102-mobile-computing&quot;&gt;1.10.2 Mobile Computing&lt;/h3&gt;
+
+&lt;p&gt;모바일 컴퓨팅은 스마트폰과 태블릿 같은 휴대용 기기를 중심으로 빠르게 발전했다. 과거에는 데스크톱이나 노트북에 비해 화면 크기, 메모리, 기능 면에서 제약이 있었지만, 이제는 그 차이가 거의 사라져 노트북과 태블릿의 기능 구분이 어려워졌다. 오히려 모바일 기기만이 제공할 수 있는 고유한 기능들도 생겨났다(다양한 하드웨어의 embedding).&lt;/p&gt;
+
+&lt;h4 id=&quot;주요-변화&quot;&gt;주요 변화&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;기능 확장&lt;/strong&gt; - 이메일, 웹 브라우징을 넘어 음악, 비디오 재생, 전자책 읽기, 사진 촬영, 고화질 비디오 편집 등 다양한 용도로 활용&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;고유 센서 활용&lt;/strong&gt; - GPS 칩, 가속도계, 자이로스코프 같은 내장 센서 덕분에 내비게이션, 증강 현실(AR), 모션 기반 게임 등 데스크톱/노트북에서는 구현하기 어렵거나 불가능한 애플리케이션이 등장&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;연결성&lt;/strong&gt; - 주로 Wi-Fi(802.11) 또는 셀룰러 데이터 네트워크를 통해 온라인 서비스에 접속&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;남아있는-한계&quot;&gt;남아있는 한계&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;하드웨어 제약&lt;/strong&gt;: 여전히 데스크톱/노트북에 비해 &lt;strong&gt;메모리 용량과 처리 속도(더 작고 느린 프로세서, 적은 코어)는 제한적&lt;/strong&gt;이며 이는 전력 소비를 최소화하기 위한 설계 때문이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;주요-운영체제&quot;&gt;주요 운영체제&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;현재 모바일 컴퓨팅 시장은 &lt;strong&gt;Apple iOS&lt;/strong&gt;와 &lt;strong&gt;Google Android&lt;/strong&gt; 두 운영체제가 주축&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;모바일 컴퓨팅은 단순히 휴대 가능한 기기를 넘어, 독자적인 기능과 생태계를 구축되었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;1103-client-server-computing&quot;&gt;1.10.3 Client-Server Computing&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/general-structure-of-a-client-server-system.png&quot; alt=&quot;general-structure-of-a-client-server-system.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;클라이언트-서버 시스템은 주로 두 가지가 사용된다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Compute-server system&lt;/strong&gt;: 서버는 클라이언트가 작업을 수행하도록 요청(예: 데이터 읽기)을 보낼 수 있는 인터페이스를 제공한다. 이에 응답하여 서버는 해당 작업을 실행하고 그 결과를 클라이언트에게 전송한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;File-server system&lt;/strong&gt;: 클라이언트가 파일을 CRUD 할 수 있는 파일 시스템 인터페이스를 제공한다. 파일의 실제 내용은 전통적인 웹 페이지부터 고화질 비디오와 같은 풍부한 멀티미디어 콘텐츠에 이르기까지 매우 다양하다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;1104-peer-to-peer-computing&quot;&gt;1.10.4 Peer-to-Peer Computing&lt;/h3&gt;
+
+&lt;p&gt;시스템 내의 모든 노드(피어)가 동등하게 여겨지며, 각 피어는 서비스를 요청하는지 제공하는지에 따라 클라이언트 또는 서버 역할을 모두 수행할 수 있다(분산 시스템임). 전통적인 클라이언트-서버 시스템에서 서버가 &lt;strong&gt;병목 현상&lt;/strong&gt;을 일으킬 수 있는 반면, P2P 시스템에서는 서비스가 네트워크 전체에 분산된 여러 노드에 의해 제공될 수 있다는 장점이 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;p2p-네트워크-참여-및-서비스-검색-방식&quot;&gt;P2P 네트워크 참여 및 서비스 검색 방식&lt;/h4&gt;
+
+&lt;p&gt;P2P 시스템에 참여하려면 노드는 먼저 피어 네트워크에 합류해야 하며, 네트워크에 합류한 노드는 다른 노드에 서비스를 제공하고 요청할 수 있다. 서비스 가용성을 확인하는 방법은 크게 두 가지가 있다:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;중앙 집중식 조회 서비스 이용&lt;/strong&gt; - 노드가 네트워크에 참여할 때 자신의 서비스를 &lt;strong&gt;중앙 집중식 조회 서비스&lt;/strong&gt;에 등록한다. 특정 서비스를 원하는 노드는 먼저 이 중앙 조회 서비스에 접속하여 해당 서비스를 제공하는 노드를 확인하고, 클라이언트와 서비스 제공자 간의 통신이 직접 이루어진다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;분산된 서비스 검색(브로드캐스팅)&lt;/strong&gt; - 중앙 집중식 조회 서비스 없이, 클라이언트 역할을 하는 피어가 원하는 서비스를 제공하는 노드를 찾기 위해 네트워크의 다른 모든 노드에 요청을 &lt;strong&gt;브로드캐스팅&lt;/strong&gt; 후 해당 서비스를 제공하는 노드(들)는 요청을 보낸 피어에게 직접 응답한다. 이러한 접근 방식을 지원하기 위해 피어들이 네트워크 내의 다른 피어가 제공하는 서비스를 발견할 수 있도록 &lt;strong&gt;&lt;a href=&quot;#발견-프로토콜&quot;&gt;발견 프로토콜(Discovery Protocol)&lt;/a&gt;&lt;/strong&gt;이 필요하다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;1105-cloud-computing&quot;&gt;1.10.5 Cloud Computing&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/seonghun120614/assets/img/cloud-computing.png&quot; alt=&quot;cloudcomputing&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;클라우드 컴퓨팅은 컴퓨팅 자원, 저장 공간, 심지어 애플리케이션까지도 네트워크를 통해 서비스 형태로 제공하는 방식이다. 이는 &lt;strong&gt;가상화 기술을 기반&lt;/strong&gt;으로 하며, Amazon EC2와 같이 수많은 서버와 방대한 저장 공간을 인터넷을 통해 제공하고 사용량에 따라 요금을 부과하는 것이 대표적인 예시다.&lt;/p&gt;
+
+&lt;h4 id=&quot;클라우드-컴퓨팅의-주요-유형&quot;&gt;클라우드 컴퓨팅의 주요 유형&lt;/h4&gt;
+
+&lt;p&gt;클라우드 컴퓨팅은 여러 가지 형태로 분류할 수 있으며, 복합적으로 활용될 수 있다:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;퍼블릭 클라우드(Public Cloud)&lt;/strong&gt; - 인터넷을 통해 누구나 비용을 지불하고 사용할 수 있는 클라우드&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;프라이빗 클라우드(Private Cloud)&lt;/strong&gt; - 특정 기업이 자체적인 용도로 운영하는 클라우드&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;하이브리드 클라우드(Hybrid Cloud)&lt;/strong&gt; - 퍼블릭 클라우드와 프라이빗 클라우드 구성 요소를 모두 포함하는 형태&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;SaaS(Software as a Service)&lt;/strong&gt; - 워드 프로세서나 스프레드시트 같은 하나 이상의 애플리케이션을 인터넷을 통해 서비스로 제공&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;PaaS(Platform as a Service)&lt;/strong&gt; - 애플리케이션 사용을 위한 소프트웨어 스택(예: 데이터베이스 서버)을 인터넷을 통해 즉시 사용할 수 있도록 제공&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;IaaS(Infrastructure as a Service)&lt;/strong&gt; - 서버나 저장 공간(예: 백업 데이터 저장 공간)과 같은 컴퓨팅 인프라를 인터넷을 통해 제공&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;클라우드-인프라의-관리&quot;&gt;클라우드 인프라의 관리&lt;/h4&gt;
+
+&lt;p&gt;클라우드 인프라 내부에는 전통적인 운영체제들이 존재하며, 그 위에는 가상 머신(VM)을 관리하는 &lt;strong&gt;VMM(Virtual Machine Monitor)&lt;/strong&gt;이 있다. 더 나아가, VMM 자체는 &lt;strong&gt;VMware vCloud Director&lt;/strong&gt;나 오픈 소스 &lt;strong&gt;Eucalyptus&lt;/strong&gt;와 같은 &lt;strong&gt;클라우드 관리 도구&lt;/strong&gt;에 의해 관리되며, 이 도구들은 클라우드 내의 자원을 관리하고 클라우드 구성 요소에 대한 인터페이스를 제공하여, 사실상 새로운 유형의 운영체제로 간주될 수 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;참고로 퍼블릭 클라우드에서 IaaS를 제공하는 경우, 클라우드 서비스와 사용자 인터페이스는 &lt;strong&gt;방화벽&lt;/strong&gt;으로 보호된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;1106-real-time-embedded-systems&quot;&gt;1.10.6 Real-Time Embedded Systems&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;임베디드 컴퓨터(Embedded computers)&lt;/strong&gt;는 매우 &lt;strong&gt;특정하고 제한적인 작업&lt;/strong&gt;을 수행하기 위해 만들어진 시스템이며, 주로 하드웨어 장치를 모니터링하고 관리하는 데 시간을 보낸다(주로 상호작용하는 사용자의 비중이 상대적으로 없음). 따라서 사용자 인터페이스가 거의 없는 경우가 많고, 실행되는 시스템과 운영체제도 제한된 기능을 제공하는 원시적인 형태이다.&lt;/p&gt;
+
+&lt;h4 id=&quot;임베디드-시스템의-다양한-형태와-확장성&quot;&gt;임베디드 시스템의 다양한 형태와 확장성&lt;/h4&gt;
+
+&lt;p&gt;임베디드 시스템은 매우 다양하게 존재:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;주로 리눅스와 같은 &lt;strong&gt;표준 운영체제&lt;/strong&gt;에서 특정 목적의 애플리케이션을 실행하는 범용 컴퓨터&lt;/li&gt;
+  &lt;li&gt;다른 일부는 특정 목적의 &lt;strong&gt;임베디드 운영체제&lt;/strong&gt;를 탑재한 하드웨어 장치&lt;/li&gt;
+  &lt;li&gt;운영체제 없이 태스크를 수행하는 &lt;strong&gt;ASIC(Application-Specific Integrated Circuits)&lt;/strong&gt;으로 구현된 하드웨어 장치&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;로 나눌 수 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;실시간-운영체제real-time-operating-systems의-중요성&quot;&gt;실시간 운영체제(Real-time Operating Systems)의 중요성&lt;/h4&gt;
+
+&lt;p&gt;임베디드 시스템은 거의 항상 &lt;strong&gt;실시간 운영체제(Real-time Operating Systems, RTOS)&lt;/strong&gt;를 사용하며, 실시간 시스템은 프로세서 작동이나 데이터 흐름에 &lt;strong&gt;&lt;a href=&quot;#strictly-time-constraints&quot;&gt;엄격한 시간 제약 조건(strictly time constraints)&lt;/a&gt;&lt;/strong&gt;이 부여될 때 사용되어 전용 애플리케이션에서 제어 장치로 자주 활용된다. 일반화 된 예시로 센서가 데이터를 컴퓨터에 전달하면, 데이터를 분석하고 센서 입력을 수정하기 위해 제어 장치를 조정해야 할 때 사용한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;실시간 시스템&lt;/strong&gt;은 정확한 결과뿐만 아니라 &lt;strong&gt;정해진 시간 제약 조건 내에서 결과를 반환해야만&lt;/strong&gt; 한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예시
+과학 실험 제어 시스템, 의료 영상 시스템, 산업 제어 시스템, 특정 디스플레이 시스템, 자동차 엔진 연료 분사 시스템, 가전제품 컨트롤러, 무기 시스템&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;️-용어&quot;&gt;✒️ 용어&lt;/h2&gt;
+
+&lt;h6 id=&quot;발견-프로토콜&quot;&gt;발견 프로토콜&lt;/h6&gt;
+
+&lt;p&gt;&lt;strong&gt;발견 프로토콜&lt;/strong&gt;은 네트워크 내에서 &lt;strong&gt;서비스나 자원을 찾아내는 데 사용되는 통신 규약&lt;/strong&gt;을 말하며, 특히 P2P 시스템이나 분산 환경에서 특정 서비스를 제공하는 노드가 어디에 있는지, 또는 어떤 자원이 사용 가능한지 알 수 없을 때 이 프로토콜이 핵심적인 역할을 한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;브로드캐스트(Broadcasting) 기반&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;서비스를 찾는 노드가 네트워크의 모든 다른 노드에게 &lt;strong&gt;요청을 널리 알리는(브로드캐스트) 방식&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;과정&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;서비스를 찾는 노드(클라이언트 역할)는 특정 서비스 요청 메시지를 네트워크 전체에 전송&lt;/li&gt;
+  &lt;li&gt;이 요청을 받은 노드 중 해당 서비스를 제공하는 노드(서버 역할)는 요청을 보낸 노드에게 직접 응답&lt;/li&gt;
+  &lt;li&gt;이후 클라이언트는 응답한 서비스 제공자 노드와 직접 통신을 시작&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;장점으로 중앙 집중식 서버가 필요 없어 &lt;strong&gt;진정한 의미의 분산 시스템을 구현 가능&lt;/strong&gt;하다.&lt;br /&gt;
+단점으로 네트워크 트래픽이 많아질 수 있고, 대규모 네트워크에서는 비효율적이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;멀티캐스트(Multicasting) 기반&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;브로드캐스트와 유사하지만, 모든 노드가 아닌 &lt;strong&gt;특정 그룹의 노드에게만 요청을 전송&lt;/strong&gt;하는 방식이다. 장점으로 브로드캐스트보다 효율적이며, 네트워크 트래픽을 줄일 수 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;DHT(Distributed Hash Table) 기반 (구조화된 P2P 네트워크)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;분산 해시 테이블은 각 노드가 특정 데이터나 서비스의 위치 정보를 분산된 방식으로 저장하고 관리하는 고급 형태의 발견 프로토콜&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;과정&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;데이터나 서비스에 고유한 키를 부여하고&lt;/li&gt;
+  &lt;li&gt;이 키를 해싱하여 네트워크의 특정 노드에 매핑&lt;/li&gt;
+  &lt;li&gt;데이터를 찾는 노드는 DHT 프로토콜에 따라 해당 키에 해당하는 노드를 찾아간다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;장점으로 대규모 네트워크에서 효율적인 검색이 가능하고, 확장성이 뛰어나다.&lt;br /&gt;
+단점으로 구현이 복잡하며, 네트워크 변화에 따른 DHT 구조 유지에 오버헤드가 발생할 수 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예시
+&lt;strong&gt;제로콘프(Zeroconf) / 봉쥬르(Bonjour) / UPnP(Universal Plug and Play):&lt;/strong&gt; 네트워크 프린터, 스마트 TV, 미디어 서버 등 홈 네트워크 장치들이 서로를 자동으로 찾아 연결하는 데 사용
+&lt;strong&gt;BitTorrent:&lt;/strong&gt; 파일 조각을 가진 피어들을 찾아 연결하는 데 사용
+&lt;strong&gt;블록체인 네트워크 (예: 비트코인, 이더리움):&lt;/strong&gt; 새로운 노드가 네트워크에 참여할 때 다른 노드들을 발견하고 블록체인 데이터를 동기화하는 데 사용
+&lt;strong&gt;IoT(사물 인터넷) 장치:&lt;/strong&gt; 스마트 홈 기기들이 허브나 다른 기기들을 찾아 연결하는 데 발견 프로토콜이 활용&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;strictly-time-constraints&quot;&gt;Strictly Time Constraints&lt;/h4&gt;
+
+&lt;p&gt;엄격한 시간 제약 조건이란, 시스템의 특정 연산이나 태스크가 미리 정의된 마감 시간(deadline) 내에 반드시 완료되어야 하며, 이를 지키지 못할 경우 시스템의 기능적 오류나 재앙적인 결과가 발생하는 조건을 의미한다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html"></summary></entry><entry><title type="html">1.9 Kernel Data Structures</title><link href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/04/1.9-kernel-data-structures.html" rel="alternate" type="text/html" title="1.9 Kernel Data Structures" /><published>2025-07-04T08:16:48+00:00</published><updated>2025-07-04T08:16:48+00:00</updated><id>https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/04/1.9-kernel-data-structures</id><content type="html" xml:base="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/07/04/1.9-kernel-data-structures.html">&lt;!--more--&gt;
+
+&lt;h2 id=&quot;-본문&quot;&gt;📚 본문&lt;/h2&gt;
+
+&lt;p&gt;1.9 자료구조에 대한 것이므로 다른 분야에서 다루기 때문에 넘어간다.&lt;/p&gt;</content><author><name>Seonghun Park</name></author><category term="ComputerScience" /><category term="OS" /><summary type="html"></summary></entry></feed>
