@@ -1,12 +1,11 @@
 ---
 layout: post
 title:  National Number
-date:   2025-06-25 15:44:36 +0900
+date:   2025-07-25 15:44:36 +0900
 categories: Math Analysis
 ---
 
 <!--more-->
-미완성
 
 ## 📂 목차
 - [페아노 공리계(PA)](#페아노-공리계)
@@ -27,7 +26,18 @@ categories: Math Analysis
         - [Prop. 1](#prop-1-1)
         - [Props.](#props)
         - [Prop. Trichotomy](#prop-trichotomy)
-        - [Prop. Strong Principle of Induction](#prop-strong-principle-of-induction)
+    - [Prop. Strong Principle of Induction](#prop-strong-principle-of-induction)
+    - [Prop. Principle of Backwards Induction](#prop-principle-of-backwards-induction)
+- [곱셈 정의](#곱셈-정의)
+    - [Lemma 1](#lemma-1-2)
+    - [Lemma 2](#lemma-2-1)
+    - [Prop. Distributive Law](#prop-distributive-law)
+    - [Prop. Associative Law](#prop-associative-law)
+    - [Prop. Order-preserving](#prop-order-preserving)
+    - [Corollary. Cancellation Law](#corollary-cancellation-law)
+    - [Prop. Euclid's Division Lemma](#prop-euclids-division-lemma)
+    - [자연수의 거듭제곱 정의](#자연수의-거듭제곱-정의)
+- [Practice](#practice)
 
 ---
 
@@ -51,7 +61,7 @@ $\forall n \in \mathbb{N}, n++ \in \mathbb{N}$
 즉, 모든 자연수는 **Successor** 를 갖는다.
 
 3. 공리 1, 2 만으로는 컴퓨터의 overflow 가 되는 수 체계에서는 0으로 되돌아가는 것이 맞지 않음, **Wrap-around** 를 방지  
-$\nexists n \in s.t. n++ = 0$
+$\nexists n \in \text{s.t. }n++ = 0$
 
 4. 공리 1, 2, 3 만으로는 0, 1 에서의 1++ 가 다시 1이 되는 수체계가 있을 수 있다. 1 = 2 = 3 = ... 의 문제 발생을 방지  
 $\forall n, m \in \mathbb{N}, n++=m++ \implies n=m$  
@@ -77,7 +87,7 @@ $0 \in A \land \forall n \in \mathbb{N}, (n \in A \implies n++ \in A) \implies \
 
 ### 덧셈 정의
 
-$+:= \mathbb{N}\times\mathbb{N}\rightarrow\mathbb{N}$
+$+:= \mathbb{N}\times\mathbb{N}\mapsto\mathbb{N}$
 - $0+a = a$
 - $(a++)+b = (a+b)++$
 
@@ -277,15 +287,15 @@ $$
 &\text{Reflexive }& a \geq a\\
 &\text{Transitive }& a \geq b \land b \geq c &\implies a\geq c \\
 &\text{Anti-symmetric }& a \geq b \land b \geq a &\implies a=b\\
-&\text{Prop. 2 }& a \geq b &\iff a + c \geq b + c\\
-&\text{Prop. 3 }& a < b &\iff a++ \leq b\\
-&\text{Prop. 4 }& a < b &\iff \exists d \in \mathbb{Z}^+, b = a + d\\
-&\text{p.f)}
+&\text{Order-preserving }& a \geq b &\iff a + c \geq b + c\\
+&\text{Prop. 2 }& a < b &\iff a++ \leq b\\
+&\text{Prop. 3 }& a < b &\iff \exists d \in \mathbb{Z}^+, b = a + d\\
 \end{align*}
 $$
 
 $$
 \begin{align*}
+&\text{p.f)}\\
 &\textbf{Reflexive} \\
 &a = a + 0 \geq a &\blacksquare \\
 \\
@@ -300,7 +310,7 @@ $$
 &\iff a \geq a + d \\
 &\iff a = b &\blacksquare\\
 \\
-&\textbf{Prop. 2} \\
+&\textbf{Order-preserving} \\
 &\iff a = b + d \land b \geq a \\
 &\iff b \geq b + d & \tag{i}\\
 &\iff ((d \neq 0) \lor (d = 0)) \land (b \geq b + d) \\
@@ -310,13 +320,13 @@ $$
 &\iff d = 0 \\
 &\iff a = b &\blacksquare \\
 \\
-&\textbf{Prop. 3, Prop. 4} \\
+&\textbf{Prop. 2, Prop. 3} \\
 &\iff (b = a + d) \land (b \neq a) \\
 &\iff (b = a + d) \land (b = a + d \neq a)\\
 \\
 &\because d \neq 0 \text{ By, Positive Number Lemma 1, we can take }\\
 &\exists! c \in \mathbb{N},\quad s.t.\quad c++ = d\\
-&\text{Also, Prop. 4 is naturally proved by above right proposition. }\quad \blacksquare\\
+&\text{Also, Prop. 3 is naturally proved by above right proposition. }\quad \blacksquare\\
 \\
 &\iff (b = a + (c++) = (a+c)++ = (a++) + c) \land (b \neq a \equiv t) \\
 &\iff b = (a++) + c = a + (c++) \\
@@ -358,10 +368,205 @@ $$
 $$
 \begin{align*}
 &m_0 \in \mathbb{N}, P \text{ is proposition function.}\\
-&\forall n \in \mathbb{N}, \left(\forall m(\geq m_0) \in \mathbb{N}, \left(\bigwedge_{m_0 \leq m' < m} P(m')\right) \rightarrow P(m)\right) \rightarrow P(n) \\
+&\begin{cases}
+& P(m_0) \equiv t \\
+&\forall m(\geq m_0) \in \mathbb{N}, \bigwedge_{m_0 \leq m' < m} P(m') \implies P(m) \\
+\end{cases}\\
+&\forall n(\geq m_0), P(n) \equiv t
 \end{align*}
 $$
-위가 참이면 모든 자연수 n에 대한 P(n) 이 참이다. $m_0$은 보통 0 또는 1로 둔다.
+위가 참이면 모든 자연수 $m(\geq m_0)$에 대한 $P(n)$이 참이다. $m_0$은 보통 0 또는 1로 두고, $P_{m_0}$이 참이라고 해야 의미가 있게 된다. 증명하자.
+
+$$
+\begin{align*}
+p.f) \\
+&\text{i) } m = m_0,\;P(m_0) \equiv P(m) \equiv t\\
+&\text{ii) } m = k, \bigwedge_{m_0 \leq m' < k} P(m') \implies P(k)\\
+&\implies \bigwedge_{m_0 \leq m' < k} P(m') \land t\\
+&\iff \bigwedge_{m_0 \leq m' < k} P(m') \land P(k)\\
+&\iff \bigwedge_{m_0 \leq m' < k++} P(m') \implies P(k++)\\
+&\therefore P(k) \implies P(k++)\\
+\therefore \forall m(\geq m_0)\in\mathbb{N}, P(m)\equiv t\\
+&&\blacksquare\\
+\end{align*}
+$$
+
+#### Prop. Principle of Backwards Induction
+$$
+\begin{align*}
+&n \in \mathbb{N},\text{P(m) is proposition function}\\
+&\begin{cases}
+& P(n) \equiv t \\
+& P(m++) \implies P(m)
+\end{cases}\\
+&\forall m(\leq n) \in \mathbb{N}, P(m) \equiv t
+\end{align*}
+$$
+두 조건을 만족 시 n 이하의 자연수 전부에 대해 참임을 볼 수 있다. 여기서는 n에 대한 귀납법을 사용하면 된다.
+$$
+\begin{align*}
+&\text{i) }n = 0,\;P(0) \equiv t\\
+&\implies \forall m(\leq 0) \in \mathbb{N}, P(m) \equiv t\\
+&\text{ii) }n = k,\;\forall m(\leq k) \in \mathbb{N}, P(m) \equiv t\\
+&\implies P(m) \land P(k++)\quad(\because n=k+1)\\
+&\implies \forall m(\leq k++) \in \mathbb{N}, P(m) \equiv t\\\\
+&\therefore \begin{cases}
+& P(n) \equiv t \\
+& P(m++) \implies P(m)
+\end{cases}\implies \forall m(\leq n) \in \mathbb{N}, P(m) \equiv t
+&&\blacksquare
+\end{align*}\\
+$$
+
+### 곱셈 정의
+$\times := \mathbb{N}\times\mathbb{N}\mapsto\mathbb{N}$
+- $0\times m:=0$
+- $(n++)\times m:= (n\times m) + m$
+
+로 정의한다. 여기서 귀납법을 사용하면 두 자연수의 곱이 자연수임을 쉽게 확인 할 수 있다.
+
+> 두 자연수 $n, m$ 에 대해 $n\times m$ 이 자연수 임을 보이자.  
+> n = 0 일 때는 자명하다.  
+> n = k 일 때 $k\times m$이 자연수라고 하자.  
+> 그러면 $(k++) \times m = k \times m + m$ 이므로 $k\times m$ 이 자연수고, $m$이 자연수이기 때문에 전체도 자연수가 된다.
+
+#### Lemma 1
+곱셈의 교환법칙부터 증명하자. 사실 덧셈의 교환법칙 안에 포함되어 있다.
+
+$$
+\begin{align*}
+&\forall n, m \in \mathbb{N}, n \times m = m \times n\\
+&p.f)\\
+&\text{i) } n = 0,\\
+&\quad \text{1) } m = 0,\;0\times 0=0\times 0\\
+&\quad \text{2) } m = k,\;0\times k=k\times 0=0\\
+&\quad \implies (k++) \times 0=k\times 0+0=0\times k = 0\\
+&\text{ii) } n = i,\\
+&\quad i \times m = m \times i\\
+&\quad \implies i++ \times m = i \times m + m = m \times i + m = m \times i++\\\\
+&\therefore \forall n, m \in \mathbb{N}, n \times m = m \times n
+&&\blacksquare
+\end{align*}
+$$
+
+#### Lemma 2
+
+$$
+\forall n, m \in \mathbb{N},\;n\times m = 0 \iff n=0 \lor m=0
+$$
+귀류법을 사용해 증명하자. 그러면 n, m 은 0이 아니고, 양의 자연수이다.
+$$
+\begin{align*}
+&p.f)\\
+&\exists!\;n_{-} \in \mathbb{N},\;s.t.\;n_{-}++ = n\quad(\because \text{Positive Number Lemma 1})\\
+&n\times m = n_{-} \times m + m = 0 \implies m = 0 \equiv c\\
+&\text{By commutativity of multiplication, the other case is contradiction}\\
+&\therefore \forall n, m \in \mathbb{N},\;n\times m = 0 \implies n=0 \lor m=0\\
+&\text{The other arrow is trivial.}&\blacksquare
+\end{align*}
+$$
+
+#### Prop. Distributive Law
+
+$$
+\forall a, b, c \in \mathbb{N},\; a(b+c) = ab + ac \land (b+c)a = ba + ca
+$$
+
+$$
+\begin{align*}
+&\text{i) } c = 0,\\
+&a(b+0) = ab = ab + 0 = ab + a0 \\
+&\text{ii) } a(b+c) = ab + ac \\
+&\implies a(b+(c++)) = a((b+c)++) = a(b+c) + a = ab + ac + a = ab + a(c++)\\
+&\blacksquare
+\end{align*}
+$$
+
+#### Prop. Associative Law
+
+$$\forall a, b, c \in \mathbb{N},\;(a\times b)\times c = a\times (b\times c)$$
+
+$$
+\begin{align*}
+&\text{i) } b = 0, (a\times 0) \times c = 0 = 0 \times c = a\times (0\times c)\\
+&\text{ii) } b = k, (a\times k) \times c = a\times(k\times c)\\
+&\implies (a\times(k++))\times c = (a\times k + a) \times c = (a\times k)\times c + a \times c = a \times (k \times c) + a \times c = a\times(k++ \times c)\\
+\blacksquare
+\end{align*}
+$$
+
+#### Prop. Order-preserving
+
+$$\forall a, b \in \mathbb{N}, \forall c \in \mathbb{Z^+}\;a < b \implies ac < bc$$
+
+$$
+\begin{align*}
+a < b&\implies \exists k \in \mathbb{Z^+},\; a + k = b\quad(\because\text{Positive Number Prop.3})\\
+&\implies (a+k)c = bc\\
+&\implies \exists kc \in \mathbb{Z^+},\;ac + kc = bc\\
+&\implies ac < bc\\
+\blacksquare
+\end{align*}
+$$
+
+#### Corollary. Cancellation Law
+
+$$\forall a, b, c \in \mathbb{N}, ac = bc \land c \neq 0 \implies a = b$$
+
+$$
+\begin{align*}
+&\text{p.f)}\\
+&\text{i) }c = 0++, a(0++) = b(0++) \implies a = b\\
+&\text{ii) }c = k, ak = bk \implies a = b\\
+&\implies a(k++) = b(k++) \implies ak + a = bk + a = bk + b = b(k++)\\
+\blacksquare
+\end{align*}
+$$
+
+> 앞으로 n++ = n + 1 임을 이용한다.
+
+#### Prop. Euclid's Division Lemma
+$$\forall n\in\mathbb{N}, q\in\mathbb{Z^+},\;\exists m, r \in \mathbb{N},\;(0\leq r < q) \land (n = mq + r)$$
+
+n에 대한 귀납법을 사용하자.
+
+$$
+\begin{align*}
+&\text{p.f)}\\
+&\text{i) } n = 0,\;0 = 0q + 0\\
+&\text{ii) } n = k,\;k = m_0q + r_0\quad(0\leq r_0 < q)\\
+&\implies k+1 = m_0q + r_0 + 1 = m_0q + r_1\quad(\because 0 \leq r_1 = r_0 + 1 < q+1)\\
+&\begin{cases}
+& r_1 = q \implies k+1 = (m_0+1)q + 0\\
+& r_1 < q \implies k+1 = m_0q + r_1
+\end{cases}\\
+\blacksquare
+\end{align*}
+$$
+
+#### 자연수의 거듭제곱 정의
+$$
+\begin{align*}
+&\forall m \in \mathbb{N}\\
+&m^0 := 1,\;0^0 = 1 \\
+&m^{n++} := m^n \times m
+\end{align*}
+$$
+
+거듭제곱을 귀납적으로 정의한다.
+
+### Practice
+
+1. $\forall a, b \in \mathbb{N}, (a+b)^2 = a^2 + 2ab = b^2$
+
+Distributive law를 사용하자.
+$$
+\begin{align*}
+(a+b)^2 = a(a+b) + b(a+b) = a^2 + ab + ba + b^2 = a^2 + 2ab + b^2
+\end{align*}
+$$
+
+다음은 집합론인데 따로 분야를 나눠서 다루므로 넘어간다. 이제 자연수에서 기본적인 곱셈과 덧셈에 대한 연산은 증명없이 전부 자연스럽게 넘어간다.
 
 ---
 
