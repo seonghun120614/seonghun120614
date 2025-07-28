@@ -10,7 +10,15 @@ categories: Math SetTheory
 
 ## 📂 목차
 - [명제 Statement](#statement)
-- []()
+    - [Simple Statement & Compound Statement](#simple-statement--compound-statement)
+- [Truth Table](#truth-table)
+- [Logically Equivalent](#logically-equivalent)
+- [Conditional Truth Table](#conditional-truth-table)
+- [Biconditional Truth Table](#biconditional-truth-table)
+- [Tautology](#tautology)
+    - [Implication](#implication)
+        - [Theorem](#theorem)
+    - [Equivalence](#equivalence)
 
 ---
 
