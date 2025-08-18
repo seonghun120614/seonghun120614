@@ -2,7 +2,7 @@
 layout: post
 title:  보조. Bean 이란
 date:   2025-06-06 15:25:50 +0900
-categories: Java Spring
+categories: ComputerScience Java Spring
 ---
 <!--more-->
 Bean 개념 설명 및 사용법

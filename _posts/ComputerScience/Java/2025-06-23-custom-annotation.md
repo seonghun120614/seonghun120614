@@ -2,7 +2,7 @@
 layout: post
 title:  Custom Annotation
 date:   2025-06-23 16:04:25 +0900
-categories: Java
+categories: ComputerScience Java
 ---
 
 <!--more-->

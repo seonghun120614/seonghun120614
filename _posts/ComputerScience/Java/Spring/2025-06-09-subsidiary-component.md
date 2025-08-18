@@ -2,7 +2,7 @@
 layout: post
 title:  보조. Component
 date:   2025-06-09 18:45:16 +0900
-categories: Java Spring
+categories: ComputerScience Java Spring
 ---
 
 <!--more-->
