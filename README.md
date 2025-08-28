@@ -9,7 +9,7 @@
 <img src="https://img.shields.io/badge/Gmail-D14836?style=flat&logo=gmail&logoColor=white"/>
 <br/><br/>
 
-<a href="https://seonghun120614.github.io/seonghun120614/">![header](https://capsule-render.vercel.app/api?type=rounded&color=gradient&fontSize=50&text=Portfolio&height=200&desc=Click%20Here&animation=fadeIn&fontColor=ffffff&theme=gruvbox)</a>
+<a href="https://seonghun120614.github.io/seonghun120614/about/">![header](https://capsule-render.vercel.app/api?type=rounded&color=gradient&fontSize=50&text=Portfolio&height=200&desc=Click%20Here&animation=fadeIn&fontColor=ffffff&theme=gruvbox)</a>
 
-<a href="https://github.com/seonghun120614"><img src="https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical" alt="Seonghun's GitHub stats" width="50%"></a><a href="https://solved.ac/{lemonfox}"><img src="http://mazassumnida.wtf/api/v2/generate_badge?boj={lemonfox}" alt="Solved.ac 프로필" width="50%">
+<a href="https://github.com/seonghun120614"><img src="https://github-readme-stats.vercel.app/api?username=seonghun120614&show_icons=true&theme=radical" alt="Seonghun's GitHub stats" width="50%"></a><a href="https://solved.ac/lemonfox"><img src="http://mazassumnida.wtf/api/v2/generate_badge?boj=lemonfox" alt="Solved.ac 프로필" width="50%">
 </a><a href="https://github.com/seonghun120614"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=seonghun120614" alt="Top Languages" width="100%" height="300px"></a>
