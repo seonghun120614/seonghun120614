@@ -45,6 +45,13 @@ plainwhite:
   navigation:
     - title: About Me
       url: "/seonghun120614/about"
+    - title: Computer Science
+      url: "/seonghun120614/categories/computerscience"
+    - title: Math
+      url: "/seonghun120614/categories/math"
+    - title: Software Engineering
+      url: "/seonghun120614/categories/softwareengineering"
+
 
   condensed_mobile:
     - home
