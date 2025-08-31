@@ -7,10 +7,6 @@ categories: ComputerScience Java
 
 <!--more-->
 
-## 🪛 한계점
-
-
-
 ## 📂 목차
 - [Collection](#collection)
     - [Collections 활용](#collections-활용)
@@ -24,7 +20,6 @@ categories: ComputerScience Java
         - [LinkedList](#)
         - [PriorityQueue](#priorityqueue)
         - [BlockingQueue Interface](#blockingqueue-interface)
-
 
 ---
 
@@ -60,8 +55,6 @@ categories: ComputerScience Java
 
 #### Set Interface 에 대한 Collections 활용
 
-> Collection 이랑 Collections 는 다른 것이다..
-
 - `Collections.synchronizedSet(set)`: set을 받아 동기화되는 `Set` 을 반환한다.
 - `Collections.unmodifiableSet(set)`: set을 받아 읽기 전용 `Set` 을 만든다.
 
@@ -71,8 +64,7 @@ synchronized 도 마찬가지이다.
 
 ##### TreeSet
 
-`Set` 인터페이스를 구현하는 클래스이며, ordered 의 특징을 가진다.  
-`Comparator` 을 통해 정렬 순서를 정할 수 있다. 내부적으로는 이진 트리 기반의 레드-블랙 트리가 쓰인다.
+`Set` 인터페이스를 구현하는 클래스이며, ordered 의 특징을 가진다. `Comparator` 을 통해 정렬 순서를 정할 수 있다. 내부적으로는 이진 트리 기반의 레드-블랙 트리가 쓰인다.
 
 ##### EnumSet
 
@@ -86,10 +78,10 @@ enum 타입 전용의 `Set` 을 생성한다. enum 요소를 Set 으로 관리�
 
 FIFO 구조를 가지는 인터페이스이며, 
 
-- BlockingDeque
-- BlockingQueue
-- Deque
-- TransferQueue
+- `BlockingDeque`
+- `BlockingQueue`
+- `Deque`
+- `TransferQueue`
 
 의 하위 인터페이스가 있다. 위에서의 `add`, `remove` 와는 좀 다르게 다음 행위를 한다.
 
@@ -111,7 +103,7 @@ FIFO 구조를 가지는 인터페이스이며,
 
 우선순위 큐라고 부르며, `Comparable` 을 구현하여 사용하거나 `Comparator` 기반의 정렬을 한다.
 
-```java
+{% highlight java %}
 import java.util.*;
 
 class Student {
@@ -161,7 +153,7 @@ public class Solution {
         }
     }
 }
-```
+{% endhighlight %}
 
 ##### BlockingQueue Interface
 
@@ -169,11 +161,11 @@ public class Solution {
 이를 **blocking** 이라고 한다.
 
 **구현체**
-- ArrayBlockingQueue: 고정 크기 배열 기반
-- LinkeBlockingQueue: 링크드 노드라 크기 유연
-- PriorityBlockingQueue: 우선순위 큐 + 블로킹
-- DelayQueue: 일정 시간 후에 요소가 처리되는 큐
-- SynchronousQueue: 요소가 들어오면 바로 Consumer 에게 전달
+- `ArrayBlockingQueue`: 고정 크기 배열 기반
+- `LinkeBlockingQueue`: 링크드 노드라 크기 유연
+- `PriorityBlockingQueue`: 우선순위 큐 + 블로킹
+- `DelayQueue`: 일정 시간 후에 요소가 처리되는 큐
+- `SynchronousQueue`: 요소가 들어오면 바로 Consumer 에게 전달
 
 **Blocking**
 
