@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>Object 클래스 와 Objects 유틸</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object 클래스 와 Objects 유틸 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Object 클래스 와 Objects 유틸" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-26T06:40:05+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object 클래스 와 Objects 유틸" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-08-26T06:40:05+00:00","datePublished":"2025-08-26T06:40:05+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Object 클래스 와 Objects 유틸","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html">
+        <h2 class="post-title">Object 클래스 와 Objects 유틸</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Aug 26, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+
+<ul>
+  <li><a href="#object">Object</a></li>
+  <li><a href="#objects">Objects</a>
+    <ul>
+      <li><a href="#objectequalsobject-o">Object.equals(Object o)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="object">Object</h3>
+
+<p>모든 클래스의 수퍼 클래스이며, 보통 오버라이드하여 객체 동작을 커스터마이징한다.</p>
+
+<p><strong>메서드</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">toString()</code>: 객체를 문자로 표현하는 법 정의</li>
+  <li><code class="language-plaintext highlighter-rouge">equals(Object obj)</code>: 객체 비교 방법 정의</li>
+  <li><code class="language-plaintext highlighter-rouge">hash(Object... o)</code>:</li>
+  <li><code class="language-plaintext highlighter-rouge">hashCode()</code>: 객체 해시코드 반환</li>
+  <li><code class="language-plaintext highlighter-rouge">getClass()</code>: 객체의 <code class="language-plaintext highlighter-rouge">Runtime</code> 클래스 정보 반환</li>
+  <li><code class="language-plaintext highlighter-rouge">clone()</code>: 객체 복제 방법 정의(<strong>깊은/얕은 복사</strong> 가능)</li>
+  <li><code class="language-plaintext highlighter-rouge">finalize()</code>: GC가 객체를 수거하기 전에 호출</li>
+  <li><code class="language-plaintext highlighter-rouge">wait()</code>, <code class="language-plaintext highlighter-rouge">notify()</code>, <code class="language-plaintext highlighter-rouge">notifyAll()</code>: 스레드 동기화에 사용</li>
+</ul>
+
+<h3 id="objects">Objects</h3>
+
+<p>Object 를 다루기 위한 유틸성 함수들을 저장한다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">hash(Object... o)</code>: 여러 오브젝트로부터 하나의 해시코드를 만들어주는 유틸리티이다.</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;T&gt; T requireNonNull(T obj, String message)</code>: <code class="language-plaintext highlighter-rouge">null</code> 인지를 체크하고 아니면 반환한다. 만약 <code class="language-plaintext highlighter-rouge">null</code> 이라면 <code class="language-plaintext highlighter-rouge">message</code> 를 품은 <code class="language-plaintext highlighter-rouge">NullPointerException</code> 을 던진다</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;T&gt; T requireNonNullElse(T obj, T defaultObj)</code>: <code class="language-plaintext highlighter-rouge">null</code> 이라면 <code class="language-plaintext highlighter-rouge">defaultObj</code> 를 반환해주고 아니라면 그냥 해당 객체를 반환한다.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">&lt;T&gt; int compare(T a, T b, Comparator&lt;? super T&gt; c)</code>: a와 b를 비교하고 a가 더 작으면 음수를 b가 더 작으면 양수를 반환하는 함수이다.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">boolean deepEquals(Object a, Object b)</code>: 다차원의 Object 에 대한 깊이 있는 동등성을 비교한다.</li>
+</ul>
+
+<h4 id="objectequalsobject-o">Object.equals(Object o)</h4>
+
+<p>이번에는 <code class="language-plaintext highlighter-rouge">equals(Object o)</code> 에 대해 더 살펴본다. 개발자는 종종 <code class="language-plaintext highlighter-rouge">Object.equals()</code> 메서드를 오버라이드(override)하여 객체 고유의 동등성(equality) 기준을 정의해야 하는 순간이 온다. 이때 <code class="language-plaintext highlighter-rouge">equals()</code> 를 오버라이드할 때는 다음과 같은 5가지 <strong>계약(contract)</strong>을 준수해야 한다:</p>
+
+<ul>
+  <li>반사성(Reflexive): 모든 null이 아닌 참조 값 x에 대해, x.equals(x)는 true 여야 한다.</li>
+  <li>대칭성(Symmetric): 모든 null이 아닌 참조 값 x와 y에 대해, x.equals(y)가 true일 때만 y.equals(x)도 true여야 한다.</li>
+  <li>추이성(Transitive): 모든 null이 아닌 참조 값 x, y, z에 대해, x.equals(y)가 true이고 y.equals(z)가 true이면, x.equals(z)도 true여야 한다.</li>
+  <li>일관성(Consistent): 모든 null이 아닌 참조 값 x와 y에 대해, x.equals(y)를 반복적으로 호출해도 일관적으로 같은 값을 반환해야 한다.</li>
+  <li>Null과의 비교: 모든 null이 아닌 참조 값 x에 대해, x.equals(null)은 false여야 한다.</li>
+  <li>hashCode 오버라이딩: equals 를 구현하려면 해시코드를 오버라이딩 해야 한다.</li>
+</ul>
+
+<p>위를 고려하여 코딩하자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">brand</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">brand</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">brand</span> <span class="o">=</span> <span class="n">brand</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 1. 같은 객체인지 확인</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="c1">// 2. null이거나 타입이 다른지 확인</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="c1">// 3. 필드 값 비교</span>
+        <span class="nc">Car</span> <span class="n">car</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Car</span><span class="o">)</span> <span class="n">o</span><span class="o">;</span>
+        <span class="k">return</span> <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">brand</span><span class="o">,</span> <span class="n">car</span><span class="o">.</span><span class="na">brand</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Objects</span><span class="o">.</span><span class="na">hash</span><span class="o">(</span><span class="n">brand</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/26/object-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%99%80-objects-%EC%9C%A0%ED%8B%B8.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
