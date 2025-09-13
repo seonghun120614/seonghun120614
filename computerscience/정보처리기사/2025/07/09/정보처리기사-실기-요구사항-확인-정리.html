@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>정보처리기사 실기 요구사항 확인 정리</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>정보처리기사 실기 요구사항 확인 정리 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="정보처리기사 실기 요구사항 확인 정리" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-07-09T09:35:11+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="정보처리기사 실기 요구사항 확인 정리" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-07-09T09:35:11+00:00","datePublished":"2025-07-09T09:35:11+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"정보처리기사 실기 요구사항 확인 정리","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html">
+        <h2 class="post-title">정보처리기사 실기 요구사항 확인 정리</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jul 9, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>정보처리기사</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#요구사항-분석-단계-절차">요구사항 분석 단계 절차</a></li>
+  <li><a href="#uml">UML</a>
+    <ul>
+      <li><a href="#uml-구성요소">UML 구성요소</a></li>
+      <li><a href="#구조적-다이어그램">구조적 다이어그램</a>
+        <ul>
+          <li><a href="#클래스-다이어그램">클래스 다이어그램</a></li>
+          <li><a href="#객체-다이어그램">객체 다이어그램</a></li>
+          <li><a href="#컴포넌트-다이어그램">컴포넌트 다이어그램</a></li>
+          <li><a href="#배치-다이어그램">배치 다이어그램</a></li>
+          <li><a href="#복합체-구조-다이어그램">복합체 구조 다이어그램</a></li>
+          <li><a href="#패키지-다이어그램">패키지 다이어그램</a></li>
+        </ul>
+      </li>
+      <li><a href="#동적-다이어그램">동적 다이어그램</a>
+        <ul>
+          <li><a href="#유스케이스-다이어그램">유스케이스 다이어그램</a></li>
+          <li><a href="#시퀀스-다이어그램">시퀀스 다이어그램</a></li>
+          <li><a href="#커뮤니케이션-다이어그램">커뮤니케이션 다이어그램</a></li>
+          <li><a href="#상태-다이어그램">상태 다이어그램</a></li>
+          <li><a href="#활동-다이어그램">활동 다이어그램</a></li>
+          <li><a href="#타이밍-다이어그램">타이밍 다이어그램</a></li>
+        </ul>
+      </li>
+      <li><a href="#uml-관계">UML 관계</a></li>
+      <li><a href="#uml-stereotype">UML Stereotype</a></li>
+    </ul>
+  </li>
+  <li><a href="#agile-개발-방법론">Agile 개발 방법론</a>
+    <ul>
+      <li><a href="#xp">XP</a></li>
+      <li><a href="#scrum">SCRUM</a></li>
+      <li><a href="#lean">Lean</a></li>
+    </ul>
+  </li>
+  <li><a href="#분석-자동화-도구">분석 자동화 도구</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>Ctrl + P 인쇄 가능합니다.</p>
+
+<h3 id="요구사항-분석-단계-절차">요구사항 분석 단계 절차</h3>
+
+<ol>
+  <li>요구사항 분류: 기능 요구사항, 비기능 요구사항을 구분하는 단계
+    <ul>
+      <li>기능 요구사항: 기능과 관련하여 소프트웨어가 가져야 하는 기능적 속성에 대한 요구사항</li>
+      <li>비기능 요구사항: 기능적 속성이 아닌 성능, 보안, 품질 등에 대한 요구사항</li>
+    </ul>
+  </li>
+  <li>개념 모델링 생성 및 분석: 현실 세계의 상황을 단순화, 개념적으로 표현하는 것을 모델링이라고 한다.
+    <ul>
+      <li>DFD: 데이터 흐름을 처리기(◯), 데이터 흐름(→), 데이터 저장소(=), 단말(□) 로 표현함. 시간의 흐름 ❌, 제어 흐름 ❌</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>DD: 시스템에 사용하는 모든 데이터에 대한 정의와 설명을 체계적으로 정리한 문서로 =(is composed of), +(연결), (생략), { , , }(반복), [</td>
+              <td>](택일), **(주석) 을 통해 표현함.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li><a href="#uml">UML</a></li>
+      <li>E-R</li>
+    </ul>
+  </li>
+  <li>요구사항 할당</li>
+  <li>요구사항 협상</li>
+  <li>정형 분석</li>
+</ol>
+
+<h3 id="uml">UML</h3>
+
+<p>객체 지향 소프트웨어 개발 과정에서 산출물을 명세화, 시각화, 문서화 할 때 사용되는 모델링 기술과 방법론을 통합해서 만든 표준화된 범용 모델링 언어</p>
+
+<h4 id="uml-구성요소">UML 구성요소</h4>
+
+<ul>
+  <li>사물(Things): 주제를 나타내는 추상적 개념으로 명사, 동사 의미</li>
+  <li>관계(Relationships): 사물-사물 연결로 형용사, 부사 의미</li>
+  <li>다이어그램(Diagrams): 사물과 관계를 모아 그림으로 표현, 9가지로 정의</li>
+</ul>
+
+<h4 id="구조적-다이어그램">구조적 다이어그램</h4>
+
+<p>외우기 - 클객 컴배 복패</p>
+
+<h5 id="클래스-다이어그램">클래스 다이어그램</h5>
+
+<ul>
+  <li>시스탬 내 클래스의 정적 구조 표현</li>
+  <li>속성과 동작으로 구성</li>
+  <li>클래스와 클래스, 클래스와 속성 사이 관계 표현</li>
+  <li>접근 제어자: public +, default ~, protected #, private -</li>
+</ul>
+
+<blockquote>
+  <p>UML에서 클래스는 보통 직사각형으로 표현됨</p>
+</blockquote>
+
+<h5 id="객체-다이어그램">객체 다이어그램</h5>
+
+<ul>
+  <li>‘특정 시점’의 인스턴스와 인스턴스 사이의 관계를 표현</li>
+  <li>객체 인스턴스를 나타내는 대신 실제 클래스를 사용</li>
+  <li>연관된 모든 인스턴스를 표현</li>
+</ul>
+
+<blockquote>
+  <p>객체가 인스턴스이다.</p>
+</blockquote>
+
+<h5 id="컴포넌트-다이어그램">컴포넌트 다이어그램</h5>
+
+<ul>
+  <li>컴포넌트(Executable 단위) 기반의 물리적 구조 표현</li>
+  <li>실질적 프로그래밍 작업에 사용</li>
+</ul>
+
+<h5 id="배치-다이어그램">배치 다이어그램</h5>
+
+<ul>
+  <li>컴포넌트 사이의 종속성을 표현</li>
+  <li>소프트웨어가 실제 시스템에 어떻게 배포되는지를 시각화할 때 사용</li>
+  <li>결과물, 프로세스, 컴포넌트 등 물리적 요소들의 위치를 표현</li>
+  <li>아키텍처 설계나 배포 구조 문서화, 운영 인수인계 할 때 사용</li>
+</ul>
+
+<h5 id="복합체-구조-다이어그램">복합체 구조 다이어그램</h5>
+
+<ul>
+  <li>클래스나 컴포넌트가 복합 구조를 갖는 경우 그 내부 구조를 표현</li>
+  <li>일반적인 클래스 다이어그램은 이런 속성과 메서드를 가진다는 외형적인 관계만을 보여주지만, 이 클래스 내부에 어떤 역할과 부품이 있고, 어떻게 동작 객체를 통해 연결되는가 까지 설명하려면 이를 사용</li>
+  <li>내부 구조를 정밀하게 모델링</li>
+</ul>
+
+<h5 id="패키지-다이어그램">패키지 다이어그램</h5>
+
+<ul>
+  <li>유스케이스나 클래스 등의 모델 요소들을 그룹화한 패키지들의 관계를 표현</li>
+</ul>
+
+<h4 id="동적-다이어그램">동적 다이어그램</h4>
+
+<p>외우기 - 유시커 상황타</p>
+
+<h5 id="유스케이스-다이어그램">유스케이스 다이어그램</h5>
+
+<ul>
+  <li>사용자 관점에서 시스템의 활동을 표현</li>
+  <li>유스케이스는 시스템의 <strong>기능적 요구 정의에 활용</strong></li>
+  <li>구성요소
+    <ul>
+      <li>유스케이스: ◯</li>
+      <li>액터</li>
+      <li>시스템: □</li>
+    </ul>
+  </li>
+  <li>관계 표현
+    <ul>
+      <li>연관관계 (유스케이스)-(액터)</li>
+      <li>포함 관계 (포함하는) - « include » - &gt; (포함되는)</li>
+      <li>확장 관계 (확장 기능) - « extend » -&gt; (확장 대상, 더 넓은 개념)<br />
+  ex) (비밀번호 재설정) - « extend » -&gt; (로그인)</li>
+      <li>일반화 관계 (추상화) ◁- (구현체)</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="시퀀스-다이어그램">시퀀스 다이어그램</h5>
+
+<ul>
+  <li>객체 간 상호 작용을 메시지 흐름으로 표현</li>
+  <li>객체 사이 메시지를 보내는 시간을 표현</li>
+  <li>교류 다이어그램의 한 종류로 볼 수 있음</li>
+  <li>구성 요소
+    <ul>
+      <li>객체: □</li>
+      <li>생명선: 객체 아래로 이어진 ┆</li>
+      <li>실행: 생명선 위의 □</li>
+      <li>메시지: -▶</li>
+      <li>회귀 메시지: Lifeline 에서 자신의 Activation 에 메시지로 연결</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="커뮤니케이션-다이어그램">커뮤니케이션 다이어그램</h5>
+
+<ul>
+  <li>시퀀스 다이어그램과 같이 동작에 참여하는 ‘객체’들이 주고 받는 메시지를 표현</li>
+  <li>메시지 뿐만 아니라 객체 간의 연관까지 표현</li>
+</ul>
+
+<h5 id="상태-다이어그램">상태 다이어그램</h5>
+
+<ul>
+  <li>하나의 객체가 자신의 속한 클래스의 상태 변화 표현</li>
+  <li>다른 객체와의 상호작용에 따라 상태가 어떻게 변화하는지 표현</li>
+  <li>모든 가능한 상태와 전이를 표현</li>
+  <li>진입 조건, 탈출 조건, 상태 전이 등을 기술</li>
+  <li>구성요소
+    <ul>
+      <li>상태: 객체가 존재할 조건, 둥근 사각형으로 표현</li>
+      <li>시작 상태: ●</li>
+      <li>종료 상태: ⦿</li>
+      <li>전이: -▶
+        <ul>
+          <li>이벤트: -이벤트-▶</li>
+          <li>전이 조건: -[전이조건]-&gt;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="활동-다이어그램">활동 다이어그램</h5>
+
+<ul>
+  <li>시스템이 어떤 기능을 수행하는지 객체의 처리 로직이나 조건에 따른 처리의 흐름을 순서대로 표현</li>
+  <li>활동의 순서대로 흐름을 표현</li>
+</ul>
+
+<h5 id="타이밍-다이어그램">타이밍 다이어그램</h5>
+
+<ul>
+  <li>객체 상태 변화와 시간 제약을 명시적으로 표현</li>
+</ul>
+
+<h4 id="uml-관계">UML 관계</h4>
+
+<p>연의 일실 포집</p>
+
+<ul>
+  <li>연관 관계: -&gt;</li>
+  <li>의존 관계: - - -&gt;</li>
+  <li>일반화 관계: (Child Class) -▶ (Parent Class)</li>
+  <li>실체화 관계: (Class) - - -▶ (Interface)</li>
+  <li>포함 관계: (Class) ◆-&gt; (Several Class)</li>
+  <li>집합 관계: (Class) ◇-&gt; (Several Class)</li>
+</ul>
+
+<blockquote>
+  <p>포함은 강한 결합, 집합은 느슨한 결합</p>
+</blockquote>
+
+<h4 id="uml-stereotype">UML Stereotype</h4>
+
+<ul>
+  <li>« include »: Usecase</li>
+  <li>« extend »: Usecase</li>
+  <li>« interface »: Class Diag.</li>
+  <li>« entity »: Usecase</li>
+  <li>« boundary »: 외부 액터와의 상호작용을 담당하는 클래스 Sequence</li>
+  <li>« control »: 로직 및 제어를 담당하는 클래스 Sequence</li>
+</ul>
+
+<h3 id="agile-개발-방법론">Agile 개발 방법론</h3>
+
+<p>반복적이고 점진적인 개발을 통해 변화하는 요구사항에 빠르게 대응</p>
+
+<h4 id="xp">XP</h4>
+
+<p>의사소통 개선과 즉각적 피드백으로 소프트웨어 품질을 높이기 위한 방법론</p>
+
+<ul>
+  <li>1~3주의 반복 개발 주기</li>
+  <li>5가지의 가치와 12개의 실천</li>
+</ul>
+
+<h4 id="scrum">SCRUM</h4>
+
+<p>매일 정해진 시간, 장소에서 짧은 시간의 개발을 하는 팀을 위한 프로젝트 관리 중심 방법론</p>
+
+<ul>
+  <li>제품 책임자(Product Owner)</li>
+  <li>제품 백로그</li>
+  <li>스프린트: 2~4주의 짧은 개발 기간 반복 수행</li>
+  <li>스크럼 미팅: 매일 15분 정도의 미팅으로 To-Do List 수립</li>
+  <li>스크럼 마스터: 스크럼 수행 시 문제를 인지하는 사람</li>
+  <li>스프린트 회고: 스프린트 주기를 되돌아봄</li>
+  <li>번 다운 차트: 백로그 대비 시간을 그래프로 나타냄</li>
+</ul>
+
+<h4 id="lean">Lean</h4>
+
+<p>JIT, 칸반 보드 이용</p>
+
+<h3 id="분석-자동화-도구">분석 자동화 도구</h3>
+
+<ul>
+  <li>상위 CASE(문서 기반): 계획 수립, 요구 분석, 기본 설계 단계를 다이어그램으로 표현, 자료흐름도 프로토타이핑 작성 지원 및 UI 설계 지원</li>
+  <li>하위 CASE(코드 기반): 구문 중심 편집 및 정적, 동적 테스트 지원</li>
+</ul>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC/2025/07/09/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%ED%99%95%EC%9D%B8-%EC%A0%95%EB%A6%AC.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
