@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>보조. Component</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>보조. Component | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="보조. Component" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-06-09T09:45:16+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="보조. Component" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-06-09T09:45:16+00:00","datePublished":"2025-06-09T09:45:16+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"보조. Component","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html">
+        <h2 class="post-title">보조. Component</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jun 9, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#service">@Service</a></li>
+  <li><a href="#repository">@Repository</a></li>
+  <li><a href="#controller">@Controller</a></li>
+  <li><a href="#component-와-bean-과의-차이">@Component 와 @Bean 과의 차이</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p><code class="language-plaintext highlighter-rouge">@Component</code> 는 클래스 위에 붙는 애너테이션이며, Spring 이 해당 클래스를 <code class="language-plaintext highlighter-rouge">@ComponentScan</code> 시 자동으로 빈으로 등록하도록 만든다.</p>
+
+<p>@Component 만이 아니라 이를 구현하는 다른 interface 또한 있다.</p>
+
+<h3 id="service">@Service</h3>
+
+<p>@Component의 특수한 형태로</p>
+
+<ul>
+  <li>비즈니스 로직을 수행하는 클래스에 사용</li>
+  <li>@Component 의 기능을 포함하고 서비스 클래스 임을 명시</li>
+  <li><strong><a href="#aop">AOP(예: 트랜잭션 처리)</a></strong>와 같은 부가 기능을 적용할 수 있는 힌트로 활용</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderService</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">processOrder</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="repository">@Repository</h3>
+
+<p>@Component의 특수한 형태로</p>
+
+<ul>
+  <li>데이터베이스에 접근하는 <strong><a href="#dao">DAO(Data Access Object) 클래스</a></strong>에 사용</li>
+  <li>데이터 접근 계층에 대한 예외를 <code class="language-plaintext highlighter-rouge">Spring DataAccessException</code>으로 통일</li>
+  <li><strong><a href="#jpa">JPA</a></strong>나 <strong><a href="#mybatis">MyBatis</a></strong>와 같이 <strong><a href="#orm">ORM</a></strong> 또는 <strong>SQL 매퍼 라이브러리</strong>와 함께 사용</li>
+</ul>
+
+<h3 id="controller">@Controller</h3>
+
+<p>@Component의 특수한 형태로</p>
+
+<ul>
+  <li>웹 요청을 처리하는 프레젠테이션 계층(Controller Layer) 클래스에 사용</li>
+  <li>Spring MVC에서 요청을 받아 처리하고 뷰에 결과를 반환하는 역할</li>
+  <li><code class="language-plaintext highlighter-rouge">@RequestMapping</code> 등의 애너테이션과 함께 사용(나중에 나옴)</li>
+</ul>
+
+<h3 id="component-와-bean-과의-차이">@Component 와 @Bean 과의 차이</h3>
+
+<p><code class="language-plaintext highlighter-rouge">@Bean</code>은 수동 등록이며 <code class="language-plaintext highlighter-rouge">@Configuration</code> 클래스 내의 메서드에 붙여서 해당 메서드의 리턴값을 Bean 으로 등록한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MyService</span> <span class="nf">myService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MyService</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이는 외부 라이브러리 클래스의 수정이 불가할 때, 즉 <strong>@Component 를 직접 사용할 수 없을 때 해당 외부 클래스를 Bean으로 등록하는 경우</strong> 유용하다. 복잡한 초기화 로직이 필요한 객체를 생성하는 경우에도 사용한다.</p>
+
+<hr />
+
+<h2 id="-관련-글">📁 관련 글</h2>
+
+<ul>
+  <li><a href="/seonghun120614/java/spring/2025/06/09/4.-spring-boot-application-initialization">4. Spring Boot Application Initialization</a></li>
+</ul>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<h6 id="aop">AOP</h6>
+<p>관점 지향 프로그래밍(Aspect-Oriented Programming)의 줄임말로, 로깅, 트랜잭션, 보안 등 부가 기능을 핵심 로직과 분리하여 모듈화할 수 있게 해주는 프로그래밍 패러다임</p>
+
+<h6 id="jpa">JPA</h6>
+<p>자바 진영의 ORM(Object-Relational Mapping) 표준 인터페이스이며 개발자가 <strong>직접 SQL을 작성하지 않고도 Java 객체와 데이터베이스 테이블을 매핑</strong>하여 다룰 수 있게 해준다.</p>
+
+<h6 id="dao">DAO</h6>
+<p>Data Access Object의 약자로, 데이터베이스에 접근하는 로직을 담당하는 객체이고 <strong>비즈니스 로직과 데이터 접근 로직을 분리하여 코드의 책임을 명확히</strong> 할 수 있다.</p>
+
+<h6 id="mybatis">MyBatis</h6>
+<p>SQL 기반의 <strong>데이터 매퍼 프레임워크</strong>로, XML 또는 애너테이션을 사용하여 SQL 문을 작성하고 Java 객체와 매핑한다. 복잡한 SQL 작성이 필요한 경우 유용하다.</p>
+
+<h6 id="mvc">MVC</h6>
+<p>Model-View-Controller의 약자로, 사용자 인터페이스와 로직을 분리하기 위한 소프트웨어 아키텍처 패턴이다. 전공 공부에서도 나오고, 정처기에서도 나온다.</p>
+
+<h6 id="orm">ORM</h6>
+<p>Object-Relational Mapping의 약자로, 객체 지향 프로그래밍 언어를 사용하여 <strong>관계형 데이터베이스의 데이터를 객체처럼 다룰 수 있게</strong> 해주는 기술</p>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/09/subsidiary-component.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

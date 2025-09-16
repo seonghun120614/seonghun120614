@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>1.2.1 Interrupts</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>1.2.1 Interrupts | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="1.2.1 Interrupts" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="컴퓨터 시스템의 구조 전반이 어떻게 생겨 먹었는지, 그리고 어떻게 돌아가는지 살펴본다." />
+<meta property="og:description" content="컴퓨터 시스템의 구조 전반이 어떻게 생겨 먹었는지, 그리고 어떻게 돌아가는지 살펴본다." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-06-07T01:32:29+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="1.2.1 Interrupts" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-06-07T01:32:29+00:00","datePublished":"2025-06-07T01:32:29+00:00","description":"컴퓨터 시스템의 구조 전반이 어떻게 생겨 먹었는지, 그리고 어떻게 돌아가는지 살펴본다.","headline":"1.2.1 Interrupts","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html">
+        <h2 class="post-title">1.2.1 Interrupts</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jun 7, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>OS</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+<p>컴퓨터 시스템의 구조 전반이 어떻게 생겨 먹었는지, 그리고 어떻게 돌아가는지 살펴본다.</p>
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#1211-interrupts">1.2.1.1 Interrupts</a>
+    <ul>
+      <li><a href="#io-작업-완료-알림">I/O 작업 완료 알림</a></li>
+      <li><a href="#️-interrupt-handler">⭐️ Interrupt Handler</a></li>
+      <li><a href="#interrupt-vector-tableinterrupt-vector을-사용한-방식">Interrupt Vector Table(Interrupt Vector) 을 사용한 방식</a></li>
+    </ul>
+  </li>
+  <li><a href="#1212-implementation">1.2.1.2 Implementation</a>
+    <ul>
+      <li><a href="#interrupt-controller">Interrupt Controller</a></li>
+      <li><a href="#interrupt-chaining">Interrupt Chaining</a></li>
+      <li><a href="#interrupt-priority-levels">Interrupt Priority Level</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>현대 컴퓨터 시스템은 <strong>하나 이상의 CPU</strong>와 여러 개의 <strong><a href="#device-controller">장치 컨트롤러(Device Controller)</a></strong>로 구성되어 있고, <strong><a href="#common-bussystem-bus">공통 버스(Common Bus, System Bus)</a></strong> 를 통해 연결되어 있다.</p>
+
+<p><img src="/seonghun120614/assets/img/device-controllers.png" alt="device-controllers" /></p>
+
+<p>Common Bus는 각 구성 요소들과 <strong><a href="#shared-memory">공유 메모리(Shared Memory)</a></strong> 간의 접근 경로를 제공한다(공유 메모리가 있다면 각 장치들마다 해당 메모리를 읽어서 데이터를 공유할 수 있다). 일반적으로 <strong>운영체제</strong>는 각 <strong>Device Controller</strong> 마다 하나의 <strong><a href="#device-driver">장치 드라이버(Device Driver)</a></strong> 를 가지게 된다. CPU 와 장치 컨트롤러는 병렬로 동작이 가능하기에 <strong><a href="#memory-cycle">메모리 접근 주기(Memory Cycle)</a></strong> 도중 경쟁하게 된다.</p>
+
+<p>이런 공유 메모리에 대한 접근을 질서있게 하기 위해서 <strong><a href="#memory-controller">메모리 컨트롤러(Memory Controller)</a></strong>가 존재하고 컨트롤러는 메모리 접근을 <strong><a href="#synchronize">동기화(Synchronize)</a></strong> 한다.</p>
+
+<p><img src="/seonghun120614/assets/img/a-typical-pc-computer-system.png" alt="a typical pc computer system" /></p>
+
+<p>위의 흐름을 가지고 다음을 읽자.</p>
+
+<h3 id="1211-interrupts">1.2.1.1 Interrupts</h3>
+
+<p><strong>Interrupt</strong>는 CPU의 주의를 끌기 위해 사용되는 <strong>제어 신호</strong>로,<br />
+<strong>Common Bus의 Control Bus</strong>를 통해 전달된다. 주된 종류는 다음과 같다:</p>
+
+<ul>
+  <li><strong><a href="#io-작업-완료-알림">I/O 작업 완료 알림</a></strong>: 디스크 읽기, 프린터 출력 등 작업 완료 시</li>
+  <li><strong>입력 이벤트 알림</strong>: 키보드 입력, 마우스 클릭 등 사용자 인터랙션 발생 시</li>
+  <li><strong>타이머 인터럽트 (Timer Interrupt)</strong>: 일정 주기로 발생하여 OS가 CPU 제어권을 회수할 수 있게 함</li>
+  <li><strong>소프트웨어 인터럽트 (System Call)</strong>: 사용자 프로그램이 운영체제 기능을 요청할 때 발생</li>
+  <li><strong>하드웨어 오류/예외 (Exception)</strong>: 0으로 나누기, 잘못된 메모리 접근 등 오류 발생 시 자동으로 발생</li>
+</ul>
+
+<hr />
+
+<h4 id="io-작업-완료-알림">I/O 작업 완료 알림</h4>
+
+<p><strong>I/O 작업 완료 알림</strong>을 예로 들어보자.</p>
+
+<ol>
+  <li><strong>CPU가 I/O 장치 A에 작업을 요청</strong></li>
+  <li>운영체제의 <strong>Device Driver</strong>가 CPU 명령을 해당 장치가 이해할 수 있도록 <strong>해석 및 변환</strong></li>
+  <li>변환된 명령이 <strong>Device Controller</strong> 하드웨어로 전달됨</li>
+  <li><strong>Device Controller</strong>가 실제 장치에 명령을 내려 <strong>작업 수행</strong></li>
+  <li>작업 완료 시, <strong>Device Controller가 Control Bus를 통해 CPU에 Interrupt를 전송</strong></li>
+  <li>CPU는 Interrupt를 수신하고, <strong>적절한 <a href="#interrupt-handler">Interrupt Handler (Interrupt Service Routine, ISR)</a></strong>를 호출하여 후속 작업을 처리</li>
+</ol>
+
+<p><img src="/seonghun120614/assets/img/interrupt-timeline-for-a-single-program-doing-output.png" alt="interrupt timeline for a single program doing output" /></p>
+
+<p><strong>Interrupt Handler</strong> 를 보자.</p>
+
+<hr />
+
+<h4 id="️-interrupt-handler">⭐️ Interrupt Handler</h4>
+
+<p>운영체제 내부에서 Interrupt 가 발생했을 때, 실행되는 특수한 함수/코드 블록이다.</p>
+
+<p>CPU가 Control Bus 에서 Interrupt 를 받았을 때, 현재 실행 중이던 작업을 잠시 멈추고,<br />
+즉시 <strong>고정된 위치(fixed location)</strong> 로 <strong><a href="#context-switching">제어를 전환(Context Switching)</a></strong>한다.</p>
+
+<p><img src="/seonghun120614/assets/img/interrupt-driven-io-cycle.png" alt="interupt driven io cycle" /></p>
+
+<p>고정된 위치는 일반적으로 해당 인터럽트를 처리하기 위한 <strong>서비스 루틴(Interrupt Service Routine, ISR)</strong> 의 시작 주소를 포함한다. ISR이 실행되고, 그 작업이 완료되면 CPU는 중단된 게산을 다시 이어서 수행하게 된다. 인터럽트를 처리하는데 있어서 책에서 제공하는 방법은 두 가지 이다.</p>
+
+<blockquote>
+  <ol>
+    <li>인터럽트 정보를 확인하는 <strong>일반 루틴(Generic Routine)</strong>을 호출한 뒤,
+해당 루틴이 인터럽트에 특화된 핸들러를 호출하는 방식이 일반적이고 단순한 방법이다.</li>
+    <li>인터럽트는 매우 자주 발생하기 때문에 빠르게 처리되어야 하므로 위 방법은 맞지 않고,
+속도를 높이기 위해 인터럽트 <strong>루틴들의 주소를 저장한 포인터 테이블(Interrupt Vector Table)</strong>을 사용한다면
+Generic Routine 을 거치지 않고도 테이블을 통해 직접 해당 ISR 으로 점프할 수 있다.</li>
+  </ol>
+</blockquote>
+
+<p><strong>Interrupt Vector Table</strong> 을 이용한 방법을 보자.</p>
+
+<hr />
+
+<h4 id="interrupt-vector-tableinterrupt-vector을-사용한-방식">Interrupt Vector Table(Interrupt Vector)을 사용한 방식</h4>
+
+<p>Interrupt Vector Table은 보통 <strong>메모리의 낮은 영역(처음 100여 개 위치)</strong>에 저장되며,<br />
+각 위치에는 인터럽트 요청 번호(인터럽트 벡터)에 해당하는 <strong>서비스 루틴(ISR)의 주소</strong>가 저장된다.</p>
+
+<p>CPU는 인터럽트가 발생하면, 전달받은 고유 번호(벡터 번호)를 기반으로<br />
+Interrupt Vector Table을 인덱싱하여 해당 <strong>ISR로 직접 점프</strong>한다.<br />
+이 방식은 Windows, UNIX 등 대부분의 운영체제에서 사용된다.</p>
+
+<p>이때, 인터럽트 처리를 위해서는 <strong>CPU의 상태 정보(예: 레지스터 값)</strong>를 반드시 저장해야 한다.<br />
+인터럽트 처리가 끝난 후에는 이 상태를 복원하여 <strong>중단된 작업을 재개</strong>할 수 있어야 한다.</p>
+
+<blockquote>
+  <p>✅ 따라서 인터럽트 처리를 위해 필요한 조건은 다음과 같다.</p>
+  <ul>
+    <li>ISR들의 주소가 저장된 <strong>Interrupt Vector Table</strong>이 필요</li>
+    <li>인터럽트 발생 시, <strong>CPU 상태 정보(Context)</strong>를 저장해야 함</li>
+    <li>ISR 실행 완료 후, CPU는 <strong>인터럽트 복귀 명령(Return from Interrupt)</strong>을 실행하여 원래 작업으로 복귀</li>
+  </ul>
+</blockquote>
+
+<p>그럼 이러한 이론들을 기반으로 실제 구현 단계에서는 어떤 구조가 필요할지 살펴보자.</p>
+
+<hr />
+
+<h3 id="1212-implementation">1.2.1.2 Implementation</h3>
+
+<p>구현에 있어서 크게 다음 기능들을 구현해야 한다.</p>
+<ul>
+  <li>Interrupt Controller</li>
+  <li>Interrupt Chaining</li>
+  <li>Interrupt Priority Level</li>
+</ul>
+
+<h4 id="interrupt-controller">Interrupt Controller</h4>
+
+<p>앞에서 인터럽트의 전체적인 처리 과정을 이해했으니, 이제 CPU가 인터럽트 신호를 <strong>어떻게 해석하고 처리하는지</strong>를 살펴보자.</p>
+
+<p>현대 컴퓨터에서는 여러 장치들이 <strong>서로 다른 방식으로 인터럽트를 발생</strong>시키기 때문에,<br />
+CPU가 직접 해석하기엔 <strong>일관성이 부족하다</strong>. 이를 해결하기 위해 <strong>Interrupt Controller</strong>라는 하드웨어가 사용된다.</p>
+
+<p><strong>Interrupt Controller</strong>는 장치들로부터 들어오는 <strong><a href="interrupt-request-line">Interrupt Request Line</a>의 신호를 감지</strong>하고,<br />
+해당 신호들의 <strong>우선순위를 판별</strong>하여, 가장 먼저 처리해야 할 <strong>인터럽트 번호(Interrupt Vector Number)</strong>를 CPU에 전달한다.<br />
+CPU는 이 번호를 사용하여 <strong>Interrupt Vector Table</strong>을 인덱싱하고,<br />
+해당 위치에 등록된 <strong>ISR(Interrupt Service Routine)</strong>을 실행한다.</p>
+
+<p>이를 위 요구사항과 더불어 추가하면:</p>
+<blockquote>
+  <ul>
+    <li>Interrupt Controller는 <strong>Interrupt Request Line</strong>을 통해 인터럽트 신호를 감지</li>
+    <li>신호에 따라 판별된 <strong>인터럽트 번호</strong>를 CPU에 전달</li>
+    <li>CPU는 해당 번호로 <strong>Interrupt Vector Table</strong>을 인덱싱</li>
+    <li>ISR들의 주소가 저장된 <strong>Interrupt Vector Table</strong>이 필요</li>
+    <li>인터럽트 발생 시, <strong>CPU 상태 정보(Context)</strong>를 저장해야 함</li>
+    <li>ISR 실행 완료 후, CPU는 <strong>인터럽트 복귀 명령(Return from Interrupt)</strong>을 실행하여 원래 작업으로 복귀</li>
+  </ul>
+</blockquote>
+
+<p>이 과정을 통해 컴퓨터 시스템은 <strong>Interrupt Controller라는 하드웨어 자원</strong>을 활용하여 <strong>ISR을 안정적으로 실행</strong>할 수 있으며,<br />
+운영체제 입장에서는 이를 <strong>Interrupt Controller라는 추상적인 객체</strong>로 간주하여 관리하게 된다.</p>
+
+<hr />
+
+<h4 id="interrupt-chaining">Interrupt Chaining</h4>
+
+<p>Interrupt Vector Table은 말 그대로 인터럽트 번호를 통해 ISR 주소를 빠르게 찾아갈 수 있도록 설계된 테이블이다.
+그러나 장치 수가 많아질수록 각 장치에 대해 개별적인 각 장치마다 독립된 인터럽트 벡터 항목이 필요해지므로,<br />
+<strong>공간 복잡도</strong>가 급격히 증가하게 된다.</p>
+
+<blockquote>
+  <p>예시</p>
+  <ul>
+    <li>32번(키보드): 0x1000</li>
+    <li>33번(키보드): 0x1100</li>
+    <li>34번(키보드): 0x1200</li>
+    <li>35번(마우스): 0x1300</li>
+    <li>36번(디스크): 0x1400</li>
+    <li>37번(디스크): 0x1500
+…</li>
+  </ul>
+</blockquote>
+
+<p>장치가 추가될 때마다 번호를 계속 할당하면 테이블은 비대해져 공간 복잡도가 증가하고, 관리도 어렵다.</p>
+
+<p>또 다른 문제는, 예를 들어 USB와 같은 포트 기반 장치는<br />
+여러 장치(USB 마우스, USB 키보드 등)가 <strong>공통된 인터럽트 번호(예: 64번)</strong>를 공유해야 하는 상황이 자주 발생한다.</p>
+
+<blockquote>
+  <p>예시</p>
+  <ul>
+    <li>64번(USB): 0x8500
+…</li>
+  </ul>
+</blockquote>
+
+<p>이 경우 하나의 ISR이 모든 요청을 처리하게 되므로 <strong>요청이 많을수록 조건문이 복잡해지고, 시간 복잡도</strong>가 증가하게 된다.</p>
+
+<p>이러한 비효율을 줄이기 위해 <strong>Interrupt Chaining</strong>이라는 기법이 사용된다.</p>
+
+<p>이 방식에서는 Interrupt Vector Table의 각 항목이 <strong>ISR 하나의 주소가 아니라, ISR들을 연결한 연결 리스트의 시작점</strong>을 가리킨다.<br />
+즉, 인터럽트 번호 40번에 대응되는 테이블 항목이 다음과 같은 구조를 갖는다:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Index 40 → [ ISR1 ] → [ ISR2 ] → [ ISR3 ] → null</code></p>
+
+<p>이 구조는,</p>
+<ul>
+  <li>모든 장치에 대해 <strong>거대한 인터럽트 벡터 테이블을 만드는 공간 오버헤드</strong>와</li>
+  <li><strong>하나의 ISR에서 모든 요청을 처리하는 시간 오버헤드</strong> 사이에서 절충된 설계를 하는 것이라고 볼 수 있다(널리 사용됨).</li>
+</ul>
+
+<h4 id="interrupt-priority-levels">Interrupt Priority Levels</h4>
+
+<p>우선순위는 들어오는 Interrupt 에 대해 낮은 순위를 가지는 Interrupt 처리를 <strong>지연(defer)</strong>하게 하고<br />
+모든 인터럽트를 완전히 차단하지 않아도 되게 해준다.</p>
+
+<p>따라서 더 높은 우선순위의 인터럽트가 실행 중인 낮은 우선순위의 <strong>인터럽트를 중단하고(preempt)</strong> 먼저 처리될 수 있도록 한다.</p>
+<blockquote>
+  <p>(예: 타이머 인터럽트가 키보드 입력보다 높은 우선순위로 처리됨)</p>
+</blockquote>
+
+<p>이는 인터럽트가 운영체제 전반에서 비동기 이벤트 처리를 위해 또는 다양한 목적을 위해 사용될 수 있으며<br />
+<strong>시간에 대해 민감한 처리(time-sensitive processing)</strong>에 광범위하게 사용할 수 있으며,<br />
+인터럽트를 효율적으로 처리하는 것이 시스템 성능을 좌우하게 하는 매우 중요한 요소이다.</p>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<h6 id="device-controller">Device Controller</h6>
+
+<p>특정 유형의 장치를 제어하는 역할을 담당하는 하드웨어</p>
+
+<ul>
+  <li><strong>Device Controller 1:n Devices</strong> 로 매핑 가능</li>
+  <li><strong>로컬 버퍼 (Local Buffer)</strong> 와 <strong>특수 목적 레지스터 (Special-purpose Registers)</strong> 를 내장</li>
+  <li><strong>주변 장치와 이 로컬 버퍼 간에 데이터를 전송하는 역할</strong>을 수행</li>
+</ul>
+
+<h6 id="common-bussystem-bus">Common Bus(System Bus)</h6>
+
+<p>컴퓨터 시스템 내의 모든 주요 구성 요소들을 연결시키는 하나의 공통된 통신선을 Common Bus 라고 하며,<br />
+이를 통해 데이터를 주고 받는데, 이 통신선은 세 가지 유형의 신호선을 포함한다:</p>
+
+<ul>
+  <li><strong>데이터 버스 (Data Bus)</strong>: 데이터 전송</li>
+  <li><strong>주소 버스 (Address Bus)</strong>: 데이터의 위치 지정</li>
+  <li><strong>제어 버스 (Control Bus)</strong>: 동작 제어 및 동기화</li>
+</ul>
+
+<h6 id="shared-memory">Shared Memory</h6>
+
+<p>컴퓨터 시스템 내의 여러 구성 요소들이 공동으로 접근할 수 있는 메모리 공간(RAM의 일부)을 의미한다.</p>
+
+<h6 id="device-driver">Device Driver</h6>
+
+<ul>
+  <li><strong>Device Driver 1:1 Device Controller</strong> 로 매핑</li>
+  <li>컨트롤러의 세부 동작을 이해</li>
+  <li><strong>일관된 인터페이스를 다른 장치들에게 뿌림</strong></li>
+</ul>
+
+<h6 id="memory-cycle">Memory Cycle</h6>
+
+<p>CPU 또는 장치 컨트롤러와 같은 구성 요소가 메모리에 데이터를 읽거나 쓰기 위해 소요되는 단일 동작 주기를 의미</p>
+
+<p>하나의 메모리 사이클은</p>
+
+<ol>
+  <li><strong>주소 지정 (Addressing)</strong> → CPU 또는 컨트롤러가 접근하고자 하는 메모리 주소를 지정</li>
+  <li><strong>읽기 또는 쓰기 (R/W)</strong> → 지정된 주소로부터 데이터를 읽거나 데이터를 해당 위치에 기록</li>
+  <li><strong>응답 대기 (Wait/Response)</strong> → 메모리가 요청을 처리하고 응답하는 데 걸리는 시간 포함</li>
+</ol>
+
+<p>의 과정을 행하는 시간이다.</p>
+
+<h6 id="memory-controller">Memory Controller</h6>
+
+<p>여러 구성요소의 메모리 동시 접근에 대해 <strong>충돌을 방지하고 접근을 동기화 하는 역할을 수행</strong>하는 하드웨어</p>
+
+<ul>
+  <li>공유 메모리에 대한 읽기/쓰기 요청 순서를 조정</li>
+  <li><strong>구성 요소 간의 병렬 접근 충돌 방지</strong></li>
+  <li>현대 시스템에서는 <strong>메모리 계층 구조에 따라 다양한 컨트롤러가 분산되어 존재</strong></li>
+</ul>
+
+<p>추후에 나옴</p>
+
+<h6 id="synchronize">Synchronize</h6>
+
+<p>여러 구성 요소가 동시에 자원에 접근하려고 할 때, 그 순서를 조정하여 충돌이나 오류가 없도록 처리를 제어하는 것을 의미</p>
+
+<h6 id="interrupt-request-lineirq-line">Interrupt Request Line(IRQ Line)</h6>
+
+<p>Interrupt Controller 와 직접적으로 연결되어 있는 2개의 하드웨어 선이며,<br />
+하나는 <strong>Non-Maskable Interrupt(NMI)</strong>, 다른 하나는 <strong>Maskable Interrupt</strong> 이다.</p>
+
+<ul>
+  <li><strong>Non-Maskable Interrupt</strong>: 절대 무시할 수 없는 신호를 담당(반드시 처리), 메모리 오류, 하드웨어 고장, CPU 팬 멈춤, …</li>
+  <li><strong>Maskable Interrupt</strong>: 일반적인 인터럽트(보편적으로 인터럽트는 이걸 말함), 중요한 계산중이라면 이 Interrupt 로 들어온건 무시 가능</li>
+</ul>
+
+<h6 id="context-switching">Context Switching</h6>
+
+<p>하나의 프로세스가 CPU를 사용 중인 상태에서 다른 프로세스가 CPU를 사용하도록 하기 위해, 이전의 <strong>프로세스의 상태(context)를 저장</strong>하고 <strong>새로운 프로세스의 상태를 적재(load)</strong>하는 작업</p>
+
+<hr />
+
+<h2 id="-출처">🔗 출처</h2>
+<ul>
+  <li>도서: <a href="">Operating System Concepts 10th Edition</a></li>
+</ul>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/os/2025/06/07/1.2.1-interrupts.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
