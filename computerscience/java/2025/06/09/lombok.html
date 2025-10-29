@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>Lombok</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lombok | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Lombok" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/06/09/lombok.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/06/09/lombok.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-06-09T07:47:48+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lombok" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-06-09T07:47:48+00:00","datePublished":"2025-06-09T07:47:48+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Lombok","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/06/09/lombok.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/06/09/lombok.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/java/2025/06/09/lombok.html">
+        <h2 class="post-title">Lombok</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jun 9, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-한계점">🪛 한계점</h2>
+
+<p>Java 의 구조가 유사한 Constructor, Getter, Setter, toString, equalsTo 등등의 보일러플레이트 코드가 매우 빈번히 발생한다. 이를 위해 Lombok 에서 애너테이션을 추가하는 것만으로 클래스 자체에 보일러플레이트 코드들을 획기적으로 줄일 수 있다.</p>
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#requiredargsconstructor">@RequiredArgsConsturctor</a></li>
+  <li><a href="#builder">@Builder</a></li>
+  <li><a href="#data">@Data</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>Lombok 은 Java 에서 반복적으로 작성해야 하는 보일러플레이트 코드를 줄이기 위한 라이브러리이다.<br />
+읽기전에 밑의 기본적인 애너테이션은 숙지하고 간다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>애너테이션</th>
+      <th>기능 설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@Getter</code>, <code class="language-plaintext highlighter-rouge">@Setter</code></td>
+      <td>각 필드에 대해 <code class="language-plaintext highlighter-rouge">getter</code>, <code class="language-plaintext highlighter-rouge">setter</code> 자동 생성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@ToString</code></td>
+      <td>객체의 <code class="language-plaintext highlighter-rouge">toString()</code> 메서드 자동 생성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@EqualsAndHashCode</code></td>
+      <td><code class="language-plaintext highlighter-rouge">equals()</code>와 <code class="language-plaintext highlighter-rouge">hashCode()</code> 메서드 자동 생성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@NoArgsConstructor</code></td>
+      <td>파라미터가 없는 기본 생성자 자동 생성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@AllArgsConstructor</code></td>
+      <td>모든 필드를 포함하는 생성자 자동 생성</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="requiredargsconstructor">@RequiredArgsConstructor</h3>
+
+<p>생성자가 전부 필요한 것, 전부 필요없는 것 뿐 아니라 필요한 필드만 생성자로 추가하도록 할 수도 있다.<br />
+final, @NonNull 이 붙으면 무조건 Lombok 은 RequiredArgsConstructor의 생성자의 인자로 등록해준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserRepository</span> <span class="n">userRepository</span><span class="o">;</span>
+    <span class="nd">@NonNull</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span> <span class="c1">// 이건 포함 안됨</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>@NotEmpty, @NotNull 은 다른 패키지의 validation 애너테이션이다. 주의하자.</p>
+
+<h3 id="builder">@Builder</h3>
+
+<p>빌더 패턴 메서드를 자동 생성한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// User.class</span>
+<span class="kn">import</span> <span class="nn">lombok.Builder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.ToString</span><span class="o">;</span>
+
+<span class="nd">@Builder</span>
+<span class="nd">@ToString</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// Main.class</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"홍길동"</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">age</span><span class="o">(</span><span class="mi">25</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="s">"hong@example.com"</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="data">@Data</h3>
+
+<p>@Data = @Getter + @Setter + @ToString + @EqualsAndHashCode + @RequiredArgsConstructor<br />
+다른 설명은 하지 않겠다.</p>
+
+<hr />
+
+<h2 id="-관련-글">📁 관련 글</h2>
+<ul>
+  <li><a href="/seonghun120614/java/spring/2025/06/09/3.-spring-boot-custom-property.html">3. Spring Boot Custom Property</a></li>
+</ul>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/06/09/lombok.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/06/09/lombok.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
