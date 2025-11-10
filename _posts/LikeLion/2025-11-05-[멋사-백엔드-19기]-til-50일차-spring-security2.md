@@ -8,8 +8,13 @@ categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
 <!--more-->
 
 ## 📂 목차
-- [Servlet Authentication Architecture]()
-- []()
+- [Servlet Authentication Architecture](#servlet-authentication-architecture)
+    - [SecurityContextHolder](#securitycontextholder)
+        - [Authentication](#authentication)
+        - [AuthenticationManager](#authenticationmanager)
+        - [ProviderManager](#providermanager)
+        - [Request Credentials with AuthenticationEntryPoint](#request-credentials-with-authenticationentrypoint)
+        - [AbstractAuthenticationProcessingFilter](#abstractauthenticationprocessingfilter)
 
 ---
 
@@ -255,3 +260,5 @@ Spring Security 의 필터들이 인증을 수행하는 방식을 정의하는 A
 8. `RememberMeServices.loginFail()` 호출
 9. `AuthenticationFailureHandler` 호출
     - 인증 실패 시 추가 처리(리다이렉트, 에러 메시지 등)
+
+큰 틀을 보았으니 이제 이를 실제로 코드에서 적용시켜보자.
