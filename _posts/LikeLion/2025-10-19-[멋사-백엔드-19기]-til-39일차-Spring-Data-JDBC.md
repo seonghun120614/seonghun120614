@@ -6,8 +6,31 @@ categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
 ---
 
 ## 📂 목차
-- []()
-- []()
+- [Spring JDBC](#spring-jdbc)
+    - [JdbcTemplate](#jdbctemplate)
+        - [단일 Query 연산](#단일-query-연산)
+        - [다수 Query 연산](#다수-query-연산)
+        - [수정 연산(insert, delete, update 등등)](#수정-연산insert-delete-update-등등)
+        - [NamedParameterJdbcTemplate](#namedparameterjdbctemplate)
+        - [DataAccessException 계층](#dataaccessexception-계층)
+    - [SimpleJdbcInsert](#simplejdbcinsert)
+- [Spring Data JDBC & R2DBC](#spring-data-jdbc--r2dbc)
+    - [Repository 인터페이스](#repository-인터페이스)
+        - [CrudRepository 인터페이스](#crudrepository-인터페이스)
+        - [PagingAndSortingRepository 인터페이스](#pagingandsortingrepository-인터페이스)
+        - [Slice](#slice)
+    - [⭐️ New Entity Detection](#️-new-entity-detection)
+    - [@NoRepositoryBean 를 정의하여 자주 사용하는 메서드들 정의](#norepositorybean-를-정의하여-자주-사용하는-메서드들-정의)
+    - [저장소 활성화 구성 정의하기](#저장소-활성화-구성-정의하기)
+    - [⭐️ Query Method](#️-query-method)
+        - [Query Lookup Strategies](#query-lookup-strategies)
+        - [Query Creation](#query-creation)
+        - [Reserved Method Names](#reserved-method-names)
+        - [Property Expressions](#property-expressions)
+        - [Repository Methods Returning Collections or Iterables](#repository-methods-returning-collections-or-iterables)
+        - [Streaming Query Results](#streaming-query-results)
+        - [Asynchronous Query Results](#asynchronous-query-results)
+        - [Paging, Iterating Large Results, Sorting & Limiting](#paging-iterating-large-results-sorting--limiting)
 
 ---
 
@@ -477,11 +500,11 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
 **규칙**
 1. `@Id` 애너테이션(프로퍼티)
-    - INSERT: null 혹은 원시 타입에서 default value 인 경우 = 신규
-    - UPDATE: 그 외
+    - `INSERT`: null 혹은 원시 타입에서 default value 인 경우 = 신규
+    - `UPDATE`: 그 외
 2. `@Version` 애너테이션(프로퍼티) 이 있다면 다음 기준으로 신규 여부 판단
-    - INSERT: null 또는 원시형 = 신규
-    - UPDATE: 값이 존재하고 0이 아님
+    - `INSERT`: null 또는 원시형 = 신규
+    - `UPDATE`: 값이 존재하고 0이 아님
 3. `org.springframework.data.domain.Persistable` 인터페이스 구현 시
     - Spring Data 는 엔티티 내부의 `isNew()` 메서드를 호출하여 신규 여부를 판단한다.
 
