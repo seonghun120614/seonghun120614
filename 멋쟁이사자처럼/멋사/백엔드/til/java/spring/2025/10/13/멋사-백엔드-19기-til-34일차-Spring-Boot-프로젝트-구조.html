@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 34일차 Spring Boot 프로젝트 구조</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 34일차 Spring Boot 프로젝트 구조 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 34일차 Spring Boot 프로젝트 구조" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-10-13T08:27:38+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 34일차 Spring Boot 프로젝트 구조" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-10-13T08:27:38+00:00","datePublished":"2025-10-13T08:27:38+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 34일차 Spring Boot 프로젝트 구조","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 34일차 Spring Boot 프로젝트 구조</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Oct 13, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#spring-boot">Spring Boot</a>
+    <ul>
+      <li><a href="#spring-initializer-의-war-옵션">Spring Initializer 의 war 옵션</a></li>
+      <li><a href="#프로젝트-구조">프로젝트 구조</a>
+        <ul>
+          <li><a href="#gradle">Gradle</a></li>
+          <li><a href="#gradle-wrapper">Gradle Wrapper</a></li>
+        </ul>
+      </li>
+      <li><a href="#sementic-versioning">Sementic Versioning</a></li>
+      <li><a href="#spring">Spring</a>
+        <ul>
+          <li><a href="#spring-boot-starter">Spring Boot Starter</a></li>
+          <li><a href="#spring-진입점">Spring 진입점</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="spring-boot">Spring Boot</h3>
+
+<p><strong>Spring Boot 핵심 가치</strong></p>
+<ul>
+  <li><strong>Convention over Configuration</strong>: 개발자가 미리 알고 있다고 가정하고 기본 설정을 제공</li>
+  <li><strong>Auto Configuration</strong>: classpath 기반으로 애플리케이션을 자동 구성</li>
+  <li><strong>독립 실행 가능</strong>: 내장 서버로 별도의 WAS 없이도 서비스 실행 가능</li>
+  <li><strong>Actuator</strong>: 모니터링 기능을 통한 운영 편이 제공</li>
+</ul>
+
+<h4 id="spring-initializer-의-war-옵션">Spring Initializer 의 war 옵션</h4>
+
+<p>war 옵션은 어떻게 배포할지 결정하는 빌드 방식이며, 외부 WAS 쪽에 배포하고 싶을 때 사용하게 된다(외장 <code class="language-plaintext highlighter-rouge">Tomcat</code>, <code class="language-plaintext highlighter-rouge">WebLogic</code>, <code class="language-plaintext highlighter-rouge">JEUS</code> 등등).</p>
+
+<p>jar 은 내장 WAS 로 바로 실행될 수 있도록 한다. 즉, <code class="language-plaintext highlighter-rouge">java -jar build/libs/myapp.jar</code> 으로 실행을 바로 할 수 있는 형태로 제공해준다는 말이다.</p>
+
+<h4 id="프로젝트-구조">프로젝트 구조</h4>
+
+<p>우선 생성된 Spring Initializer 에 대해 프로젝트 구조를 다시 정리하고 가자.</p>
+
+<h5 id="gradle">Gradle</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">build.gradle</code>: Gradle 빌드 도구 설정 파일
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">plugins</code>: Gradle 에 어떤 기능을 쓸지 선언하는 영역</li>
+      <li><code class="language-plaintext highlighter-rouge">repositories</code>: 외부 라이브러리를 어디서 다운로드할지 결정</li>
+      <li><code class="language-plaintext highlighter-rouge">dependencies</code>: 프로젝트에서 사용할 외부 라이브러리 목록 정의</li>
+      <li><code class="language-plaintext highlighter-rouge">build</code>: 자바 버전 설정, 프로젝트 명 등등</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">settings.gradle</code>: 프로젝트 이름 및 포함 프로젝트 설정</li>
+  <li><code class="language-plaintext highlighter-rouge">gradlew</code>: Unix / MacOS 용 Gradle 실행 스크립트 파일</li>
+  <li><code class="language-plaintext highlighter-rouge">gradlew.bat</code>: Window 용 Gradle 실행 스크립트 파일</li>
+  <li><code class="language-plaintext highlighter-rouge">gradle</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">gradle-wrapper.jar</code>: Gradle 실행용 JAR</li>
+      <li><code class="language-plaintext highlighter-rouge">gradle-wrapper.properties</code>: Gradle 버전 및 배포 설정</li>
+    </ul>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">build.gradle</code> 을 보통 많이 수정하게 될텐데 많이 봐두자. 또한 다음과 같은 key-value 를 볼 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">group</span> <span class="o">=</span> <span class="err">'</span><span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="err">'</span>
+<span class="n">version</span> <span class="o">=</span> <span class="err">'</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="no">SNAPSHOT</span><span class="err">'</span>
+<span class="n">description</span> <span class="o">=</span> <span class="err">'</span><span class="nc">Demo</span><span class="err">'</span></code></pre></figure>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>의미</th>
+      <th>실행과의 관계</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>group</td>
+      <td>패키지 네임스페이스(보통 도메인 형태, 예: com.example.demo)</td>
+      <td>빌드 시 그룹 ID로만 사용됨 (실행과 무관)</td>
+    </tr>
+    <tr>
+      <td>version</td>
+      <td>애플리케이션 버전 정보 (ex: 0.0.1-SNAPSHOT)</td>
+      <td>빌드 결과물(.jar 이름 등)에 반영됨</td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>프로젝트 설명</td>
+      <td>문서나 메타데이터 용도로만 사용됨</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>java plugin</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">build.gradle</code> 의 <code class="language-plaintext highlighter-rouge">plugins</code> 블럭에 <code class="language-plaintext highlighter-rouge">java</code> 가 들어가고 있음을 볼 수 있다. 다음 명령어를 제공하게 된다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew compileJava</code>: 자바 소스코드 컴파일</li>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew test</code>: 테스트 실행</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// build.gradle</span>
+<span class="n">tasks</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="err">'</span><span class="n">test</span><span class="err">'</span><span class="o">)</span> <span class="o">{</span> <span class="o">&lt;-</span> <span class="n">test</span> <span class="n">명령</span> <span class="n">실행</span> <span class="n">전</span> <span class="n">어떤</span> <span class="n">구성</span> <span class="n">설정을</span> <span class="n">할</span> <span class="n">것인지</span>
+    <span class="n">useJUnitPlatform</span><span class="o">()</span>
+<span class="o">}</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew jar</code>: JAR 파일 생성</li>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew build</code>: 전체 빌드 프로세스 실행</li>
+</ul>
+
+<p><strong>org.springframework.boot plugin</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew bootRun</code>: 애플리케이션을 즉시 실행(개발 모드)</li>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew bootJar</code>: 실행 가능한 Fat JAR 생성(모든 의존성 포함)
+    <ul>
+      <li>생성된 jar 파일은 <code class="language-plaintext highlighter-rouge">build/libs/</code> 폴더에 저장됨</li>
+      <li>이름은 <code class="language-plaintext highlighter-rouge">{프로젝트명}-{버전}.jar</code> 으로 생성되며 프로젝트 명은 <code class="language-plaintext highlighter-rouge">settings.gradle</code> 에서 <code class="language-plaintext highlighter-rouge">rootProject.name = </code> 으로 설정할 수 있다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew bootWar</code>: WAR 파일 생성 (외부 서블릿 컨테이너 배포용)</li>
+  <li><code class="language-plaintext highlighter-rouge">./gradlew bootBuildImage</code>: <strong>Cloud Native Buildpacks</strong> 를 이용한 Docker 이미지 생성</li>
+</ul>
+
+<p><strong>io.spring.dependency-management plugin</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">Spring Boot</code> 와 호환되는 의존성 버전을 자동으로 관리해주는 플러그인이다. <code class="language-plaintext highlighter-rouge">gradle</code> 은 원래 의존성 버전 충돌을 자동으로 조정하지 않는다. 보통 각 라이브러리의 버전을 명시하고 서로 특정 버전에서 충돌이 일어날 것을 고쳐주지 않는다.</p>
+
+<p>이때 <code class="language-plaintext highlighter-rouge">io.spring.dependency-management</code> 는 버전을 직접 쓰지 않아도 되는 환경을 만들어서 <code class="language-plaintext highlighter-rouge">Spring Boot</code> 가 관리하는 <strong><a href="#bom">BOM</a></strong> 파일을 자동으로 가져와서 의존성들의 버전 호환성을 보장해준다.</p>
+
+<p><strong>그 외 자주 쓰이는 명령어</strong></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># 전체 빌드 (컴파일 + 테스트 + JAR 생성)</span>
+./gradlew build
+
+<span class="c"># 테스트 실행</span>
+./gradlew <span class="nb">test</span>
+
+<span class="c"># 빌드 결과물 삭제 (clean build 시 유용)</span>
+./gradlew clean
+
+<span class="c"># clean + build 한 번에 실행</span>
+./gradlew clean build
+
+<span class="c"># 프로젝트 정보 확인</span>
+./gradlew projects
+
+<span class="c"># 사용 가능한 모든 Task 확인</span>
+./gradlew tasks
+
+<span class="c"># 테스트 스킵하고 빌드</span>
+./gradlew build <span class="nt">-x</span> <span class="nb">test</span>
+
+<span class="c"># 병렬 빌드 (멀티 모듈 프로젝트)</span>
+./gradlew build <span class="nt">--parallel</span>
+
+<span class="c"># 빌드 캐시 사용</span>
+./gradlew build <span class="nt">--build-cache</span>
+
+<span class="c"># 의존성 새로 다운로드 (캐시 무시)</span>
+./gradlew build <span class="nt">--refresh-dependencies</span>
+
+<span class="c"># 디버그 모드로 실행</span>
+./gradlew bootRun <span class="nt">--debug-jvm</span>
+
+<span class="c"># 특정 설정(configuration)의 의존성만 확인</span>
+./gradlew dependencies <span class="nt">--configuration</span> compileClasspath
+./gradlew dependencies <span class="nt">--configuration</span> runtimeClasspath
+
+<span class="c"># 의존성 충돌 확인</span>
+./gradlew dependencyInsight <span class="nt">--dependency</span> spring-core
+
+<span class="c"># 사용되지 않는 의존성 확인 (플러그인 필요)</span>
+./gradlew buildHealth</code></pre></figure>
+
+<h5 id="gradle-wrapper">Gradle Wrapper</h5>
+
+<p><code class="language-plaintext highlighter-rouge">gradle</code> 폴더에 <code class="language-plaintext highlighter-rouge">gradle wrapper</code> 라는 이름의 파일을 봤을 것이다. 용도는 다음과 같다:</p>
+
+<ul>
+  <li>프로젝트마다 지정된 Gradle 버전 사용 보장</li>
+  <li>Gradle 설치 불필요 (자동 다운로드)</li>
+  <li>팀원 간 일관된 빌드 환경 제공</li>
+  <li>CI/CD 환경에서도 동일한 버전 사용</li>
+</ul>
+
+<h4 id="sementic-versioning">Sementic Versioning</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Major.Minor.Patch</code> 형식 사용</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Major</code>: 호환되지 않는 <strong>API</strong> 변경 (예: 1.0.0 → 2.0.0)</li>
+  <li><code class="language-plaintext highlighter-rouge">Minor</code>: 하위 호환되는 <strong>기능</strong> 추가 (예: 1.0.0 → 1.1.0)</li>
+  <li><code class="language-plaintext highlighter-rouge">Patch</code>: 하위 호환되는 <strong>버그</strong> 수정 (예: 1.0.0 → 1.0.1)</li>
+  <li><code class="language-plaintext highlighter-rouge">SNAPSHOT</code>: 개발 중인 불안정 버전 (예: 0.0.1-SNAPSHOT)</li>
+</ul>
+
+<blockquote>
+  <p>예시:</p>
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">0.0.1-SNAPSHOT</code>: 초기 개발 버전</li>
+    <li><code class="language-plaintext highlighter-rouge">1.0.0</code>: 첫 정식 릴리스</li>
+    <li><code class="language-plaintext highlighter-rouge">1.1.0</code>: 새 기능 추가</li>
+    <li><code class="language-plaintext highlighter-rouge">1.1.1</code>: 버그 수정</li>
+  </ul>
+</blockquote>
+
+<h4 id="spring">Spring</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Spring 3.x</code> 에서 많이 바뀐 것은 다음과 같다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Java 17</code> 이상 필수: Java 8/11 지원 중단</li>
+  <li><code class="language-plaintext highlighter-rouge">Jakarta EE</code> 사용: <code class="language-plaintext highlighter-rouge">javax.*</code> → <code class="language-plaintext highlighter-rouge">jakarta.*</code> 패키지 변경</li>
+  <li><code class="language-plaintext highlighter-rouge">Spring Framework 6.x</code> 기반: 네이티브 이미지 지원 강화</li>
+  <li><strong><a href="#graalvm-native-image">GraalVM Native Image</a></strong> 공식 지원: 빠른 시작 시간과 적은 메모리 사용</li>
+</ul>
+
+<h4 id="spring-boot-starter">Spring Boot Starter</h4>
+
+<p>특정 기능을 사용하기 위해 필요한 의존성을 묶어놓은 패키지이다. 어떤 기능을 구현하기 위해 다른 패키지가 필요할 수 있고 또 다른 패키지가 또 필요할 수 있다. 이를 <code class="language-plaintext highlighter-rouge">Spring Boot Starter</code> 라는 팩으로 필요한 기능들에 대한 패키지들을 묶어서 <code class="language-plaintext highlighter-rouge">dependency</code> 를 추가만 하면 다수의 관련된 기능 패키지들을 다 가져와서 자동으로 추가해준다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Starter</th>
+      <th>용도</th>
+      <th>포함 라이브러리</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spring-boot-starter</td>
+      <td>핵심 기능</td>
+      <td>로깅, 자동 구성 등</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-web</td>
+      <td>웹 애플리케이션</td>
+      <td>Spring MVC, Tomcat, Jackson</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-data-jpa</td>
+      <td>JPA 사용</td>
+      <td>Hibernate, Spring Data JPA</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-data-jdbc</td>
+      <td>JDBC 사용</td>
+      <td>Spring Data JDBC, HikariCP</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-security</td>
+      <td>보안</td>
+      <td>Spring Security</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-test</td>
+      <td>테스트</td>
+      <td>JUnit 5, Mockito, AssertJ</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-validation</td>
+      <td>유효성 검증</td>
+      <td>Hibernate Validator</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-actuator</td>
+      <td>모니터링</td>
+      <td>헬스체크, 메트릭 등</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-thymeleaf</td>
+      <td>템플릿 엔진</td>
+      <td>Thymeleaf</td>
+    </tr>
+    <tr>
+      <td>spring-boot-starter-cache</td>
+      <td>캐싱</td>
+      <td>Spring Cache 추상화</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">./gradlew dependencies</code> 명령어를 통해 어떤 의존성들이 추가됐는지 확인할 수 있다.</p>
+</blockquote>
+
+<p><strong>장점</strong></p>
+<ul>
+  <li>필요한 의존성을 개별적으로 찾아 추가할 필요 없음</li>
+  <li>버전 호환성이 보장된 의존성 조합 제공</li>
+  <li>자동 구성(<strong>Auto-configuration</strong>) 포함</li>
+  <li>설정 최소화 (<strong>Convention over Configuration</strong>)</li>
+</ul>
+
+<h4 id="spring-진입점">Spring 진입점</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">application.properties</code>: 애플리케이션 설정 파일 (yml로 변경 가능)</li>
+  <li><code class="language-plaintext highlighter-rouge">DemoApplication.java</code>: Spring Boot 실행 클래스</li>
+</ul>
+
+<p>Spring Boot 프로젝트의 <strong>entry point</strong> 는 <code class="language-plaintext highlighter-rouge">@SpringBootApplication</code> 이 붙은 클래스이며, 내부의 <code class="language-plaintext highlighter-rouge">main()</code> 메서드에서 <code class="language-plaintext highlighter-rouge">SpringApplication.run()</code> 을 호출하는 부분이 실행 시작점이 된다. 헷갈릴 수 있는 것은 <code class="language-plaintext highlighter-rouge">build.gradle</code> 의 <code class="language-plaintext highlighter-rouge">group</code>, <code class="language-plaintext highlighter-rouge">version</code>, <code class="language-plaintext highlighter-rouge">description</code> 설정은 빌드 메타정보일 뿐, 진입점 결정에는 영향을 주지 않는다.</p>
+
+<h4 id="spring-bean">Spring Bean</h4>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<h6 id="cloud-native-buildpacks">Cloud Native Buildpacks</h6>
+
+<p>소스 코드로부터 컨테이너 이미지를 자동으로 빌드해주는 표준화된 도구 체계이다. 즉 <code class="language-plaintext highlighter-rouge">Dockerfile</code> 작성 없이도 어플리케이션 언어와 구조를 자동 인식해서 필요한 런타임, 의존성, 설정을 자동으로 포함시켜서 이미지를 만들어준다.</p>
+
+<h6 id="bom">BOM</h6>
+
+<p><code class="language-plaintext highlighter-rouge">Bill of Materials</code> 의 약자이며, 여러 라이브러리의 호환 가능한 버전 세트를 모아둔 일종의 버전 관리표 이다. 스프링 부트는 내부적으로 <code class="language-plaintext highlighter-rouge">spring-boot-dependencies</code> 라는 BOM 을 사용한다.</p>
+
+<h6 id="graalvm-native-image">GraalVM Native Image</h6>
+
+<p><code class="language-plaintext highlighter-rouge">GraalVM Native Image</code> 은 JVM 기반 어플리케이션을 미리 기계어로 컴파일해서 실행 속도와 메모리 효율을 극대화 시키는 기술 즉, <code class="language-plaintext highlighter-rouge">JAR</code> 로 실행하는 대신에 미리 운영체제용 실행 파일 형태로 변환해주는 <code class="language-plaintext highlighter-rouge">Ahead-of-Time</code> 컴파일 기술이다.</p>
+
+<p>만약 <code class="language-plaintext highlighter-rouge">java -jar myapp.jar</code> 로 JVM 위에서 실행할 수 있겠지만, 이 대신에</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">./</span><span class="n">gradlew</span> <span class="n">bootBuildImage</span> <span class="err">\</span>
+    <span class="o">--</span><span class="n">imageName</span><span class="o">=</span><span class="nl">myapp:</span><span class="kd">native</span> <span class="err">\</span>
+    <span class="o">--</span><span class="n">builder</span> <span class="n">paketobuildpacks</span><span class="o">/</span><span class="nl">builder:</span><span class="n">tiny</span> <span class="err">\</span>
+    <span class="o">--</span><span class="n">env</span> <span class="no">BP_NATIVE_IMAGE</span><span class="o">=</span><span class="kc">true</span></code></pre></figure>
+
+<p>와 같이 빌드를 한다면, Spring 이 <code class="language-plaintext highlighter-rouge">Spring AOT Engine</code> 을 통해
+<code class="language-plaintext highlighter-rouge">Spring Boot</code> 앱을 <code class="language-plaintext highlighter-rouge">Native Image</code> 로 변환할 때 필요한 설정(리플렉션, 프록시 등)을 자동으로 생성해주고, <code class="language-plaintext highlighter-rouge">GraalVM</code> 으로 컴파일된 네이티브 Docker 이미지를 자동 생성된 것틀 실행할 수 있게 된다. (내부적으로 <code class="language-plaintext highlighter-rouge">Paketo Buildpacks</code> + <code class="language-plaintext highlighter-rouge">GraalVM</code> 사용</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 네이티브 이미지 빌드</span>
+<span class="o">./</span><span class="n">gradlew</span> <span class="n">bootBuildImage</span> <span class="o">--</span><span class="n">imageName</span><span class="o">=</span><span class="nl">myapp:</span><span class="kd">native</span> <span class="o">--</span><span class="n">env</span> <span class="no">BP_NATIVE_IMAGE</span><span class="o">=</span><span class="kc">true</span>
+
+<span class="c1">// 또는 `GraalVM CLI` 직접 사용 시</span>
+<span class="kd">native</span><span class="o">-</span><span class="n">image</span> <span class="o">-</span><span class="n">jar</span> <span class="n">build</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">myapp</span><span class="o">.</span><span class="na">jar</span> <span class="n">myapp</span>
+<span class="c1">// 실행가능</span>
+<span class="o">./</span><span class="n">myapp</span></code></pre></figure>
+
+<p>두 번째 방식은 <code class="language-plaintext highlighter-rouge">GraalVM CLI</code> 가 다운받아져 있어야 한다.</p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/13/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-34%EC%9D%BC%EC%B0%A8-Spring-Boot-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

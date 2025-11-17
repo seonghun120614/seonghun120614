@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 46일차 Rest API 2</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 46일차 Rest API 2 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 46일차 Rest API 2" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-10-30T00:07:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 46일차 Rest API 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-10-30T00:07:20+00:00","datePublished":"2025-10-30T00:07:20+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 46일차 Rest API 2","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 46일차 Rest API 2</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Oct 30, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#uri-설계-원칙">URI 설계 원칙</a></li>
+  <li><a href="#http-상태-코드의-세분화">HTTP 상태 코드의 세분화</a>
+    <ul>
+      <li><a href="#http-상태-코드의-세분화">RestControllerAdvice</a></li>
+    </ul>
+  </li>
+  <li><a href="#versioning">Versioning</a></li>
+  <li><a href="#content-negotiation">Content Negotiation</a></li>
+  <li><a href="#etag-기반-조건부-요청-if-match-if-none-match">ETag 기반 조건부 요청 (If-Match, If-None-Match)</a></li>
+  <li><a href="#idempotency-key">Idempotency-Key</a></li>
+  <li><a href="#cors--csrf">CORS &amp; CSRF</a>
+    <ul>
+      <li><a href="#cors">CORS</a>
+        <ul>
+          <li><a href="#simple-request">Simple Request</a></li>
+          <li><a href="#preflight-request">Preflight Request</a></li>
+          <li><a href="#전체-흐름">전체 흐름</a></li>
+        </ul>
+      </li>
+      <li><a href="#csrf">CSRF</a>
+        <ul>
+          <li><a href="#csrf-토큰">CSRF 토큰</a></li>
+          <li><a href="#samesite-cookie-설정">SameSite Cookie 설정</a></li>
+          <li><a href="#referer--origin-검증">Referer / Origin 검증</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#spring-hateoas-심화">Spring HATEOAS 심화</a>
+    <ul>
+      <li><a href="#hateoas-representation-model">HATEOAS Representation Model</a></li>
+    </ul>
+  </li>
+  <li><a href="#globalexceptionhandler">GlobalExceptionHandler</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>REST 에 대해 더 깊이 살펴본다.</p>
+
+<h3 id="uri-설계-원칙">URI 설계 원칙</h3>
+
+<ul>
+  <li>명사 기반 설계 (<code class="language-plaintext highlighter-rouge">/createUser</code> X , <code class="language-plaintext highlighter-rouge">/users</code> O)</li>
+  <li>복수형 사용 (<code class="language-plaintext highlighter-rouge">/users</code>)</li>
+  <li>필터링 &amp; 정렬 (<code class="language-plaintext highlighter-rouge">/users?age=20&amp;sort=name,desc</code>)</li>
+  <li>sub resource (<code class="language-plaintext highlighter-rouge">/users/{id}/orders</code>)</li>
+  <li>관계 자원 표현 (<code class="language-plaintext highlighter-rouge">/orders/{id}/items</code>)</li>
+</ul>
+
+<h3 id="http-상태-코드의-세분화">HTTP 상태 코드의 세분화</h3>
+
+<p><a href="https://datatracker.ietf.org/doc/html/rfc9110">HTTP Semantics</a></p>
+
+<h4 id="restcontrolleradvice">RestControllerAdvice</h4>
+
+<p>예외처리는 <code class="language-plaintext highlighter-rouge">ControllerAdvice</code> 와 별반 다르지 않다. 반환으로는 <code class="language-plaintext highlighter-rouge">ErrorResponse</code> 를 내보내게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span> <span class="o">{</span>
+
+    <span class="c1">// 비즈니스 예외 처리</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">ResourceNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">ErrorResponse</span><span class="o">&gt;</span> <span class="nf">handleNotFound</span><span class="o">(</span>
+            <span class="nc">ResourceNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">ErrorResponse</span> <span class="n">error</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ErrorResponse</span><span class="o">(</span>
+            <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span>
+            <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">()</span>
+        <span class="o">);</span>
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">).</span><span class="na">body</span><span class="o">(</span><span class="n">error</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 검증 예외 처리</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">MethodArgumentNotValidException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">ErrorResponse</span><span class="o">&gt;</span> <span class="nf">handleValidation</span><span class="o">(</span>
+            <span class="nc">MethodArgumentNotValidException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getBindingResult</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">getFieldErrors</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">err</span> <span class="o">-&gt;</span> <span class="n">err</span><span class="o">.</span><span class="na">getField</span><span class="o">()</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">err</span><span class="o">.</span><span class="na">getDefaultMessage</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+        <span class="nc">ErrorResponse</span> <span class="n">error</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ErrorResponse</span><span class="o">(</span>
+            <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span>
+            <span class="s">"Validation failed"</span><span class="o">,</span>
+            <span class="n">errors</span><span class="o">,</span>
+            <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">()</span>
+        <span class="o">);</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">error</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="c1">// 일반 예외 처리</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">ErrorResponse</span><span class="o">&gt;</span> <span class="nf">handleGeneral</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ErrorResponse</span> <span class="n">error</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ErrorResponse</span><span class="o">(</span>
+            <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span>
+            <span class="s">"Internal server error"</span><span class="o">,</span>
+            <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">()</span>
+        <span class="o">);</span>
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span>
+            <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">error</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Data</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorResponse</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">status</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">message</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">errors</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">timestamp</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ErrorResponse</span><span class="o">(</span><span class="kt">int</span> <span class="n">status</span><span class="o">,</span> <span class="nc">String</span> <span class="n">message</span><span class="o">,</span> <span class="nc">LocalDateTime</span> <span class="n">timestamp</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">status</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">timestamp</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 커스텀 예외</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResourceNotFoundException</span> <span class="kd">extends</span> <span class="nc">RuntimeException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ResourceNotFoundException</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="versioning">Versioning</h3>
+
+<p>보통 URI 쪽에 버전을 넣는 방식이 표준적으로 많이 사용된다.</p>
+
+<ul>
+  <li>URI: <code class="language-plaintext highlighter-rouge">/api/v1/users</code></li>
+  <li>Header: <code class="language-plaintext highlighter-rouge">Accept: application.vnd.example.v1+json</code></li>
+  <li>Parameer: <code class="language-plaintext highlighter-rouge">/users?version=1</code></li>
+</ul>
+
+<h3 id="content-negotiation">Content Negotiation</h3>
+
+<p>REST API 의 핵심 개념 중 하나이며, 이걸 이해하면 원하는 데이터 형식을 서버에게 요청하고 서버가 가장 적절한 표현으로 응답할 수 있게 된다.</p>
+
+<p>콘텐츠 협상이라고 하는 개념은 클라이언트와 서버가 요청/응답의 데이터 형식을 협의하는 과정이다. 다음 두 가지 헤더가 핵심이다.</p>
+
+<ul>
+  <li>요청에서의 <code class="language-plaintext highlighter-rouge">Accept</code>: 클라이언트가 받고 싶은 응답 형식을 지정한다.</li>
+  <li>요청에서의 <code class="language-plaintext highlighter-rouge">Content-Type</code>: 클라이언트가 보내는 데이터 형식 지정</li>
+  <li>응답에서의 <code class="language-plaintext highlighter-rouge">Content-Type</code>: 서버가 보내는 실제 데이터 형식 명시</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">### Request
+GET /api/users/1 HTTP/1.1
+Accept: application/json
+- Content-Type: application/json &lt;- 보내는 body 가 있을때만 사용
+
+### Response
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "홍길동"
+}</code></pre></figure>
+
+<p><strong>Spring MVC 에서의 동작</strong></p>
+
+<p>전체 흐름은 다음과 같다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">요청 → DispatcherServlet
+        ↓
+     HandlerMapping (적절한 Controller 찾기)
+        ↓
+   HandlerAdapter(RequestMappingHandlerAdapter) (적절한 실행 어댑터 선택)
+        ↓
+   HandlerMethod(@Controller or @RestController) 실행
+        ↓
+   HandlerMethodReturnValueHandler 로 HandlerMethod 반환값 처리 
+        ↓
+   반환 객체를 HttpMessageConverter 로 직렬화
+        ↓
+   ContentNegotiationManager 가 Accept 헤더 기반으로 MIME 타입 결정
+        ↓
+   ResponseEntity / ResponseBody 로 응답 반환</code></pre></figure>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">RequestMappingHandlerAdapter</code> 가 클라이언트 매개변수, 반환값, 요청/응답 body 직렬화/역직렬화 분석
+    <ul>
+      <li>이 안엔 여러 객체가 있는데, <code class="language-plaintext highlighter-rouge">HandlerMethodArgumentResolver</code>, <code class="language-plaintext highlighter-rouge">HandlerMethodReturnValueHandler</code>, <code class="language-plaintext highlighter-rouge">HttpMessageConverter</code> 가 있다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">ReturnHandler</code> 의 <code class="language-plaintext highlighter-rouge">HandlerMethodReturnValueHandler</code> 로 <code class="language-plaintext highlighter-rouge">Accept</code> 헤더 읽어들임</li>
+  <li>알맞은 <code class="language-plaintext highlighter-rouge">HttpMessageConverter</code> 를 선택해 직렬화
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">MappingJackson2HttpMessageConverter</code> -&gt; <code class="language-plaintext highlighter-rouge">application/json</code></li>
+      <li><code class="language-plaintext highlighter-rouge">Jaxb2RootElementHttpMessageConverter</code> -&gt; <code class="language-plaintext highlighter-rouge">application/xml</code></li>
+      <li><code class="language-plaintext highlighter-rouge">StringHttpMessageConverter</code> -&gt; <code class="language-plaintext highlighter-rouge">text/plain</code></li>
+      <li><code class="language-plaintext highlighter-rouge">ByteArrayHttpMessageConverter</code> -&gt; <code class="language-plaintext highlighter-rouge">application/octet-stream</code></li>
+    </ul>
+  </li>
+  <li>컨트롤러의 리턴 객체를 그 포맷으로 직렬화</li>
+</ol>
+
+<p>이를 지키기 위해 Mapping 에는 <code class="language-plaintext highlighter-rouge">produces</code>, <code class="language-plaintext highlighter-rouge">consumes</code> 를 붙이는 것을 전 포스트에서 보았다. 코드는 생략한다.</p>
+
+<h3 id="etag-기반-조건부-요청-if-match-if-none-match">ETag 기반 조건부 요청 (If-Match, If-None-Match)</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ETag</code> 는 서버가 리소스의 상태를 나타내기 위해 부여하는 고유한 식별자(토큰)이다. 리소스의 내용이 바뀌면, <code class="language-plaintext highlighter-rouge">ETag</code> 의 값도 바뀌게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">HTTP/1.1 200 OK
+Content-Type: application/json
+ETag: "v1-users-12345"
+
+{
+  "id": 1,
+  "name": "홍길동"
+}</code></pre></figure>
+
+<p>만약 전용 스토리지가 있다면, 브라우저나 클라이언트는 이걸 기억해뒀다가 다음 요청 시에 사용한다.</p>
+
+<ul>
+  <li>캐싱 최적화</li>
+  <li>동시성 제어</li>
+  <li>네트워크 절약</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/{id}"</span><span class="o">,</span>
+            <span class="n">produces</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">ProductResponseDto</span><span class="o">&gt;</span> <span class="nf">getProduct</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">notFound</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="kt">var</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productService</span><span class="o">.</span><span class="na">getProduct</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                         <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+                         <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"ETag"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()))</span>
+                         <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">product</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 client-side 의 storage 자체에서 이를 쓸 수 있다. 위 헤더를 통해서 이제 CRUD 에서 다음 옵션도 사용가능하다.</p>
+
+<p><strong>If-None-Match</strong></p>
+
+<p>GET 방식에서 캐싱 최적화를 위해 사용된다.<br />
+클라이언트가 가지고 있는 리소스의 ETag 값이 서버와 같다면, 다시 데이터를 전송하지 않아도 된다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">GET /api/products/1 HTTP/1.1
+If-None-Match: "v1-users-12345"</code></pre></figure>
+
+<p>서버 동작:</p>
+<ul>
+  <li>현재 리소스의 ETag를 계산</li>
+  <li>If-None-Match 값과 비교
+    <ul>
+      <li>같으면 → <code class="language-plaintext highlighter-rouge">304 Not Modified</code></li>
+      <li>다르면 → <code class="language-plaintext highlighter-rouge">200 OK</code> + 새로운 ETag + 새 데이터</li>
+    </ul>
+  </li>
+</ul>
+
+<p>이를 통해 네트워크 트래픽 절약과 응답 속도 향상을 얻을 수 있다. 기능상 <code class="language-plaintext highlighter-rouge">GET</code> 방식에 더 어울린다. 다음 코드를 보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/{id}"</span><span class="o">,</span>
+            <span class="n">produces</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">ProductResponseDto</span><span class="o">&gt;</span> <span class="nf">getProduct</span><span class="o">(</span>
+        <span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span>
+        <span class="nd">@RequestHeader</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"If-None-Match"</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="nc">String</span> <span class="n">eTag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">notFound</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="kt">var</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productService</span><span class="o">.</span><span class="na">getProduct</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">eTag</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">eTag</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())))</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_MODIFIED</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                            <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"ETag"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()))</span>
+                            <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">product</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>GET 방식으로 HTTP 요청을 다음과 같이 보내면 304 로 리턴 받고 있음을 볼 수 있다:</p>
+
+<p><img src="/seonghun120614/assets/img/etag-if-none-match.png" alt="assets/img/etag-if-none-match.png" /></p>
+
+<blockquote>
+  <p>HttpStatus.NOT_MODIFIED 는 302 번이다.</p>
+</blockquote>
+
+<p><strong>If-Match</strong></p>
+
+<p>이제 PUT, PATCH, DELETE 등에 쓸 수 있는 방식이다. <code class="language-plaintext highlighter-rouge">If-Match</code> 는 이 버전이 아직 유효할 때만 수정 허용 -&gt; 동시성 제어</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@PutMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/{id}"</span><span class="o">,</span>
+            <span class="n">consumes</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">,</span>
+            <span class="n">produces</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">ProductResponseDto</span><span class="o">&gt;</span> <span class="nf">updateProduct</span><span class="o">(</span>
+        <span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span>
+        <span class="nd">@RequestBody</span> <span class="nc">ProductResponseDto</span> <span class="n">productRequestDto</span><span class="o">,</span>
+        <span class="nd">@RequestHeader</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"If-Match"</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="nc">String</span> <span class="n">eTag</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span>
+        <span class="n">productRequestDto</span><span class="o">.</span><span class="na">name</span><span class="o">().</span><span class="na">isBlank</span><span class="o">()</span> <span class="o">||</span>
+        <span class="n">productRequestDto</span><span class="o">.</span><span class="na">price</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="kt">var</span> <span class="n">oldProduct</span> <span class="o">=</span> <span class="n">productService</span><span class="o">.</span><span class="na">getProduct</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">eTag</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">eTag</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">oldProduct</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())))</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">PRECONDITION_FAILED</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="kt">var</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productService</span><span class="o">.</span><span class="na">updateProduct</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">productRequestDto</span><span class="o">.</span><span class="na">name</span><span class="o">(),</span> <span class="n">productRequestDto</span><span class="o">.</span><span class="na">price</span><span class="o">());</span>
+
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">()</span>
+                            <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">product</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@DeleteMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="nf">deleteProduct</span><span class="o">(</span>
+        <span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">,</span>
+        <span class="nd">@RequestHeader</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"If-Match"</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span> <span class="nc">String</span> <span class="n">eTag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">notFound</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="kt">var</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productService</span><span class="o">.</span><span class="na">getProduct</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">eTag</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">eTag</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())))</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">PRECONDITION_FAILED</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="n">productService</span><span class="o">.</span><span class="na">deleteProduct</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">noContent</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">HttpStatus.PRECONDITION_FAILED</code> 는 412 번이다.</p>
+</blockquote>
+
+<h3 id="idempotency-key">Idempotency-Key</h3>
+
+<p>POST 요청은 다른 요청들과는 다르게 멱등성을 보장하지 않는다. 중복 요청 시 상태가 달라지며, 이는 다음 문제들, <strong>결제, 주문 생성, 회원 가입</strong> 등 한 번만 수행되어야 하는 요청에 있어 중복 실행을 방지해야 함을 말한다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Idempotency-Key</code> 는 헤더에 있고, 서버는 같은 키를 가진 요청이 이미 처리됐는지 확인하며, 이미 처리된 요청이면 중복 처리하지 않고 이전 결과를 반환한다.</p>
+
+<p><strong>요청 예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="no">POST</span> <span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">orders</span> <span class="no">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="nc">Content</span><span class="o">-</span><span class="nl">Type:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span>
+<span class="nc">Idempotency</span><span class="o">-</span><span class="nl">Key:</span> <span class="mi">123</span><span class="n">e4567</span><span class="o">-</span><span class="n">e89b</span><span class="o">-</span><span class="mi">12</span><span class="n">d3</span><span class="o">-</span><span class="n">a456</span><span class="o">-</span><span class="mi">426614174000</span>
+
+<span class="o">{</span>
+  <span class="s">"productId"</span><span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+  <span class="s">"quantity"</span><span class="o">:</span> <span class="mi">2</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="cors--csrf">CORS &amp; CSRF</h3>
+
+<h4 id="cors">CORS</h4>
+
+<p>CORS(Cross-Origin Resource Sharing) 는 <strong>브라우저에서 다른 출처(Origin) 으로의 요청을 보낼 때 발생하는 보안 정책을 제어하는 기법</strong>이다.</p>
+
+<p>이때 <code class="language-plaintext highlighter-rouge">Origin = 프로토콜 + 도메인 + 포트</code> 로 정의되며, 다음과 같이 생각하면 된다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://localhost:8080</code></li>
+</ul>
+
+<p><strong>Same-Origin Policy</strong></p>
+
+<p>브라우저의 기본 정책은 다른 출처로부터 스크립트가 데이터를 가져오는 것을 막는다. 이는 악성 스크립트가 있을 수도 있고, 사용자의 데이터를 탈취할 수도 있기에 막는게 좋으며 이때 이 안에는 CORS 라는 기술을 통해 서버가 특정 다른 출처를 허용해주어서 브라우저가 요청을 허용할 수 있도록 할 수 있도록 하며 다른 허용되지 않은 웹 응답이나 요청을 막는 기능이 바로 CORS 이다.</p>
+
+<blockquote>
+  <p>서버 -&gt; 브라우저: <code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin</code> 헤더를 통해 허용</p>
+</blockquote>
+
+<p>CORS 요청에는 두 가지가 있다.</p>
+
+<h5 id="simple-request">Simple Request</h5>
+
+<p>HTTP 메서드에는 8가지가 있다.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">GET</code>: 리소스를 조회. 서버 상태를 변경하지 않음</li>
+  <li><code class="language-plaintext highlighter-rouge">HEAD</code>: GET 과 동일하지만, 응답 본문은 제외하고 헤더만 반환</li>
+  <li><code class="language-plaintext highlighter-rouge">POST</code>: 리소스를 생성하거나 서버에 데이터를 전송. 상태 변경 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">PUT</code>: 리소스를 전체 갱신. 존재하지 않으면 생성 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">DELETE</code>: 리소스를 삭제</li>
+  <li><code class="language-plaintext highlighter-rouge">CONNECT</code>: 터널링을 위해 사용. 주로 HTTPS 프록시 연결에 쓰임</li>
+  <li><code class="language-plaintext highlighter-rouge">OPTIONS</code>: 서버가 지원하는 메서드, CORS 허용 등 옵션 확인 용</li>
+  <li><code class="language-plaintext highlighter-rouge">TRACE</code>: 요청-응답 경로를 디버깅용으로 그대로 반환</li>
+</ol>
+
+<p>이 중에서 단순 요청은 <strong>GET, POST, HEAD</strong> 에 해당한다.</p>
+
+<p>단순요청에서는 다음과 같은 <code class="language-plaintext highlighter-rouge">Content-Type</code> 제약이 들어간다:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">application/x-www-form-urlencoded</code></li>
+  <li><code class="language-plaintext highlighter-rouge">multipart/form-data</code></li>
+  <li><code class="language-plaintext highlighter-rouge">text/plain</code></li>
+</ul>
+
+<p>또한, 헤더에는 사용자 정의 헤더 들어가면 안된다. 이는 아주 기본적인 요청일 때 브라우저가 자동으로 요청을 보내고, 서버에 허용하면 바로 응답이 들어오게 된다.</p>
+
+<p><strong>요청 응답 흐름</strong></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">GET /api/users HTTP/1.1
+Origin: http://localhost:3000</code></pre></figure>
+
+<p>브라우저가 위와 같이 보냈다고 하자. 그러면 서버는 다음과 같이 응답할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:3000
+Content-Type: application/json</code></pre></figure>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin</code> 헤더가 브라우저가 요청한 origin 과 일치해야 요청이 성공적으로 처리된다. 이렇듯 단순 요청은 <strong>Preflight</strong> 없이 바로 요청이 진행된다.</p>
+
+<h5 id="preflight-request">Preflight Request</h5>
+
+<p><strong>Preflight Request(사전 요청)</strong> 에는 <code class="language-plaintext highlighter-rouge">PUT</code>, <code class="language-plaintext highlighter-rouge">DELETE</code>, <code class="language-plaintext highlighter-rouge">PATCH</code>, <code class="language-plaintext highlighter-rouge">OPTIONS</code> 가 있고, <code class="language-plaintext highlighter-rouge">Content-Type</code> 에는 <code class="language-plaintext highlighter-rouge">application/json</code> 등이 들어간다.</p>
+
+<p>이 중 <code class="language-plaintext highlighter-rouge">OPTIONS 요청</code>이 <code class="language-plaintext highlighter-rouge">Preflight</code> 요청의 핵심이며, 목적은 브라우저가 실제 요청을 보내기 전에 서버가 허용하는 메서드, 헤더, 출처를 미리 확인하는 용도로 사용하게 된다. 항상 <code class="language-plaintext highlighter-rouge">OPTIONS</code> 요청이 먼저 일어나고 그 다음 <code class="language-plaintext highlighter-rouge">PUT</code>, <code class="language-plaintext highlighter-rouge">DELETE</code>, <code class="language-plaintext highlighter-rouge">PATCH</code> 요청-응답이 이루어진다.</p>
+
+<p><strong>Preflight Reqeust 흐름</strong></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">OPTIONS /api/products/1 HTTP/1.1
+Origin: http://localhost:3000
+Access-Control-Request-Method: PUT
+Access-Control-Request-Headers: Content-Type</code></pre></figure>
+
+<p>위와 같이 요청을 보낸다면,</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:3000
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+Access-Control-Allow-Headers: Content-Type
+Access-Control-Max-Age: 3600</code></pre></figure>
+
+<p>위와 같이 응답을 할 수 있다(GET 은 기본적으로 허용하기 때문에 당연히 명시적으로 들어가는게 맞음).</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin</code>: http://localhost:8080</li>
+  <li><code class="language-plaintext highlighter-rouge">Access-Control-Allow-Methods</code>: 허용되는 메서드(GET, POST, PUT, DELETE)</li>
+  <li><code class="language-plaintext highlighter-rouge">Access-Control-Allow-Headers</code>: 허용되는 요청 헤더</li>
+  <li><code class="language-plaintext highlighter-rouge">Access-Control-Max-Age</code>: Preflight 캐싱 시간</li>
+</ul>
+
+<p>이제 드디어 <code class="language-plaintext highlighter-rouge">GET</code>, <code class="language-plaintext highlighter-rouge">POST</code>, <code class="language-plaintext highlighter-rouge">PUT</code>, <code class="language-plaintext highlighter-rouge">DELETE</code> 를 쓸 수 있게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">PUT /api/products/1 HTTP/1.1
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+  "name": "새 제품"
+}</code></pre></figure>
+
+<h5 id="전체-흐름">전체 흐름</h5>
+
+<p>서버 A(REST API 서버), 유저 가 있다고 하자. 이제 전반적인 흐름을 본다.</p>
+
+<p><strong>단순 GET, POST, HEAD</strong></p>
+<ol>
+  <li>브라우저가 요청
+    <ul>
+      <li>단순 요청 제약을 만족하도록 요청을 보낸다:</li>
+      <li><code class="language-plaintext highlighter-rouge">Content-Type</code>: <code class="language-plaintext highlighter-rouge">text/plain</code> 또는 위의 제약조건 따르도록, 아예 없어도됨</li>
+      <li>사용자 정의 헤더 X</li>
+    </ul>
+  </li>
+  <li>서버 A 가 응답
+    <ul>
+      <li>단순 요청 조건을 만족하므로 Preflilght 없이 바로 서버 요청</li>
+      <li>브라우저가 <code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin</code> 을 확인할 수 있도록 응답을 보내게 됨</li>
+    </ul>
+  </li>
+  <li>브라우저가 받음
+    <ul>
+      <li>받을 때 Origin 이 허용되어 있다면 브라우저는 데이터를 정상적으로 처리하게 되고</li>
+      <li>브라우저 자체에서 허용되지 않는 Origin 이라면 CORS 에러를 발생시키게 된다.</li>
+    </ul>
+  </li>
+</ol>
+
+<p><strong>사전 OPTIONS 이 필요한 PUT, DELETE, PATCH</strong></p>
+
+<ol>
+  <li>브라우저가 Preflight(OPTIONS) 전송
+    <ul>
+      <li>브라우저는 실제 요청(PUT, DELETE, PATCH) 를 보내기 전에 서버가 이요청을 허용하는지 미리 확인하기 위해 자도으로 OPTIONS 요청을 보냄</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">OPTIONS /api/products/1 HTTP/1.1
+Origin: http://localhost:3000
+Access-Control-Request-Method: PUT
+Access-Control-Request-Headers: Content-Type, Authorization</code></pre></figure>
+
+<ol>
+  <li>서버 A가 OPTIONS 요청에 대한 응답 전송
+    <ul>
+      <li>이때 이 응답이 유효해야만 브라우저가 실제 요청(2단계) 로 넘어감</li>
+      <li>하나라도 누락되면 CORS 에러 발생</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:3000
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH
+Access-Control-Allow-Headers: Content-Type, Authorization
+Access-Control-Max-Age: 3600</code></pre></figure>
+
+<ol>
+  <li>브라우저가 실제 요청 전송
+    <ul>
+      <li>Preflight 응답이 유효하면, 이제 브라우저는 진짜 요청을 보내게 된다.</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">PUT /api/products/1 HTTP/1.1
+Origin: http://localhost:3000
+Content-Type: application/json
+Authorization: Bearer 123456
+
+{
+  "name": "새 제품"
+}</code></pre></figure>
+
+<ol>
+  <li>서버 A가 실제 응답 전송</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "새 제품"
+}</code></pre></figure>
+
+<ol>
+  <li>브라우저가 응답 처리
+    <ul>
+      <li>응답의 Access-Control-Allow-Origin 헤더를 먼저 읽어서 자신의 Origin 과 일치하는지 확인하고 맞다면 데이터 접근을 한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="csrf">CSRF</h4>
+
+<p>CSRF(Cross-Site Request Forgery, 사이트 간 요청 위조)는 사용자가 인증된 세션 상태에 있을 때, 공격자가 사용자를 속여 악의적인 요청을 대신 보내게 하는 공격이다. 요청이 정상적인 사용자의 쿠키를 포함하므로 진짜 요청처럼 보이게 된다. 공경당하게 되는 과정을 보자.</p>
+
+<ol>
+  <li>사용자는 <code class="language-plaintext highlighter-rouge">https://bank.com</code> 에 로그인 된 상태(세션 쿠키를 얻은 상태)
+    <ul>
+      <li>sessionId = abc123</li>
+    </ul>
+  </li>
+  <li>공격자가 만든 사이트는 <code class="language-plaintext highlighter-rouge">https://evil.com</code></li>
+  <li>그 상태로 공격자 사이트 우연히 접속(<code class="language-plaintext highlighter-rouge">evil.com</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">evil.com</code> 에 다음 HTML 이 숨어 있다고 가정
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">&lt;img src="https://bank.com/transfer?to=hacker&amp;amount=100000" /&gt;</code></li>
+    </ul>
+  </li>
+  <li>브라우저는 이미 <code class="language-plaintext highlighter-rouge">bank.com</code> 의 쿠키(<code class="language-plaintext highlighter-rouge">sessionId=abc123</code>) 을 저장하고 있기 때문에
+    <ul>
+      <li>자동으로 이 쿠키를 포함한 GET 요청을 <code class="language-plaintext highlighter-rouge">https://bank.com</code> 으로 보내게 됨</li>
+    </ul>
+  </li>
+  <li>서버는 정상 로그인된 사용자 요청으로 인식하게 되고, 송금을 수행함</li>
+</ol>
+
+<p>이를 방어하는 방법이 CSRF 토큰이며 가장 일반적인 방법이다.</p>
+
+<h5 id="csrf-토큰">CSRF 토큰</h5>
+
+<ul>
+  <li>서버가 폼을 렌더링할 때 난수 토큰을 포함시키고</li>
+  <li>클라이언트가 요청 시 이 토큰을 함께 전송해야만 유효한 요청으로 인정하게 된다.</li>
+  <li>공격자는 토큰 값을 모르므로 위조가 불가하다</li>
+</ul>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/transfer"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"_csrf"</span> <span class="na">value=</span><span class="s">"a1b2c3d4e5f6"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"to"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;button&gt;</span>송금<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
+
+<p>이는 Spring Security 에서 다루자.</p>
+
+<h5 id="samesite-cookie-설정">SameSite Cookie 설정</h5>
+
+<p>브라우저 쿠키의 <code class="language-plaintext highlighter-rouge">SameSite</code> 속성으로 <code class="language-plaintext highlighter-rouge">Cross-Site</code> 요청에서 쿠키 자동 전송을 제한하게 할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-http" data-lang="http"><span class="err">Set-Cookie: sessionId=abc123; SameSite=Lax; Secure; HttpOnly</span></code></pre></figure>
+
+<h5 id="referer--origin-검증">Referer / Origin 검증</h5>
+
+<p>서버단에서 할 수 있는 보안이며, 서버가 요청의 Origin 혹은 Referer 헤더를 보고 허용된 도메인에서 온 요청만 처리하도록 검증한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Set</span><span class="o">-</span><span class="nl">Cookie:</span> <span class="n">sessionId</span><span class="o">=</span><span class="n">abc123</span><span class="o">;</span> <span class="nc">SameSite</span><span class="o">=</span><span class="nc">Lax</span><span class="o">;</span> <span class="nc">Secure</span><span class="o">;</span> <span class="nc">HttpOnly</span></code></pre></figure>
+
+<h3 id="spring-hateoas-심화">Spring HATEOAS 심화</h3>
+
+<p>HATEOAS (Hypermedia as the Engine of Application State)는 REST의 마지막 단계(“REST Level 3”)로, API 응답 안에 링크 정보를 포함해서 클라이언트가 “다음 행동”을 API 문서 없이도 유도할 수 있게 해주는 개념이다.</p>
+
+<p>기본적인 구조는 다음과 같다.</p>
+
+<p><strong>Mapping Method</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">EntityModel</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getUser</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+
+    <span class="kt">var</span> <span class="n">userModel</span> <span class="o">=</span> <span class="nc">EntityModel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="n">userModel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="n">methodOn</span><span class="o">(</span><span class="nc">UserController</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">getUser</span><span class="o">(</span><span class="n">id</span><span class="o">)).</span><span class="na">withSelfRel</span><span class="o">());</span>
+    <span class="n">userModel</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="n">methodOn</span><span class="o">(</span><span class="nc">UserController</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">getOrdersByUser</span><span class="o">(</span><span class="n">id</span><span class="o">)).</span><span class="na">withRel</span><span class="o">(</span><span class="s">"orders"</span><span class="o">));</span>
+
+    <span class="k">return</span> <span class="n">userModel</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>응답</strong></p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"홍길동"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/users/1"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/users/1/orders"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<p><strong>주요 클래스</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">EntityModel&lt;T&gt;</code>: 단일 리소스에 링크 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">CollectionModel&lt;T&gt;</code>: 여러 리소스(리스트)에 공통 링크 추가</li>
+  <li><code class="language-plaintext highlighter-rouge">PagedModel&lt;T&gt;</code>: 패이징 처리된 리소스 응답</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.example.resthateoasexam</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="n">record</span> <span class="nf">Memo</span><span class="o">(</span>
+		<span class="nc">Long</span> <span class="n">id</span><span class="o">,</span>
+		<span class="nc">String</span> <span class="n">content</span>
+<span class="o">)</span> <span class="o">{</span> <span class="o">}</span></code></pre></figure>
+
+<p>위를 토대로 계속 진행해보자.</p>
+
+<h4 id="hateoas-representation-model">HATEOAS Representation Model</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@PostMapping</span><span class="o">(</span><span class="n">consumes</span> <span class="o">=</span> <span class="s">"text/plain"</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">)</span>
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="nf">createMemo</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">isBlank</span><span class="o">())</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">memos</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+    <span class="kt">var</span> <span class="n">memo</span> <span class="o">=</span> <span class="n">memos</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">idx</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Memo</span><span class="o">(</span><span class="n">idx</span><span class="o">,</span> <span class="n">content</span><span class="o">));</span>
+
+    <span class="no">URI</span> <span class="n">location</span> <span class="o">=</span> <span class="nc">ServletUriComponentsBuilder</span><span class="o">.</span><span class="na">fromCurrentRequest</span><span class="o">()</span>
+                                                <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+                                                <span class="o">.</span><span class="na">buildAndExpand</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="n">idx</span><span class="o">)</span>
+                                                <span class="o">.</span><span class="na">toUri</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">location</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">memo</span><span class="o">);</span>
+<span class="o">}</span> </code></pre></figure>
+
+<p>위는 전형적인 create 컨트롤러 메서드이다. 이때 <code class="language-plaintext highlighter-rouge">Memo</code> 와 <code class="language-plaintext highlighter-rouge">ResponseEntity</code> 중간에 <code class="language-plaintext highlighter-rouge">EntityModel</code> 을 한 번 더 감싸서 처리해주면 된다. 여기서 <code class="language-plaintext highlighter-rouge">URI</code> 를 직접 만들고 넣는 것을 볼 수 있는데 이를 다음과 같이 바꿀 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@PostMapping</span><span class="o">(</span><span class="n">consumes</span> <span class="o">=</span> <span class="s">"text/plain"</span><span class="o">,</span>
+             <span class="n">produces</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">EntityModel</span><span class="o">&lt;</span><span class="nc">MemoResponseDTO</span><span class="o">&gt;&gt;</span> <span class="nf">createMemo</span><span class="o">(</span>
+        <span class="nd">@RequestBody</span> <span class="nc">String</span> <span class="nc">Memo</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">memo</span><span class="o">.</span><span class="na">trim</span><span class="o">().</span><span class="na">isBlank</span><span class="o">())</span> <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="nc">MemoResponseDTO</span> <span class="n">response</span> <span class="o">=</span> <span class="n">memoService</span><span class="o">.</span><span class="na">createMemo</span><span class="o">(</span><span class="n">memo</span><span class="o">);</span>
+
+    <span class="no">URI</span> <span class="n">location</span> <span class="o">=</span> <span class="nc">UriComponentsBuilder</span><span class="o">.</span><span class="na">fromUriString</span><span class="o">(</span><span class="s">"/api/memos/"</span><span class="o">)</span>
+                                        <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+                                        <span class="o">.</span><span class="na">buildAndExpand</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">id</span><span class="o">())</span>
+                                        <span class="o">.</span><span class="na">toUri</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">location</span><span class="o">)</span>
+                         <span class="o">.</span><span class="na">eTag</span><span class="o">(</span><span class="n">getETag</span><span class="o">(</span><span class="n">response</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
+                         <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">wrap</span><span class="o">(</span><span class="n">response</span><span class="o">));</span>
+<span class="o">}</span>
+<span class="c1">// ...</span>
+<span class="kd">private</span> <span class="nc">EntityModel</span><span class="o">&lt;</span><span class="nc">MemoResponseDTO</span><span class="o">&gt;</span> <span class="nf">wrap</span><span class="o">(</span><span class="nc">MemoResponseDTO</span> <span class="n">dto</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">EntityModel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">dto</span><span class="o">)</span>
+                      <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="no">MEMO_CTRL</span><span class="o">.</span><span class="na">createMemo</span><span class="o">(</span><span class="s">"This is create function"</span><span class="o">))</span>
+                                  <span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"createMemo"</span><span class="o">))</span>
+                      <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="no">MEMO_CTRL</span><span class="o">.</span><span class="na">getMemo</span><span class="o">(</span><span class="n">dto</span><span class="o">.</span><span class="na">id</span><span class="o">(),</span> <span class="kc">null</span><span class="o">))</span>
+                                  <span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"getMemo"</span><span class="o">))</span>
+                      <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="no">MEMO_CTRL</span><span class="o">.</span><span class="na">getMemos</span><span class="o">(</span><span class="kc">null</span><span class="o">))</span>
+                                  <span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"getMemos"</span><span class="o">))</span>
+                      <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="no">MEMO_CTRL</span><span class="o">.</span><span class="na">updateMemo</span><span class="o">(</span><span class="n">dto</span><span class="o">.</span><span class="na">id</span><span class="o">(),</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">))</span>
+                                  <span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"updateMemo"</span><span class="o">))</span>
+                      <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="no">MEMO_CTRL</span><span class="o">.</span><span class="na">deleteMemo</span><span class="o">(</span><span class="n">dto</span><span class="o">.</span><span class="na">id</span><span class="o">(),</span> <span class="kc">null</span><span class="o">))</span>
+                                  <span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"deleteMemo"</span><span class="o">));</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">ETag</span> <span class="nf">getETag</span><span class="o">(</span><span class="nc">MemoResponseDTO</span> <span class="n">dto</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">eTagValue</span> <span class="o">=</span> <span class="s">"\""</span> <span class="o">+</span> <span class="n">dto</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">"\""</span><span class="o">;</span>
+    <span class="k">return</span> <span class="nc">ETag</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">eTagValue</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="globalexceptionhandler">GlobalExceptionHandler</h4>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">RestControllerAdvice</code> 어노테이션을 볼 것이다. 이전에 봤다시피 <code class="language-plaintext highlighter-rouge">ControllerAdvice</code> 도 있고 이와 유사하다.</p>
+
+<p><strong>동작</strong></p>
+
+<ol>
+  <li>예외 발생
+    <ul>
+      <li>클라이언트가 API 를 요청한 후</li>
+      <li><strong>서비스나 컨트롤러</strong> 에서 예외가 발생</li>
+    </ul>
+  </li>
+  <li>예외 탐색
+    <ul>
+      <li>Spring MVC 는 <code class="language-plaintext highlighter-rouge">HandlerExceptionResolver</code> 체인을 통해 예외를 처리</li>
+      <li><code class="language-plaintext highlighter-rouge">@ControllerAdvice</code> 혹은 <code class="language-plaintext highlighter-rouge">@RestControllerAdvice</code> 가 있는 클래스 중에서
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">@ExceptionHandler</code> 로 예외를 처리할 수 있는 메서드가 있는지 탐색</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>예외 처리 메서드 호출
+    <ul>
+      <li>이때 스프링이 자동으로 예외 객체를 인자로 주입시켜준다.</li>
+      <li>대부분의 에러 응답은 <code class="language-plaintext highlighter-rouge">ErrorResponse</code> 인터페이스 내부의 <code class="language-plaintext highlighter-rouge">builder()</code> 로 생성할 수 있다.</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">ex</span><span class="o">,</span> <span class="nc">HttpStatusCode</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">404</span><span class="o">),</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">())</span>
+             <span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="s">"Resource Not Found"</span><span class="o">)</span>
+             <span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
+             <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">ErrorResponse</code> 는 Spring 6부터 도입되었다. Spring 표준인 <code class="language-plaintext highlighter-rouge">ProblemDetail</code> 기반으로 <code class="language-plaintext highlighter-rouge">RFC 9457</code> 규격의 JSON 응답을 만드는 방식이라 웹 규약에 맞아 적절한 에러 처리가 가능하다.</p>
+</blockquote>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span> <span class="o">{</span>
+
+	<span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">ResourceNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nc">ErrorResponse</span> <span class="nf">handleNotFound</span><span class="o">(</span>
+			<span class="nc">ResourceNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="nc">HttpStatusCode</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">404</span><span class="o">),</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">())</span>
+				<span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="s">"Resource Not Found"</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
+				<span class="o">.</span><span class="na">build</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nc">ErrorResponse</span> <span class="nf">handleGeneral</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">ErrorResponse</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">ex</span><span class="o">,</span> <span class="nc">HttpStatusCode</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">500</span><span class="o">),</span> <span class="s">"Internal server error"</span><span class="o">)</span>
+		                    <span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="s">"Server Error"</span><span class="o">)</span>
+		                    <span class="o">.</span><span class="na">property</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
+		                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-46%EC%9D%BC%EC%B0%A8-rest-api-2.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

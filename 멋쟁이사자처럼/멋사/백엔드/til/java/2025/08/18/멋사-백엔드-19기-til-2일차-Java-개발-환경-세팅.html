@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 2일차 Java 개발 환경 세팅</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 2일차 Java 개발 환경 세팅 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 2일차 Java 개발 환경 세팅" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-18T07:27:39+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 2일차 Java 개발 환경 세팅" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-08-18T07:27:39+00:00","datePublished":"2025-08-18T07:27:39+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 2일차 Java 개발 환경 세팅","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 2일차 Java 개발 환경 세팅</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Aug 18, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+
+<ul>
+  <li><a href="#Java-준비">Java 준비</a>
+    <ul>
+      <li><a href="#java-버전별-주요-기능-정리">Java 버전별 주요 기능 정리</a>
+        <ul>
+          <li><a href="#jdk-8">JDK 8</a></li>
+          <li><a href="#jdk-11">JDK 11</a></li>
+          <li><a href="#jdk-17">JDK 17</a></li>
+          <li><a href="#jdk-21">JDK 21</a></li>
+        </ul>
+      </li>
+      <li><a href="#java-환경변수-설정">Java 환경변수 설정</a></li>
+      <li><a href="#java-컴파일-및-실행하기">Java 컴파일 및 실행하기</a></li>
+    </ul>
+  </li>
+  <li><a href="#문서화를-위한-java-docs">문서화를 위한 Java Docs</a>
+    <ul>
+      <li><a href="#java-docs-tag">Java Docs Tag</a></li>
+      <li><a href="#class-주석-달기">Class 주석 달기</a></li>
+      <li><a href="#method-주석-달기">Method 주석 달기</a></li>
+      <li><a href="#marker-사용하기">Marker 사용하기</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>자바는 다음 특징을 가진다</p>
+
+<ul>
+  <li>플랫폼 독립성: “Write Once, Run Anywhere” - 한 번 작성하면 어디서든 실행</li>
+  <li>객체지향 프로그래밍: 코드 재사용성과 유지보수성이 뛰어남</li>
+  <li>자동 메모리 관리: 가비지 컬렉션으로 메모리 누수 방지</li>
+  <li>모던 자바: 최신 버전에서 다른 언어의 장점을 흡수</li>
+  <li>람다 표현식: 함수형 프로그래밍 지원 (Java 8+)</li>
+  <li>Stream API: 데이터 처리를 선언적으로 작성 가능</li>
+  <li>병렬 프로그래밍: 멀티코어 CPU 효율적 활용</li>
+  <li>멀티 스레딩 지원</li>
+  <li>JIT 컴파일러</li>
+</ul>
+
+<p>등등의 장점들을 이용할 수 있다.</p>
+
+<h3 id="java-준비">Java 준비</h3>
+
+<p>자바를 설치하기 위해 JVM, JRE, JDK 를 먼저 살펴보자.</p>
+
+<ul>
+  <li>JVM: Java Virtual Machine 이며, 실제로 자바 프로그램이 실행되는 환경이다. 자바 바이트 코드(.class) 를 해석해서 운영체제에 맞게 실행하는 곳이다.</li>
+  <li>JRE: Java Runtime Environment 의 약자이고, JVM + 자바 표준 라이브러리(거의 필수적인 기능들을 담는 모듈)를 담고 있고, 자바 프로그램을 실행할 수 있다.</li>
+  <li>JDK: Java Development Kit 이라고 불리고, JRE + 개발도구 이다. 개발 도구라고 함은 javac, jdb, javadoc 등 개발에 필요한 다양한 기능들을 넣어놓았다.</li>
+</ul>
+
+<h4 id="java-버전별-주요-기능-정리">Java 버전별 주요 기능 정리</h4>
+
+<h5 id="jdk-8">JDK 8</h5>
+
+<p>가장 많이 사용되었던 버전, 람다 표현식 도입</p>
+
+<p>람다 표현식: 함수형 프로그래밍 스타일 도입을 위해 람다라는 익명 함수 기능 도입</p>
+
+<p><strong>기존 방식</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Runnable</span> <span class="n">run</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello, World!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">run</span><span class="o">.</span><span class="na">run</span><span class="o">();</span></code></pre></figure>
+
+<p><strong>람다 표현식</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 두 줄 이상의 코드가 되면 중괄호로</span>
+<span class="nc">Runnable</span> <span class="n">run</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello, World!"</span><span class="o">);</span>
+<span class="n">run</span><span class="o">.</span><span class="na">run</span><span class="o">()</span></code></pre></figure>
+
+<p>이를 통해 forEach 문의 가독성이 상승하고 함수형 프로그래밍이 가능해짐.</p>
+
+<h5 id="jdk-11">JDK 11</h5>
+
+<p>모듈 시스템 안정화, HTTP Client API</p>
+
+<p><strong>기존 방식</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HttpExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="c1">// HttpClient 생성</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+        <span class="c1">// GET 요청 builder 패턴으로 생성</span>
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"https://jsonplaceholder.typicode.com/posts/1"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="c1">// 동기 요청 (send)</span>
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+
+        <span class="c1">// 결과 출력</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Status code: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Body: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>비동기 요청</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 불변 객체 request 를 보내는 주체 HttpClient 인스턴스를 생성함</span>
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="c1">// "https://jsonplaceholder.typicode.com/posts/1" 에 요청하는 http 방식의 request 생성</span>
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+
+        <span class="c1">// 인터넷 자원 URI 생성</span>
+        <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://jsonplaceholder.typicode.com/posts/1"</span><span class="o">))</span>
+
+        <span class="c1">// 인스턴스 생성</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="c1">// 요청을 전송하는 client 가 Async(비동기) 방식으로 요청을 보냄, 응답바디를 String 으로 읽음</span>
+<span class="n">client</span><span class="o">.</span><span class="na">sendAsync</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">())</span>
+
+        <span class="c1">// 앞단계가 완료되면 HttpResponse::body() 메서드 호출</span>
+        <span class="o">.</span><span class="na">thenApply</span><span class="o">(</span><span class="nl">HttpResponse:</span><span class="o">:</span><span class="n">body</span><span class="o">)</span>
+
+        <span class="c1">// 앞단계가 완료되면 body를 받아서 표준 출력에 찍음</span>
+        <span class="o">.</span><span class="na">thenAccept</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">)</span>
+
+        <span class="c1">// 스레드를 join시키고 블록해서 위 명령이 끝날 때까지 기다림</span>
+        <span class="o">.</span><span class="na">join</span><span class="o">();</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">HttpClient</code> 는 불변 객체로 재사용이 되며, 동기와 비동기 전부 지원이 가능해졌고, <code class="language-plaintext highlighter-rouge">HTTP/2</code> 지원 및 요청과 응답을 <code class="language-plaintext highlighter-rouge">BodyHandler</code> 로 처리가 가능(<code class="language-plaintext highlighter-rouge">String</code>, <code class="language-plaintext highlighter-rouge">File</code>, <code class="language-plaintext highlighter-rouge">InputStream</code>)해졌다</p>
+</blockquote>
+
+<h5 id="jdk-17">JDK 17</h5>
+
+<p>패턴 매칭, 텍스트 블록, 레코드 클래스</p>
+
+<p><strong>기존 방식</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">name</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">name</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">age</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">age</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Person[name="</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">", age="</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>레코드 클래스</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">record</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{}</span></code></pre></figure>
+
+<p>불변의 특징을 지니고 있고, 위와 동일한 코드를 제공한다. 자주 사용하는데 핵심 로직과는 관련이 없고 코드가 긴 보일러플레이트 코드들을 간략히 할 수 있다. 보통 <code class="language-plaintext highlighter-rouge">record</code>는 <code class="language-plaintext highlighter-rouge">DTO</code>를 만들 때 쓰인다.</p>
+
+<h5 id="jdk-21">JDK 21</h5>
+
+<p>가상 스레드, 패턴 매칭 강화</p>
+
+<h4 id="java-환경변수-설정">Java 환경변수 설정</h4>
+
+<p>자바를 설치하고 간혹 실행이 안되는 경우가 있을 수 있는데 <code class="language-plaintext highlighter-rouge">Window</code>와 <code class="language-plaintext highlighter-rouge">Mac</code> 은 다음 환경 변수가 세팅이 되어있는지 확인해야 한다.</p>
+
+<p><strong>Windows</strong></p>
+
+<figure class="highlight"><pre><code class="language-bat" data-lang="bat"><span class="c">:: JAVA_HOME 확인</span>
+<span class="nb">echo</span> <span class="nv">%JAVA_HOME%</span>
+
+<span class="c">:: Path에 JAVA_HOME/bin 포함 여부 확인</span>
+<span class="nb">echo</span> <span class="nv">%PATH%</span></code></pre></figure>
+
+<p><strong>Mac / Linux</strong></p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># JAVA_HOME 확인</span>
+<span class="nb">echo</span> <span class="nv">$JAVA_HOME</span>
+
+<span class="c"># Path에 JAVA_HOME/bin 포함 여부 확인</span>
+<span class="nb">echo</span> <span class="nv">$PATH</span></code></pre></figure>
+
+<p>두 변수가 제대로 설정되어 있지 않다면, <code class="language-plaintext highlighter-rouge">java.exe</code> 가 위치한 폴더를 찾아서 환경변수로 세팅해주자.</p>
+
+<p><strong>Windows</strong></p>
+
+<figure class="highlight"><pre><code class="language-bat" data-lang="bat"><span class="c">:: 설치된 JDK 확인 (Program Files 폴더 확인)</span>
+<span class="nb">dir</span> <span class="s2">"C:\Program Files\Java\"</span>
+
+<span class="c">:: 또는 64비트 시스템은 Program Files (x86) 도 확인</span>
+<span class="nb">dir</span> <span class="s2">"C:\Program Files (x86)\Java\"</span></code></pre></figure>
+
+<p>위 명령어를 통해 설치된 JDK 폴더를 확인할 수 있고, 예를 들어 <code class="language-plaintext highlighter-rouge">C:\Program Files\Java\(jdk)</code> 이 설치되어 있다면,<br />
+<code class="language-plaintext highlighter-rouge">JAVA_HOME</code> 환경변수를 해당 경로로 설정해주면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-bat" data-lang="bat"><span class="c">:: 환경변수 설정 예시 (명령 프롬프트)</span>
+<span class="nb">setx</span> <span class="kd">JAVA_HOME</span> <span class="s2">"C:\Program Files\Java\(jdk)"</span>
+<span class="nb">setx</span> <span class="kd">PATH</span> <span class="s2">"</span><span class="nv">%JAVA_HOME%</span><span class="s2">\bin;</span><span class="nv">%PATH%</span><span class="s2">"</span></code></pre></figure>
+
+<p><strong>Mac</strong></p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># 설치된 JDK 확인</span>
+<span class="nb">ls</span> <span class="nt">-al</span> /Library/Java/JavaVirtualMachines/</code></pre></figure>
+
+<p>위 명령어를 통해 깔려있는 JDK 버전을 확인할 수 있고, <code class="language-plaintext highlighter-rouge">/Library/Java/JavaVirtualMachines/(jdk)/Content/Home</code> 을 JAVA_HOME 으로 환경변수 세팅해주면 된다. 세팅해줄때는 <code class="language-plaintext highlighter-rouge">~/.zshrc</code> 혹은 <code class="language-plaintext highlighter-rouge">~/.bashrc</code> 를 편집하면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">nano ~/.zshrc
+
+<span class="c"># mac os 에서 /usr/libexec/java_home 이라는 JDK 경로를 찾을 수 있도록</span>
+<span class="c"># 제공되는 실행파일임 -v 를 통해 버전을 입력할 수 있다.</span>
+<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span><span class="si">$(</span>/usr/libexec/java_home <span class="nt">-v</span> 21<span class="si">)</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$JAVA_HOME</span>/bin
+
+<span class="nb">source</span> ~/.zshrc</code></pre></figure>
+
+<p>위 <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> 에서는 ls로 검색해서 찾았던 <code class="language-plaintext highlighter-rouge">/Library/Java/JavaVirtualMachines/(jdk)/Content/Home</code> 이 절대경로를 직접 입력해주어도 된다.</p>
+
+<h4 id="java-컴파일-및-실행하기">Java 컴파일 및 실행하기</h4>
+
+<p>Java는 컴파일러와 인터프리터 성격을 모두 가지고 코드를 실행한다.<br />
+첫 단계에서는 소스코드를 전체 컴파일하여 JVM이 읽을 수 있는 <strong>바이트코드(.class 파일)</strong>로 변환한다.<br />
+이후 JVM은 이 바이트코드를 읽어 실행하게 된다.</p>
+
+<blockquote>
+  <p>소스코드 → 바이트코드 → JVM 실행</p>
+</blockquote>
+
+<p>바이트코드 실행 방식에는 두 가지가 있다:</p>
+
+<ul>
+  <li><strong>인터프리터 방식</strong>: 바이트코드를 한 줄씩 읽어 실행</li>
+  <li><strong>JIT(Just-In-Time) 컴파일러 방식</strong>: 자주 실행되는 코드 블록을 감지하여 <strong>기계어로 변환 후 실행</strong></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">JIT</code> 덕분에 순수 인터프리터보다 속도가 훨씬 빠르며, 반복 실행되는 코드의 성능이 크게 향상된다. 이제 이를 수행해보자.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># byte 코드 생성</span>
+javac <span class="o">(</span>컴파일 할 java 파일 이름<span class="o">)</span>.java
+java <span class="o">(</span>컴파일 할 java 파일 이름<span class="o">)</span></code></pre></figure>
+
+<p>자바는 컴파일 + 인터프리터 방식을 통해 <strong>플랫폼에 독립적</strong>으로 동작할 수 있게 된다.</p>
+
+<h3 id="문서화를-위한-java-docs">문서화를 위한 Java Docs</h3>
+
+<p>자바의 문법은 추후에 다루고 Java 코드를 상대방에게 알려주기 위한 주석을 달 때 어떻게 다는지 살펴본다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**
+ * 여기는 docs 주석 입니다.
+ */</span></code></pre></figure>
+
+<p>/** 로 시작하며 줄바꿈 <code class="language-plaintext highlighter-rouge">Enter</code> 를 치면 알아서 자동으로 넣어야할 것들과 설명을 쓸 수 있도록 폼을 <code class="language-plaintext highlighter-rouge">IDE</code>에서 만들어준다.<br />
+만약 안만들어준다면 다음 참고를 보고 작성하면 되겠다. 주석을 달 때는 다음 물음에 답할 수 있어야 한다.</p>
+
+<ul>
+  <li>Why, 코드를 왜 그렇게 작성했는지</li>
+  <li>How, 비즈니스 로직이 복잡하다면 어떻게 동작하는지</li>
+</ul>
+
+<p>주석을 다는 것을 보기 전에 태그를 먼저 보자.</p>
+
+<h4 id="java-docs-tag">Java Docs Tag</h4>
+
+<p>JavaDoc 태그는 주석 안에서만 의미가 있는 메타 정보이다. 메타 정보는 정보를 설명하는 정보라고 보면 되겠다.<br />
+이를 <strong>문서 생성 도구(Javadoc)</strong>가 읽어서 HTML 문서, PDF, 마크다운 등으로 변환할 때 의미를 지니게 되며<br />
+문서를 찾을 때 쉽게 찾을 수 있게 된다.</p>
+
+<p>JavaDoc에서 자주 사용하는 태그와 용도를 한눈에 정리하고, 코드에서 어떻게 쓰이는지 예시를 포함했다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>태그</th>
+      <th>용도 / 기능</th>
+      <th>사용 위치 / 설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@author</code></td>
+      <td>클래스/인터페이스 작성자 표시</td>
+      <td>클래스/인터페이스 상단</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@version</code></td>
+      <td>클래스/인터페이스 버전 정보</td>
+      <td>클래스/인터페이스 상단</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@since</code></td>
+      <td>기능이 추가된 Java/API 버전</td>
+      <td>클래스, 메서드</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@see</code></td>
+      <td>관련 클래스, 메서드, 문서를 참조</td>
+      <td>클래스, 메서드</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@param</code></td>
+      <td>메서드 매개변수 설명</td>
+      <td>메서드 주석, 매개변수 하나당 작성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@return</code></td>
+      <td>메서드 반환값 설명</td>
+      <td>메서드 주석 (void는 사용 X)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@throws</code> / <code class="language-plaintext highlighter-rouge">@exception</code></td>
+      <td>메서드에서 발생 가능한 예외 설명</td>
+      <td>메서드 주석, 예외마다 작성</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@deprecated</code></td>
+      <td>더 이상 사용되지 않는 기능 표시</td>
+      <td>클래스, 메서드, 필드</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@link</code></td>
+      <td>다른 클래스/메서드 하이퍼링크 생성</td>
+      <td>설명 문장 내</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@code</code></td>
+      <td>코드 조각 강조</td>
+      <td>설명 문장 내</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@literal</code></td>
+      <td>HTML 태그를 그대로 표시</td>
+      <td>설명 문장 내</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">클래스/인터페이스</code>: @author, @version, @since, @see, @deprecated</li>
+  <li><code class="language-plaintext highlighter-rouge">메서드</code>: @param, @return, @throws, @see, @deprecated</li>
+  <li><code class="language-plaintext highlighter-rouge">문장 내 강조/링크</code>: @link, @code, @literal</li>
+</ul>
+
+<p>베스트 프랙티스는 아니지만 클래스, 메서드 등등의 주석에서 다음 폼을 따르면 좋을거 같아서 써보았다.</p>
+
+<h4 id="class-주석-달기">Class 주석 달기</h4>
+
+<p>클래스를 선언하는 곳 바로 위에 Java docs 주석을 위치시키고 다음 내용을 표현하면 좋다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**
+ * 간단한 클래스/메서드 설명
+ *
+ * &lt;p&gt;상세 설명을 추가할 수 있음.
+ * 여러 줄로 작성 가능하며, HTML 태그 일부도 사용 가능&lt;/p&gt;
+ *
+ * &lt;pre&gt;예시 코드도 넣을 수 있음.
+ * 여러 줄 작성 가능&lt;/pre&gt;
+ *
+ * @author 작성자
+ * @version 버전
+ * @see 관련 클래스/메서드 (ex. String#equals, java.lang.reflect 등등)
+ */</span></code></pre></figure>
+
+<h4 id="method-주석-달기">Method 주석 달기</h4>
+
+<p>함수 선언 바로 위에 주석을 달면 되고, 클래스와는 다르게<br />
+함수는 특히 오류를 내뱉을 수 있으므로 던져지는 오류가 어떤 형태인지도 알려준다.<br />
+만약 오류가 여러 개면 <code class="language-plaintext highlighter-rouge">throws</code> 태그를 여러개 작성한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**
+ * 한 줄 요약
+ *
+ * &lt;p&gt;상세 설명 (여러 줄 가능)&lt;/p&gt;
+ *
+ * @param param1 설명
+ * @param param2 설명
+ * @return 반환값 설명
+ * @throws 예외설명
+ *
+ * &lt;pre&gt;
+ * // 예시 코드
+ * ClassName obj = new ClassName();
+ * obj.method(param1, param2);
+ * &lt;/pre&gt;
+ */</span></code></pre></figure>
+
+<blockquote>
+  <p>필드나 변수에 대한 주석은 한-두 줄로 충분하다.</p>
+</blockquote>
+
+<h4 id="marker-사용하기">Marker 사용하기</h4>
+
+<p>주석이 너무 많으면 사람들은 회색 글들중에 특별히 참고해야 할 만한 내용을 놓칠 수 있다.<br />
+이때 쓰는 것이 <code class="language-plaintext highlighter-rouge">Marker</code> 인데, 해당 코드 바로 위 혹은 옆에 한 줄로 작성하여 IDE 에서 색상이나 강조로 다른 주석보다 더 잘보이게 되는 주석이다.</p>
+
+<p>다음 마커들이 있다:</p>
+
+<ul>
+  <li><strong>TODO</strong>: 나중에 해야 할 일, 미완성 기능을 표시하는 용도이다.</li>
+  <li><strong>FIXME</strong>: 버그나 문제가 있는 코드를 표시하게 된다.</li>
+  <li><strong>XXX</strong>: 위험하거나 주의가 필요한 코드이다. 보안상에 문제가 있다면 사용할 수 있다.</li>
+  <li><strong>HACK</strong>: 임시 방편 코드의 의미를 가진다.</li>
+  <li><strong>NOTE</strong>: 참고용 설명이다.</li>
+</ul>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/18/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-2%EC%9D%BC%EC%B0%A8-Java-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
