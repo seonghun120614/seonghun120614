@@ -21,10 +21,6 @@ categories: CATEGORIES_PLACEHOLDER
 
 <!--more-->
 
-## 🪛 한계점
-
-
-
 ## 📂 목차
 - []()
 - []()

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[멋사 백엔드 19기] TIL 52일차 REST API Project"
-date:   2025-11-09 13:40:23 +0900
+date:   2025-11-10 13:40:23 +0900
 categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
 ---
 
@@ -10,6 +10,13 @@ categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
 ## 📂 목차
 
 - [Base Entity](#base-entity)
+- [Paginated Response Wrapper](#paginated-response-wrapper)
+- [@AuthenticationPrincipal](#authenticationprincipal)
+- [HandlerMethodArgumentResolver 를 통한 커스텀 인자 받아보기](#handlermethodargumentresolver-를-통한-커스텀-인자-받아보기)
+- [DTO Mapper](#dto-mapper)
+- [Spring Cache(Redis)](#spring-cacheredis)
+- [EntityGraph](#entitygraph)
+- [ApplicationEvent 로 비동기 처리를 분리](#applicationevent-로-비동기-처리를-분리)
 - []()
 
 ---
