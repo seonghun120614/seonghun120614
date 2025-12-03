@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[멋사 백엔드 19기] TIL 69일차 Prometheus Grafana"
+title:  "[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana"
 date:   2025-12-02 16:21:12 +0900
 categories: 멋쟁이사자처럼 멋사 백엔드 TIL DevOps
 ---
