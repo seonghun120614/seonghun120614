@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "[멋사 백엔드 19기] TIL 53일차 JWT"
-date:   2025-11-11 10:53:07 +0900
+title:  "[멋사 백엔드 19기] TIL 54일차 Spring Security5 OAuth2"
+date:   2025-11-12 13:42:12 +0900
 categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
 ---
 

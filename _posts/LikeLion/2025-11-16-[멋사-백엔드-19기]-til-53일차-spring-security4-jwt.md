@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "[멋사 백엔드 19기] TIL 51일차 Spring Security4 JWT"
-date:   2025-11-09 13:41:12 +0900
+title:  "[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT"
+date:   2025-11-11 13:41:12 +0900
 categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
 ---
 
@@ -19,7 +19,7 @@ categories: 멋쟁이사자처럼 멋사 백엔드 TIL Java Spring
   - [JwtTokenizer](#jwttokenizer)
   - [doFilterInternal](#dofilterinternal)
   - [JwtAuthenticationToken](#jwtauthenticationtoken)
-    - [테스트: authorization 의 헤더는 없지만, 아이디와 비밀번호는 전부 맞을때 refresh token 과 access token 을 반환](#테스트-authorization-의-헤더는-없지만-아이디와-비밀번호는-전부-맞을때-refresh-token-과-access-token-을-반환)
+    - [테스트: 회원가입](#테스트-authorization-의-헤더는-없지만-아이디와-비밀번호는-전부-맞을때-refresh-token-과-access-token-을-반환)
     - [테스트: 받은 헤더를 토대로 login 을 다시 진행](#테스트-받은-헤더를-토대로-login-을-다시-진행)
     - [테스트: 받은 헤더를 토대로 welcom 요청](#테스트-받은-헤더를-토대로-welcom-요청)
     - [테스트: 토큰이 없다면 403](#테스트-토큰이-없다면-403)
@@ -367,7 +367,7 @@ public class JwtAuthenticationToken implements Authentication {
 
 이 이후에는 json 의 loginId, password 를 처리하도록 해주는 security3 포스팅을 보고 이를 **"잘"** 들고온다. 이제 테스트를 수행하자.
 
-##### 테스트: authorization 의 헤더는 없지만, 아이디와 비밀번호는 전부 맞을때 refresh token 과 access token 을 반환
+##### 테스트: 회원가입
 
 {% highlight bash %}
 curl -L -i -H "Content-Type: application/json" \
@@ -376,18 +376,6 @@ http://localhost:8080/login
 {% endhighlight %}
 
 본인은 그냥 application 에 repo를 들고와서 임의로 값을 넣었다.
-
-##### 테스트: 받은 헤더를 토대로 login 을 다시 진행
-
-{% highlight bash %}
-curl -L -i \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer (Bearer Token)" \
-     -d '{"loginId":"test","password":"1234"}' \
-     http://localhost:8080/login
-{% endhighlight %}
-
-이때는 refreshToken 과 accessToken 이 이미 발급됐기 때문에 다시 발급하는 일이 없어야 하며, 로그인이 정상적으로 처리돼어 로그인 처리 이후 default url 인 `/welcome` 으로 넘기도록 해줘야 한다.
 
 ##### 테스트: 받은 헤더를 토대로 welcom 요청
 
