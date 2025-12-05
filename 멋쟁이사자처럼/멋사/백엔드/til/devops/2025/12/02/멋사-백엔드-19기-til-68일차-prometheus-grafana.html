@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-12-02T07:21:12+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-12-02T07:21:12+00:00","datePublished":"2025-12-02T07:21:12+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 68일차 Prometheus Grafana</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Dec 2, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>DevOps</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#시계열-데이터">시계열 데이터</a></li>
+  <li><a href="#prometheus">Prometheus</a>
+    <ul>
+      <li><a href="#prometheus-server">Prometheus Server</a></li>
+      <li><a href="#exporter">Exporter</a></li>
+      <li><a href="#promql">PromQL</a></li>
+      <li><a href="#alertmanager">Alertmanager</a></li>
+      <li><a href="#서비스-디스커버리">서비스 디스커버리</a></li>
+      <li><a href="#dependency">Dependency</a></li>
+      <li><a href="#spring-actuator-설정">Spring Actuator 설정</a></li>
+      <li><a href="#prometheusyml-설정">prometheus.yml 설정</a></li>
+      <li><a href="#prometheus-docker-container-구동">Prometheus Docker Container 구동</a>
+        <ul>
+          <li><a href="#prometheus-promql-쿼리-날리기">Prometheus PromQL 쿼리 날리기</a></li>
+          <li><a href="#promql-집계함수-사용해보기">PromQL 집계함수 사용해보기</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#grafana">Grafana</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="시계열-데이터">시계열 데이터</h3>
+
+<p>시간의 흐름에 따라 일정 간격으로 기록되는 데이터</p>
+
+<ul>
+  <li>자기 상관성: 이전 값이 다음 값에 영향을 줌</li>
+  <li>Trend, Seasonality, Irregularity 같은 패턴이 존재 가능</li>
+  <li>규칙적 간격으로 기록</li>
+</ul>
+
+<p><strong>Prometheus의 시계열 데이터 모델</strong></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">{메트릭 이름}{레이블 집합} 값 타임스탬프
+
+예시:
+http_server_requests_seconds_count{method="GET",status="200",uri="/api/users"} 1234 1701336000000</code></pre></figure>
+
+<h3 id="prometheus">Prometheus</h3>
+
+<p>시계열 데이터 기반의 모니터링 및 아림 시스템이며, 쿠버네티스나 클라우드 네이티브 환경에서 사실 상 표준처럼 사용되는 도구이며, 메트릭을 수집하고 저장하며, 쿼리하고, 알림까지 제공한다.</p>
+
+<p><strong>특징</strong></p>
+<ul>
+  <li>알림 제공</li>
+  <li>Pull 방식: 타겟(exporter)에 대한 메트릭을 정기적으로 끌어와서 저장하는 시계열 데이터베이스 기반의 모니터링 시스템
+    <ul>
+      <li>Prometheus 가 타겟을 직접 체크</li>
+      <li>불필요한 데이터 Push 방지</li>
+      <li>언제 얼마나 수집할지에 대한 제어가 쉬움</li>
+      <li>타겟이 다운되었는지 쉽게 감지 가능</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">PromQL</code>: 강력한 쿼리 언어</li>
+  <li>다양한 Exporter: 다양한 시스템 (<code class="language-plaintext highlighter-rouge">DB</code>, <code class="language-plaintext highlighter-rouge">Redis</code>, <code class="language-plaintext highlighter-rouge">Nginx</code> 등) 메트릭 수집 가능</li>
+</ul>
+
+<h4 id="prometheus-server">Prometheus Server</h4>
+
+<p>여기서 Prometheus Server 는 위와 같은 특징을 가지며 모든 메트릭을 수집(Pull)하고 시계열 DB 에 저장하는 중앙 서버이다.</p>
+
+<p><strong>구성 요소</strong></p>
+<ul>
+  <li>TSDB(타임시리즈 데이터 저장)</li>
+  <li>Scraper(메트릭 수집기)</li>
+  <li>Query Engine(PromQL 실행)</li>
+</ul>
+
+<h4 id="exporter">Exporter</h4>
+
+<p>또 Exporter 라는 것은 메트릭을 Prometheus 형식으로 노출해주는 작은 서버(HTTP endpoint 로 노출) 이며, 다양한 exporter 가 있다:</p>
+
+<ul>
+  <li>Node Exporter</li>
+  <li>cAdvisor</li>
+  <li>MySQL Exporter</li>
+  <li>Redis Exporter</li>
+</ul>
+
+<h4 id="promql">PromQL</h4>
+
+<p>Prometheus Query Language 의 약자로</p>
+
+<ul>
+  <li>시간 기반 계산</li>
+  <li>레이블을 활용한 필터링</li>
+  <li>집계(sum, rate, avg 등)</li>
+</ul>
+
+<p>이 있다.</p>
+
+<h4 id="alertmanager">Alertmanager</h4>
+
+<p>Prometheus 가 보낸 알림을 관리하고 전달하는 시스템</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Slack</code> / <code class="language-plaintext highlighter-rouge">Email</code> / <code class="language-plaintext highlighter-rouge">Discord</code> / <code class="language-plaintext highlighter-rouge">Webhook</code> / <code class="language-plaintext highlighter-rouge">PagerDuty</code> 등으로 알림 전송</li>
+  <li>알림 그룹화, 중복 제거, 억제</li>
+</ul>
+
+<p>등을 맡는다.</p>
+
+<h4 id="서비스-디스커버리">서비스 디스커버리</h4>
+
+<p>타겟 목록을 자동으로 찾는 기능</p>
+
+<ul>
+  <li>쿠버네티스, EC2, Consul, Docker Swarm 등 지원</li>
+</ul>
+
+<p><strong>architecture</strong></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Spring Boot App → /actuator/prometheus (메트릭 노출)
+                          ↑
+                    Prometheus (스크랩)
+                          ↓
+                 시계열 데이터베이스 저장
+                          ↓
+                     Grafana (시각화)</code></pre></figure>
+
+<ul>
+  <li>Prometheus = 모니터링 + 시계열 DB + 알림 시스템</li>
+  <li>저장 모델 = Label-Based Time Series</li>
+  <li>쿼리 언어 = PromQL</li>
+  <li>알림 = AlertManager</li>
+  <li>확장 = Grafana, Thanos, k8s 연동</li>
+</ul>
+
+<p>Grafana 는 이후에 본다.</p>
+
+<h4 id="dependency">Dependency</h4>
+
+<figure class="highlight"><pre><code class="language-gradle" data-lang="gradle"><span class="k">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter-actuator'</span>
+    <span class="n">implementation</span> <span class="s1">'io.micrometer:micrometer-registry-prometheus'</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="spring-actuator-설정">Spring Actuator 설정</h4>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - loggers
+          - threaddump
+          - prometheus  # Prometheus 엔드포인트 추가
+
+  endpoint:
+    health:
+      show-details: ALWAYS</code></pre></figure>
+
+<p>위에 prometheus 를 추가해준다.</p>
+
+<h4 id="prometheusyml-설정">prometheus.yml 설정</h4>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">global</span><span class="pi">:</span>
+  <span class="na">scrape_interval</span><span class="pi">:</span> <span class="s">15s</span>        <span class="c1"># 기본 스크랩 간격</span>
+  <span class="na">scrape_timeout</span><span class="pi">:</span> <span class="s">10s</span>         <span class="c1"># 스크랩 타임아웃</span>
+  <span class="na">evaluation_interval</span><span class="pi">:</span> <span class="s">15s</span>    <span class="c1"># rule 평가 간격</span>
+  <span class="na">external_labels</span><span class="pi">:</span>
+    <span class="na">monitor</span><span class="pi">:</span> <span class="s1">'</span><span class="s">my-monitor'</span>     <span class="c1"># 외부 레이블, AlertManager 등에서 활용</span>
+
+<span class="na">scrape_configs</span><span class="pi">:</span>               <span class="c1"># 모니터링할 타겟 정의</span>
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">node'</span>          <span class="c1"># 잡 이름</span>
+    <span class="na">static_configs</span><span class="pi">:</span>           <span class="c1"># 고정 타겟</span>
+      <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9100'</span><span class="pi">]</span>
+        <span class="na">labels</span><span class="pi">:</span>
+          <span class="na">env</span><span class="pi">:</span> <span class="s">production</span>     <span class="c1"># 레이블 지정</span>
+
+<span class="na">rule_files</span><span class="pi">:</span>                   <span class="c1"># alert/rule 파일 경로</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">alerts.yml"</span></code></pre></figure>
+
+<p>스크랩은 메트릭 수집으로 보면 된다. 여기서 alerting rule, recording rule 이라는게 있다. 이 개념을 좀 보자.</p>
+
+<ul>
+  <li>
+    <p><strong>Alerting Rule</strong>: 특정 조건(예: CPU 사용률 &gt; 90% 이상) 이면 <code class="language-plaintext highlighter-rouge">AlertManager</code> 로 알림 전송, 이 조건을 계산하는 주기가 바로 <code class="language-plaintext highlighter-rouge">evaluation_interval</code></p>
+  </li>
+  <li>
+    <p><strong>Recording Rule</strong>: 자주 쓰는 쿼리 결과를 새로운 시계열로 저장하여 쿼리 성능을 최적화, 이때 자주 쓰는 쿼리의 계산을 발동하는 그 간격 <code class="language-plaintext highlighter-rouge">evaluation_interval</code></p>
+  </li>
+</ul>
+
+<p>이 룰들은 자동으로 계속 계산되어야 하며, 이 계산 주기를 정하는 것이 <code class="language-plaintext highlighter-rouge">evaluation_interval</code> 이다. 나머지 key 들에 대한 설명이다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">external_labels</code>: <code class="language-plaintext highlighter-rouge">Prometheus</code> 가 다른 <code class="language-plaintext highlighter-rouge">Prometheus</code> 나 <code class="language-plaintext highlighter-rouge">AlertManager</code> 로 데이터를 보낼 때 자동으로 붙이는 레이블</li>
+  <li><code class="language-plaintext highlighter-rouge">scrape_configs</code> 의 <code class="language-plaintext highlighter-rouge">static_configs</code>: 어떤 대상에서 메트릭을 가져올지를 정해야 하는데, <code class="language-plaintext highlighter-rouge">scrape_configs</code> 안에 여러 잡을 정의할 수 있고, 각 잡의 타겟을 지정하는 방법 중 하나가 <code class="language-plaintext highlighter-rouge">static_configs</code> 이다. <code class="language-plaintext highlighter-rouge">Prometheus</code> 가 수집할 대상이 변하지 않고 고정되어 있다는 의미다.
+    <ul>
+      <li>새로운 서버가 생기면 직접 <code class="language-plaintext highlighter-rouge">yml</code> 수정 필요</li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">scrape_configs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">node-exporter'</span>
+    <span class="na">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9100'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">server2:9100'</span><span class="pi">]</span>
+        <span class="na">labels</span><span class="pi">:</span>
+          <span class="na">env</span><span class="pi">:</span> <span class="s">production</span></code></pre></figure>
+
+<h4 id="prometheus-docker-container-구동">Prometheus Docker Container 구동</h4>
+
+<p>보통 프로메테우스는 9090 포트를 쓴다. 기본 구성 파일은 <code class="language-plaintext highlighter-rouge">/etc/prometheus/prometheus.yml</code> 에 지정시키는 듯하다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker run <span class="nt">-d</span> <span class="se">\</span>
+  <span class="nt">--name</span> prometheus <span class="se">\</span>
+  <span class="nt">--network</span> spring-net <span class="se">\</span>
+  <span class="nt">-p</span> 9090:9090 <span class="se">\</span>
+  <span class="nt">-v</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span><span class="s2">/prometheus.yml:/etc/prometheus/prometheus.yml"</span> <span class="se">\</span>
+  prom/prometheus</code></pre></figure>
+
+<h5 id="prometheus-promql-쿼리-날리기">Prometheus PromQL 쿼리 날리기</h5>
+
+<p><code class="language-plaintext highlighter-rouge">http://localhost:9090/query</code> 로 접속하여 사진의 쿼리를 날려보자.</p>
+
+<p><img src="/assets/img/prometheus-test.png" alt="assets/img/prometheus-test.png" /></p>
+
+<p>나오는 time series 데이터들에 대해서도 label 을 통한 필터링이 가능하다.</p>
+
+<h5 id="promql-집계함수-사용해보기">PromQL 집계함수 사용해보기</h5>
+
+<p>트래픽을 분석하기 위해 다음 메트릭을 사용할 수 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">http_server_requests_seconds_count</code></li>
+  <li><code class="language-plaintext highlighter-rouge">http_server_requests_active_seconds_count</code></li>
+</ul>
+
+<p>이를 시간을 기준으로 시계열 데이터를 가져와보자.</p>
+
+<figure class="highlight"><pre><code class="language-promql" data-lang="promql">rate(http_server_requests_seconds_count[1m])</code></pre></figure>
+
+<p>rate 집계 함수로 카운터 메트릭의 단위 시간당 증가율을 계산하는 함수인데, 최근 1분 동안의 값 변화량을 기준으로 계산하겠다는 의미이다.</p>
+
+<h3 id="grafana">Grafana</h3>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/devops/2025/12/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-68%EC%9D%BC%EC%B0%A8-prometheus-grafana.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

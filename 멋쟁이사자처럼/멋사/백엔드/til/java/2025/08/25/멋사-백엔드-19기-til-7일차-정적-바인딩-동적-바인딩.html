@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 7일차 정적 바인딩, 동적 바인딩과 다형성</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 7일차 정적 바인딩, 동적 바인딩과 다형성 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 7일차 정적 바인딩, 동적 바인딩과 다형성" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-25T00:38:43+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 7일차 정적 바인딩, 동적 바인딩과 다형성" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-08-25T00:38:43+00:00","datePublished":"2025-08-25T00:38:43+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 7일차 정적 바인딩, 동적 바인딩과 다형성","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 7일차 정적 바인딩, 동적 바인딩과 다형성</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Aug 25, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#inheritance">Inheritance</a>
+    <ul>
+      <li><a href="#정적-바인딩과-동적-바인딩">정적 바인딩과 동적 바인딩</a>
+        <ul>
+          <li><a href="#정적-바인딩early-binding-compile-time">정적 바인딩(early binding, compile-time)</a></li>
+          <li><a href="#동적-바인딩late-binding-runtime">동적 바인딩(late binding, runtime)</a></li>
+        </ul>
+      </li>
+      <li><a href="#constructor-관점">Constructor 관점</a></li>
+      <li><a href="#field-관점">Field 관점</a></li>
+      <li><a href="#method-관점">Method 관점</a></li>
+      <li><a href="#상속-주의점">상속 주의점</a></li>
+    </ul>
+  </li>
+  <li><a href="#polymorphism">Polymorphism</a>
+    <ul>
+      <li><a href="#정적컴파일에서의-다형성">정적/컴파일에서의 다형성</a></li>
+      <li><a href="#동적런타임에서의-다형성">동적/런타임에서의 다형성</a></li>
+    </ul>
+  </li>
+  <li><a href="#servlet">Servlet</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="inheritance">Inheritance</h3>
+
+<p><code class="language-plaintext highlighter-rouge">is-a</code> 관계, <code class="language-plaintext highlighter-rouge">kind-of</code> 에서 사용.</p>
+
+<ol>
+  <li>부모가 자식을 참조 가능</li>
+  <li>필드는 참조변수 타입을 기준</li>
+  <li>메소드 오버라이딩 시 자식 것 사용</li>
+</ol>
+
+<blockquote>
+  <p>모든 class 는 Object 의 상속</p>
+</blockquote>
+
+<h4 id="정적-바인딩과-동적-바인딩">정적 바인딩과 동적 바인딩</h4>
+
+<h5 id="정적-바인딩early-binding-compile-time">정적 바인딩(early binding, compile-time)</h5>
+
+<p>컴파일 시점에 어떤 멤버/메서드를 사용할지 결정하는 것을 정적 바인딩이라고 한다.</p>
+
+<p>다음이 <strong>정적 바인딩</strong>에 해당:</p>
+
+<ul>
+  <li>필드 접근(멤버 변수) → <strong>참조 변수의 타입</strong>을 따름</li>
+  <li><code class="language-plaintext highlighter-rouge">static</code> 메서드(오버라이딩 X, <strong>메서드 숨김</strong>/hiding) → <strong>참조 변수의 타입</strong>을 따름</li>
+  <li><code class="language-plaintext highlighter-rouge">private</code> 메서드, <code class="language-plaintext highlighter-rouge">final</code> 메서드(재정의 불가) → 호출 지점에서 이미 고정</li>
+  <li><strong>오버로딩</strong>(이름 같고 매개변수 시그니처 다른 메서드) → <strong>인자와 참조의 정적 타입</strong>으로 선택</li>
+  <li><code class="language-plaintext highlighter-rouge">super.someMethod()</code> 호출 → <strong>상위 클래스 구현</strong>으로 고정</li>
+</ul>
+
+<h5 id="동적-바인딩late-binding-runtime">동적 바인딩(late binding, runtime)</h5>
+
+<p>런타임 시점에 어떤 멤버/메서드를 사용할지 결정하는 것을 동적 바인딩이라고 한다.</p>
+
+<ul>
+  <li>런타임에 <strong>실제 객체의 타입</strong>을 보고 어떤 인스턴스 메서드를 호출할지 결정</li>
+  <li>기본적으로 <strong>오버라이딩 가능한 인스턴스 메서드</strong>는 모두 동적 바인딩 대상</li>
+</ul>
+
+<p><strong>핵심 규칙 요약</strong></p>
+<blockquote>
+  <p>“필드/<code class="language-plaintext highlighter-rouge">static</code>/<code class="language-plaintext highlighter-rouge">private</code>/<code class="language-plaintext highlighter-rouge">final</code>/<code class="language-plaintext highlighter-rouge">super</code>/오버로딩” → <strong>정적</strong><br />
+“그 외 인스턴스 메서드(오버라이딩)” → <strong>동적</strong></p>
+</blockquote>
+
+<h4 id="constructor-관점">Constructor 관점</h4>
+
+<p>A 클래스가 B 클래스를 상속한다고 쳤을때, 상속 받는 A 클래스는 어떻든 간에 B 클래스의 Constructor 를 실행시켜야 한다.</p>
+
+<p>B 가 아무 생성자가 없더라도 인자가 없는 Constructor 를 컴파일러가 자동으로 생성해주는 이유도 그 때문이다.</p>
+
+<p>밑의 예시를 보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"부모"</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"자식"</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Parent 는 아무런 생성자가 없지만 자동으로 빈 생성자가 생성될 것이다. Child 도 마찬가지로 빈 생성자가 생성되지만, 그 비어져 있는 생성자에 <code class="language-plaintext highlighter-rouge">super()</code> 라는 부모의 생성자가 생략된 것이다.</p>
+
+<p>따라서 부모의 생성자가 먼저 실행이 되고, 그 실행된 것을 토대로 <code class="language-plaintext highlighter-rouge">Child</code> 가 한 번 더 수정을 해준다고 보면 되겠다.</p>
+
+<blockquote>
+  <p>만약 Parent 에 인자가 있는 생성자를 직접 명시했다면, 비어져 있는 생성자(default constructor) 가 자동 생성이 되지 않으므로 이때 Child 는 부모의 생성자 <code class="language-plaintext highlighter-rouge">super()</code> 를 이용하여 초기화 해주어야 한다.<br />
+이는 이 전 강의에서도 무조건 <code class="language-plaintext highlighter-rouge">super</code> 가 있어야 한다고 했었다.</p>
+</blockquote>
+
+<h4 id="field-관점">Field 관점</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"부모"</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"자식"</span><span class="o">;</span>
+
+<span class="o">}</span>
+
+<span class="nc">Parent</span> <span class="n">pc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Child</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">pc</span><span class="o">.</span><span class="na">name</span><span class="o">)</span></code></pre></figure>
+
+<p>위 코드를 출력해보면 pc.name 은 자식이 아니라 부모가 출력됨을 볼 수 있다.</p>
+
+<p>실제로 pc 라는 변수는 Parent 필드와 Child 필드 둘 다 가지고 있다. 하지만 자바는 특정 변수를 볼 때 이 변수의 선언된 클래스 명을 우선으로 따라간다. 즉, <code class="language-plaintext highlighter-rouge">Parent pc</code> 이기 때문에 멤버 변수로는 <code class="language-plaintext highlighter-rouge">Parent</code> 것이 따라가게 된다.</p>
+
+<p>이는 컴파일 시점에 결정되는 것이며, 필드는 정적 바인딩이 되는 것이기에 참조변수 타입을 따르는게 맞다.</p>
+
+<h4 id="method-관점">Method 관점</h4>
+
+<p>위와 비슷한 예시로 다음을 또 보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"부모"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"부모: 안녕하세요"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"자식"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"자식: 안녕하세요"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Parent</span> <span class="n">pc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Child</span><span class="o">();</span>
+
+        <span class="n">pc</span><span class="o">.</span><span class="na">print</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위는 자식의 메서드가 실행되는 것을 볼 수 있다.</p>
+
+<p>이는 메서드가 동적 바인딩이 되기 때문이다.</p>
+
+<h4 id="상속-주의점">상속 주의점</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="nc">Parent</span><span class="o">()</span> <span class="o">{</span> <span class="n">print</span><span class="o">();</span> <span class="o">}</span>      <span class="c1">// 위험: 오버라이딩 가능 메서드 호출</span>
+    <span class="kt">void</span> <span class="nf">print</span><span class="o">(){</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Parent"</span><span class="o">);</span> <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span>
+    <span class="nc">Child</span><span class="o">()</span> <span class="o">{}</span>
+    <span class="nd">@Override</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(){</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">new</span> <span class="nf">Child</span><span class="o">();</span> <span class="c1">// 출력: 0   (x가 아직 기본값 0일 때 Child.print()가 불림)</span></code></pre></figure>
+
+<p><strong>상속 요약</strong></p>
+<ul>
+  <li>필드: 참조 타입(정적)</li>
+  <li><code class="language-plaintext highlighter-rouge">static</code>/ <code class="language-plaintext highlighter-rouge">private</code> / <code class="language-plaintext highlighter-rouge">final</code> / <code class="language-plaintext highlighter-rouge">super</code>/ 오버로딩: 정적</li>
+  <li>오버라이딩된 인스턴스 메서드: 동적</li>
+  <li>생성자 내부에서 오버라이딩 메서드 호출 지양</li>
+</ul>
+
+<h3 id="polymorphism">Polymorphism</h3>
+
+<p>범용 메소드 이름을 정의하여 형태에 따라 각각 적절한 변환 방식을 정의해두어 타입 간의 변환이 자유성을 가지는 성질을 말한다.</p>
+
+<h4 id="정적컴파일에서의-다형성">정적/컴파일에서의 다형성</h4>
+
+<p>주로 오버로딩이 해당되며, 같은 이름을 가진 메서드가 매개변수 유형이나 개수에 따라 다르게 정의되어 컴파일러가 호출 시점에서 어떤 메서드인지 결정하게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kt">double</span> <span class="nf">add</span><span class="o">(</span><span class="kt">double</span> <span class="n">a</span><span class="o">,</span> <span class="kt">double</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="동적런타임에서의-다형성">동적/런타임에서의 다형성</h4>
+
+<p>오버 라이딩 기반으로 부모 클래스를 참조 타입으로 사용하더라도, 실제 객체가 자식이라면 자식 클래스의 메서드가 호출됨.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">speak</span><span class="o">()</span> <span class="o">{</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Animal speaks"</span><span class="o">);</span> <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">speak</span><span class="o">()</span> <span class="o">{</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Dog barks"</span><span class="o">);</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nc">Animal</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+<span class="n">a</span><span class="o">.</span><span class="na">speak</span><span class="o">();</span>  <span class="c1">// "Dog barks"</span></code></pre></figure>
+
+<blockquote>
+  <p>위 다형성 외에도 제너릭, 인터페이스 기반 등의 다양한 형태의 다형성이 존재함</p>
+</blockquote>
+
+<h3 id="servlet">Servlet</h3>
+
+<p>java 에서 서블릿은 자바 기반의 웹 어플리케이션에서 동적 웹페이지를 생성하고 클라이언트의 요청을 처리하는 서버 컴포넌트이다.</p>
+
+<p>주로 HTTP 요청을 받고, 동적인 응답을 반환하는 애다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">javax.servlet</code></li>
+  <li><code class="language-plaintext highlighter-rouge">javax.servlet.http</code></li>
+</ul>
+
+<p>등을 보면 좋을 것이다.</p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/25/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-7%EC%9D%BC%EC%B0%A8-%EC%A0%95%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

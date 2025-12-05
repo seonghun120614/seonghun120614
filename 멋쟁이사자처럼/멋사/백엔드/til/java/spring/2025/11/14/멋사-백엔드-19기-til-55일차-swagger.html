@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 55일차 Swagger</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 55일차 Swagger | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 55일차 Swagger" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="작성중" />
+<meta property="og:description" content="작성중" />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-14T00:33:45+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 55일차 Swagger" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-11-14T00:33:45+00:00","datePublished":"2025-11-14T00:33:45+00:00","description":"작성중","headline":"[멋사 백엔드 19기] TIL 55일차 Swagger","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 55일차 Swagger</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Nov 14, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+<p>작성중</p>
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href=""></a></li>
+  <li><a href=""></a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="swagger">Swagger</h3>
+
+<p>소프트웨어 간에 상호작용을 하기 위해 제공하는게 바로 API 문서다. API 수가 많아지만 이런 문서 작성도 굉장히 버겁게 된다. 이런 문서를 자동화 할 수 있는 것이 바로 Swagger 이다.</p>
+
+<h4 id="api-문서화">API 문서화</h4>
+
+<p>개발자가 API 를 이해하고 사용할 수 있도록 구조, 요청 / 응답 방식, 인증, 오류 등을 정리한 문서이며 문서가 없거나 불완전하면 코드 분석, 문의 등 비효율이 발생하게 된다. 명확한 문서는 개발자 경험과 유지보수 효율을 높일 것이다.</p>
+
+<p><strong>주요 요소</strong></p>
+<ul>
+  <li>end point: URL, HTTP 메서드(GET/POST/PUT/DELETE)</li>
+  <li>reuqest: 필요 파라미터, 헤더</li>
+  <li>response: 응답 데이터 구조, HTTP status code</li>
+  <li>Examples 요청/응답: 실제 호출 예시, 예상 결과</li>
+  <li>Error Code 설명: 발생 가능한 오류 코드 및 해결 방법</li>
+</ul>
+
+<h4 id="swagger-및-openapi-개념-정리">Swagger 및 OpenAPI 개념 정리</h4>
+
+<p>Swagger 는 API 문서를 자동 생성/관리하는 도구이며 OpenAPI Specification 표준 기반으로 API 명세를 정의하고, 작성된 명세를 활용하여 문서, 테스트 UI, 코드 생성 등을 자동화할 수 있게 된다.</p>
+
+<p><strong>OpenAPI Specification(OAS)</strong></p>
+<ul>
+  <li>RESTful API 를 기술하는 표준 포맷</li>
+  <li>YAML/JSON 형식으로 API 구조 정의</li>
+  <li>대부분의 언어/프레임워크에서 활용 가능</li>
+  <li>Swagger UI, Redoc 등을 통해 문서 자동 생성 가능</li>
+</ul>
+
+<h4 id="swagger-구성-요소">Swagger 구성 요소</h4>
+
+<ul>
+  <li>Swagger UI
+    <ul>
+      <li>브라우저 API 문서의 시각적 제공</li>
+      <li>API를 직접 테스트할 수 있는 인터랙티브 UI</li>
+    </ul>
+  </li>
+  <li>Swagger Editor
+    <ul>
+      <li>API 명세(YAML/JSON)를 작성하는 온라인 편집기</li>
+      <li>실시간 미리보기</li>
+    </ul>
+  </li>
+  <li>Swagger Codegen
+    <ul>
+      <li>API 명세를 기반하여 클라이언트 SDK, 서버 스텁 코드 자동 생성</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="swagger-장점">Swagger 장점</h4>
+
+<p>주요기능으로는 다음과 같다:</p>
+
+<p><strong>자동화된 API 문서 생성</strong>
+Swagger 는 어플리케이션 코드에 작성한 애노테이션을 기반으로 API 문서를 자동으로 생성하는데, 별도의 작업 없이도 엔드포인트, 파라미터, 응답 구조 등이 자동으로 반영되기 때문에 문서를 직접 작성하던 시대와 비교하면 압도적으로 효율적이다.</p>
+
+<p><strong>인터랙티브 API 테스트 기능 제공</strong>
+Swagger UI는 단순 문서가 아니라 브라우저에게 바로 API 를 호출해볼 수 있는 살아있는 테스트 환경을 제공하기 때문에 개발/QA/기획자가 <code class="language-plaintext highlighter-rouge">Postman</code>, <code class="language-plaintext highlighter-rouge">curl</code> 기능 없이 바로 API 를 검증할 수 있다는 큰 장점이 있다.</p>
+
+<p><strong>언어 및 프레임워크 독립적 구조</strong>
+Swagger/OAS는 특정 언어나 프레임워크에 종속되지 않는다. Java(Spring), Node.js, Python(FastAPI), Golang 등 어떤 환경에서도 동일한 방식으로 문서를 작성하고 공유할 수 있어 팀 간 표준화가 수월하다.</p>
+
+<p><strong>표준화된 API 명세(JSON/YAML) 제공</strong>
+API 구조를 JSON 또는 YAML 로 표현하는 Open API Specification(OAS) 를 그대로 따르게 된다. 이를 통해 도구 간 호환성이 높고, 외부 시스템과의 연동이나 API 관리 플랫폼에서도 바로 사용할 수 있다.</p>
+
+<h4 id="swagger-dependency">Swagger Dependency</h4>
+
+<figure class="highlight"><pre><code class="language-gradle" data-lang="gradle"><span class="n">implementation</span> <span class="s1">'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'</span></code></pre></figure>
+
+<h3 id="swagger-적용">Swagger 적용</h3>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@OpenAPIDefinition</span><span class="o">()</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwaggerConfig</span> <span class="o">{</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">OpenAPIDefinition</code> 는 메타 데이터를 설정하는 곳이다. 이 서비스의 title, version, description 등 swagger doc 의 상단에 표시할 문서 정보를 띄우게 된다.</p>
+
+<h4 id="openapidefinition">OpenAPIDefinition</h4>
+
+<p>안에 들어가는 속성을 정리하자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">    <span class="nc">Info</span> <span class="nf">info</span><span class="o">()</span> <span class="k">default</span> <span class="nd">@Info</span><span class="o">;</span>
+
+    <span class="nc">Tag</span><span class="o">[]</span> <span class="nf">tags</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+
+    <span class="nc">Server</span><span class="o">[]</span> <span class="nf">servers</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+
+    <span class="nc">SecurityRequirement</span><span class="o">[]</span> <span class="nf">security</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+
+    <span class="o">...</span></code></pre></figure>
+
+<h5 id="info-속성">info 속성</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Info info</code> 는 API 메타 데이터 정보를 뜻한다. 다음 속성들이 또 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">String title</code>: API 이름</li>
+  <li><code class="language-plaintext highlighter-rouge">String version</code>: version 정보</li>
+  <li><code class="language-plaintext highlighter-rouge">String description</code>: API 설명</li>
+  <li><code class="language-plaintext highlighter-rouge">String termsOfService</code>: 이용약관 URL</li>
+  <li><code class="language-plaintext highlighter-rouge">Contact contact</code>: 개발자 혹은 조직의 연락 정보</li>
+  <li><code class="language-plaintext highlighter-rouge">License license</code>: 라이선스 정보 -&gt; default 는 <code class="language-plaintext highlighter-rouge">@io.swagger.v3.oas.annotations.info.License</code> 이고 굳이 명시 안해도 된다.</li>
+  <li>…</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@OpenAPIDefinition</span><span class="o">(</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="nd">@Info</span><span class="o">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">"My API"</span><span class="o">,</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"서비스 API 문서"</span><span class="o">,</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="s">"v1.0.0"</span>
+    <span class="o">)</span>
+<span class="o">)</span>
+<span class="kd">public</span> <span class="nc">RestController</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="tags-속성">tags 속성</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Tag[] tags</code> 는 각 컨트롤러 또는 API 그룹에 대한 태그를 <strong>전역 선언</strong>하는 기능이며, Swagger UI 에서 API 를 카테고리별로 정렬하고 설명을 붙일 수 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">String name</code>: 설명 생략</li>
+  <li><code class="language-plaintext highlighter-rouge">String description</code>: 설명 생략</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">tags</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nd">@Tag</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"User"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 관련 API"</span><span class="o">),</span>
+    <span class="nd">@Tag</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Auth"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"인증 관련 API"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="servers-속성">servers 속성</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Server[] servers</code> 는 API 호출 서버 주소 목록을 문서화하며, Swagger UI 에서 API 호출 시 기본적으로 연결할 서버 주소를 명시한다. 환경별(로컬, 개발, 운영) 서버 URL 을 제공할 때 사용</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">String url</code>: 생략</li>
+  <li><code class="language-plaintext highlighter-rouge">String description</code>: 생략</li>
+  <li><code class="language-plaintext highlighter-rouge">ServerVariable[] variables</code>:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">servers</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nd">@Server</span><span class="o">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"http://localhost:8080"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"Local Server"</span><span class="o">),</span>
+    <span class="nd">@Server</span><span class="o">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.example.com"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"Production Server"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="security-속성">security 속성</h5>
+
+<p><code class="language-plaintext highlighter-rouge">SecurityRequirement[] security</code> 는 전역 보안 설정, API 전체에 적용할 인증/인가 방식을 정의한다(ex. JWT, OAuth2, …).</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">String name</code>: 생략</li>
+  <li><code class="language-plaintext highlighter-rouge">String[] scopes</code>:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">security</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nd">@SecurityRequirement</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"JWT"</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">@SecuritySchema</code> 도 설정해야 함</p>
+</blockquote>
+
+<h4 id="swagger-configuration">Swagger Configuration</h4>
+
+<p>info 만 우선 적절히 명시해주고 실행시킨 후 다음 url 로 들어가자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@OpenAPIDefinition</span><span class="o">(</span>
+		<span class="n">info</span> <span class="o">=</span> <span class="nd">@Info</span><span class="o">(</span>
+				<span class="n">title</span> <span class="o">=</span> <span class="s">"Swagger 실습 문서"</span><span class="o">,</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"Swagger 실습을 위한 문서입니다."</span><span class="o">,</span>
+				<span class="n">termsOfService</span> <span class="o">=</span> <span class="s">"http://localhost:8080/이용약관"</span><span class="o">,</span>
+				<span class="n">contact</span> <span class="o">=</span> <span class="nd">@Contact</span><span class="o">(</span>
+						<span class="n">name</span> <span class="o">=</span> <span class="s">"Seonghun Park"</span><span class="o">,</span>
+						<span class="n">url</span> <span class="o">=</span> <span class="s">"https://github.com/seonghun120614"</span><span class="o">,</span>
+						<span class="n">email</span> <span class="o">=</span> <span class="s">"seonghun120614@gmail.com"</span>
+				<span class="o">)</span>
+		<span class="o">)</span>
+<span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwaggerConfig</span> <span class="o">{</span> <span class="o">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">http://localhost:8080/swagger-ui/index.html</code></pre></figure>
+
+<p><img src="/assets/img/swagger-ui-open-api-definition-annotation.png" alt="assets/img/swagger-ui-open-api-definition-annotation.png" /></p>
+
+<p>위가 떴다면 성공이다. 이제 컨트롤러를 몇 개 작성 후에 태그를 써보자.</p>
+
+<h5 id="controller-작성">Controller 작성</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RestController</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthController</span> <span class="kd">implements</span> <span class="nc">APIEndPoint</span> <span class="o">{</span>
+
+	<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/login"</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">login</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="s">"login"</span><span class="o">;</span> <span class="o">}</span>
+
+	<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/register"</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">register</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="s">"register complete"</span><span class="o">;</span> <span class="o">}</span>
+
+	<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/user"</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">user</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="s">"user"</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위와 같이 작성해주고 돌리면 swagger ui 에는 해당 컨트롤러의 endpoint 가 뜨진 않는다. 이 또한 등록을 해줘야 하는데, <code class="language-plaintext highlighter-rouge">@Operation</code> 을 사용하여 등록할 수 있다(Controller 에서 사용해야 한다).</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RestController</span>
+<span class="o">...</span> <span class="o">{</span>
+    <span class="nd">@Operation</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위처럼 작성한다. <code class="language-plaintext highlighter-rouge">Operation</code> 도 당연히 속성들이 있다. 다음을 보자.</p>
+
+<p><strong>Controller 의 endpoint method 들에게 @Operation 적용하기</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">String summary</code>: API 의 간단한 요약 설명이 들어간다, Swagger UI 목록에서 가장 눈에 띄며, 간단히 작성한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">String description</code>: summary 보다는 더 자세한 설명을 써준다.</li>
+  <li><code class="language-plaintext highlighter-rouge">String[] tags</code>: 해당 API 를 특정 그룹으로 묶는 태그이다. 이것이 바로 Config 쪽의 <code class="language-plaintext highlighter-rouge">OpenAPIDefinition</code> 의 <code class="language-plaintext highlighter-rouge">tags</code> 쪽에 넣으면 된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Parameter[] parameters</code>: 메서드 파라미터 정보를 명시적으로 정의하며, 자동 감지가 되지만, 설명/예시/필수 여부를 정교하게 제어하고 싶을 때만 사용한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">RequestBody requestBody</code>: RequestBody 의 설명, 예제 값을 추가할 때 사용하며, DTO 에 Swagger 설명이 없거나 별도의 예제가 필요할 때 사용한다, 기본적으로 default 값이 있어서 굳이 설정 안해줘도 된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ApiResponse[] responses</code>: API 의 응답 코드별 설명 및 스키마 정의, 성공/실패 케이스를 문서화할 때 필수</li>
+  <li><code class="language-plaintext highlighter-rouge">SecurityRequirement[] security</code>: 해당 API에 적용할 보안을 정의, 전역 보안이 있지만, 특정 API 에서만 수정할 때 사용</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Operation</span><span class="o">(</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="s">"회원 조회"</span><span class="o">,</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s">"userId로 특정 회원 정보를 조회합니다."</span><span class="o">,</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="o">{</span><span class="s">"User"</span><span class="o">},</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="nd">@Parameter</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"userId"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"회원 ID"</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="o">},</span>
+    <span class="n">responses</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">"200"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"조회 성공"</span><span class="o">),</span>
+        <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">"404"</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">"해당 회원을 찾을 수 없음"</span><span class="o">)</span>
+    <span class="o">},</span>
+    <span class="n">security</span> <span class="o">=</span> <span class="nd">@SecurityRequirement</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"JWT"</span><span class="o">)</span>
+<span class="o">)</span></code></pre></figure>
+
+<p>이때 tag 는 class 수준에서도 걸 수 있으며(<code class="language-plaintext highlighter-rouge">@Tag</code> 애노테이션), parameters 또한 인자 수준에서 <code class="language-plaintext highlighter-rouge">@Parameter</code> 를 걸어주어 할 수도 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Operation</span><span class="o">(</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s">"회원가입"</span><span class="o">,</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"회원가입하는 API"</span><span class="o">,</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="s">"non-auth"</span><span class="o">,</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="o">{</span>
+                <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">description</span> <span class="o">=</span> <span class="s">"회원가입 성공"</span><span class="o">,</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="s">"200"</span><span class="o">),</span>
+                <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">description</span> <span class="o">=</span> <span class="s">"회원가입 실패"</span><span class="o">,</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="s">"404"</span><span class="o">)</span>
+        <span class="o">}</span>
+<span class="o">)</span>
+<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/register"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">register</span><span class="o">(</span>
+        <span class="nd">@Parameter</span><span class="o">(</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"username"</span><span class="o">,</span>
+                <span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span>
+                <span class="n">allowEmptyValue</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span>
+                <span class="n">example</span> <span class="o">=</span> <span class="s">"honggildong"</span><span class="o">)</span>
+        <span class="nc">String</span> <span class="n">username</span><span class="o">,</span>
+        <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"register complete"</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위와 같이 작성하고 실행해보자.</p>
+
+<p><img src="/assets/img/swagger-operation-example-img.png" alt="assets/img/swagger-operation-example-img.png" /></p>
+
+<p>이제 security 속성을 설정해보자.</p>
+
+<h5 id="security-설정">Security 설정</h5>
+
+<p>Swagger에서는 API 보안을 두 단계로 정의한다:</p>
+
+<ul>
+  <li><strong>Security Schemes</strong>: 보안 메커니즘 정의 (어떤 인증 방식을 사용할지)</li>
+  <li><strong>Security Requirements</strong>: 실제 적용 (어떤 엔드포인트에 적용할지)</li>
+</ul>
+
+<p><strong>주요 보안 타입</strong></p>
+
+<ol>
+  <li>API Key 인증</li>
+</ol>
+
+<p>가장 간단한 형태이며, 헤더나 쿼리 파라미터로 인증 정보를 전달하는 형태이다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="err">#</span> <span class="nc">OpenAPI</span> <span class="mf">3.0</span> <span class="n">예시</span>
+<span class="nl">components:</span>
+  <span class="nl">securitySchemes:</span>
+    <span class="nl">ApiKeyAuth:</span>
+      <span class="nl">type:</span> <span class="n">apiKey</span>
+      <span class="nl">in:</span> <span class="n">header</span>           <span class="err">#</span> <span class="n">header</span><span class="o">,</span> <span class="n">query</span><span class="o">,</span> <span class="n">cookie</span> <span class="n">가능</span>
+      <span class="nl">name:</span> <span class="no">X</span><span class="o">-</span><span class="no">API</span><span class="o">-</span><span class="nc">Key</span>      <span class="err">#</span> <span class="n">실제</span> <span class="n">키</span> <span class="n">이름</span>
+
+<span class="err">#</span> <span class="n">전역</span> <span class="n">적용</span>
+<span class="nl">security:</span>
+  <span class="o">-</span> <span class="nl">ApiKeyAuth:</span> <span class="o">[]</span>
+
+<span class="err">#</span> <span class="n">특정</span> <span class="n">엔드포인트만</span> <span class="n">적용</span>
+<span class="nl">paths:</span>
+  <span class="o">/</span><span class="nl">users:</span>
+    <span class="nl">get:</span>
+      <span class="nl">security:</span>
+        <span class="o">-</span> <span class="nl">ApiKeyAuth:</span> <span class="o">[]</span></code></pre></figure>
+
+<p>코드 예시:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwaggerConfig</span> <span class="o">{</span>
+    
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">OpenAPI</span> <span class="nf">openAPI</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OpenAPI</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">components</span><span class="o">(</span><span class="k">new</span> <span class="nc">Components</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">addSecuritySchemes</span><span class="o">(</span><span class="s">"ApiKeyAuth"</span><span class="o">,</span>
+                    <span class="k">new</span> <span class="nf">SecurityScheme</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">SecurityScheme</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">APIKEY</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">in</span><span class="o">(</span><span class="nc">SecurityScheme</span><span class="o">.</span><span class="na">In</span><span class="o">.</span><span class="na">HEADER</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"X-API-Key"</span><span class="o">)))</span>
+            <span class="o">.</span><span class="na">addSecurityItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">SecurityRequirement</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">addList</span><span class="o">(</span><span class="s">"ApiKeyAuth"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<ol>
+  <li>JWT 보안 토큰</li>
+</ol>
+
+<p>JWT 보안 토큰을 사용하고 싶을때 다음을 입력한다.</p>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">components</span><span class="pi">:</span>
+  <span class="na">securitySchemes</span><span class="pi">:</span>
+    <span class="na">BearerAuth</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">http</span>
+      <span class="na">scheme</span><span class="pi">:</span> <span class="s">bearer</span>
+      <span class="na">bearerFormat</span><span class="pi">:</span> <span class="s">JWT</span>  <span class="c1"># 선택사항, 문서화 목적</span>
+
+<span class="na">security</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">BearerAuth</span><span class="pi">:</span> <span class="pi">[]</span></code></pre></figure>
+
+<p>코드 예시:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">OpenAPI</span> <span class="nf">openAPI</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">OpenAPI</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">components</span><span class="o">(</span><span class="k">new</span> <span class="nc">Components</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">addSecuritySchemes</span><span class="o">(</span><span class="s">"BearerAuth"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">SecurityScheme</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">SecurityScheme</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">HTTP</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">scheme</span><span class="o">(</span><span class="s">"bearer"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">bearerFormat</span><span class="o">(</span><span class="s">"JWT"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"JWT 토큰을 입력하세요"</span><span class="o">)))</span>
+        <span class="o">.</span><span class="na">addSecurityItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">SecurityRequirement</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">addList</span><span class="o">(</span><span class="s">"BearerAuth"</span><span class="o">));</span>
+<span class="o">}</span></code></pre></figure>
+
+<ol>
+  <li>Basic Auth</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">components</span><span class="pi">:</span>
+  <span class="na">securitySchemes</span><span class="pi">:</span>
+    <span class="na">BasicAuth</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">http</span>
+      <span class="na">scheme</span><span class="pi">:</span> <span class="s">basic</span>
+
+<span class="na">security</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">BasicAuth</span><span class="pi">:</span> <span class="pi">[]</span></code></pre></figure>
+
+<p>코드 예시:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">.</span><span class="na">addSecuritySchemes</span><span class="o">(</span><span class="s">"BasicAuth"</span><span class="o">,</span>
+    <span class="k">new</span> <span class="nf">SecurityScheme</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">SecurityScheme</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">HTTP</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">scheme</span><span class="o">(</span><span class="s">"basic"</span><span class="o">))</span></code></pre></figure>
+
+<ol>
+  <li>OAuth 2.0</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">components</span><span class="pi">:</span>
+  <span class="na">securitySchemes</span><span class="pi">:</span>
+    <span class="na">OAuth2</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">oauth2</span>
+      <span class="na">flows</span><span class="pi">:</span>
+        <span class="na">authorizationCode</span><span class="pi">:</span>
+          <span class="na">authorizationUrl</span><span class="pi">:</span> <span class="s">https://example.com/oauth/authorize</span>
+          <span class="na">tokenUrl</span><span class="pi">:</span> <span class="s">https://example.com/oauth/token</span>
+          <span class="na">scopes</span><span class="pi">:</span>
+            <span class="s">read:users: 사용자 정보 읽기</span>
+            <span class="s">write:users: 사용자 정보 쓰기</span>
+            <span class="s">admin</span><span class="pi">:</span> <span class="s">관리자 권한</span>
+
+<span class="na">security</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">OAuth2</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">read:users</span>
+    <span class="pi">-</span> <span class="s">write:users</span></code></pre></figure>
+
+<p>코드 예시:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">OpenAPI</span> <span class="nf">openAPI</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">OpenAPI</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">components</span><span class="o">(</span><span class="k">new</span> <span class="nc">Components</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">addSecuritySchemes</span><span class="o">(</span><span class="s">"OAuth2"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">SecurityScheme</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">SecurityScheme</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">OAUTH2</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">flows</span><span class="o">(</span><span class="k">new</span> <span class="nc">OAuthFlows</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">authorizationCode</span><span class="o">(</span><span class="k">new</span> <span class="nc">OAuthFlow</span><span class="o">()</span>
+                            <span class="o">.</span><span class="na">authorizationUrl</span><span class="o">(</span><span class="s">"https://example.com/oauth/authorize"</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">tokenUrl</span><span class="o">(</span><span class="s">"https://example.com/oauth/token"</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">scopes</span><span class="o">(</span><span class="k">new</span> <span class="nc">Scopes</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">addString</span><span class="o">(</span><span class="s">"read:users"</span><span class="o">,</span> <span class="s">"사용자 정보 읽기"</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">addString</span><span class="o">(</span><span class="s">"write:users"</span><span class="o">,</span> <span class="s">"사용자 정보 쓰기"</span><span class="o">))))))</span>
+        <span class="o">.</span><span class="na">addSecurityItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">SecurityRequirement</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">addList</span><span class="o">(</span><span class="s">"OAuth2"</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"read:users"</span><span class="o">,</span> <span class="s">"write:users"</span><span class="o">)));</span>
+<span class="o">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@OpenAPIDefinition</span><span class="o">(</span>
+		<span class="n">info</span> <span class="o">=</span> <span class="nd">@Info</span><span class="o">(</span>
+				<span class="n">title</span> <span class="o">=</span> <span class="s">"Swagger 실습 문서"</span><span class="o">,</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"Swagger 실습을 위한 문서입니다."</span><span class="o">,</span>
+				<span class="n">termsOfService</span> <span class="o">=</span> <span class="s">"http://localhost:8080/이용약관"</span><span class="o">,</span>
+				<span class="n">contact</span> <span class="o">=</span> <span class="nd">@Contact</span><span class="o">(</span>
+						<span class="n">name</span> <span class="o">=</span> <span class="s">"Seonghun Park"</span><span class="o">,</span>
+						<span class="n">url</span> <span class="o">=</span> <span class="s">"https://github.com/seonghun120614"</span><span class="o">,</span>
+						<span class="n">email</span> <span class="o">=</span> <span class="s">"seonghun120614@gmail.com"</span>
+				<span class="o">)</span>
+		<span class="o">),</span>
+		<span class="n">security</span> <span class="o">=</span> <span class="nd">@SecurityRequirement</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bearerAuth"</span><span class="o">)</span>
+<span class="o">)</span></code></pre></figure>
+
+<p>위 방법들 중 하나를 작성하자. 이때 name 이 <code class="language-plaintext highlighter-rouge">bearerAuth</code> 를 가지는 <code class="language-plaintext highlighter-rouge">SecurityScheme</code> 을 정의해야 한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">		<span class="n">security</span> <span class="o">=</span> <span class="nd">@SecurityRequirement</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bearerAuth"</span><span class="o">)</span>
+<span class="o">)</span>
+<span class="nd">@SecurityScheme</span><span class="o">(</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="s">"bearerAuth"</span><span class="o">,</span>
+		<span class="n">type</span> <span class="o">=</span> <span class="nc">SecuritySchemeType</span><span class="o">.</span><span class="na">HTTP</span><span class="o">,</span>
+		<span class="n">scheme</span> <span class="o">=</span> <span class="s">"bearer"</span><span class="o">,</span>
+		<span class="n">bearerFormat</span> <span class="o">=</span> <span class="s">"JWT"</span>
+<span class="o">)</span></code></pre></figure>
+
+<p><img src="../../assets/img/swagger-security.png" alt="assets/img/swagger-security.png" /></p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 39일차 Spring Data JDBC</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 39일차 Spring Data JDBC | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 39일차 Spring Data JDBC" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="📂 목차 Spring JDBC JdbcTemplate 단일 Query 연산 다수 Query 연산 수정 연산(insert, delete, update 등등) NamedParameterJdbcTemplate DataAccessException 계층 SimpleJdbcInsert Spring Data JDBC &amp; R2DBC Repository 인터페이스 CrudRepository 인터페이스 PagingAndSortingRepository 인터페이스 Slice ⭐️ New Entity Detection @NoRepositoryBean 를 정의하여 자주 사용하는 메서드들 정의 저장소 활성화 구성 정의하기 ⭐️ Query Method Query Lookup Strategies Query Creation Reserved Method Names Property Expressions Repository Methods Returning Collections or Iterables Streaming Query Results Asynchronous Query Results Paging, Iterating Large Results, Sorting &amp; Limiting" />
+<meta property="og:description" content="📂 목차 Spring JDBC JdbcTemplate 단일 Query 연산 다수 Query 연산 수정 연산(insert, delete, update 등등) NamedParameterJdbcTemplate DataAccessException 계층 SimpleJdbcInsert Spring Data JDBC &amp; R2DBC Repository 인터페이스 CrudRepository 인터페이스 PagingAndSortingRepository 인터페이스 Slice ⭐️ New Entity Detection @NoRepositoryBean 를 정의하여 자주 사용하는 메서드들 정의 저장소 활성화 구성 정의하기 ⭐️ Query Method Query Lookup Strategies Query Creation Reserved Method Names Property Expressions Repository Methods Returning Collections or Iterables Streaming Query Results Asynchronous Query Results Paging, Iterating Large Results, Sorting &amp; Limiting" />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-10-19T06:30:58+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 39일차 Spring Data JDBC" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-10-19T06:30:58+00:00","datePublished":"2025-10-19T06:30:58+00:00","description":"📂 목차 Spring JDBC JdbcTemplate 단일 Query 연산 다수 Query 연산 수정 연산(insert, delete, update 등등) NamedParameterJdbcTemplate DataAccessException 계층 SimpleJdbcInsert Spring Data JDBC &amp; R2DBC Repository 인터페이스 CrudRepository 인터페이스 PagingAndSortingRepository 인터페이스 Slice ⭐️ New Entity Detection @NoRepositoryBean 를 정의하여 자주 사용하는 메서드들 정의 저장소 활성화 구성 정의하기 ⭐️ Query Method Query Lookup Strategies Query Creation Reserved Method Names Property Expressions Repository Methods Returning Collections or Iterables Streaming Query Results Asynchronous Query Results Paging, Iterating Large Results, Sorting &amp; Limiting","headline":"[멋사 백엔드 19기] TIL 39일차 Spring Data JDBC","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 39일차 Spring Data JDBC</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Oct 19, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#spring-jdbc">Spring JDBC</a>
+    <ul>
+      <li><a href="#jdbctemplate">JdbcTemplate</a>
+        <ul>
+          <li><a href="#단일-query-연산">단일 Query 연산</a></li>
+          <li><a href="#다수-query-연산">다수 Query 연산</a></li>
+          <li><a href="#수정-연산insert-delete-update-등등">수정 연산(insert, delete, update 등등)</a></li>
+          <li><a href="#namedparameterjdbctemplate">NamedParameterJdbcTemplate</a></li>
+          <li><a href="#dataaccessexception-계층">DataAccessException 계층</a></li>
+        </ul>
+      </li>
+      <li><a href="#simplejdbcinsert">SimpleJdbcInsert</a></li>
+    </ul>
+  </li>
+  <li><a href="#spring-data-jdbc--r2dbc">Spring Data JDBC &amp; R2DBC</a>
+    <ul>
+      <li><a href="#repository-인터페이스">Repository 인터페이스</a>
+        <ul>
+          <li><a href="#crudrepository-인터페이스">CrudRepository 인터페이스</a></li>
+          <li><a href="#pagingandsortingrepository-인터페이스">PagingAndSortingRepository 인터페이스</a></li>
+          <li><a href="#slice">Slice</a></li>
+        </ul>
+      </li>
+      <li><a href="#️-new-entity-detection">⭐️ New Entity Detection</a></li>
+      <li><a href="#norepositorybean-를-정의하여-자주-사용하는-메서드들-정의">@NoRepositoryBean 를 정의하여 자주 사용하는 메서드들 정의</a></li>
+      <li><a href="#저장소-활성화-구성-정의하기">저장소 활성화 구성 정의하기</a></li>
+      <li><a href="#️-query-method">⭐️ Query Method</a>
+        <ul>
+          <li><a href="#query-lookup-strategies">Query Lookup Strategies</a></li>
+          <li><a href="#query-creation">Query Creation</a></li>
+          <li><a href="#reserved-method-names">Reserved Method Names</a></li>
+          <li><a href="#property-expressions">Property Expressions</a></li>
+          <li><a href="#repository-methods-returning-collections-or-iterables">Repository Methods Returning Collections or Iterables</a></li>
+          <li><a href="#streaming-query-results">Streaming Query Results</a></li>
+          <li><a href="#asynchronous-query-results">Asynchronous Query Results</a></li>
+          <li><a href="#paging-iterating-large-results-sorting--limiting">Paging, Iterating Large Results, Sorting &amp; Limiting</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="nc">PreparedStatement</span> <span class="n">pstmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="nc">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+    <span class="n">pstmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"SELECT * FROM users WHERE id = ?"</span><span class="o">);</span>
+    <span class="n">pstmt</span><span class="o">.</span><span class="na">setLong</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">userId</span><span class="o">);</span>
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">pstmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+    
+    <span class="k">if</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">User</span><span class="o">(</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">"id"</span><span class="o">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"email"</span><span class="o">)</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">rs</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="k">try</span> <span class="o">{</span> <span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">pstmt</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="k">try</span> <span class="o">{</span> <span class="n">pstmt</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">conn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="k">try</span> <span class="o">{</span> <span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이전의 순수 JDBC 의 DB 에게 SQL 문을 던지는 과정이다. 이렇게 장황하고 보일러 플레이트 식 코드는 매우 유지보수가 까다롭고 힘들다. 이를 Spring 과 합치면 매우 간단한 코드가 된다.</p>
+
+<p><strong>단점</strong></p>
+<ol>
+  <li>반복되는 보일러 플레이트 코드</li>
+  <li>복잡한 예외처리: Checked Exception 인 SQLException 을 매번 처리</li>
+  <li>리소스 누수 위험: finally 블록에서 수동으로 close() 해야함</li>
+  <li>가독성 저하: 다른 보일러플레이트 코드 때문에 실제 비즈니스 핵심 로직이 보이지가 않음</li>
+</ol>
+
+<h3 id="spring-jdbc">Spring JDBC</h3>
+
+<p>스프링이 제공하는 JDBC 템플릿 기반 추상화 계층이며, 예외, 자원 해제, 트랜잭션(위 코드) 등을 자동으로 처리해준다. 개발자는 SQL 과 매핑 로직만 이해하면 된다.</p>
+
+<h4 id="jdbctemplate">JdbcTemplate</h4>
+
+<p>Template Method 패턴으로, “변하는 것과 변하지 않는 것을 분리하라” 를 따라서 다음으로 구분된다.</p>
+
+<p><strong>변하지 않는 것(Template)</strong></p>
+<ul>
+  <li>Connection 획득/반환</li>
+  <li>Statement 생성/실행</li>
+  <li>예외 변환</li>
+  <li>리소스 정리</li>
+</ul>
+
+<p><strong>변하는 것(Callback)</strong></p>
+<ul>
+  <li>SQL 쿼리</li>
+  <li>파라미터 바인딩</li>
+  <li>결과 매핑 로직</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// JdbcTemplate의 내부 구조 (단순화)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcTemplate</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="nc">DataSource</span> <span class="n">dataSource</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">query</span><span class="o">(</span><span class="nc">String</span> <span class="n">sql</span><span class="o">,</span> <span class="nc">RowMapper</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">rowMapper</span><span class="o">,</span> <span class="nc">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="nc">PreparedStatement</span> <span class="n">pstmt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="nc">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 1. 변하지 않는 부분: 리소스 획득</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+            <span class="n">pstmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            
+            <span class="c1">// 2. 변하지 않는 부분: 파라미터 바인딩</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">pstmt</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+            
+            <span class="c1">// 3. 변하지 않는 부분: 쿼리 실행</span>
+            <span class="n">rs</span> <span class="o">=</span> <span class="n">pstmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+            
+            <span class="c1">// 4. 변하는 부분: 결과 매핑 (Callback!)</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">rowMapper</span><span class="o">.</span><span class="na">mapRow</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+            <span class="o">}</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 5. 변하지 않는 부분: 예외 변환</span>
+            <span class="k">throw</span> <span class="nf">translateException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="c1">// 6. 변하지 않는 부분: 리소스 정리</span>
+            <span class="n">closeResultSet</span><span class="o">(</span><span class="n">rs</span><span class="o">);</span>
+            <span class="n">closeStatement</span><span class="o">(</span><span class="n">pstmt</span><span class="o">);</span>
+            <span class="n">closeConnection</span><span class="o">(</span><span class="n">conn</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="단일-query-연산">단일 Query 연산</h5>
+
+<p>JDBC 는 <code class="language-plaintext highlighter-rouge">queryForObject</code> 을 사용하여 딱 하나의 row 를 가져올 수 있다.</p>
+
+<p><strong>방법 1: RowMapper 직접 구현</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">User</span> <span class="nf">findById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE id = ?"</span><span class="o">;</span>
+    
+    <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">queryForObject</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> 
+        <span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">rowNum</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">"id"</span><span class="o">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"email"</span><span class="o">),</span>
+            <span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">"age"</span><span class="o">)</span>
+        <span class="o">),</span> 
+        <span class="n">id</span>
+    <span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">jdbcTemplate</code> 는 필드에 선언되고 의존성 주입을 받아 사용한다. 이때 <code class="language-plaintext highlighter-rouge">jdbcTemplate</code> 의 <code class="language-plaintext highlighter-rouge">queryForObject</code> 메서드를 통해 sql과 <code class="language-plaintext highlighter-rouge">RowMapper</code> 그리고 그 이후부터는 파라미터 바인딩을 위한 필요한 변수들을 나열해준다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">RowMapper</code> 는 <code class="language-plaintext highlighter-rouge">BiFunction</code> 이고, 함수형 인터페이스가 들어가며, <code class="language-plaintext highlighter-rouge">ResultSet</code> 과 몇 번째 row 인지를 알려주게 된다. 이를 통해 P.S. 가 완성되고, 거기에 binding 하게 된다.</p>
+
+<p><strong>방법 2: BeanPropertyRowMapper (자동 매핑)</strong></p>
+
+<p>가장 간단하며, 가져올 클래스 명을 직접 넣어주기만 하면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">User</span> <span class="nf">findByIdAuto</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE id = ?"</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">queryForObject</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> 
+        <span class="k">new</span> <span class="nc">BeanPropertyRowMapper</span><span class="o">&lt;&gt;(</span><span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> 
+        <span class="n">id</span>
+    <span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="다수-query-연산">다수 Query 연산</h5>
+
+<p>여러 개의 rows 를 들고오는 쿼리를 날릴 때는 <code class="language-plaintext highlighter-rouge">query</code>, <code class="language-plaintext highlighter-rouge">queryForList</code> 를 사용한다. 명칭을 제외한 나머지 문법이나 사용법은 위와 동일하니 그냥 넘어간다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByAgeGreaterThan</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE age &gt; ?"</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">userRowMapper</span><span class="o">,</span> <span class="n">age</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// queryForList 는 List 로 받을 수 있는 메서드이며 클래스 명을 명시해줘야 한다.</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">findAllEmails</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT email FROM users"</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">queryForList</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="수정-연산insert-delete-update-등등">수정 연산(insert, delete, update 등등)</h5>
+
+<p>간단한 <code class="language-plaintext highlighter-rouge">INSERT-INTO-VALUES</code> 나 <code class="language-plaintext highlighter-rouge">DELETE-FROM-WHERE</code> 혹은 <code class="language-plaintext highlighter-rouge">UPDATE-SET-WHERE</code> 등의 단순한 것들은 생략하겠다.</p>
+
+<p><strong>자동 생성된 키를 사용해야 할 때</strong></p>
+
+<p>메서드 내의 인자 배열이 조금 달라지는데, 첫번재 인자로 <code class="language-plaintext highlighter-rouge">(connection) -&gt; ...</code> 의 함수형 인터페이스가 들어가며 반환 값으로 <code class="language-plaintext highlighter-rouge">Statement</code> 를 내뱉는다. 이때 해당 반환값을 설정할 때, <code class="language-plaintext highlighter-rouge">connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)</code> 를 선언하여 ps 에서 가져올 수 있도록 한다(<code class="language-plaintext highlighter-rouge">executeUpdate()</code> 후에 <code class="language-plaintext highlighter-rouge">getGeneratedKeys()</code> 로 얻을 수 있음). 그 다음으로 미리 선언해놓은 KeyHolder(키 보유자) 를 선언하여 생성된 키를 보관할 수 있도록 바구니를 3번째 인자에 건내주면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 자동 생성된 키 반환</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="nf">insertAndGetId</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"INSERT INTO users (name, email, age) VALUES (?, ?, ?)"</span><span class="o">;</span>
+    
+    <span class="nc">KeyHolder</span> <span class="n">keyHolder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GeneratedKeyHolder</span><span class="o">();</span>
+    
+    <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">connection</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> 
+            <span class="nc">Statement</span><span class="o">.</span><span class="na">RETURN_GENERATED_KEYS</span><span class="o">);</span>
+        <span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>
+        <span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">ps</span><span class="o">;</span>
+    <span class="o">},</span> <span class="n">keyHolder</span><span class="o">);</span>
+    
+    <span class="k">return</span> <span class="n">keyHolder</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">longValue</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>가져올 때는 위와 같이 가져오면 된다.</p>
+
+<p><strong>배치 삽입</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">BatchPreparedStatementSetter</code> 라는 것을 사용하여 인터페이스를 통해 메서드를 정의시켜주면 된다. 이때 <code class="language-plaintext highlighter-rouge">setValues()</code> 는 i 번째에 해당하는 유저 값을 ps 에 넘겨주기만 하면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 배치 삽입 (대량 데이터)</span>
+<span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">batchInsert</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"INSERT INTO users (name, email, age) VALUES (?, ?, ?)"</span><span class="o">;</span>
+    
+    <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">batchUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="k">new</span> <span class="nc">BatchPreparedStatementSetter</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValues</span><span class="o">(</span><span class="nc">PreparedStatement</span> <span class="n">ps</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">SQLException</span> <span class="o">{</span>
+            <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>
+            <span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        <span class="o">}</span>
+        
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBatchSize</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">users</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">jdbcTemplate.batchUpdate(sql, users, 1000, Mapper)</code> 로 써도 된다.</p>
+</blockquote>
+
+<h5 id="namedparameterjdbctemplate">NamedParameterJdbcTemplate</h5>
+
+<p>순서 기반 파라미터의 문제점:</p>
+<ul>
+  <li>파라미터 순서 실수 가능</li>
+  <li>가독성 저하</li>
+  <li>유지보수 어려움</li>
+</ul>
+
+<p>이를 위해 이름 기반의 파라미터 바인딩을 하는 템플릿 등장</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserRepository</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">NamedParameterJdbcTemplate</span> <span class="n">namedJdbcTemplate</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">UserRepository</span><span class="o">(</span><span class="nc">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">namedJdbcTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">NamedParameterJdbcTemplate</span><span class="o">(</span>
+            <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">getDataSource</span><span class="o">()</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// Map 사용</span>
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">findById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE id = :id"</span><span class="o">;</span>
+        
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">params</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+        
+        <span class="k">return</span> <span class="n">namedJdbcTemplate</span><span class="o">.</span><span class="na">queryForObject</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">params</span><span class="o">,</span> <span class="n">userRowMapper</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// SqlParameterSource 사용 (더 타입 안전)</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">insert</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"""
+            INSERT INTO users (name, email, age) 
+            VALUES (:name, :email, :age)
+        """</span><span class="o">;</span>
+        
+        <span class="nc">SqlParameterSource</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MapSqlParameterSource</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="s">"email"</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">addValue</span><span class="o">(</span><span class="s">"age"</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        
+        <span class="k">return</span> <span class="n">namedJdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// BeanPropertySqlParameterSource (객체 자동 매핑)</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">insertAuto</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"""
+            INSERT INTO users (name, email, age) 
+            VALUES (:name, :email, :age)
+        """</span><span class="o">;</span>
+        
+        <span class="nc">SqlParameterSource</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BeanPropertySqlParameterSource</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">namedJdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>대충 보면 알겠지만, <code class="language-plaintext highlighter-rouge">:(parameter명)</code> 을 기준으로 parameter binding 이 일어나게 되고, <code class="language-plaintext highlighter-rouge">SqlParameterSource</code> 라는 인터페이스에 적당한 구현체를 선언하여 쿼리 혹은 수정 실행 메서드에 인자로 같이 넣고 있음을 볼 수 있다. 넣을 수 있는 것들은 다음과 같다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Map&lt;String, Object&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">MapSqlParameterSource</code>: method chaining 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">BeanPropertySqlParameterSource</code>: 자동 매핑을 시켜줌</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// IN 절 처리 (여러 값)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByIds</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Long</span><span class="o">&gt;</span> <span class="n">ids</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT * FROM users WHERE id IN (:ids)"</span><span class="o">;</span>
+    
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"ids"</span><span class="o">,</span> <span class="n">ids</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">namedJdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">params</span><span class="o">,</span> <span class="n">userRowMapper</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="dataaccessexception-계층">DataAccessException 계층</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">DataAccessException</span> <span class="o">(</span><span class="n">unchecked</span><span class="o">)</span>
+<span class="err">├──</span> <span class="nc">DataIntegrityViolationException</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="nc">DuplicateKeyException</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="nc">ConstraintViolationException</span>
+<span class="err">├──</span> <span class="nc">DataRetrievalFailureException</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="nc">EmptyResultDataAccessException</span>
+<span class="err">├──</span> <span class="nc">DeadlockLoserDataAccessException</span>
+<span class="err">└──</span> <span class="nc">TransientDataAccessResourceException</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">Unchecked</code> 인 이유는 <code class="language-plaintext highlighter-rouge">SQLException</code> 의 대부분은 복구가 불가능하며, 비즈니스 로직에서의 예외 처리 강제는 부적절하기 때문이다. 따라서 이를 null 이나 Optional 로 적절히 흘려보내어 처리하게 된다.</p>
+
+<h4 id="simplejdbcinsert">SimpleJdbcInsert</h4>
+
+<p>데이터베이스의 메타데이터를 활용하여 똑똑한 삽입이 가능하다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserRepository</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">SimpleJdbcInsert</span> <span class="n">simpleJdbcInsert</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">UserRepository</span><span class="o">(</span><span class="nc">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">simpleJdbcInsert</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleJdbcInsert</span><span class="o">(</span><span class="n">dataSource</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withTableName</span><span class="o">(</span><span class="s">"users"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">usingGeneratedKeyColumns</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">insert</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">parameters</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">parameters</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">parameters</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"email"</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>
+        <span class="n">parameters</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"age"</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        
+        <span class="c1">// INSERT 문을 자동 생성!</span>
+        <span class="nc">Number</span> <span class="n">newId</span> <span class="o">=</span> <span class="n">simpleJdbcInsert</span><span class="o">.</span><span class="na">executeAndReturnKey</span><span class="o">(</span><span class="n">parameters</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">newId</span><span class="o">.</span><span class="na">longValue</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// BeanPropertySqlParameterSource 사용</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">insertAuto</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SqlParameterSource</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BeanPropertySqlParameterSource</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">simpleJdbcInsert</span><span class="o">.</span><span class="na">executeAndReturnKey</span><span class="o">(</span><span class="n">params</span><span class="o">).</span><span class="na">longValue</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="spring-data-jdbc--r2dbc">Spring Data JDBC &amp; R2DBC</h3>
+
+<p>Spring Data JDBC 는 어떠한 구현체도 없이 그저 함수명 만으로 함수 내부의 로직을 알아서 전부 짜주는 경지까지 이르지만, 복잡한 쿼리나 최적화가 필요한 쿼리만 일부 짜야 한다.</p>
+
+<p>우선 그러려면 Spring Data JDBC 에서 제공해주는 <code class="language-plaintext highlighter-rouge">Repository</code> 라는 인터페이스를 먼저 알아야 한다.</p>
+
+<p><a href="https://docs.spring.io/spring-data/relational/reference/">Spring Data JDBC 공식 문서</a></p>
+
+<h4 id="repository-인터페이스">Repository 인터페이스</h4>
+
+<p>Spring 데이터 저장소 추상화의 중심은 인터페이스이다. 매개변수화 타입으로 관리할 도메인 클래스 <code class="language-plaintext highlighter-rouge">T</code> 와 도메인 클래스의 식별자 유형(PK 유형) <code class="language-plaintext highlighter-rouge">ID</code> 를 인수로 받고, <code class="language-plaintext highlighter-rouge">Repository</code> 는 이 작업할 유형을 캡처하고 이 인터페이스를 확장하는 인터페이스를 찾는 데 도움이 되는 <strong>마커 인터페이스 역할</strong>을 하게 된다.</p>
+
+<blockquote>
+  <p>Spring Data 에서는 <strong>도메인 유형</strong>, 즉 T 를 <strong>엔티티</strong> 로 간주하며, 데이터의 단위로 간주한다. 따라서 전체에서 <strong>엔티티</strong>라는 용어가 <strong>도메인 유형</strong> 또는 <strong>집계</strong> 라는 용어와 혼용되어서 사용될 수 있다.</p>
+</blockquote>
+
+<h5 id="crudrepository-인터페이스">CrudRepository 인터페이스</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CrudRepository</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">ID</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">ID</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="o">&lt;</span><span class="no">S</span> <span class="kd">extends</span> <span class="no">T</span><span class="o">&gt;</span> <span class="no">S</span> <span class="nf">save</span><span class="o">(</span><span class="no">S</span> <span class="n">entity</span><span class="o">);</span>
+  <span class="nc">Optional</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="no">ID</span> <span class="n">primaryKey</span><span class="o">);</span>
+  <span class="nc">Iterable</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">();</span>
+  <span class="kt">long</span> <span class="nf">count</span><span class="o">();</span>
+  <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="no">T</span> <span class="n">entity</span><span class="o">);</span>
+  <span class="kt">boolean</span> <span class="nf">existsById</span><span class="o">(</span><span class="no">ID</span> <span class="n">primaryKey</span><span class="o">);</span>
+  <span class="c1">// … more functionality omitted.</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>모를 땐 코드 내부를 뜯어보면 되니 그냥 외우지 말자. <code class="language-plaintext highlighter-rouge">CrudRepository</code> 는 다음과 같은 인터페이스들을 제공한다. 각각은 함수명처럼 직관적이게 동작하며, 이 인터페이스에 선언된 메서드는 일반적으로 CRUD 연산을 할 수 있도록 지원하게 된다.</p>
+
+<blockquote>
+  <p>나중에 메서드 명에 따라 다른 동작을 수행하도록 할 수 있는데, 이는 쿼리 메서드 정의에서 보며, 이 다음 포스팅에서 <code class="language-plaintext highlighter-rouge">JpaRepository</code> 또한 이와 같은 것을 제공하며 <code class="language-plaintext highlighter-rouge">MongoRepository</code> 도 마찬가지이다.</p>
+</blockquote>
+
+<h5 id="pagingandsortingrepository-인터페이스">PagingAndSortingRepository 인터페이스</h5>
+
+<p>우리가 어떤 사이트의 검색을 통해 다양한 것을 검색할 때, 검색 대상의 특성에 따라 내림차순 오름차순 정리를 할 수 있는 것을 볼 수 있는데, 이것이 <code class="language-plaintext highlighter-rouge">PagingAndSortingRepository</code> 의 기능이다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">ID</span><span class="o">&gt;</span>  <span class="o">{</span>
+
+  <span class="nc">Iterable</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Sort</span> <span class="n">sort</span><span class="o">);</span>
+
+  <span class="nc">Page</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>여기는 Crud 가 없기에 같이 extends 를 해주어서 사용해야한다. 즉, 두 인터페이스를 같이 사용하면 된다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">List</code> 반환 보다는 <code class="language-plaintext highlighter-rouge">Iterable</code> 반환</p>
+</blockquote>
+
+<p><strong>Pageable</strong></p>
+
+<p>페이징 기능을 구현할 때 핵심이 되는 인터페이스인데 페이지 단위를 들고올 때 <code class="language-plaintext highlighter-rouge">Pageable</code> 을 구현한 객체를 통해 <code class="language-plaintext highlighter-rouge">Page</code> 를 가져오게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Pageable</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="nf">getPageNumber</span><span class="o">();</span>  <span class="c1">// 현재 페이지 번호 (0부터 시작)</span>
+    <span class="kt">int</span> <span class="nf">getPageSize</span><span class="o">();</span>    <span class="c1">// 한 페이지당 보여줄 데이터 개수</span>
+    <span class="kt">long</span> <span class="nf">getOffset</span><span class="o">();</span>     <span class="c1">// 몇 번째 데이터부터 시작할지 (pageNumber * pageSize)</span>
+    <span class="nc">Sort</span> <span class="nf">getSort</span><span class="o">();</span>       <span class="c1">// 정렬 기준 (Sort 객체)</span>
+    <span class="nc">Pageable</span> <span class="nf">next</span><span class="o">();</span>      <span class="c1">// 다음 페이지로 이동</span>
+    <span class="nc">Pageable</span> <span class="nf">previousOrFirst</span><span class="o">();</span> <span class="c1">// 이전 페이지 또는 첫 페이지로 이동</span>
+    <span class="nc">Pageable</span> <span class="nf">first</span><span class="o">();</span>     <span class="c1">// 첫 페이지로 이동</span>
+    <span class="kt">boolean</span> <span class="nf">hasPrevious</span><span class="o">();</span> <span class="c1">// 이전 페이지가 있는지 여부</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>주요 메서드는 위와 같은데, 이를 다 구현하기는 빡쎄고, <code class="language-plaintext highlighter-rouge">PageRequest.of</code> 를 통해 <code class="language-plaintext highlighter-rouge">Pageable</code> 을 간단히 얻을 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Pageable</span> <span class="n">pageable</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span> <span class="c1">// 0번 페이지, 페이지당 10개</span>
+<span class="nc">Pageable</span> <span class="n">pageable</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">Sort</span><span class="o">.</span><span class="na">by</span><span class="o">(</span><span class="s">"name"</span><span class="o">).</span><span class="na">ascending</span><span class="o">());</span></code></pre></figure>
+
+<p>이때 Spring MVC 와 함께 쓴다면 다음과 같이 간단히 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getUsers</span><span class="o">(</span><span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">pageable</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// GET /users?page=0&amp;size=5&amp;sort=name,desc</span></code></pre></figure>
+
+<p><strong>Page</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Page</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">page</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">pageable</span><span class="o">);</span>
+
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getContent</span><span class="o">();</span>     <span class="c1">// 현재 페이지 데이터</span>
+<span class="kt">int</span> <span class="n">pageNumber</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getNumber</span><span class="o">();</span>        <span class="c1">// 현재 페이지 번호</span>
+<span class="kt">int</span> <span class="n">totalPages</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getTotalPages</span><span class="o">();</span>    <span class="c1">// 전체 페이지 수</span>
+<span class="kt">long</span> <span class="n">totalElements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getTotalElements</span><span class="o">();</span> <span class="c1">// 전체 데이터 개수</span>
+<span class="kt">boolean</span> <span class="n">hasNext</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();</span>         <span class="c1">// 다음 페이지 존재 여부</span></code></pre></figure>
+
+<p>Page 는 totalElements 를 계산하기 때문에 조금 무겁다. 대신 Slice 를 사용하면 이를 계산하지 않아도 된다.</p>
+
+<h5 id="slice">Slice</h5>
+
+<p>전체 데이터 개수(total count)를 계산하지 않고, 다음 페이지가 있는지만 알려주는 방식이다.</p>
+
+<p><strong>Page 동작</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span> <span class="k">LIMIT</span> <span class="mi">10</span> <span class="k">OFFSET</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">users</span><span class="p">;</span></code></pre></figure>
+
+<p><strong>Slice 동작</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">users</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">id</span> <span class="k">LIMIT</span> <span class="mi">11</span> <span class="k">OFFSET</span> <span class="mi">0</span><span class="p">;</span></code></pre></figure>
+
+<p>나머지는 다 같고 그냥 반환값만 Slice 로 해주면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="nc">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nc">Slice</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByAgeGreaterThan</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="️-new-entity-detection">⭐️ New Entity Detection</h4>
+
+<p>기본적으로 Spring Data 의 엔티티가 새로운지 안새로운지의 판단해야 한다. 예를 들어 <code class="language-plaintext highlighter-rouge">save()</code> 메서드는 C 기능과 U 기능을 함께 하는 메서드이다(만약 새로운 엔티티라면 Create 기능으로, 새로운 엔티티가 아니라면 Update 기능으로 실행됨).</p>
+
+<p>규칙은 위부터 아래로 우선순위를 가진다.</p>
+
+<p><strong>규칙</strong></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">@Id</code> 애너테이션(프로퍼티)
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">INSERT</code>: null 혹은 원시 타입에서 default value 인 경우 = 신규</li>
+      <li><code class="language-plaintext highlighter-rouge">UPDATE</code>: 그 외</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">@Version</code> 애너테이션(프로퍼티) 이 있다면 다음 기준으로 신규 여부 판단
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">INSERT</code>: null 또는 원시형 = 신규</li>
+      <li><code class="language-plaintext highlighter-rouge">UPDATE</code>: 값이 존재하고 0이 아님</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">org.springframework.data.domain.Persistable</code> 인터페이스 구현 시
+    <ul>
+      <li>Spring Data 는 엔티티 내부의 <code class="language-plaintext highlighter-rouge">isNew()</code> 메서드를 호출하여 신규 여부를 판단한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>TIP. <code class="language-plaintext highlighter-rouge">AccessType.PROPERTY</code> 를 사용하면 <code class="language-plaintext highlighter-rouge">Persistable</code> 속성이 감지되어 유지됩니다. 이를 방지하려면 <code class="language-plaintext highlighter-rouge">@Transient</code> 를 사용</p>
+</blockquote>
+
+<h4 id="norepositorybean-를-정의하여-자주-사용하는-메서드들-정의">@NoRepositoryBean 를 정의하여 자주 사용하는 메서드들 정의</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@NoRepositoryBean</span>
+<span class="kd">interface</span> <span class="nc">MyBaseRepository</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">ID</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">ID</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="c1">// 모든 Repository 가 공통으로 사용할 메서드</span>
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">printEntityInfo</span><span class="o">(</span><span class="no">T</span> <span class="n">entity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Entity info: "</span> <span class="o">+</span> <span class="n">entity</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 공통적인 find 메서드 규약 정의</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">findByName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="nc">MyBaseRepository</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">NoRepositoryBean</code> 은 <code class="language-plaintext highlighter-rouge">Bean</code> 으로 등록되지 않도록 하는 애너테이션이다. 이를 통해 <code class="language-plaintext highlighter-rouge">MyBaseRepository</code> 는 Bean 으로 등록되지 않고, 이를 상속한 하위 인터페이스들만 실제 Bean 으로 등록되어 사용된다.</p>
+
+<p>이를 사용하는 유용한 이유는 공통 로직이나 규약을 묶어두는 베이스 리포지토리를 정의할 때, Spring Data 가 이를 실수로 실제 구현 대상으로 감지하지 않게 만들 수 있기 때문이다.</p>
+
+<h4 id="저장소-활성화-구성-정의하기">저장소 활성화 구성 정의하기</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ComponentScan</code> 처럼 <code class="language-plaintext highlighter-rouge">EnableJpaRepositories</code> 나 <code class="language-plaintext highlighter-rouge">EnableJdbcRepositories</code> 를 통해 Jdbc 레포지토리의 범위를 지정할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@EnableJpaRepositories</span><span class="o">(</span><span class="s">"com.acme.repositories"</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">ApplicationConfiguration</span> <span class="o">{</span>
+
+  <span class="nd">@Bean</span>
+  <span class="nc">EntityManagerFactory</span> <span class="nf">entityManagerFactory</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// …</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@EnableJdbcRepositories</span><span class="o">(</span><span class="s">"${app.scan.packages}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApplicationConfiguration</span> <span class="o">{</span>
+  <span class="c1">// …</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>필터 사용은 <code class="language-plaintext highlighter-rouge">ComponentScan</code> 과 동일하다.</p>
+
+<h4 id="️-query-method">⭐️ Query Method</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Repository Proxy</code> 는 메서드 이름으로 스토리지 별 쿼리를 생성하는 방법 2가지를 제공하게 된다.</p>
+
+<ol>
+  <li>메서드 이름으로부터 직접 쿼리를 유도함</li>
+  <li>수동으로 정의된 <code class="language-plaintext highlighter-rouge">@Query</code> 를 사용함</li>
+</ol>
+
+<p>이렇게 정의된 사용 가능한 인터페이스 메서드들은 실제 데이터 스토어에 따라 내부적인 쿼리 구조가 달라지지만, 이 쿼리 구조들 중에 반드시 <strong>어떤 쿼리가 실행될지를 결정하는 전략이 존재</strong>해야만 한다. 이를 <code class="language-plaintext highlighter-rouge">Query Lookup Strategies</code> 라고 한다.</p>
+
+<h5 id="query-lookup-strategies">Query Lookup Strategies</h5>
+
+<p>레포지토리 프록시가 쿼리를 해결하기 위해 사용할 수 있는 전략은 다음과 같다.</p>
+
+<ul>
+  <li>XML 설정에서는 query-lookup-strategy 속성을 통해 네임스페이스 수준에서 전략을 지정</li>
+  <li>Java 설정에서는 <code class="language-plaintext highlighter-rouge">@EnableJdbcRepositories</code> 애너테이션의 <code class="language-plaintext highlighter-rouge">queryLookupStrategy</code> 속성을 사용 가능</li>
+</ul>
+
+<p>우리는 두번째를 주로 이용하게 된다.</p>
+
+<blockquote>
+  <p>일부 전략은 특정 데이터 스토어에서는 지원되지 않을 수 있음</p>
+</blockquote>
+
+<p><strong>전략 종류</strong></p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">CREATE</code>
+    <ul>
+      <li>메서드 이름으로부터 스토어별 쿼리를 생성하려고 시도한다.</li>
+      <li>일반적인 접근 방식은 메서드 이름에서 잘 알려진 prefix 를 제거하고 나머지 이름을 파싱하여 쿼리를 구성</li>
+      <li>prefix 라고 함은 <code class="language-plaintext highlighter-rouge">find</code>, <code class="language-plaintext highlighter-rouge">get</code>, <code class="language-plaintext highlighter-rouge">update</code> 등등 지정된 단어로 시작하는 것</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">USE_DECLARED_QUERY</code>
+    <ul>
+      <li>이미 선언된 쿼리를 찾으려고 시도하며, 선언된 쿼리를 찾지 못하면 예외를 발생시킴</li>
+      <li>쿼리는 어노테이션(<code class="language-plaintext highlighter-rouge">@Query</code>)이나 다른 방법으로 미리 정의될 수 있음</li>
+      <li>특정 스토리지에서 사용 가능한 옵션은 해당 스토리지 문서를 참고</li>
+      <li>리포지토리 인프라가 부트스트랩 시점에 메서드에 대한 선언된 쿼리를 찾지 못하면 실패</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">CREATE_IF_NOT_FOUND</code>(기본값)
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">CREATE</code> 와 <code class="language-plaintext highlighter-rouge">USE_DECLARED_QUERY</code> 를 결합한 전략이며</li>
+      <li>먼저 선언된 쿼리를 찾고, 없으면 메서드 이름 기반 커스텀 쿼리를 생성하게 된다.</li>
+      <li>명시적으로 설정하지 않으면 기본 전략으로 사용된다.</li>
+      <li>메서드 이름으로 빠르게 쿼리를 정의할 수 있으며, 필요에 따라 선언된 쿼리를 추가해 세밀하게 조정 가능하다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h5 id="query-creation">Query Creation</h5>
+
+<p>쿼리를 이제 생성하는 규칙을 보자. 크게 쿼리는 다음과 같이 나뉘게 된다.</p>
+
+<ul>
+  <li>주어(subject): 첫 번째 부분(find…By, exists…By)은 <strong>쿼리의 주어를 정의</strong>하고
+    <ul>
+      <li>주어를 나타내는 도입 절(introducing clause) 은 추가 <code class="language-plaintext highlighter-rouge">expressions</code> 을 포함할 수 있다.</li>
+      <li><code class="language-plaintext highlighter-rouge">introducing clause</code>: 이 절의 모든 텍스트는 descriptive 으로 간주되며 <code class="language-plaintext highlighter-rouge">Distinct</code>, <code class="language-plaintext highlighter-rouge">Top</code>, <code class="language-plaintext highlighter-rouge">First</code> 등을 사용하면 쿼리에 distinct 플래그를 설정하거나 결과 개수를 제한할 수 있게 된다.</li>
+    </ul>
+  </li>
+  <li>술어(predicate): 두 번째 부분은 쿼리의 조건을 정의한다.
+    <ul>
+      <li>부록(appendix): 마지막 부분에는 <strong>정렬(sorting)</strong>과 <strong>대소문자(letter-casing) 수정자</strong>를 포함한 쿼리 메서드 <strong>주어(subject) 키워드</strong>와 쿼리 메서드 <strong>술어(predicate) 키워드</strong>의 콜라보이다.<br />
+  하지만 첫 번째 <code class="language-plaintext highlighter-rouge">By</code> 는 실제 <code class="language-plaintext highlighter-rouge">predicate</code> 의 시작을 나타내는 <code class="language-plaintext highlighter-rouge">delimiter</code> 역할을 하게 되고, 기본적으로 엔티티 속성에 조건을 정의하고 <code class="language-plaintext highlighter-rouge">And</code>, <code class="language-plaintext highlighter-rouge">Or</code> 로 연결 할 수 있다. 이런 부록이 연결자를 통해 계속 연결될 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>실제 메서드 파싱 결과는 <strong>쿼리를 생성하는 영속성 저장소(persistence store)</strong> 에 따라 달라진다. 하지만 일반적으로 다음 사항들은 유지된다.</p>
+
+<ul>
+  <li>
+    <p>expression 은 주로 <strong>property 접근과 operator 의 결합</strong>으로 이루어지며, 속성 표현식은 And 와 Or 로 결합 가능하다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Between</code>, <code class="language-plaintext highlighter-rouge">LessThan</code>, <code class="language-plaintext highlighter-rouge">GreaterThan</code>, <code class="language-plaintext highlighter-rouge">Like</code> 등의 연산자를 속성 표현식(부록)에 적용할 수 있으며 지원되는 연산자는 저장소마다 다를 수 있다.</p>
+  </li>
+  <li>
+    <p>메서드 파서는 개별 속성에 대해 <code class="language-plaintext highlighter-rouge">IgnoreCase</code> 플래그를 설정할 수 있다.</p>
+  </li>
+</ul>
+
+<h5 id="reserved-method-names">Reserved Method Names</h5>
+
+<p>레포지토리의 메서드는 일반적으로 속성 이름으로 바인딩 되지만, 기본 레포지토리에서 상속 받은 특정 메서드 이름과 관련해서는 몇 가지 예외가 있다. 예를 들어 <code class="language-plaintext highlighter-rouge">findById</code> 와 같은 Id 는 실제 <code class="language-plaintext highlighter-rouge">@Id</code> 가 풑어있는 속성을 대상으로 하게 된다(<code class="language-plaintext highlighter-rouge">findByPk</code> 해도 된다).</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+  <span class="nd">@Id</span> <span class="nc">Long</span> <span class="n">pk</span><span class="o">;</span>      <span class="c1">// 식별자 속성</span>
+
+  <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>          <span class="c1">// 식별자 아님</span>
+  <span class="c1">// …</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+  <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">);</span>     
+  <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByPk</span><span class="o">(</span><span class="nc">Long</span> <span class="n">pk</span><span class="o">);</span>     
+  <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findUserById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">);</span> 
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="property-expressions">Property Expressions</h5>
+
+<p>속성 표현식은 관리되는 엔티티의 직접적인 속성만을 참조할 수 있다. 이전 예시처럼 쿼리를 생성할 때 파싱된 속성이 도메인 클래스의 속성임을 미리 확인한다. 하지만 엔티티 내의 속성에서 속성의 또 속성을 가지고 오면 어떨까?</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="nf">findByAddressZipCode</span><span class="o">(</span><span class="nc">ZipCode</span> <span class="n">zipCode</span><span class="o">);</span></code></pre></figure>
+
+<p>예를 들어 <code class="language-plaintext highlighter-rouge">Person</code> 이 <code class="language-plaintext highlighter-rouge">Address</code> 를 가지고 있고, 그 <code class="language-plaintext highlighter-rouge">Address</code> 가 <code class="language-plaintext highlighter-rouge">ZipCode</code> 를 가지고 있다고 가정하자. 이 경우 메서드는 <code class="language-plaintext highlighter-rouge">x.address.zipCode</code> 라는 <strong>속성 탐색(Property Traversal)</strong>을 생성한다.</p>
+
+<p>생성된 <code class="language-plaintext highlighter-rouge">Spring Data JPA</code> 의 속성 탐색의 속성 해석 알고리즘은 다음과 같은 방식으로 작동하게 된다.</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">AddressZipCode</code> 전체를 하나의 속성 이름(첫 글자 소문자)으로 간주하여 도메인 클래스에서 찾는다.</p>
+  </li>
+  <li>해당 속성이 없으면, 알고리즘은 오른쪽부터 camel-case 단위로 분할하여 다시 시도한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">AddressZip</code>, <code class="language-plaintext highlighter-rouge">Code</code> 로 분할</li>
+    </ul>
+  </li>
+  <li>분할이 실패하면 왼쪽으로 이동하면서 다시 시도한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Address</code>, <code class="language-plaintext highlighter-rouge">ZipCode</code> 로 분할</li>
+    </ul>
+  </li>
+</ol>
+
+<p>이는 한가지 잘못된 속성을 선택할 위험이 있는 알고리즘인데, 만약 Person 클래스에서 addressZip 이라는 속성이 별도로 존재한다고 해보자. 그러면 알고리즘은 첫번째 분할에서 이미 AddressZip 을 매칭시켜버리고, 그 타입은 code 속성이 없기 때문에 실패하게 된다.</p>
+
+<p>이때 메서드 이름에 <strong>언더스코어(_)</strong> 를 사용하여 명시적으로 탐색 지점을 구분할 수 있으며 다음과 같이 작성하면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="nf">findByAddress_ZipCode</span><span class="o">(</span><span class="nc">ZipCode</span> <span class="n">zipCode</span><span class="o">);</span></code></pre></figure>
+
+<p>_ 에 대한 규칙은 다음과 같다.</p>
+<ul>
+  <li>_ 로 시작하는 필드명: 밑줄 그대로 유지되며, 중첩 경로를 구분하려면 <code class="language-plaintext highlighter-rouge">__</code> 를 사용해야 한다.</li>
+  <li>대문자로만 구성된 필드명: 모두 대문자인 필드명은 그대로 사용할 수 있고, 중첩 경로를 표현해야 한다면, _ 로 구분해야 한다.</li>
+  <li>두 번째 글자가 대문자인 필드명: <code class="language-plaintext highlighter-rouge">qCode</code> 처럼 첫 글자는 소문자이고 두 번째 글자가 대문자인 경우, 해석 시 두 글자를 대문자로 시작하는 형태(<code class="language-plaintext highlighter-rouge">QCode</code>) 로 사용해야 한다. 즉, <code class="language-plaintext highlighter-rouge">String qCode</code> 는 속성 표현식에서 <code class="language-plaintext highlighter-rouge">QCode</code> 로 표현해야 한다는 것이다.</li>
+  <li>경로 모호성: <code class="language-plaintext highlighter-rouge">Code q</code> 와 <code class="language-plaintext highlighter-rouge">String qCode</code> 둘을 엔티티가 가지고 있고 <code class="language-plaintext highlighter-rouge">Code</code> 는 또 <code class="language-plaintext highlighter-rouge">String code</code> 를 가지고 있다고 해보자. 이때는 속성 해석 알고리즘은 직접 속성을 우선적으로 하기 때문에 <code class="language-plaintext highlighter-rouge">qCode</code> 필드를 먼저 매칭시키게 된다.</li>
+</ul>
+
+<h5 id="repository-methods-returning-collections-or-iterables">Repository Methods Returning Collections or Iterables</h5>
+
+<p>여러 개의 결과를 반환하는 쿼리 메서드는 일반적인 Java 컬렉션 타입인 <code class="language-plaintext highlighter-rouge">Iterable</code>, <code class="language-plaintext highlighter-rouge">List</code>, <code class="language-plaintext highlighter-rouge">Set</code> 을 사용할 수 있다. 이 외에도 <code class="language-plaintext highlighter-rouge">Spring Data</code> 에서 제공하는 <code class="language-plaintext highlighter-rouge">Streamable</code>(<code class="language-plaintext highlighter-rouge">Iterable</code> 을 확장한 커스텀 타입) 이나 <code class="language-plaintext highlighter-rouge">Vavr</code> 라이브러리 컬렉션 타입도 반환타입으로 사용할 수 있다(주로 Iterable 을 사용한다).</p>
+
+<p><strong>Streamable</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">Iterable</code> 이나 일반적인 컬렉션 타입의 대체 타입으로 사용할 수 있다. 이 타입은 <code class="language-plaintext highlighter-rouge">Iterable</code> 에는 없는 비병렬(non-parallel) Steam 접근 메서드를 제공하며, <code class="language-plaintext highlighter-rouge">filter</code>, <code class="language-plaintext highlighter-rouge">map</code> 등의 스트림 연산을 직접 수행할 수 있고, 다른 <code class="language-plaintext highlighter-rouge">Streamable</code> 객체들로 바꿀 수 있는 기능도 제공한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">PersonRepository</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="nc">Streamable</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="nf">findByFirstnameContaining</span><span class="o">(</span><span class="nc">String</span> <span class="n">firstname</span><span class="o">);</span>
+  <span class="nc">Streamable</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="nf">findByLastnameContaining</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nc">Streamable</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findByFirstnameContaining</span><span class="o">(</span><span class="s">"av"</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">repository</span><span class="o">.</span><span class="na">findByLastnameContaining</span><span class="o">(</span><span class="s">"ea"</span><span class="o">));</span></code></pre></figure>
+
+<p><strong>사용자 정의 Streamable 래퍼 타입 반환</strong></p>
+
+<p>컬렉션을 감싸는 전용 래퍼 타입을 제공하는 것은 여러 개의 결과를 반환하는 쿼리 결과에 대한 전용 API 를 제공하기 위한 흔한 패턴이다. 보통 이런 래퍼 타입은 레포지토리 메서드가 컬렉션 타입을 반환한 뒤, 그 결과를 수동으로 감싸서(wrapper instance) 생성하는 방식으로 사용한다.</p>
+
+<p>하지만 Spring Data 에서는 다음 조건을 만족한다면 이러한 래퍼 타입 자체를 쿼리 메서드의 반환 타입으로 직접 사용할 수 있다.</p>
+
+<ol>
+  <li>그 타입이 Streamable 인터페이스를 구현해야 함</li>
+  <li>Streamable 을 인자로 받는 생성자 또는 정적 팩터리 메서드(of, valueOf) 중 하나를 제공해야 한다.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>                                         
+  <span class="nc">MonetaryAmount</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@RequiredArgsConstructor</span><span class="o">(</span><span class="n">staticName</span> <span class="o">=</span> <span class="s">"of"</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">Products</span> <span class="kd">implements</span> <span class="nc">Streamable</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="o">{</span>         
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Streamable</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="n">streamable</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">MonetaryAmount</span> <span class="nf">getTotal</span><span class="o">()</span> <span class="o">{</span>                    
+    <span class="k">return</span> <span class="n">streamable</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">Product:</span><span class="o">:</span><span class="n">getPrice</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="nc">Money</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="nl">MonetaryAmount:</span><span class="o">:</span><span class="n">add</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Iterator</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>                 
+    <span class="k">return</span> <span class="n">streamable</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">interface</span> <span class="nc">ProductRepository</span> <span class="kd">extends</span> <span class="nc">Repository</span><span class="o">&lt;</span><span class="nc">Product</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="nc">Products</span> <span class="nf">findAllByDescriptionContaining</span><span class="o">(</span><span class="nc">String</span> <span class="n">text</span><span class="o">);</span> 
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p>@RequiredArgsConstructor(staticName = “of”): final 필드나 @NonNull 이 붙은 필드만을 대상으로 자동으로 생성자를 만들어줌. 이때 of 라는 정적 팩터리 메서드를 생성자 대신 제공해준다. 즉 다음과 같다:<br />
+```java
+@RequiredArgsConstructor(staticName = “of”)
+class Example {
+    private final String name;
+}
+// =========== 아래로 변환 ============
+public class Example {
+    private final String name;</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>private Example(String name) {
+    this.name = name;
+}
+
+public static Example of(String name) {
+    return new Example(name);
+} } ```
+</code></pre></div></div>
+
+<h5 id="streaming-query-results">Streaming Query Results</h5>
+
+<p>Stream 또한 사용할 수 있는데:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Query</span><span class="o">(</span><span class="s">"select u from User u"</span><span class="o">)</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findAllByCustomQueryAndStream</span><span class="o">();</span>
+
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">readAllByFirstnameNotNull</span><span class="o">();</span>
+
+<span class="nd">@Query</span><span class="o">(</span><span class="s">"select u from User u"</span><span class="o">)</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">streamAllPaged</span><span class="o">(</span><span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span></code></pre></figure>
+
+<p>Stream 은 내부적으로 데이터 저장소 전용 리소스를 감쌀 수 있으므로 사용이 끝난 후에는 반드시 닫아야 한다.</p>
+
+<h5 id="asynchronous-query-results">Asynchronous Query Results</h5>
+
+<p>Spring 의 비동기 메서드 실행 기능을 사용하면 레포지토리 쿼리를 비동기적으로 실행할 수 있다.</p>
+
+<p>즉, 메서드가 호출되자마자 즉시 반환되며, 실제 쿼리는 String 의 TaskExecutor 에 제출된 별도의 작업에서 실행된다고 한다.</p>
+
+<blockquote>
+  <p>비동기 쿼리는 리액티브 쿼리랑은 다르다.</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Async</span>
+<span class="nc">Future</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByFirstname</span><span class="o">(</span><span class="nc">String</span> <span class="n">firstname</span><span class="o">);</span>
+
+<span class="nd">@Async</span>
+<span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findOneByFirstname</span><span class="o">(</span><span class="nc">String</span> <span class="n">firstname</span><span class="o">);</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">java.util.concurrent.Future</code> 를 반환타입으로 하며, <code class="language-plaintext highlighter-rouge">CompletableFuture</code> 도 반환값으로 사용할 수 있다.</p>
+
+<h5 id="paging-iterating-large-results-sorting--limiting">Paging, Iterating Large Results, Sorting &amp; Limiting</h5>
+
+<p>쿼리에서 파라미터를 처리하려면, 이전 예제들에서 봤듯이 파라미터로 정의하면 된다. 이외에도 Spring Data 는 Pageable, Sort, Limit 와 같은 특정 타입을 인식하여 쿼리에도 동적으로 페이징, 정렬, 결과 제한 등을 적용시킬 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Page</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+
+<span class="nc">Slice</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Sort</span> <span class="n">sort</span><span class="o">);</span>
+
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Sort</span> <span class="n">sort</span><span class="o">,</span> <span class="nc">Limit</span> <span class="n">limit</span><span class="o">);</span>
+
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span></code></pre></figure>
+
+<p>Sort, Pageable Limit 를 사용하는 API 들은 null 값이 아닌 인자를 반드시 전달받아야 함을 알고 있자.</p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/19/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-39%EC%9D%BC%EC%B0%A8-Spring-Data-JDBC.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

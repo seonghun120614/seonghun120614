@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>6. Spring Boot Validation</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Spring Boot Validation | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Spring Boot Validation" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-06-23T08:38:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Spring Boot Validation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-06-23T08:38:00+00:00","datePublished":"2025-06-23T08:38:00+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Spring Boot Validation","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html">
+        <h2 class="post-title">6. Spring Boot Validation</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jun 23, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#business-entity">Business Entity</a></li>
+  <li><a href="#bean-validation-의존성-추가">Bean Validation 의존성 추가</a></li>
+  <li><a href="#bean-validation-을-통한-비즈니스-룰-검증">Bean Validation 을 통한 비즈니스 룰 검증</a>
+    <ul>
+      <li><a href="#validator를-통해-위반-사항-출력">Validator를 통해 위반 사항 출력</a></li>
+    </ul>
+  </li>
+  <li><a href="#hibernate-validator-annotations">Hibernate Validator Annotations</a></li>
+  <li><a href="#custom-bean-validation-annotation">Custom Bean Validation Annotation</a>
+    <ul>
+      <li><a href="#비밀번호-검증-애너테이션-만들기">비밀번호 검증 애너테이션 만들기</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>비즈니스 엔티티 유효성 검증을 위한 밸리데이션을 사용을 생각할 수 있다.</p>
+
+<h3 id="business-entity">Business Entity</h3>
+
+<p>업무에서 중요하게 다루는 대상(실체)를 의미하며, 주로 정보 시스템이나 소프트웨어 설계에서 사용된다. 현실세계의 개념을 추상화 한 데이터이다.</p>
+
+<p>특징</p>
+<ul>
+  <li>현실 세계의 명사적 개념을 추상화</li>
+  <li>대부분 데이터베이스 테이블 단위로 구현됨</li>
+  <li>시스템 전반에서 핵심 로직의 주체로 동작함</li>
+</ul>
+
+<p>관련 개념으로는 도메인 객체, DTO 등이 있으나 검색해보길 바란다.</p>
+
+<h3 id="bean-validation-의존성-추가">Bean Validation 의존성 추가</h3>
+<p>validation 기능을 사용하기 위해 다음 의존성을 추가해주자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// Bean Validation</span>
+<span class="n">implementation</span> <span class="err">'</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">boot</span><span class="o">:</span><span class="n">spring</span><span class="o">-</span><span class="n">boot</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">validation</span><span class="err">'</span></code></pre></figure>
+
+<h3 id="bean-validation-을-통한-비즈니스-룰-검증">Bean Validation 을 통한 비즈니스 룰 검증</h3>
+
+<p>쓰기 위해 비즈니스 엔티티를 선언하자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">jakarta.validation.constraints.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="kd">implements</span> <span class="nc">IAccount</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@Min</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"Account should have a minimum of 0 money"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">money</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Account</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMoney</span><span class="o">(</span><span class="kt">int</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">money</span> <span class="o">=</span> <span class="n">money</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위와 같이 <code class="language-plaintext highlighter-rouge">@Min</code>을 통해 최소로 가질 값을 지정할 수 있다.</p>
+
+<h4 id="validator를-통해-위반-사항-출력">Validator를 통해 위반 사항 출력</h4>
+
+<p>대충 이를 쓰기 위해 application 클래스에서 <code class="language-plaintext highlighter-rouge">CommandLineRunner</code> 를 구현해서 써보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableConfigurationProperties</span><span class="o">(</span><span class="nc">CustomProperties</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StudyApplication</span>
+		<span class="kd">implements</span> <span class="nc">CommandLineRunner</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+    	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(</span><span class="nc">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+		<span class="nc">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Account</span><span class="o">(</span><span class="mi">123</span><span class="o">);</span>
+		<span class="n">account</span><span class="o">.</span><span class="na">setMoney</span><span class="o">(-</span><span class="mi">1</span><span class="o">);</span>
+
+		<span class="nc">Validator</span> <span class="n">validator</span> <span class="o">=</span> <span class="nc">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">().</span><span class="na">getValidator</span><span class="o">();</span>
+
+		<span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;&gt;</span> <span class="n">violations</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+
+		<span class="n">violations</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">accountConstraintViolation</span> <span class="o">-&gt;</span> <span class="o">{</span>
+			<span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"A constraint violation has occurred. Violation details: [{}]."</span><span class="o">,</span> <span class="n">accountConstraintViolation</span><span class="o">);</span>
+		<span class="o">});</span> 
+		<span class="c1">// [{}] 여기에 accountConstraintViolation 내용이 들어감</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>account 로는 최소값이 0이기 때문에 0을 준다면 에러가 발생할 것이다. <code class="language-plaintext highlighter-rouge">Validator</code> 에서 해당 도메인 객체가 비즈니스 룰을 만족했는지 검증을 하고, 검증 로그를 <code class="language-plaintext highlighter-rouge">ConstraintViolation</code> 열거형으로 반환한다.</p>
+
+<blockquote>
+  <p>buildDefaultValidatorFactory 는 단순 테스트 목적에서 사용된다.
+Spring Context에서는 @Autowired 를 사용하여 가져오길 바란다.</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">2025-06-18 21:04:38.793 [restartedMain] ERROR StudyApplication:127 - A constraint violation has occurred. Violation details: [ConstraintViolationImpl{interpolatedMessage='Account should have a minimum of 0 money', propertyPath=money, rootBeanClass=class com.example.study.entity.account.Account, messageTemplate='Account should have a minimum of 0 money'}].</code></pre></figure>
+
+<p>위와 같이 출력되는 것을 볼 수 있다.</p>
+
+<h3 id="hibernate-validator-annotations">Hibernate Validator Annotations</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>범주</th>
+      <th>애너테이션</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Null 여부</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">@NotNull</code></td>
+      <td>null이 아니어야 함</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@NotEmpty</code></td>
+      <td>null, 빈 문자열 모두 허용 안 함 (공백은 허용됨)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@NotBlank</code></td>
+      <td>null, 빈 문자열, 공백문자 불가</td>
+    </tr>
+    <tr>
+      <td><strong>문자열 관련</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">@Size(min, max)</code></td>
+      <td>길이 제한 (문자열, 배열, 리스트 등)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Pattern(regexp)</code></td>
+      <td>정규표현식 패턴 검사</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Email</code></td>
+      <td>이메일 형식 검사</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Length(min, max)</code></td>
+      <td>문자열 길이 제한 (<code class="language-plaintext highlighter-rouge">hibernate-validator</code> 고유)</td>
+    </tr>
+    <tr>
+      <td><strong>숫자 관련</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">@Min(value)</code></td>
+      <td>최소값 (정수형)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Max(value)</code></td>
+      <td>최대값 (정수형)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@DecimalMin(value)</code></td>
+      <td>최소값 (실수 포함)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@DecimalMax(value)</code></td>
+      <td>최대값 (실수 포함)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Positive</code></td>
+      <td>양수만 허용</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@PositiveOrZero</code></td>
+      <td>양수 또는 0 허용</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Negative</code></td>
+      <td>음수만 허용</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@NegativeOrZero</code></td>
+      <td>음수 또는 0 허용</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Digits(i, f)</code></td>
+      <td>정수 i자리, 소수 f자리</td>
+    </tr>
+    <tr>
+      <td><strong>날짜 관련</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">@Past</code></td>
+      <td>과거 날짜만 허용</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@PastOrPresent</code></td>
+      <td>과거 또는 오늘</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@Future</code></td>
+      <td>미래 날짜만 허용</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><code class="language-plaintext highlighter-rouge">@FutureOrPresent</code></td>
+      <td>미래 또는 오늘</td>
+    </tr>
+    <tr>
+      <td><strong>계층 객체</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">@Valid</code></td>
+      <td>중첩 객체의 유효성 검사 수행</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="custom-bean-validation-annotation">Custom Bean Validation Annotation</h3>
+
+<p>비즈니스 엔티티 유효성 검증을 위 애너테이션 외에 입맛대로 검증을 수행하도록 하는 커스텀 빈 밸리데이션 애너테이션을 정의 할 수도 있다.</p>
+
+<h4 id="비밀번호-검증-애너테이션-만들기">비밀번호 검증 애너테이션 만들기</h4>
+
+<p><a href="/seonghun120614/java/2025/06/23/custom-annotation.html">커스텀 애너테이션</a>을 만들기 위해 <code class="language-plaintext highlighter-rouge">ConstraintValidator</code> 인터페이스를 구현해야 된다. 제네릭 변수로 첫번째는 커스텀 밸리데이터 로직을 적용하게 해주는 애너테이션(애너테이션을 따로 정의해야 함)을 넣어주고, 두 번째로는 커스텀 애너테이션을 적용해야 하는 데이터 타입을 넣어주면 된다(밸리데이션을 수행하는 대상의 타입을 적어주라는 말).</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">jakarta.validation.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PasswordRuleValidator</span> <span class="kd">implements</span> <span class="nc">ConstraintValidator</span><span class="o">&lt;&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="nc">Annotation</span> <span class="n">constraintAnnotation</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ConstraintValidator</span><span class="o">.</span><span class="na">super</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">constraintAnnotation</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nc">Object</span> <span class="n">value</span><span class="o">,</span> <span class="nc">ConstraintValidatorContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>구현시 isValid 와 initialize가 생성된다. initialize는 <code class="language-plaintext highlighter-rouge">ConstraintValidator</code>가 특정 애너테이션에 대해 초기 설정을 수행하는 로직인데, 이는 첫번째 Generic을 인자로 받아 사용하게 된다.</p>
+
+<p>만약 <code class="language-plaintext highlighter-rouge">ConstraintValidator&lt;Id, String&gt;</code> 으로 구현을 했다면, Id 에서 가져올 수 있는 변수로 멤버변수들을 선언하여 통해 나중에 isValid 에서 이 변수들을 활용해 다양한 검증을 수행할 수 있을 것이다. 하지만 여기서는 불필요하기 때문에 그냥 삭제한다.</p>
+
+<p>제네릭 인자에 넣을 애너테이션을 구현해주자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">jakarta.validation.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="o">;</span>
+
+<span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">FIELD</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Password</span> <span class="o">{</span>
+    <span class="c1">// 기본 메시지 정의</span>
+    <span class="nc">String</span> <span class="nf">message</span><span class="o">()</span> <span class="k">default</span> <span class="s">"Password do not adhere to the specified rule"</span><span class="o">;</span>
+    <span class="nc">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">groups</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+    <span class="cm">/*
+     검증 대상 객체에 대한 부가적인 메타데이터를 제공하는 Payload를 사용
+     어떤 검증 테스트가 실패했는지를 payload 객체로 받게 됨
+     */</span>
+    <span class="nc">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">Payload</span><span class="o">&gt;[]</span> <span class="nf">payload</span><span class="o">()</span> <span class="k">default</span> <span class="o">{};</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>message는 위반 사항에 대한 출력, groups는 그룹별 검증 시 유용하며, 실무에서는 계층적 유효성 검증을 할 때 사용한다. 예를 들어 회원가입에서는 name, email, password 가 모두 필수지만, 로그인 시에는 email, password만 필요하게 된다. 이때 모든 필드를 한꺼번에 검증하면 불필요한 제약이 생기게 되는데, 이럴 때 groups로 유효성 검증을 분리시켜 상황에 맞게 필요한 것만 검증을 할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// interfaces def.class</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OnRegister</span> <span class="o">{}</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OnLogin</span> <span class="o">{}</span>
+
+<span class="c1">// User.class</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+    <span class="nd">@NotBlank</span><span class="o">(</span><span class="n">groups</span> <span class="o">=</span> <span class="nc">OnRegister</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@NotBlank</span><span class="o">(</span><span class="n">groups</span> <span class="o">=</span> <span class="o">{</span><span class="nc">OnRegister</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">OnLogin</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+
+    <span class="nd">@NotBlank</span><span class="o">(</span><span class="n">groups</span> <span class="o">=</span> <span class="o">{</span><span class="nc">OnRegister</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">OnLogin</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">password</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// validate</span>
+<span class="nc">Validator</span> <span class="n">validator</span> <span class="o">=</span> <span class="nc">Validation</span><span class="o">.</span><span class="na">buildDefaultValidatorFactory</span><span class="o">().</span><span class="na">getValidator</span><span class="o">();</span>
+
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="o">();</span>
+<span class="nc">Set</span><span class="o">&lt;</span><span class="nc">ConstraintViolation</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;&gt;</span> <span class="n">violations</span> <span class="o">=</span>
+    <span class="n">validator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">user</span><span class="o">,</span> <span class="nc">OnLogin</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// 로그인에 필요한 것만 검증</span></code></pre></figure>
+
+<p>이제 다시 <code class="language-plaintext highlighter-rouge">PasswordValidator</code> 로 가서 <code class="language-plaintext highlighter-rouge">isValid()</code> 를 구현해주자.</p>
+
+<p>여기서 Password 에 대한 비즈니스 검증은 굉장히 많이 쓰이기 때문에 라이브러리로 따로 구현이 되어 있다. passay 라이브러리를 추가하여 이를 쓰도록 하자.</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">implementation</span> <span class="s1">'org.passay:passay:1.6.3'</span></code></pre></figure>
+
+<p><strong>Bean Validation 구현</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">jakarta.validation.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.passay.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PasswordRuleValidator</span> <span class="kd">implements</span> <span class="nc">ConstraintValidator</span><span class="o">&lt;</span><span class="nc">Password</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MIN_COMPLEX_RULE</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_REPETITIVE_CHARS</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MIN_SPECIAL_CASE_CHARS</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MIN_UPPER_CASE_CHARS</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MIN_LOWER_CASE_CHARS</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MIN_DIGIT_CASE_CHARS</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">(</span><span class="nc">String</span> <span class="n">password</span><span class="o">,</span> <span class="nc">ConstraintValidatorContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Rule</span><span class="o">&gt;</span> <span class="n">passwordRules</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">LengthRule</span><span class="o">(</span><span class="mi">8</span><span class="o">,</span> <span class="mi">30</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">CharacterCharacteristicsRule</span><span class="o">(</span>
+                        <span class="no">MIN_COMPLEX_RULE</span><span class="o">,</span>
+                        <span class="k">new</span> <span class="nf">CharacterRule</span><span class="o">(</span><span class="nc">EnglishCharacterData</span><span class="o">.</span><span class="na">Special</span><span class="o">,</span> <span class="no">MIN_SPECIAL_CASE_CHARS</span><span class="o">),</span>
+                        <span class="k">new</span> <span class="nf">CharacterRule</span><span class="o">(</span><span class="nc">EnglishCharacterData</span><span class="o">.</span><span class="na">UpperCase</span><span class="o">,</span> <span class="no">MIN_UPPER_CASE_CHARS</span><span class="o">),</span>
+                        <span class="k">new</span> <span class="nf">CharacterRule</span><span class="o">(</span><span class="nc">EnglishCharacterData</span><span class="o">.</span><span class="na">LowerCase</span><span class="o">,</span> <span class="no">MIN_LOWER_CASE_CHARS</span><span class="o">),</span>
+                        <span class="k">new</span> <span class="nf">CharacterRule</span><span class="o">(</span><span class="nc">EnglishCharacterData</span><span class="o">.</span><span class="na">Digit</span><span class="o">,</span> <span class="no">MIN_DIGIT_CASE_CHARS</span><span class="o">)</span>
+                <span class="o">),</span>
+                <span class="k">new</span> <span class="nf">RepeatCharacterRegexRule</span><span class="o">(</span><span class="no">MAX_REPETITIVE_CHARS</span><span class="o">));</span>
+
+        <span class="nc">PasswordValidator</span> <span class="n">passwordValidator</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PasswordValidator</span><span class="o">(</span><span class="n">passwordRules</span><span class="o">);</span>
+        <span class="nc">PasswordData</span> <span class="n">passwordData</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PasswordData</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="nc">RuleResult</span> <span class="n">ruleResult</span> <span class="o">=</span> <span class="n">passwordValidator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">passwordData</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ruleResult</span><span class="o">.</span><span class="na">isValid</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 이를 비즈니스 엔티티에 적용시켜주면 되지만, 하기 전에 어노테이션과 Validator 를 연결시켜줄 무언가가 필요하다. 지금은 설계만 끝난 것이지 어노테이션이 어떤 Validate 를 할지 명시를 안해주었기에 그냥 메타데이터만 넣게 된 것 뿐이다. 따라서 어노테이션에 가서 <strong>@Constraint</strong>를 사용하여 해당 어노테이션을 사용하는 target 에게 어떤 validator 를 쓸 것인지 명시를 해준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">FIELD</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Constraint</span><span class="o">(</span><span class="n">validatedBy</span> <span class="o">=</span> <span class="nc">PasswordRuleValidator</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Password</span> <span class="o">{</span>
+	<span class="o">...</span></code></pre></figure>
+
+<p>이제 엔티티에 적용시켜주자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.example.study.validator.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.*</span><span class="o">;</span>
+
+<span class="nd">@Getter</span>
+<span class="nd">@ToString</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="nd">@Password</span> <span class="c1">// 커스텀 애너테이션 사용</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">password</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 동일하게 validator 를 통해 ConstraintViolation 들을 가져와서 검증을 수행하면 된다.</p>
+
+<hr />
+
+<h2 id="-관련-출처">🔗 관련 출처</h2>
+<ul>
+  <li><a href="/seonghun120614/java/2025/06/23/custom-annotation.html">Custom Annotation</a></li>
+</ul>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/spring/2025/06/23/6.-spring-boot-validation.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

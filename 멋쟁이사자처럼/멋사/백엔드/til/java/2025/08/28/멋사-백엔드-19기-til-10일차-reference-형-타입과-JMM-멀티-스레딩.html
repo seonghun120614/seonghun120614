@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 10일차 Reference 형 타입과 JMM 멀티 스레딩</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 10일차 Reference 형 타입과 JMM 멀티 스레딩 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 10일차 Reference 형 타입과 JMM 멀티 스레딩" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-28T01:40:25+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 10일차 Reference 형 타입과 JMM 멀티 스레딩" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-08-28T01:40:25+00:00","datePublished":"2025-08-28T01:40:25+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 10일차 Reference 형 타입과 JMM 멀티 스레딩","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 10일차 Reference 형 타입과 JMM 멀티 스레딩</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Aug 28, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#wrapper">Wrapper</a>
+    <ul>
+      <li><a href="#캐싱-최적화">캐싱 최적화</a></li>
+    </ul>
+  </li>
+  <li><a href="#record">Record</a></li>
+  <li><a href="#generic">Generic</a>
+    <ul>
+      <li><a href="#generic-method">Generic Method</a></li>
+      <li><a href="#bounded-type">Bounded Type</a></li>
+      <li><a href="#제너릭-타입-파라미터-vs-와일드카드">제너릭 타입 파라미터 vs 와일드카드(?)</a></li>
+    </ul>
+  </li>
+  <li><a href="#java-memory-modeljmm">Java Memory Model(JMM)</a>
+    <ul>
+      <li><a href="#ordering">Ordering</a></li>
+      <li><a href="#atomicity">Atomicity</a>
+        <ul>
+          <li><a href="#atomic-class">Atomic Class</a></li>
+          <li><a href="#volatile">Volatile</a></li>
+        </ul>
+      </li>
+      <li><a href="#동기화">동기화</a>
+        <ul>
+          <li><a href="#synchronized">Synchronized</a></li>
+        </ul>
+      </li>
+      <li><a href="#synchronized-vs-volatile-적용-위치">Synchronized vs Volatile 적용 위치</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="wrapper">Wrapper</h3>
+
+<p>primitive 타입을 reference 타입으로 바꾸는 클래스이다.</p>
+
+<p>이 행위를 boxing 이라고 하며, Java 5 부터 boxing, unboxing 을 통해 자동으로 형변환을 해준다.</p>
+
+<p><strong>메모리 및 참조 측면</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">primitive</code> 는 스택(<code class="language-plaintext highlighter-rouge">Stack</code>) 메모리에 값 자체가 저장됨</li>
+  <li><code class="language-plaintext highlighter-rouge">wrapper</code> 객체는 힙(<code class="language-plaintext highlighter-rouge">Heap</code>) 메모리에 생성되고, 변수에는 그 객체의 참조(reference)가 저장됨</li>
+  <li>따라서 wrapper 는 객체이므로 <code class="language-plaintext highlighter-rouge">null</code> 값을 가질 수 있고, 제너릭/컬렉션에서 객체로 다룰 수 있음</li>
+  <li>하지만 객체 생성/참조 때문에 <code class="language-plaintext highlighter-rouge">primitive</code> 에 비해 메모리 사용량과 성능 오버헤드가 있음</li>
+</ul>
+
+<h4 id="캐싱-최적화">캐싱 최적화</h4>
+
+<p>캐싱 최적화는 Wrapper 클래스가 불필요하게 객체를 계속 생성하지 않도록 자주 쓰이는 값을 미리 캐싱해두는 것을 말하며, 다음 값들을 캐싱한다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Byte</code>, <code class="language-plaintext highlighter-rouge">Short</code>, <code class="language-plaintext highlighter-rouge">Integer</code>, <code class="language-plaintext highlighter-rouge">Long</code>: -128 - 127 범위를 캐싱</li>
+  <li><code class="language-plaintext highlighter-rouge">Character</code>: 0 - 127 캐싱</li>
+  <li><code class="language-plaintext highlighter-rouge">Boolean</code>: <code class="language-plaintext highlighter-rouge">true</code>, <code class="language-plaintext highlighter-rouge">false</code> 두 값만 캐싱</li>
+  <li><code class="language-plaintext highlighter-rouge">Double</code>, <code class="language-plaintext highlighter-rouge">Float</code>: 캐싱 없음</li>
+</ul>
+
+<h3 id="record">Record</h3>
+
+<p>Java 14 에 도입된 기능이며, Java 16 부터 정식으로 사용하게 된다. 데이터 전달 객체(VO, DTO) 등에 보일러 플레이트 코드를 줄여주는 문법이며, 다음 메서드를 자동으로 생성한다:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">equals()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">hashCode()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">toString()</code></li>
+</ul>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">record</span> <span class="nf">Book</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">,</span> <span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="nc">String</span> <span class="n">author</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isRented</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span></code></pre></figure>
+
+<p>불변이기에 상속이 불가능하며, JPA 엔티티와 같은 mutable 한 객체에는 적합하지 않다.</p>
+
+<h3 id="generic">Generic</h3>
+
+<p>Java 의 제너릭(Generic)은 클래스나 메서드가 사용할 타입을 외부에서 지정할 수 있도록 하는 기능이다.</p>
+
+<p>즉, 코드 재사용성과 타입 안전성을 높여준다.</p>
+
+<p><strong>장점</strong></p>
+<ul>
+  <li>타입 안정성 보장: 잘못된 타입을 넣으면 컴파일 타임에 에러 발생</li>
+  <li>형변환(<code class="language-plaintext highlighter-rouge">Casting</code>) 불필요</li>
+  <li>코드 재사용성 증가</li>
+</ul>
+
+<blockquote>
+  <p>제너릭은 기본적으로 reference 타입이 들어가야 한다.</p>
+</blockquote>
+
+<p><strong>기본 문법</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 제너릭 클래스</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Box</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="no">T</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="no">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 사용</span>
+<span class="nc">Box</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">box</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Box</span><span class="o">&lt;&gt;();</span>
+<span class="n">box</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>  <span class="c1">// 형변환 필요 없음</span></code></pre></figure>
+
+<h4 id="generic-method">Generic Method</h4>
+
+<p>특정 타입들에 대한 함수를 만들고 싶을때 선언할 수 있다. 이는 클래스 scope 에 선언된 제너릭 변수를 들고와도 되고, 쓰고 싶은 제너릭 변수를 함수 앞쪽에 선언해주어도 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// void 앞에 쓸 Generic 을 선언</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">printArray</span><span class="o">(</span><span class="no">T</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="no">T</span> <span class="n">element</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="bounded-type">Bounded Type</h4>
+
+<p>모든 타입을 참조하여서 쓰는 것은 바람직하지 않다. 심지어 모든 타입을 그대로 그 함수가 받아서 올바른 행위를 수행할 수 있는 코드를 짤 수 있을지도 의문일 것이다.</p>
+
+<p>이를 제한시켜 사용할 수 있는 예약어가 <code class="language-plaintext highlighter-rouge">extends</code>, <code class="language-plaintext highlighter-rouge">super</code> 이다.</p>
+
+<p><strong>extends 키워드</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">extends</code> 는 특정 타입과 그 하위 타입만 허용하도록 제한할 수 있다.</li>
+  <li>주로 메서드의 파라미터 또는 제너릭 타입 선언에서 사용된다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// Number 와 그 하위 타입만 받을 수 있음</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span> <span class="kd">extends</span> <span class="nc">Number</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">showNumber</span><span class="o">(</span><span class="no">T</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">num</span><span class="o">.</span><span class="na">doubleValue</span><span class="o">());</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>super 키워드</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">super</code> 는 반대로 하위 타입까지 허용할 수 있도록 한다.</li>
+  <li>주로 메서드의 파라미터에서 사용된다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// Number 와 그 상위 타입을 받을 수 있음</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">addNumber</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>   <span class="c1">// Integer 추가 가능</span>
+    <span class="c1">// list.get(0); // Object 로만 꺼낼 수 있음</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="제너릭-타입-파라미터-vs-와일드카드">제너릭 타입 파라미터 vs 와일드카드(?)</h4>
+
+<p><strong>T, E, K, V 등</strong></p>
+<ul>
+  <li>제너릭 클래스나 메서드에서 타입을 선언할 때 주로 사용</li>
+  <li>의미를 명확히 나타내는 이름으로 바꿔서 사용 가능
+    <ul>
+      <li>T: Type</li>
+      <li>E: Element (컬렉션 요소)</li>
+      <li>K: Key</li>
+      <li>V: Value</li>
+      <li>(굳이 정해진 알파벳은 없고, 대문자에 한 문자로 쓰는게 관례이며, ID 이렇게 써도 된다.)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Box</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="no">T</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="no">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>? (와일드카드)</strong></p>
+
+<ul>
+  <li>특정 타입에 제한을 두지 않고 <strong>모든 타입을 참조</strong>할 수 있도록 할 때 사용</li>
+  <li>주로 메서드 파라미터에서 유연성을 주기 위해 사용</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">printList</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;?&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="nc">Object</span> <span class="n">obj</span> <span class="o">:</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>차이 요약</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">T, E</code> 등: 제너릭 타입 변수, 실제 타입이 지정될 때 구체적으로 결정됨</li>
+  <li><code class="language-plaintext highlighter-rouge">?</code> : 와일드카드, 메서드 호출 시점까지 정확한 타입을 알 수 없음,<br />
+<strong>읽기 전용에 주로 사용</strong></li>
+</ul>
+
+<h3 id="java-memory-modeljmm">Java Memory Model(JMM)</h3>
+
+<p><strong>Java Memory Model(JMM)</strong>은 Java에서 멀티스레드 환경에서 메모리 접근과 가시성, 순서 문제를 정의한 규격이다.</p>
+
+<p>즉,</p>
+<ul>
+  <li>CPU 캐시, 레지스터, 메인 메모리 간의 동기화 문제를 정의</li>
+  <li>스레드 간 <strong>Visibility</strong> 와 <strong>Ordering</strong> 을 보장하도록 설계한다.</li>
+</ul>
+
+<blockquote>
+  <p>여기서 visibility 란 한 스레드에서 값이 바뀌어도 다른 스레드의 값이 바로 보장되지 않을 수 있는데,<br />
+이런 성질을 지키는 것이 바로 visibility 이다.</p>
+</blockquote>
+
+<h4 id="ordering">Ordering</h4>
+
+<p>여기서 왜 Visibility 가 깨질 수 있는지를 들여다 보자.</p>
+
+<p>컴파일러와 CPU는 <strong>명령 재정렬(Instruction Reordering)</strong>이 가능한데,<br />
+이는 명령을 수행하는데 있어 최적화 되는 방향으로 JVM 이 실행 명령을 조정하는 행위이다.<br />
+이로써 코드 수행을 더 빠르게 할 수 있는데, 문제는<br />
+멀티 스레드 환경에서 의도치 않은 순서로 실행될 수 있다는 것이다.</p>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">ReorderExample</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>        <span class="c1">// ①</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>  <span class="c1">// ②</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reader</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">flag</span><span class="o">)</span> <span class="o">{</span>   <span class="c1">// ③</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span> <span class="c1">// ④</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ReorderExample</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReorderExample</span><span class="o">();</span>
+
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="nl">obj:</span><span class="o">:</span><span class="n">writer</span><span class="o">);</span>
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="nl">obj:</span><span class="o">:</span><span class="n">reader</span><span class="o">);</span>
+
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위의 예시를 보면 처음에는 0이라는 값이 등장 할 것으로 예상이 되지만,<br />
+실제로 파보면 2번의 수행이 우선으로 재정렬되어 1이라는 값이 먼저 찍힐 수 있다는 것이다.</p>
+
+<p>이렇게 되면 <code class="language-plaintext highlighter-rouge">visibility</code> 는 무너지게 되며 우리가 코드를 보는 직관이 무너지게 된다.</p>
+
+<h4 id="atomicity">Atomicity</h4>
+
+<p>스레드 간 공유 변수가 있어 연산에서 중간에 끼어들어 깨질 수 있는 문제가 발견된다(위 예시처럼).</p>
+
+<p><strong>예시</strong></p>
+<blockquote>
+  <p>count++ // read + increment + write 3단계</p>
+</blockquote>
+
+<p>실제로 위 같은 코드를 사용하면 더 깨지기 쉬울 것이며,<br />
+이렇게 연산 도중 다른 스레드가 끼어들어서 값 보장을 망치는 행위를 <code class="language-plaintext highlighter-rouge">Atomicity</code> 가 깨졌다고 한다.</p>
+
+<p>이를 방지하기 위해 Java 는 <code class="language-plaintext highlighter-rouge">Atomic</code> 클래스와 <code class="language-plaintext highlighter-rouge">Volatile</code> 키워드 들을 제공하게 된다.</p>
+
+<h5 id="atomic-class">Atomic Class</h5>
+
+<p>Java 에는 <code class="language-plaintext highlighter-rouge">java.util.concurrent</code> 패키지에 다양한 동시성 제어 기능들을 넣어놓았다.</p>
+
+<p>그 중에 <code class="language-plaintext highlighter-rouge">AtomicXXXX</code> 의 클래스 류들은 위와 같은 원자성을 보장하기 위해 사용된다.</p>
+
+<p>그 안에는 <code class="language-plaintext highlighter-rouge">Lock</code> 이라는 기능을 통해 Lock 을 얻은 스레드 만이 자원에 대해 접근할 수 있도록 한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.concurrent.atomic.AtomicInteger</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicExample</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">AtomicInteger</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">count</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span> <span class="c1">// atomic operation</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="nc">AtomicExample</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicExample</span><span class="o">();</span>
+
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="n">example</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+        <span class="o">});</span>
+
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="n">example</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+        <span class="o">});</span>
+
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Final count: "</span> <span class="o">+</span> <span class="n">example</span><span class="o">.</span><span class="na">getCount</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="volatile">Volatile</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Atomic Class</code> 외에도 자바에는 순서 보장과 값 갱신(Visibility)을 위해<br />
+변수에 대해 <code class="language-plaintext highlighter-rouge">volatile</code> 을 선언하여 최신 값만 읽도록 할 수 있다.</p>
+
+<p>이는 변수에 대한 락을 구현하여 사용되어지며, 변수 타입 전에 <code class="language-plaintext highlighter-rouge">volatile</code> 을 써서 사용한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span></code></pre></figure>
+
+<p>위 보다는 더 쉬울 것이다.</p>
+
+<h4 id="동기화">동기화</h4>
+
+<p>동기화라는 것은 스레드 간의 <code class="language-plaintext highlighter-rouge">Mutual Exclusion</code> 를 구현하는 것이다.</p>
+
+<p>위 값들은 전부 변수에 대한 접근에 있어서 변수 스코프에 대해 안전한 접근을 수행하도록 하였다.</p>
+
+<p>하지만, 이는 단일 연산 단위에서만 안전하게 된다.</p>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.concurrent.atomic.AtomicInteger</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AtomicExample</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">AtomicInteger</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">incrementTwice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">count</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>  <span class="c1">// 원자적 연산</span>
+        <span class="n">count</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>  <span class="c1">// 원자적 연산</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="nc">AtomicExample</span> <span class="n">example</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicExample</span><span class="o">();</span>
+
+        <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="nl">example:</span><span class="o">:</span><span class="n">incrementTwice</span><span class="o">);</span>
+        <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="nl">example:</span><span class="o">:</span><span class="n">incrementTwice</span><span class="o">);</span>
+
+        <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="n">t2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">example</span><span class="o">.</span><span class="na">getCount</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위의 count 라는 것은 <code class="language-plaintext highlighter-rouge">AtomicClass</code> 로 원자성을 지닌 변수이다.</p>
+
+<p>이 값에 대한 연산들은 전부 원자적이며, 연산 수행 도중에는 아무도 끼어들 수 없을 것이다.<br />
+하지만 이 연산을 두 번 수행하는 <code class="language-plaintext highlighter-rouge">incrementTwice</code> 에 대해서 <code class="language-plaintext highlighter-rouge">getCount()</code> 를 한다면<br />
+직관적으로 봤을 때 우리의 눈에는 <code class="language-plaintext highlighter-rouge">count.get()</code> 에는 2의 배수만 찍혀야 하지만, 실제로 홀수가 찍힐 수 있다.</p>
+
+<p>이를 동기화가 안되었다고 한다. 즉, 스레드끼리 연산을 스레드의 다중 연산 코드를 수행함에 있어 <br />
+원자적 연산을 연속으로 수행하다가 다른 스레드가 이를 침범하여 수행할 수 있다는 것이며,<br />
+서로 스레드 끼리의 동기화가 되지 않았다는 것이다.</p>
+
+<p>이를 보장하기 위해 <code class="language-plaintext highlighter-rouge">synchronized</code> 라는 기능이 추가된다.</p>
+
+<h5 id="synchronized">Synchronized</h5>
+
+<p>상호 배제와 락을 구현한 대표적인 키워드이며, <code class="language-plaintext highlighter-rouge">Atomicity</code> 문제를 해결하기 위한 가장 대표적인 방법이다.</p>
+
+<p>메서드나 블록 단위(코드 블록 말하는 것, 중괄호)로 스레드 간 상호 배제의 원칙을 지키며 코드를 처리한다. 보통 return type 이전에 <code class="language-plaintext highlighter-rouge">synchronized</code> 를 붙여 해당 함수는 쓰레드 A 가 들어왔을 때 해당 함수에 대한 <code class="language-plaintext highlighter-rouge">Lock</code> 을 얻어 다른 함수가 <code class="language-plaintext highlighter-rouge">Lock</code> 을 못 얻게(permission 을 못 얻게) 하여 thread-safety 를 얻게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="o">&lt;</span><span class="no">T</span> <span class="kd">extends</span> <span class="nc">List</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">func</span><span class="o">(</span><span class="no">T</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p>synchronized 는 락, 상호 배제를 둘 다 구현했기에<br />
+이를 적용한다면 thread-safety 하다고 할 수 있다.</p>
+</blockquote>
+
+<h4 id="synchronized-vs-volatile-적용-위치">Synchronized vs Volatile 적용 위치</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>키워드</th>
+      <th>적용 가능 위치</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>synchronized</td>
+      <td>메서드, 블록</td>
+      <td>- 메서드에 붙이면 해당 메서드 전체가 락을 획득 <br /> - 블록에 붙이면 특정 코드 블록에 대해서만 락 획득 <br /> - 함수나 객체 단위로 다중 연산 <code class="language-plaintext highlighter-rouge">thread-safe</code> 구현 가능</td>
+    </tr>
+    <tr>
+      <td>volatile</td>
+      <td>변수(필드)</td>
+      <td>- 멤버 변수에만 사용 가능 <br /> - 읽기/쓰기 시 메인 메모리에서 직접 접근 보장(<code class="language-plaintext highlighter-rouge">Visibility</code>) <br /> - 단일 변수 단위로 최신 값 유지, <code class="language-plaintext highlighter-rouge">atomic</code> 연산 보장 X</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/08/28/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-10%EC%9D%BC%EC%B0%A8-reference-%ED%98%95-%ED%83%80%EC%9E%85%EA%B3%BC-JMM-%EB%A9%80%ED%8B%B0-%EC%8A%A4%EB%A0%88%EB%94%A9.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

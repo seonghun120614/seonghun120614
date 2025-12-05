@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 47일차 Reactive Programming</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 47일차 Reactive Programming | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 47일차 Reactive Programming" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-10-30T00:07:23+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 47일차 Reactive Programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-10-30T00:07:23+00:00","datePublished":"2025-10-30T00:07:23+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 47일차 Reactive Programming","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 47일차 Reactive Programming</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Oct 30, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+
+<ul>
+  <li><a href="#reactor">Reactor</a>
+    <ul>
+      <li><a href="#publisher-subscriber">Publisher-Subscriber</a></li>
+      <li><a href="#mono-flux">Mono, Flux</a>
+        <ul>
+          <li><a href="#creation-operator">Creation Operator</a></li>
+          <li><a href="#transformation-operator">Transformation Operator</a></li>
+          <li><a href="#filtering-operator">Filtering Operator</a></li>
+          <li><a href="#combination-operator">Combination Operator</a></li>
+          <li><a href="#error-handling-operator">Error Handling Operator</a></li>
+        </ul>
+      </li>
+      <li><a href="#병렬-처리">병렬 처리</a>
+        <ul>
+          <li><a href="#scheduler">Scheduler</a></li>
+          <li><a href="#parallel-operator">Parallel Operator</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="">Reactive Programming</a>
+    <ul>
+      <li><a href="#r2dbc">R2DBC</a>
+        <ul>
+          <li><a href="#순수-r2dbc-의존성-추가">순수 R2DBC 의존성 추가</a></li>
+          <li><a href="#connectionfactory-설정">ConnectionFactory 설정</a></li>
+          <li><a href="#connectionfactory-인터페이스">ConnectionFactory 인터페이스</a></li>
+          <li><a href="#connection">Connection</a></li>
+          <li><a href=""></a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="reactor">Reactor</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Spring WebFlux</code> 의 핵심 부분이 바로 리액터가 있다. 리액터는 <strong>Reactive Streams</strong> 표준(<strong>Publisher-Subscriber 모델</strong>) 을 구현한 Java 라이브러리이며 그 중 <strong>Reactor Core</strong> 는 핵심 모듈로, 비동기/논블로킹 데이터 스트림을 처리하기 위한 API 를제공해준다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Spring WebFlux</code> 는 내부적으로 <strong>Reactor Core</strong> 를 사용하여 HTTP 요청/응답, DB, 파일, 외부 API 호출 등을 Reactive 방식으로 연결한다.</p>
+
+<h4 id="publisher-subscriber">Publisher-Subscriber</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Publisher</code> 는 무언가를 생성하는 책임을 맡은 객체이다. <code class="language-plaintext highlighter-rouge">Reactor</code> 에서 <code class="language-plaintext highlighter-rouge">Flux</code> 와 <code class="language-plaintext highlighter-rouge">Mono</code> 가 바로 이 역할을 한다. Subscriber 는 반대로 무언가를 소비하는 역할을 하는 객체이며, 데이터를 <code class="language-plaintext highlighter-rouge">request</code> 보내고 <code class="language-plaintext highlighter-rouge">subscribe</code> 하여 소비하게 된다.</p>
+
+<p>이런 Subscription 관계가 성립되면, 데이터 흐름이 제어가 되며, <code class="language-plaintext highlighter-rouge">backpressure</code> 가 지원이 된다.</p>
+
+<blockquote>
+  <p><strong>Backpressure(배압)</strong>: <code class="language-plaintext highlighter-rouge">Subscriber</code> 가 너무 많은 데이터를 한번에 못받아서 특정 신호를 보내면 알아서 <code class="language-plaintext highlighter-rouge">Publisher</code> 가 전송 속도를 조절하는 기능이다.</p>
+</blockquote>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">Publisher</code> 를 생성해보자.</p>
+
+<h4 id="mono-flux">Mono, Flux</h4>
+
+<p>이 두 클래스는 <code class="language-plaintext highlighter-rouge">Publisher</code> 이며, <code class="language-plaintext highlighter-rouge">Mono</code> 는 말 그대로 0 또는 1개의 데이터를 비동기로 생산하고, <code class="language-plaintext highlighter-rouge">Flux</code> 는 0-N 개의 데이터를 비동기로 생산할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">mono</span> <span class="o">=</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"Hello Reactor"</span><span class="o">);</span>
+<span class="n">mono</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">toUpperCase</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>  <span class="c1">// HELLO REACTOR</span>
+
+<span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">flux</span> <span class="o">=</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+<span class="n">flux</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>  <span class="c1">// 2 4 6 8 10</span></code></pre></figure>
+
+<h5 id="creation-operator">Creation Operator</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Mono</code>, <code class="language-plaintext highlighter-rouge">Flux</code> 메서드에는 다음과 같은 메서드들이 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">just(T value)</code>: 단일 값 또는 여러값 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">empty()</code>: 아무 값도 발행하지 않음</li>
+  <li><code class="language-plaintext highlighter-rouge">error(Throwable e)</code>: 에러 신호 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">fromCallable(Supplier&lt;T&gt;)</code>: <code class="language-plaintext highlighter-rouge">Iterable</code> 을 <code class="language-plaintext highlighter-rouge">Flux</code> 로 변환</li>
+  <li><code class="language-plaintext highlighter-rouge">fromIterator(Iterable&lt;T&gt;)</code>: <code class="language-plaintext highlighter-rouge">Callable</code> 의 결과를 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">range(int start, int count)</code>: 특정 범위의 정수 <code class="language-plaintext highlighter-rouge">Flux</code></li>
+  <li><code class="language-plaintext highlighter-rouge">interval(Duration)</code>: 일정 주기로 <code class="language-plaintext highlighter-rouge">Long</code> 값 발행, <code class="language-plaintext highlighter-rouge">Flux.interval()</code></li>
+</ul>
+
+<p><strong>타이머</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/timer"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">timer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"초 후 입니다.\n"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/time"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">time</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="transformation-operator">Transformation Operator</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">map(Function&lt;T, R&gt;)</code>: 각 요소를 변환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">flatMap(Function&lt;T, Publisher&lt;R&gt;&gt;)</code>: 내부 Publisher 를 병합한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">concatMap()</code>: 순서를 보장하면서 flatMap 을 함</li>
+  <li><code class="language-plaintext highlighter-rouge">switchMap()</code>: 가장 최근 구독만 유지</li>
+  <li><code class="language-plaintext highlighter-rouge">defaultIfEmpty(T)</code>: 비어 있을 때 기본값 대체</li>
+  <li><code class="language-plaintext highlighter-rouge">switchIfEmpty(Publisher&lt;T&gt;)</code>: 비어있을 때 다른 Publisher 로 대체</li>
+  <li><code class="language-plaintext highlighter-rouge">collectList()</code>: <code class="language-plaintext highlighter-rouge">Flux</code> -&gt; <code class="language-plaintext highlighter-rouge">Mono&lt;List&gt;</code></li>
+</ul>
+
+<p><strong>collectList()</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/odds"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="nf">odds</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">collectList</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="filtering-operator">Filtering Operator</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">filter(Predicate&lt;T&gt;)</code>: 조건을 만족하는 데이터만 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">take(long n)</code>: n 개의 데이터만 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">skip(long n)</code>: n 개의 데이터 건너뛴 후 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">distinct()</code>: 중복 제거, 중복 기준은 <code class="language-plaintext highlighter-rouge">equals()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">takeWhile(Predicate&lt;T&gt;)</code>: 조건이 참일 동안 발행</li>
+  <li><code class="language-plaintext highlighter-rouge">skipWhile(Predicate&lt;T&gt;)</code>: 조건이 참인 동안 건너뜀</li>
+</ul>
+
+<h5 id="combination-operator">Combination Operator</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">merge(Publisher...)</code>: 여러 <code class="language-plaintext highlighter-rouge">Flux</code> 를 병합, 순서 보장 X</li>
+  <li><code class="language-plaintext highlighter-rouge">concat(Publisher...)</code>: 순서를 보장하며 연결</li>
+</ul>
+
+<p><strong>merge, concat 차이</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/merge"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">merge</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">f1</span> <span class="o">=</span> <span class="nc">Flux</span>
+            <span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">300</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="s">"A"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+    <span class="kt">var</span> <span class="n">f2</span> <span class="o">=</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">700</span><span class="o">))</span>
+                    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="s">"B"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">f1</span><span class="o">,</span> <span class="n">f2</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/concat"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">concat</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">f1</span> <span class="o">=</span> <span class="nc">Flux</span>
+            <span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">300</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="s">"A"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+    <span class="kt">var</span> <span class="n">f2</span> <span class="o">=</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">700</span><span class="o">))</span>
+                    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="s">"B"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">f1</span><span class="o">,</span> <span class="n">f2</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">zip(Publisher..., BiFunction)</code>: 여러 <code class="language-plaintext highlighter-rouge">Publisher</code> 의 데이터를 조합</li>
+</ul>
+
+<p><strong>zip 예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 두 Flux 를 묶어서 새로운 문자열 Flux 생성</span>
+<span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">zip</span><span class="o">(</span><span class="n">names</span><span class="o">,</span> <span class="n">ages</span><span class="o">,</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" is "</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">" years old"</span><span class="o">);</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">combineLatest(Publisher..., Function)</code>: 가장 최근 값들로 조합</li>
+</ul>
+
+<p><strong>combineLatest 예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 두 Flux 를 묶어서 새로운 문자열 Flux 생성</span>
+<span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">zip</span><span class="o">(</span><span class="n">names</span><span class="o">,</span> <span class="n">ages</span><span class="o">,</span> <span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" is "</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">" years old"</span><span class="o">);</span></code></pre></figure>
+
+<h5 id="error-handling-operator">Error Handling Operator</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">onErrorReturn(T)</code>: 에러 시 기본값 반환</li>
+  <li><code class="language-plaintext highlighter-rouge">onErrorResume(Function&lt;Throwable, Publisher&lt;T&gt;&gt;)</code>: 대체 Publisher 로 전환</li>
+  <li><code class="language-plaintext highlighter-rouge">retry(long n)</code>: 에러 시 n 번 재시도</li>
+</ul>
+
+<p><strong>에러 처리</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/error"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">error</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="mi">10</span> <span class="o">/</span> <span class="n">i</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">onErrorReturn</span><span class="o">(-</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">//			.onErrorResume(e -&gt; Flux.just(100, 200));</span>
+<span class="o">}</span>
+
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/error2"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">error2</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="mi">10</span> <span class="o">/</span> <span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">3</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">retry</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="병렬-처리">병렬 처리</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Reactor</code> 는 기본적으로 스레드를 직접 만들지 않으며, 스레드 생성/관리라는 개념을 <code class="language-plaintext highlighter-rouge">Scheduler</code> 라는 개념을 통해 스레드 풀을 사용하게 된다.</p>
+
+<h5 id="scheduler">Scheduler</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">reactor.core.scheduler.Schedulers</span><span class="o">;</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">Reactor</code> 의 스레드 풀을 추상화 한게 <code class="language-plaintext highlighter-rouge">Scheduler</code> 이다. 스프링에서는 요청 처리나 I/O 작업에 맞게 적절한 스케줄러를 선택해주는게 핵심이며, 각 작업 유형들을 토대로 스레드 풀을 다음과 같이 불러올 수 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Schedulers.parallel()</code>: CPU 바운드 작업용, 코어 수만큼의 고정 스레드가 할당되어짐</li>
+  <li><code class="language-plaintext highlighter-rouge">Schedulers.boundedElastic()</code>: I/O 바운드 작업용, 스레드 수 자동으로 확장 가능함</li>
+  <li><code class="language-plaintext highlighter-rouge">Schedulers.single()</code>: 단일 스레드로 순차 실행</li>
+  <li><code class="language-plaintext highlighter-rouge">Schedulers.immediate()</code>: 현재 스레드 그대로 사용</li>
+  <li><code class="language-plaintext highlighter-rouge">Schedulers.fromExecutorService()</code>: 사용자 정의 <code class="language-plaintext highlighter-rouge">Executor</code> 사용</li>
+</ul>
+
+<p>이를 이제 <code class="language-plaintext highlighter-rouge">Flux</code> 의 데이터 흐름 사이에 적절히 추가하여 병렬적으로 처리가 가능하도록 한다.</p>
+
+<h5 id="parallel-operator">Parallel Operator</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Flux</code> 에는 다음을 적용할 수 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">publishOn(Scheduler)</code>: 이 이후 단계의 실행 스레드를 변경</li>
+  <li><code class="language-plaintext highlighter-rouge">subscribeOn(Scheduler)</code>: 전체 체인의 실행 스레드를 지정</li>
+</ul>
+
+<p><strong>병렬 처리</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/async"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">async</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Flux</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">publishOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">parallel</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">+</span> <span class="s">" processed on "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>pubishOn, subscribeOn 차이</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Flux</span><span class="o">.</span><span class="na">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">(</span><span class="s">"map1"</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">publishOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">parallel</span><span class="o">())</span>     <span class="c1">// 여기서부터 병렬 스케줄러로 전환</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">(</span><span class="s">"map2"</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">boundedElastic</span><span class="o">());</span> <span class="c1">// 구독 및 전체 체인 실행은 elastic 스레드에서</span></code></pre></figure>
+
+<p>출력은 다음과 같다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nl">map1:</span> <span class="n">elastic</span><span class="o">-</span><span class="mi">1</span>
+<span class="nl">map2:</span> <span class="n">parallel</span><span class="o">-</span><span class="mi">2</span></code></pre></figure>
+
+<p>여기까지가 데이터의 기본적인 처리를 보았다. 다음은 이를 시스템에 적용할 차례다.</p>
+
+<h3 id="reactive-programming">Reactive Programming</h3>
+
+<p>리액티브 프로그래밍(reactive programming) 은 <strong>비동기 데이터 흐름(asynchronous data stream)</strong> 을 중심으로 변화에 자동으로 반응하도록 구성하는 프로그래밍 패러다임이다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">);</span></code></pre></figure>
+
+<p>위의 코드에서는 a 가 바뀌어도 b 는 바뀌지 않고, 다시 계산을 해야 b 가 바뀌게 된다. a 가 바뀔때 자동적으로 b가 바뀔 수 있도록 처리해주는 프로그래밍 패러다임이 바로 리액티브 프로그래밍이다.</p>
+
+<p><strong>리액티브 프로그래밍 특징</strong></p>
+<ul>
+  <li><strong>비동기(Asynchronous)</strong>: 요청 후 기다리지 않고, 응답이 오면 반응하는 방식</li>
+  <li><strong>논블로킹(Non-blocking)</strong>: 스레드가 대기하지 않고 다른 작업을 수행 가능</li>
+  <li><strong>데이터 스트림(Stream)</strong>: 이벤트, 데이터, 신호를 “흐름”으로 처리</li>
+  <li><strong>이벤트 기반(Event-driven)</strong>: 데이터 변화(이벤트)가 발생하면 자동 반응</li>
+  <li><strong>Backpressure(배압)</strong>: 소비자가 처리 가능한 만큼만 요청 (과부하 방지)</li>
+</ul>
+
+<p>시스템 전반적으로 reactive 해야 위의 특징들을 전부 가져갈 수 있게 된다. <code class="language-plaintext highlighter-rouge">Controller</code> 단에서만 비동기를 쓰거나, <code class="language-plaintext highlighter-rouge">Controller</code> + <code class="language-plaintext highlighter-rouge">Service</code> 에 비동기 + 논블로킹 을 써서 이점을 충분히 가져갈 수 있지만, <code class="language-plaintext highlighter-rouge">Repository</code> 까지 그 수준을 높인다면 굉장히 효율적이게 될 것이다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Controller</code> 만 Reactive 해서는 아무런 의미가 없다. 저수준 부터 쭉 Reactive 해야 그 장점을 극대화 할 수 있다.</p>
+</blockquote>
+
+<p>따라서 이런 <code class="language-plaintext highlighter-rouge">Reactive</code> 한 <code class="language-plaintext highlighter-rouge">Repository</code> 의 <code class="language-plaintext highlighter-rouge">Connection</code> 을 위해 <code class="language-plaintext highlighter-rouge">R2DBC</code> 라는 의존성을 추가해야 한다.</p>
+
+<h4 id="r2dbc">R2DBC</h4>
+
+<p>기존 순수 <code class="language-plaintext highlighter-rouge">JDBC</code> 는 스레드 당 하나의 동기 I/O, DB 호출 동안 호출한 스레드를 대기(block) 시키는게 규칙이었다. 대신 <code class="language-plaintext highlighter-rouge">R2DBC</code> 는 논블로킹 리액티브 API 이다. I/O 가 논블로킹으로 처리가 되기 때문에 스레드가 대기하지 않는다. 이 말은 I/O 바운드 작업 시 해당 스레드가 기다리지 않고 또 다른 작업(CPU 바운드 작업)을 수행할 수 있게 된다는 것이다. 더 적은 스레드로 더 많은 작업을 처리할 수 있다.</p>
+
+<p><strong>JDBC 방식 (동기, 블로킹)</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcUserRepository</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DataSource</span> <span class="n">dataSource</span><span class="o">;</span> <span class="c1">// HikariDataSource</span>
+
+    <span class="kd">public</span> <span class="nf">JdbcUserRepository</span><span class="o">(</span><span class="nc">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">dataSource</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findActiveUsers</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">SQLException</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT id, name FROM users WHERE active = ?"</span><span class="o">;</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+        <span class="k">try</span> <span class="o">(</span><span class="nc">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+             <span class="nc">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">))</span> <span class="o">{</span>
+
+            <span class="n">ps</span><span class="o">.</span><span class="na">setBoolean</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">(</span><span class="nc">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="nc">Long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
+                    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+                    <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">));</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="c1">// try-with-resources 가 Connection 반환(풀에 돌려줌)</span>
+        <span class="k">return</span> <span class="n">users</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">getConnection()</code> 호출 -&gt; 스레드는 DB I/O 가 끝날 때까지 블로킹<br />
+동시 요청이 많아지면 스레드 부족 문제가 발생</p>
+</blockquote>
+
+<p><strong>R2DBC - 저수준 예시 (논블로킹)</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LowLevelR2dbcUserRepository</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ConnectionFactory</span> <span class="n">connectionFactory</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LowLevelR2dbcUserRepository</span><span class="o">(</span><span class="nc">ConnectionFactory</span> <span class="n">cf</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">connectionFactory</span> <span class="o">=</span> <span class="n">cf</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Flux</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findActiveUsers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">"SELECT id, name FROM users WHERE active = ?1"</span><span class="o">;</span>
+        <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">connectionFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">flatMapMany</span><span class="o">(</span><span class="n">conn</span> <span class="o">-&gt;</span>
+                <span class="nc">Flux</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">)</span>
+                              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+                              <span class="o">.</span><span class="na">execute</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">result</span> <span class="o">-&gt;</span> <span class="n">result</span><span class="o">.</span><span class="na">map</span><span class="o">((</span><span class="n">row</span><span class="o">,</span> <span class="n">meta</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">mapRow</span><span class="o">(</span><span class="n">row</span><span class="o">)))</span>
+                    <span class="o">.</span><span class="na">doFinally</span><span class="o">(</span><span class="n">sig</span> <span class="o">-&gt;</span> <span class="n">closeQuietly</span><span class="o">(</span><span class="n">conn</span><span class="o">))</span>
+            <span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">User</span> <span class="nf">mapRow</span><span class="o">(</span><span class="nc">Row</span> <span class="n">row</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Long</span> <span class="n">id</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="nc">Long</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">closeQuietly</span><span class="o">(</span><span class="nc">Connection</span> <span class="n">conn</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">().</span><span class="na">subscribe</span><span class="o">();</span> <span class="c1">// 논블로킹으로 닫음 (에러/완료 처리 생략)</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">R2DBC SPI</code> 라는 표준 인터페이스(<code class="language-plaintext highlighter-rouge">io.r2dbc.spi.*</code>) 가 있어서, 이 인터페이스를 가지고 <code class="language-plaintext highlighter-rouge">Spring R2DBC</code> 를 보기 전에 핵심인 <code class="language-plaintext highlighter-rouge">Reactor core</code> 를 의존성과 DB 연결을 위해 <code class="language-plaintext highlighter-rouge">R2DBC SPI</code> 라는 <code class="language-plaintext highlighter-rouge">R2DBC</code> 표준 인터페이스를 통해 DB 에 접속하면서 <code class="language-plaintext highlighter-rouge">Repository-Controller</code> 에 이르기까지 전부 비동기로 가져가보자.</p>
+
+<h5 id="순수-r2dbc-의존성-추가">순수 R2DBC 의존성 추가</h5>
+
+<figure class="highlight"><pre><code class="language-gradle" data-lang="gradle"><span class="n">implementation</span> <span class="s1">'io.r2dbc:r2dbc-spi'</span>             <span class="c1">// MySQL 용 드라이버</span>
+<span class="n">implementation</span> <span class="s1">'io.projectreactor:reactor-core'</span> <span class="c1">// Flux, Mono</span>
+<span class="n">runtimeOnly</span> <span class="s1">'io.asyncer:r2dbc-mysql'</span>            <span class="c1">// R2DBC 표준 인터페이스</span></code></pre></figure>
+
+<h5 id="connectionfactory-설정">ConnectionFactory 설정</h5>
+
+<p>R2DBC 에서 DB 연결을 만들어주는 팩토리 객체이다. 이전에는 <code class="language-plaintext highlighter-rouge">DataSource</code> 구현체(HikariCP)로부터 <code class="language-plaintext highlighter-rouge">Connection</code> 을 얻었음을 상기하여, 이 <strong>ConnectionFactory</strong> 또한 <code class="language-plaintext highlighter-rouge">DataSource</code> 역할을 하고 있다고 보면 되겠다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">DataSource</code> 즉, <code class="language-plaintext highlighter-rouge">ConnectionFactory</code> 를 가져오기 전에 할 것은 바로 세팅이다. 다음과 같이 세팅할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">R2dbcMysqlConfig</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">ConnectionFactoryOptions</span> <span class="n">config</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">R2dbcMysqlConfig</span><span class="o">(</span><span class="nc">String</span> <span class="n">user</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">config</span> <span class="o">=</span> <span class="nc">ConnectionFactoryOptions</span>
+				<span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">option</span><span class="o">(</span><span class="nc">ConnectionFactoryOptions</span><span class="o">.</span><span class="na">DRIVER</span><span class="o">,</span> <span class="s">"mysql"</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="nc">ConnectionFactoryOptions</span><span class="o">.</span><span class="na">HOST</span><span class="o">,</span> <span class="s">"localhost"</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="nc">ConnectionFactoryOptions</span><span class="o">.</span><span class="na">PORT</span><span class="o">,</span> <span class="mi">3306</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="nc">ConnectionFactoryOptions</span><span class="o">.</span><span class="na">USER</span><span class="o">,</span> <span class="n">user</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="nc">ConnectionFactoryOptions</span><span class="o">.</span><span class="na">PASSWORD</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="nc">ConnectionFactoryOptions</span><span class="o">.</span><span class="na">DATABASE</span><span class="o">,</span> <span class="s">"librarydb"</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">build</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">ConnectionFactoryOptions</span> <span class="nf">getConfig</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">config</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 위를 사용하여 <code class="language-plaintext highlighter-rouge">ConnectionFactory</code> 세팅을 해주자.</p>
+
+<p><img src="/seonghun120614/assets/img/connection-factories-get.png" alt="assets/img/connection-factories-get.png" /></p>
+
+<p>위와 같이 두 개가 있는 것을 볼 수 있는데 필자는 아래 것을 선택했다.</p>
+
+<blockquote>
+  <p>첫 번째는 다음과 같이 선언하면 된다.<br />
+<code class="language-plaintext highlighter-rouge">r2dbc:driver[:protocol]}://[user:password@]host[:port][/path][?option=value]</code></p>
+</blockquote>
+
+<h5 id="connectionfactory-인터페이스">ConnectionFactory 인터페이스</h5>
+
+<p>아래는 <code class="language-plaintext highlighter-rouge">ConnectionFactory</code> 의 인터페이스이다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConnectionFactory</span> <span class="o">{</span>
+    <span class="nc">Publisher</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">Connection</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">();</span>
+    <span class="nc">ConnectionFactoryMetadata</span> <span class="nf">getMetadata</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>실제로 <code class="language-plaintext highlighter-rouge">create()</code> 는 <code class="language-plaintext highlighter-rouge">Publisher</code> 형태로 반환함을 볼 수 있다. <code class="language-plaintext highlighter-rouge">Publisher</code> 는 <code class="language-plaintext highlighter-rouge">Mono</code> 나 <code class="language-plaintext highlighter-rouge">Flux</code> 의 구현을 따라가다 보면 최상위 부모에 <code class="language-plaintext highlighter-rouge">Publisher</code> 가 있음을 볼 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Publisher</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">subscribe</span><span class="o">(</span><span class="nc">Subscriber</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">T</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>즉, <code class="language-plaintext highlighter-rouge">create()</code> 메서드는 즉시 <code class="language-plaintext highlighter-rouge">Connection</code> 을 반환하지 않고, 비동기 데이터 흐름 기능을 주는 <code class="language-plaintext highlighter-rouge">Publisher</code> 형태로 비동기로 커넥션을 주는 것을 볼 수 있다. 따라서 실제 커넥션은 <code class="language-plaintext highlighter-rouge">subscribe()</code> 가 일어날 때 만들어지게 된다.</p>
+
+<p>다음과 같이 <code class="language-plaintext highlighter-rouge">ConnectionFactory</code> 의 <code class="language-plaintext highlighter-rouge">create()</code> 를 사용해 <code class="language-plaintext highlighter-rouge">Mono&lt;Connection&gt;</code> 을 받도록 하자:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">R2dbcConnectionFactory</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="nf">R2dbcConnectionFactory</span><span class="o">()</span> <span class="o">{</span> <span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">Connection</span><span class="o">&gt;</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="nc">Holder</span><span class="o">.</span><span class="na">instance</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+	<span class="o">}</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Holder</span> <span class="o">{</span>
+		<span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="nc">R2dbcMysqlConfig</span> <span class="no">CONFIG</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">R2dbcMysqlConfig</span><span class="o">(</span><span class="s">"likelion"</span><span class="o">,</span> <span class="s">"1234"</span><span class="o">);</span>
+		<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ConnectionFactory</span> <span class="n">instance</span> <span class="o">=</span> <span class="nc">ConnectionFactories</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="no">CONFIG</span><span class="o">.</span><span class="na">getConfig</span><span class="o">());</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>필자는 그냥 <code class="language-plaintext highlighter-rouge">Singleton</code> 패턴을 사용하였지만, 다른 더 나은 코드가 있다면 그것을 쓰길 바란다.</p>
+
+<h5 id="connection">Connection</h5>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">UserRepository</code> 에 <code class="language-plaintext highlighter-rouge">create</code> 를 간단히 구현해보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">createUser</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">getConnection</span><span class="o">().</span><span class="na">flatMap</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">getConnection()</code> 으로 간단히 <code class="language-plaintext highlighter-rouge">Connection</code> 을 들고 올 수 있다. 이때 커넥션을 하나 생성했다는 것은 우리가 스레드 자원 하나를 얻은 것과 같다. 따라서 작업이 끝나면 이를 닫아줘야 하는데, <code class="language-plaintext highlighter-rouge">Mono</code>, <code class="language-plaintext highlighter-rouge">Flux</code> 에는 method chaining 을 하면서 내부 T 라는 타입에 접근하여 <code class="language-plaintext highlighter-rouge">close()</code> 를 <code class="language-plaintext highlighter-rouge">map</code> 으로 할 수 있긴 한데,</p>
+
+<p>그거 보단 다음 더 안전한 <code class="language-plaintext highlighter-rouge">usingWhen</code> 혹은 <code class="language-plaintext highlighter-rouge">using</code>, <code class="language-plaintext highlighter-rouge">when</code> 등등 다양한 메서드를 이용할 수 있다.</p>
+
+<p><strong>usingWhen</strong></p>
+
+<p>Reactive Streams 환경에서 리소스를 안전하게 열고, 사용하고, 닫는 것을 보장하는 메서드이다. <code class="language-plaintext highlighter-rouge">Mono.usingWhen()</code> 은 리소스를 비동기적으로 관리하는 <code class="language-plaintext highlighter-rouge">try-with-resources</code> 의 Reactive 버전이다. 리소스를 <code class="language-plaintext highlighter-rouge">Publisher</code>(<code class="language-plaintext highlighter-rouge">Mono&lt;Connection&gt;</code>) 로부터 사용한 뒤, 성공/실패/취소 야부에 상관없이 자동으로 정리하게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">D</span><span class="o">&gt;</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">usingWhen</span><span class="o">(</span><span class="nc">Publisher</span><span class="o">&lt;</span><span class="no">D</span><span class="o">&gt;</span> <span class="n">resourceSupplier</span><span class="o">,</span>
+        <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">D</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="nc">Mono</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="no">T</span><span class="o">&gt;&gt;</span> <span class="n">resourceClosure</span><span class="o">,</span>
+        <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">D</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="nc">Publisher</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">asyncComplete</span><span class="o">,</span>
+        <span class="nc">BiFunction</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">D</span><span class="o">,</span> <span class="o">?</span> <span class="kd">super</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="nc">Publisher</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">asyncError</span><span class="o">,</span>
+        <span class="c1">//the operator itself accepts null for asyncCancel, but we won't in the public API</span>
+        <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">D</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="nc">Publisher</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">asyncCancel</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">onAssembly</span><span class="o">(</span><span class="k">new</span> <span class="nc">MonoUsingWhen</span><span class="o">&lt;&gt;(</span><span class="n">resourceSupplier</span><span class="o">,</span> <span class="n">resourceClosure</span><span class="o">,</span>
+            <span class="n">asyncComplete</span><span class="o">,</span> <span class="n">asyncError</span><span class="o">,</span> <span class="n">asyncCancel</span><span class="o">));</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이를 간단하게 말하면 다음과 같다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+    <span class="n">getConnection</span><span class="o">(),</span>
+    <span class="n">conn</span> <span class="o">-&gt;</span> <span class="n">doQuery</span><span class="o">(</span><span class="n">conn</span><span class="o">),</span>
+    <span class="n">conn</span> <span class="o">-&gt;</span> <span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">(),</span>                <span class="c1">// 정상 종료 시</span>
+    <span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">err</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">(),</span>         <span class="c1">// 에러 발생 시</span>
+    <span class="n">conn</span> <span class="o">-&gt;</span> <span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">()</span>                 <span class="c1">// 취소 시</span>
+<span class="o">);</span></code></pre></figure>
+
+<p>하지만 위와 같이 인자들을 통해 세부적으로 동작을 제어할 수 있지만, 이는 너무 해야할게 많다. 다음을 보자.</p>
+
+<p><strong>usingWhen</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">D</span><span class="o">&gt;</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">usingWhen</span><span class="o">(</span>
+        <span class="nc">Publisher</span><span class="o">&lt;</span><span class="no">D</span><span class="o">&gt;</span> <span class="n">resourceSupplier</span><span class="o">,</span>
+        <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">D</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="nc">Mono</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="no">T</span><span class="o">&gt;&gt;</span> <span class="n">resourceClosure</span><span class="o">,</span>
+        <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">D</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="nc">Publisher</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">asyncCleanup</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">usingWhen</span><span class="o">(</span>
+        <span class="n">resourceSupplier</span><span class="o">,</span>
+        <span class="n">resourceClosure</span><span class="o">,</span>
+        <span class="n">asyncCleanup</span><span class="o">,</span>
+        <span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">error</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">asyncCleanup</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">res</span><span class="o">),</span>
+        <span class="n">asyncCleanup</span>
+    <span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>뭐든 간에 <strong>정상, 에러, 취소</strong>에서 <code class="language-plaintext highlighter-rouge">asyncCleanup</code> 을 할 수 있는 버전이며, 3가지 인자만 넘겨주면 된다. 이때 <code class="language-plaintext highlighter-rouge">resourceClosure</code>는 <code class="language-plaintext highlighter-rouge">Closable</code> 을 구현하면 좋을 것이다.</p>
+
+<p>이제 다음과 같이 쓸 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserRepository</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">createUser</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+				<span class="n">getConnection</span><span class="o">(),</span>
+				<span class="n">conn</span> <span class="o">-&gt;</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">from</span><span class="o">(</span>
+						            <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="s">"INSERT INTO USERS(name, active) VALUES (?, ?)"</span><span class="o">)</span>
+						                <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+						                <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+						                <span class="o">.</span><span class="na">returnGeneratedValues</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span>
+						                <span class="o">.</span><span class="na">execute</span><span class="o">()),</span>
+				<span class="nl">Connection:</span><span class="o">:</span><span class="n">close</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이때 <code class="language-plaintext highlighter-rouge">Connection</code> 에서 create 하는 <code class="language-plaintext highlighter-rouge">Statement</code> 는 JDBC 의 <code class="language-plaintext highlighter-rouge">Statement</code> 와는 다른 아이다(<code class="language-plaintext highlighter-rouge">io.r2dbc.spi</code>).</p>
+
+<h5 id="statement">Statement</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">add()</code>: 현재 바인딩 상태를 저장하고, 새 바인딩을 시작</li>
+  <li><code class="language-plaintext highlighter-rouge">bind(int index, Object value)</code>: 인덱스로 파라미터 바인딩(<code class="language-plaintext highlighter-rouge">?</code>), 0 부터 시작하며, <code class="language-plaintext highlighter-rouge">value</code> 는 <code class="language-plaintext highlighter-rouge">null</code> 이 되면 안됨</li>
+  <li><code class="language-plaintext highlighter-rouge">bind(String name, Object value)</code>: 이름 기반 파라미터 바인딩이며, <code class="language-plaintext highlighter-rouge">:name</code> 과 같은 <code class="language-plaintext highlighter-rouge">JPQL</code> 과 유사하게 사용 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">bindNull(int index, Class&lt;?&gt; type)</code>: 인덱스 기반으로 <code class="language-plaintext highlighter-rouge">null</code> 값 바인딩. <code class="language-plaintext highlighter-rouge">type</code> 으로 타입 명시</li>
+  <li><code class="language-plaintext highlighter-rouge">bindNull(String name, Class&lt;?&gt; type)</code>: 동일</li>
+  <li><code class="language-plaintext highlighter-rouge">execute()</code>: 실제 SQL 실행 후, <code class="language-plaintext highlighter-rouge">Publisher&lt;Result&gt;</code> 를 반환한다, reactive 방식이다.</li>
+  <li><code class="language-plaintext highlighter-rouge">returnGeneratedValues(String... columns)</code>: <code class="language-plaintext highlighter-rouge">INSERT</code> 시에 생성된 키(<code class="language-plaintext highlighter-rouge">AUTO_INCREMENT</code>) 를 결과에 포함하도록 설정한다. 기본적으로는 <code class="language-plaintext highlighter-rouge">no-op</code> 이지만, 아무런 인자 없이(columns 없이) 명시적으로 이 체이닝만 넣어도 자동 동작하여 키를 들고 온다.</li>
+  <li><code class="language-plaintext highlighter-rouge">fetchSize(int rows)</code>: 한 번에 가져올 row 수를 설정한다.</li>
+</ul>
+
+<p>이를 통해 다음처럼 입력 가능하다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+            <span class="n">getConnection</span><span class="o">(),</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+                    <span class="nc">Flux</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="s">"INSERT INTO USERS(NAME, ACTIVE) VALUES (?, ?)"</span><span class="o">)</span>
+                                    <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+                                    <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">isActive</span><span class="o">())</span>
+                                    <span class="o">.</span><span class="na">returnGeneratedValues</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span>
+                                    <span class="o">.</span><span class="na">execute</span><span class="o">())</span>
+                        <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">result</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">row</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                                <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">row</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="nc">Long</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+                                <span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+                            <span class="o">});</span>
+                        <span class="o">})</span>
+                        <span class="o">.</span><span class="na">next</span><span class="o">(),</span>
+            <span class="nl">Connection:</span><span class="o">:</span><span class="n">close</span>
+    <span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>마지막 반환값이 <code class="language-plaintext highlighter-rouge">Mono&lt;Publisher&lt;? extends Result&gt;&gt;</code> 이며 이를 평탄화 하기 위해 <code class="language-plaintext highlighter-rouge">flatMap</code> 을 통해 할 수 있다(<code class="language-plaintext highlighter-rouge">Publisher</code> 평탄화). 그 이후는 <code class="language-plaintext highlighter-rouge">Mono&lt;User&gt;</code> 로 반환이 되게 된다.</p>
+
+<h5 id="row">Row</h5>
+
+<p>DB 의 한 행을 표현하는 인터페이스이며, 내부적으로 <code class="language-plaintext highlighter-rouge">row.get("name")</code> 또는 <code class="language-plaintext highlighter-rouge">row.get(0)</code> 으로 가져올 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Row</span> <span class="kd">extends</span> <span class="nc">Readable</span> <span class="o">{</span>
+    <span class="nc">RowMetadata</span> <span class="nf">getMetadata</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>사실은 이런 get 은 <code class="language-plaintext highlighter-rouge">Readable</code> 에 정의되어 있다. 또한, <code class="language-plaintext highlighter-rouge">get(String name, Class&lt;?&gt; type)</code> 으로도 가져올 수 있다. 특징으로는 한 번 <code class="language-plaintext highlighter-rouge">map()</code> 안에서 소비되면 다시 접근이 불가하다.</p>
+
+<p>이제 row 를 통해 위와 같이 반환해주면 끝나고, <code class="language-plaintext highlighter-rouge">Main</code> 에서 실제 호출을 해보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+		<span class="nc">UserRepository</span> <span class="n">userRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UserRepository</span><span class="o">();</span>
+		<span class="n">userRepository</span><span class="o">.</span><span class="na">createUser</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"test"</span><span class="o">,</span> <span class="kc">true</span><span class="o">))</span>
+		              <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+		<span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>반드시 <code class="language-plaintext highlighter-rouge">subscribe</code> 를 하여야지 실행이 되게 되고, <code class="language-plaintext highlighter-rouge">Thread.sleep(1000)</code> 을 넣는 이유는 <strong>유사</strong> <code class="language-plaintext highlighter-rouge">graceful shutdown</code> 을 사용하도록 해야한다. 안그러면 처리되는 와중에 종료가 되어 값이 반영이 안되게 된다. <code class="language-plaintext highlighter-rouge">createUser</code> 만 하면 비동기이기 때문에 실행이 안된다.</p>
+
+<p><img src="/seonghun120614/assets/img/r2dbc-users-table.png" alt="assets/img/r2dbc-users-table.png" /></p>
+
+<h5 id="crud-실습">CRUD 실습</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserRepository</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+				<span class="n">getConnection</span><span class="o">(),</span> <span class="n">conn</span> <span class="o">-&gt;</span>
+						<span class="nc">Flux</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="s">"INSERT INTO USERS(NAME, ACTIVE) VALUES (?, ?)"</span><span class="o">)</span>
+						              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+						              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">isActive</span><span class="o">())</span>
+						              <span class="o">.</span><span class="na">returnGeneratedValues</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span>
+						              <span class="o">.</span><span class="na">execute</span><span class="o">())</span>
+						    <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">result</span> <span class="o">-&gt;</span> <span class="o">{</span>
+							    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">row</span> <span class="o">-&gt;</span> <span class="o">{</span>
+								    <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">row</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="nc">Long</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+								    <span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+							    <span class="o">});</span>
+						    <span class="o">})</span>
+						    <span class="o">.</span><span class="na">next</span><span class="o">(),</span>
+				<span class="nl">Connection:</span><span class="o">:</span><span class="n">close</span>
+		<span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">get</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+				<span class="n">getConnection</span><span class="o">(),</span>
+				<span class="n">conn</span> <span class="o">-&gt;</span>
+						<span class="nc">Flux</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="s">"SELECT * FROM USERS WHERE id = ?"</span><span class="o">)</span>
+						              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span>
+						              <span class="o">.</span><span class="na">execute</span><span class="o">()</span>
+						    <span class="o">).</span><span class="na">flatMap</span><span class="o">(</span><span class="n">result</span> <span class="o">-&gt;</span> <span class="o">{</span>
+							    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">row</span> <span class="o">-&gt;</span> <span class="o">{</span>
+								    <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="n">row</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+								                         <span class="n">row</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"active"</span><span class="o">,</span> <span class="nc">Boolean</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+								    <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+								    <span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+							    <span class="o">});</span>
+						    <span class="o">})</span>
+						    <span class="o">.</span><span class="na">next</span><span class="o">(),</span>
+				<span class="nl">Connection:</span><span class="o">:</span><span class="n">close</span>
+		<span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">update</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">,</span>
+	                         <span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+				<span class="n">getConnection</span><span class="o">(),</span>
+				<span class="n">conn</span> <span class="o">-&gt;</span>
+						<span class="nc">Flux</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="s">"UPDATE USERS SET name = ?, active = ? WHERE id = ?"</span><span class="o">)</span>
+						              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+						              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">isActive</span><span class="o">())</span>
+						              <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span>
+						              <span class="o">.</span><span class="na">execute</span><span class="o">()</span>
+						    <span class="o">)</span>
+						    <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="nl">Result:</span><span class="o">:</span><span class="n">getRowsUpdated</span><span class="o">)</span>
+						    <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">rowsUpdated</span> <span class="o">-&gt;</span> <span class="o">{</span>
+							    <span class="k">if</span> <span class="o">(</span><span class="n">rowsUpdated</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
+							    <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+							    <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+						    <span class="o">}).</span><span class="na">next</span><span class="o">(),</span>
+				<span class="nl">Connection:</span><span class="o">:</span><span class="n">close</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="nf">delete</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">usingWhen</span><span class="o">(</span>
+				           <span class="n">getConnection</span><span class="o">(),</span>
+				           <span class="n">conn</span> <span class="o">-&gt;</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">conn</span>
+						                             <span class="o">.</span><span class="na">createStatement</span><span class="o">(</span><span class="s">"DELETE FROM USERS WHERE ID = ?"</span><span class="o">)</span>
+						                             <span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">id</span><span class="o">)</span>
+						                             <span class="o">.</span><span class="na">execute</span><span class="o">()),</span>
+				           <span class="nl">Connection:</span><span class="o">:</span><span class="n">close</span><span class="o">)</span>
+		           <span class="o">.</span><span class="na">then</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이를 사용할 때는 다음과 같이 사용해야 한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+		<span class="nc">UserRepository</span> <span class="n">userRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UserRepository</span><span class="o">();</span>
+
+		<span class="nc">User</span> <span class="n">newUser</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"test"</span><span class="o">,</span> <span class="kc">true</span><span class="o">))</span>
+		              <span class="o">.</span><span class="na">block</span><span class="o">();</span>
+
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"new user: "</span> <span class="o">+</span> <span class="n">newUser</span><span class="o">);</span>
+
+		<span class="n">userRepository</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">4L</span><span class="o">)</span>
+		              <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"get user: "</span> <span class="o">+</span> <span class="n">user</span><span class="o">));</span>
+		<span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+
+		<span class="nc">User</span> <span class="n">updatedUser</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">4L</span><span class="o">,</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"test2"</span><span class="o">,</span> <span class="kc">false</span><span class="o">))</span>
+		                                 <span class="o">.</span><span class="na">block</span><span class="o">();</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"updated user: "</span> <span class="o">+</span> <span class="n">updatedUser</span><span class="o">);</span>
+
+		<span class="n">userRepository</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="mi">4L</span><span class="o">).</span><span class="na">subscribe</span><span class="o">();</span>
+		<span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이때 저장되는게 <code class="language-plaintext highlighter-rouge">4L</code> 일 때 바로 조회하면 뜨지 않는다(비동기 처리이기 때문에 바로 조회를 하면 안뜸). 따라서 <code class="language-plaintext highlighter-rouge">Thread.sleep</code> 을 사용하여 가져올 때까지 기다려줘야 한다.</p>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/10/30/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-47%EC%9D%BC%EC%B0%A8-reactive-programming.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 48일차 Spring Core AOP</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 48일차 Spring Core AOP | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 48일차 Spring Core AOP" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-03T13:45:28+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 48일차 Spring Core AOP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-11-03T13:45:28+00:00","datePublished":"2025-11-03T13:45:28+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 48일차 Spring Core AOP","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 48일차 Spring Core AOP</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Nov 3, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+
+<ul>
+  <li><a href="#spring-aop">Spring AOP</a>
+    <ul>
+      <li><a href="#aop-개념">AOP 개념</a>
+        <ul>
+          <li><a href="#aspect">Aspect</a></li>
+          <li><a href="#join-point">Join Point</a></li>
+          <li><a href="#pointcut">Pointcut</a></li>
+          <li><a href="#advice">Advice</a></li>
+          <li><a href="#weaving">Weaving</a></li>
+        </ul>
+      </li>
+      <li><a href="#spring-aop-동작-방식">Spring AOP 동작 방식</a>
+        <ul>
+          <li><a href="#프록시-기반-aop">프록시 기반 AOP</a></li>
+          <li><a href="#jdk-dynamic-proxy">JDK Dynamic Proxy</a></li>
+          <li><a href="#cglib-proxy">CGLIB Proxy</a></li>
+        </ul>
+      </li>
+      <li><a href="#aop-적용-방법">AOP 적용 방법</a>
+        <ul>
+          <li><a href="#aspect-어노테이션">@Aspect 어노테이션</a></li>
+          <li><a href="#enableaspectautoproxy">@EnableAspectJAutoProxy</a></li>
+        </ul>
+      </li>
+      <li><a href="#advice-종류별-예제">Adivce 종류별 예제</a>
+        <ul>
+          <li><a href="#before">@Before</a></li>
+          <li><a href="#after">@After</a></li>
+          <li><a href="#afterreturning">@AfterReturning</a></li>
+          <li><a href="#afterthrowing">@AfterThrowing</a></li>
+          <li><a href="#around">@Around</a></li>
+        </ul>
+      </li>
+      <li><a href="#pointcut-표현식">Pointcut 표현식</a>
+        <ul>
+          <li><a href="#execution">execution()</a></li>
+          <li><a href="#within-this-target-args">within, this, target, args</a></li>
+          <li><a href="#복합-표현식">복합 표현식</a></li>
+        </ul>
+      </li>
+      <li><a href="#실습">실습</a>
+        <ul>
+          <li><a href="#logging-aop">Logging AOP</a></li>
+          <li><a href="#transaction-aop">Transaction AOP</a></li>
+          <li><a href="#security-aop">Security AOP</a></li>
+        </ul>
+      </li>
+      <li><a href="#aop-와-proxy-의-한계">AOP 와 Proxy 의 한계</a>
+        <ul>
+          <li><a href="#내부-호출-문제">내부 호출 문제</a></li>
+          <li><a href="#프록시-방식의-한계">프록시 방식의 한계</a></li>
+        </ul>
+      </li>
+      <li><a href="#spring-boot-에서-aop-사용-시-주의점">Spring Boot 에서 AOP 사용 시 주의점</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="spring-aop">Spring AOP</h3>
+
+<p><img src="/seonghun120614/assets/img/cross-cutting-concerns.webp" alt="assets/img/cross-cutting-concerns.webp" /></p>
+
+<h4 id="aop-개념">AOP 개념</h4>
+
+<p>횡단 관심사(cross-cutting-concern) 를 모듈화한 단위이며, 로깅, 트랜잭션, 보안 등등이 그 단위이다. 이러한 관심사를 하나로 묶어서 관리하는게 AOP 이다.</p>
+
+<h5 id="aspect">Aspect</h5>
+
+<p>Spring 에서 <code class="language-plaintext highlighter-rouge">Aspect</code> 는 보통 <code class="language-plaintext highlighter-rouge">@Aspect</code> 로 표시된 클래스 형태로 만들어지며, 여러 서비스에 동일하게 찍히는 로깅 코드를 그냥 반복하지 말고 <code class="language-plaintext highlighter-rouge">Aspect</code> 로 빼내도록 할 수 있다.</p>
+
+<blockquote>
+  <p>Aspect 는 클래스 수준의 어노테이션</p>
+</blockquote>
+
+<h5 id="join-point">Join Point</h5>
+
+<p>코드 실행 중에 <code class="language-plaintext highlighter-rouge">Aspect</code> 가 <strong>끼어들 수 있는 지점</strong>을 말한다.</p>
+
+<p>스프링 AOP 에서는 주로 <strong>메서드 실행</strong> 이 그 지점이며 비즈니스 메서드가 호출될 때 그 지점이 될 수도 있다. 보통은 우리가 관심을 갖는 <strong>로깅/트랜잭션/보안은 메서드 진입, 종료 지점</strong>이라서 <code class="language-plaintext highlighter-rouge">JoinPoint</code> 가 <strong>메서드 호출로 한정되며, 이를 알고 설계하면 복잡도가 줄어들 수 있다.</strong></p>
+
+<h5 id="pointcut">Pointcut</h5>
+
+<p>어느 <code class="language-plaintext highlighter-rouge">Join Point</code> 들에 <code class="language-plaintext highlighter-rouge">Advice</code> 를 적용할 지를 <strong>선택하는 필터(Predicate)</strong> 이며, 특정 메서드 호출들에 대해서만 이 <code class="language-plaintext highlighter-rouge">Aspect</code> 를 적용할 수 있게 정의한다.</p>
+
+<p>스프링에서는 <strong>AspectJ</strong> 스타일의 포인트컷 표현식(<code class="language-plaintext highlighter-rouge">Pointcut Expression</code>) 을 사용하게 된다.</p>
+
+<h5 id="advice">Advice</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Aspect</code> 가 실제로 실행하는 행위(action) 이며, 특정 <code class="language-plaintext highlighter-rouge">Join Point</code> 에서 이렇게 하라 저렇게 하라 할 수 있는 행위 정의서이다. 이 후에 나오겠지만 <code class="language-plaintext highlighter-rouge">Before</code>, After Returning, After Throwing, After, Around 등등이 있다.</p>
+
+<h5 id="weaving">Weaving</h5>
+
+<p><strong>Aspect(= Advice + Pointcut)</strong> 를 실제 객체에 linking 하는 동작이며 설계한 <code class="language-plaintext highlighter-rouge">Aspect</code> 로직이 실제 타겟 객체의 Join Point 에 끼워지는 과정이다.</p>
+
+<h4 id="spring-aop-동작-방식">Spring AOP 동작 방식</h4>
+
+<p>Spring AOP 는 위 개념들을 토대로 실제 런타임에 프록시 객체(<code class="language-plaintext highlighter-rouge">Proxy Object</code>) 를 만들어서 원래의 객체 메서드를 감싸고(<code class="language-plaintext highlighter-rouge">Weaving</code>) 메서드 실행 전후로 부가 기능(<code class="language-plaintext highlighter-rouge">Advice</code>)을 끼워넣는 방식으로 동작한다.</p>
+
+<h5 id="프록시-기반-aop">프록시 기반 AOP</h5>
+
+<p>스프링은 AOP 를 컴파일 시점이 아니라 런타임에 적용하게 되는데, 즉 Target Object 를 감싸는 프록시를 생성하여 AOP 기능을 수행한다. 프록시는 타겟 객체 대신 호출을 받아 메서드 실행 전/후/예외 발생 시점에 등록된 Advice 를 실행하고, 그 다음 실제 로직을 실행하게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">클라이언트
+   ↓
+프록시(Proxy) — Advice 적용 (ex. 로깅, 트랜잭션)
+   ↓
+실제 대상(Target Object)</code></pre></figure>
+
+<h5 id="jdk-dynamic-proxy">JDK Dynamic Proxy</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Spring AOP</code> 는 기본적으로 프록시 기반으로 동작한다. 이 중 JDK Dynamic Proxy 는 인터페이스가 존재하는 클래스의 경우 Java 표준 라이브러리(<code class="language-plaintext highlighter-rouge">java.lang.reflect.Proxy</code>)를 사용해 런타임 프록시 객체를 생성한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Service</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">serve</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">RealService</span> <span class="kd">implements</span> <span class="nc">Service</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Real service logic"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nc">Service</span> <span class="n">proxy</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Service</span><span class="o">)</span> <span class="nc">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span>
+    <span class="nc">Service</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">(),</span>
+    <span class="k">new</span> <span class="nc">Class</span><span class="o">[]</span> <span class="o">{</span> <span class="nc">Service</span><span class="o">.</span><span class="na">class</span> <span class="o">},</span>
+    <span class="o">(</span><span class="n">proxyObj</span><span class="o">,</span> <span class="n">method</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Before advice"</span><span class="o">);</span>
+        <span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="k">new</span> <span class="nc">RealService</span><span class="o">(),</span> <span class="n">args</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"After advice"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">);</span></code></pre></figure>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">Class&lt;?&gt;.getClassLoader()</code> 는 Class 객체의 메서드로 <code class="language-plaintext highlighter-rouge">getClassLoader()</code> 를 호출할 수 있는데 해당 클래스를 로딩했던 클래스 로더를 반환하게 된다. 보통 대부분 <code class="language-plaintext highlighter-rouge">AppClassLoader</code> 로 로딩되기 때문에 이를 들고오게 될 것이다.</p>
+
+<p>두번째 인자로는 어떤 인터페이스를 구현할 것인지 그 인터페이스 목록을 지정하게 된다. 프록시는 인터페이스 기반으로 동작하기 때문에 어떤 인터페이스를 프록시가 흉내낼 지를 지정해야한다.</p>
+
+<p>마지막으로는 람다식으로 <code class="language-plaintext highlighter-rouge">InvocationHandler</code> 의 내부적으로 <code class="language-plaintext highlighter-rouge">invoke()</code> 를 실행할 수 있는 method 가 있다. <code class="language-plaintext highlighter-rouge">JDK Proxy</code> 는 프록시 된 객체의 메서드가 호출될 때마다 이 핸들러의 <code class="language-plaintext highlighter-rouge">invoke()</code> 메서드를 실행한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">new</span> <span class="nc">InvocationHandler</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="nc">Object</span> <span class="n">proxyObj</span><span class="o">,</span> <span class="nc">Method</span> <span class="n">method</span><span class="o">,</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Before advice"</span><span class="o">);</span>
+        <span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="k">new</span> <span class="nc">RealService</span><span class="o">(),</span> <span class="n">args</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"After advice"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>람다식 내부의 구조는 메서드 호출 전후로 로직을 삽입하므로, <code class="language-plaintext highlighter-rouge">@Around</code> 어드바이스의 동작 원리를 단순화 해 직접 구현한 형태라고 볼 수 있다.</p>
+
+<blockquote>
+  <p>스프링에서는 <code class="language-plaintext highlighter-rouge">@Aspect</code> 가 붙은 <code class="language-plaintext highlighter-rouge">Advice</code> 들을 이런 방식으로 자동으로 연결해준다. 단, 대상 클래스가 반드시 인터페이스를 구현해야 <code class="language-plaintext highlighter-rouge">JDK Proxy</code> 를 쓸 수 있고 인터페이스가 없을 경우에는 <code class="language-plaintext highlighter-rouge">Spring</code> 이 자동으로 <code class="language-plaintext highlighter-rouge">CGLIB</code> 을 사용하여 클래스 기반 프록시를 생성한다.</p>
+</blockquote>
+
+<h5 id="cglib-proxy">CGLIB Proxy</h5>
+
+<p>대상 클래스가 인터페이스를 구현하지 않은 경우에 사용되며, 클래스를 상속(subclassing) 하여 프록시 객체를 만든다. 내부적으로는 바이트 코드를 조작하여 프록시 클래스를 동적으로 생성하게 된다(<code class="language-plaintext highlighter-rouge">RealService</code> 를 상속한 <code class="language-plaintext highlighter-rouge">RealService$$EnhancerBySpringCGLIB</code> 같은 클래스가 만들어짐) <code class="language-plaintext highlighter-rouge">CGLIB</code> 은 ASM 기반으로 동작하며, <code class="language-plaintext highlighter-rouge">final</code> 메서드나 <code class="language-plaintext highlighter-rouge">final</code> 클래스는 프록시가 불가하다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">클래스</span> <span class="nc">RealService</span>
+   <span class="err">↓</span>
+<span class="no">CGLIB</span> <span class="nc">Enhancer</span> <span class="n">가</span> <span class="n">서브클래스</span> <span class="n">생성</span> <span class="o">(</span><span class="nc">RealService</span><span class="err">$</span><span class="n">$EnhancerBySpringCGLIB</span><span class="o">)</span>
+   <span class="err">↓</span>
+<span class="nc">Advice</span> <span class="n">적용</span> <span class="o">(</span><span class="n">ex</span><span class="o">.</span> <span class="nd">@Before</span><span class="o">,</span> <span class="nd">@Around</span> <span class="n">등</span><span class="o">)</span></code></pre></figure>
+
+<h4 id="aop-적용-방법">AOP 적용 방법</h4>
+
+<p>이제 활용해보자.</p>
+
+<h5 id="aspect-어노테이션">@Aspect 어노테이션</h5>
+
+<p><code class="language-plaintext highlighter-rouge">@Aspect</code> 는 <code class="language-plaintext highlighter-rouge">Pointcut</code> + <code class="language-plaintext highlighter-rouge">Advice</code> 를 결합한 형태로 이 클래스가 AOP 의 핵심 단위인 <code class="language-plaintext highlighter-rouge">Aspect</code> 임을 명시하게 된다. 이때 <code class="language-plaintext highlighter-rouge">@Aspect</code> 만 한다면 그냥 단순히 이는 <code class="language-plaintext highlighter-rouge">Aspect</code> 라고 표시만 할 뿐, AOP 가 실젤 동작하려면 스프링이 이 클래스를 빈으로 관리하도록 해야하므로 <code class="language-plaintext highlighter-rouge">@Component</code> 나 <code class="language-plaintext highlighter-rouge">@Bean</code> 을 통해 등록해줘야 한다.</p>
+
+<p><strong>주요 메서드들</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Before</code>: 메서드 실행 전 동작</li>
+  <li><code class="language-plaintext highlighter-rouge">@After</code>: 메서드 실행 후 무조건 동작</li>
+  <li><code class="language-plaintext highlighter-rouge">@AfterReturning</code>: 정상 리턴 시만 동작</li>
+  <li><code class="language-plaintext highlighter-rouge">@AfterThrowing</code>: 예외 발생 시 동작</li>
+  <li><code class="language-plaintext highlighter-rouge">@Around</code>: 메서드 전후 제어 가능</li>
+</ul>
+
+<p>코드는 이따가 보자.</p>
+
+<h5 id="enableaspectjautoproxy">@EnableAspectJAutoProxy</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.EnableAspectJAutoProxy</span><span class="o">;</span></code></pre></figure>
+
+<p>스프링 AOP 기능을 활성화하는 스위치 역할을 하며, <code class="language-plaintext highlighter-rouge">@Aspect</code> 로 정의한 클래스를 실제 프록시로 연결할 수 있게 한다. 내부적으로 <code class="language-plaintext highlighter-rouge">AnnotationAwareAspectJAutoProxyCreator</code> 빈을 등록하여, 모든 빈을 스캔하며 AOP 설정이 있으면 자동으로 프록시 객체를 생성해준다.</p>
+
+<p>Spring Boot 에는 <code class="language-plaintext highlighter-rouge">AutoConfiguration</code> 기능이 있기에 자동으로 AOP 관련 설정을 포함하는 <code class="language-plaintext highlighter-rouge">AopAutoConfiguration</code> 클래스를 로딩시켜서 굳이 어노테이션을 추가하지 않아도 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span><span class="o">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="nd">@ConditionalOnClass</span><span class="o">({</span> <span class="nc">EnableAspectJAutoProxy</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Aspect</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="nd">@ConditionalOnProperty</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"spring.aop"</span><span class="o">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"auto"</span><span class="o">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">"true"</span><span class="o">,</span> <span class="n">matchIfMissing</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="nd">@EnableAspectJAutoProxy</span><span class="o">(</span><span class="n">proxyTargetClass</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AopAutoConfiguration</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="advice-종류별-예제">Advice 종류별 예제</h4>
+
+<h5 id="before">@Before</h5>
+
+<p>실행 시점은 대상 메서드 실행 전이며, 입력값 검증, 권한 체크, 로깅 시작 등등의 기능으로서 사용할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingAspect</span> <span class="o">{</span>
+
+    <span class="c1">// service 패키지의 모든 메서드 실행 전에 동작</span>
+    <span class="nd">@Before</span><span class="o">(</span><span class="s">"execution(* com.example.service..*(..))"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeAdvice</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[Before] 실행 메서드: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p>JoinPoint 객체를 통해 실행된 메서드 명, 인자 값 등 메타데이터 접근이 가능하다. before 안에 들어가는 pointcut 표현식은 이따가 본다.</p>
+</blockquote>
+
+<h5 id="after">@After</h5>
+
+<p>대상 메서드 실행 후 수행되며, 리소스 해제, 로그 마무리, 공통 후처리 등의 기능을 수행하도록 할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingAspect</span> <span class="o">{</span>
+
+    <span class="nd">@After</span><span class="o">(</span><span class="s">"execution(* com.example.service..*(..))"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterAdvice</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[After] 메서드 종료: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p>예외가 발생되어도 이는 실행된다.</p>
+</blockquote>
+
+<h5 id="afterreturning">@AfterReturning</h5>
+
+<p>메서드가 정상적으로 리턴될 때만 실행되며, 결과값 로딩, 정상 처리 이후 추가 로직 등을 넣고 싶을때 사용할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingAspect</span> <span class="o">{</span>
+
+    <span class="nd">@AfterReturning</span><span class="o">(</span>
+        <span class="n">pointcut</span> <span class="o">=</span> <span class="s">"execution(* com.example.service..*(..))"</span><span class="o">,</span>
+        <span class="n">returning</span> <span class="o">=</span> <span class="s">"result"</span>
+    <span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterReturningAdvice</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[AfterReturning] 메서드: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[AfterReturning] 반환값: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">returning</code> 속성을 통해 <code class="language-plaintext highlighter-rouge">Object</code> 값을 받아올 수 있다. 이때 타입 검사는 해주어야 한다.</p>
+</blockquote>
+
+<h5 id="afterthrowing">@AfterThrowing</h5>
+
+<p>대상 메서드 실행 중 예외가 발생했을 때만 수행되며, 예외 로깅, 에러 감시, 트랜잭션 롤백 등을 처리하고 싶을때 사용하게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionAspect</span> <span class="o">{</span>
+
+    <span class="nd">@AfterThrowing</span><span class="o">(</span>
+        <span class="n">pointcut</span> <span class="o">=</span> <span class="s">"execution(* com.example.service..*(..))"</span><span class="o">,</span>
+        <span class="n">throwing</span> <span class="o">=</span> <span class="s">"ex"</span>
+    <span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterThrowingAdvice</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">,</span> <span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[AfterThrowing] 메서드: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[AfterThrowing] 예외 발생: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p>예외를 잡아서 처리할 수도 있지만, 기본적으로는 로깅이나 감시용으로 사용한다.</p>
+</blockquote>
+
+<h5 id="around">@Around</h5>
+
+<p>실행 시점은 메서드 전/후/예외 모두 제어가 가능하며, 가장 강력한 어드바이스다(모든 시점에 개입이 가능하기 때문). 실행 시간 측정, 트랜잭션 관리, 캐싱 등을 사용하고 싶을때 사용하게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PerformanceAspect</span> <span class="o">{</span>
+
+    <span class="nd">@Around</span><span class="o">(</span><span class="s">"execution(* com.example.service..*(..))"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">aroundAdvice</span><span class="o">(</span><span class="nc">ProceedingJoinPoint</span> <span class="n">pjp</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[Around] Before - 메서드: "</span> <span class="o">+</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+
+        <span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">pjp</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>  <span class="c1">// 실제 대상 메서드 호출</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[Around] 예외 발생: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[Around] After - 실행시간: "</span> <span class="o">+</span> <span class="o">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">ProceedingJoinPoint.proceed()</code> 를 호출해야 실제 타겟 메서드가 실행되며, 이 호출 전후로 원하는 코드들을 넣을 수 있어 try-finally 처럼 작동시킬 수 있다.</p>
+</blockquote>
+
+<h4 id="pointcut-표현식">Pointcut 표현식</h4>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">Advice</code> 를 어디에 적용시켜야 할지를 알려주는 개념인 <code class="language-plaintext highlighter-rouge">Pointcut</code> 을 보자. 표현식으로는 <code class="language-plaintext highlighter-rouge">AsspectJ</code> 표현식 문법을 사용하게 된다.</p>
+
+<h5 id="execution">execution()</h5>
+
+<p><code class="language-plaintext highlighter-rouge">execution</code> 은 메서드 실행 시점을 기준으로 이 메서드가 호출될 때 <code class="language-plaintext highlighter-rouge">Advice</code> 를 적용하여라 라고 정의하는 표현식이다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">execution</span><span class="o">([</span><span class="n">접근제어자</span><span class="o">]</span> <span class="n">리턴타입</span> <span class="o">[</span><span class="n">패키지명</span><span class="o">.]</span><span class="n">클래스명</span><span class="o">.</span><span class="na">메서드명</span><span class="o">(</span><span class="n">파라미터</span><span class="o">))</span></code></pre></figure>
+
+<p>다음과 같이 다양한 예제들을 포함시켰다:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// 1. 모든 public 메서드</span>
+<span class="n">execution</span><span class="o">(</span><span class="kd">public</span> <span class="o">*</span> <span class="o">*(..))</span>
+
+<span class="c1">// 2. com.example.service 패키지의 모든 메서드</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">.*.*(..))</span>
+
+<span class="c1">// 3. com.example.service 하위 패키지까지 포함한 모든 메서드</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">..*(..))</span>
+
+<span class="c1">// 4. 특정 클래스의 모든 메서드</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">UserService</span><span class="o">.*(..))</span>
+
+<span class="c1">// 5. 특정 이름의 메서드만</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">UserService</span><span class="o">.</span><span class="na">get</span><span class="o">*(..))</span>
+
+<span class="c1">// 6. 특정 타입의 파라미터를 가진 메서드</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">..*(</span><span class="nc">String</span><span class="o">,</span> <span class="o">..))</span></code></pre></figure>
+
+<blockquote>
+  <p>주의: .. 하위 패키지들(하위 패키지 전부), * 는 해당 패키지 내에서의 클래스들</p>
+</blockquote>
+
+<h5 id="within-this-target-args">within, this, target, args</h5>
+
+<p>execution 외에도 다양한 포인트컷이 있으며, 각각은 매칭 기준이 무엇이냐에 따라 다르다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">within</code>: 특정 타입(클래스 또는 패키지) <strong>내부 메서드</strong>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">within(com.example.service.*)</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">this</code>: 프록시 객체(Spring 이 만든 AOP 프록시) 의 타입이 지정 타입과 일치
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">this(com.example.service.UserService)</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">target</code>: 실제 대상 객체(프록시가 감싸고 있는 원본 객체) 의 타입이 지정 타입과 일치
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">target(com.example.service.UserService)</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">args</code>: 메서드의 파라미터 타입에 따라 매칭
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">args(String, int)</code> 또는 <code class="language-plaintext highlighter-rouge">args(.., String)</code></li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// service 패키지 안에 있는 모든 메서드</span>
+<span class="nd">@Pointcut</span><span class="o">(</span><span class="s">"within(com.example.service.*)"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">serviceLayer</span><span class="o">()</span> <span class="o">{}</span>
+
+<span class="c1">// 프록시 객체가 UserService 타입일 때</span>
+<span class="nd">@Pointcut</span><span class="o">(</span><span class="s">"this(com.example.service.UserService)"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">proxyType</span><span class="o">()</span> <span class="o">{}</span>
+
+<span class="c1">// 실제 대상 객체가 UserService 타입일 때</span>
+<span class="nd">@Pointcut</span><span class="o">(</span><span class="s">"target(com.example.service.UserService)"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">targetType</span><span class="o">()</span> <span class="o">{}</span>
+
+<span class="c1">// String 타입 인자를 받는 모든 메서드</span>
+<span class="nd">@Pointcut</span><span class="o">(</span><span class="s">"args(String)"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">stringArgMethods</span><span class="o">()</span> <span class="o">{}</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">this</code> vs <code class="language-plaintext highlighter-rouge">target</code><br />
+<code class="language-plaintext highlighter-rouge">this</code> -&gt; 프록시 타입 기준 (Spring AOP Proxy)<br />
+<code class="language-plaintext highlighter-rouge">target</code> -&gt; 실제 원본 객체 기준<br />
+<strong>CGLIB 기반 프록시일 때는 거의 같지만, JDK Dynamic Proxy 를 쓸 땐 차이가 발생 가능</strong></p>
+</blockquote>
+
+<h5 id="복합-표현식">복합 표현식</h5>
+
+<p>여러 포인트컷을 논리적으로 결합할 수도 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// service 패키지에 있으면서 get으로 시작하는 메서드</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">..</span><span class="na">get</span><span class="o">*(..))</span> <span class="o">&amp;&amp;</span> <span class="n">within</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">.*)</span>
+
+<span class="c1">// service 패키지거나 repository 패키지인 경우</span>
+<span class="n">within</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">..*)</span> <span class="o">||</span> <span class="n">within</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">repository</span><span class="o">..*)</span>
+
+<span class="c1">// 특정 메서드는 제외</span>
+<span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">..*(..))</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">execution</span><span class="o">(*</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">service</span><span class="o">..</span><span class="na">delete</span><span class="o">*(..))</span></code></pre></figure>
+
+<p>복합 표현식은 <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, <code class="language-plaintext highlighter-rouge">||</code>, <code class="language-plaintext highlighter-rouge">!</code> 를 활용하여 AOP 를 좀 더 세밀하게 제어할 수 있어서 유용하다.</p>
+
+<blockquote>
+  <p>로깅은 모든 메서드에 걸지만, 민감한 데이터 관련 메서드는 따로 제외하는 식으로 조합 가능</p>
+</blockquote>
+
+<h4 id="실습">실습</h4>
+
+<h5 id="logging-aop">Logging AOP</h5>
+
+<h5 id="transaction-aop">Transaction AOP</h5>
+
+<h5 id="security-aop">Security AOP</h5>
+
+<h4 id="aop-와-proxy-의-한계">AOP 와 Proxy 의 한계</h4>
+
+<p>AOP 는 매우 강력하지만, Proxy-based 의 구조적 한계 때문에 몇가지 주의할 점이 존재한다. 내부적으로 프록시 객체가 대상 객체를 감싸서 호출을 가로채는 방식으로 Advice 를 적용하는데에 문제가 있다는 것이다.</p>
+
+<h5 id="내부-호출-문제">내부 호출 문제</h5>
+
+<p>AOP 는 프록시 객체를 통해 호출될 때만 동작하게 된다. 즉, 같은 클래스 내부에서 자기 자신의 메서드를 호출하는 경우 프록시를 거치지 않고 직접 호출이 되어버리므로 Advice 가 동작하지 않는다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">outer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">inner</span><span class="o">();</span> <span class="c1">// 내부 호출 → 프록시를 거치지 않음</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">inner</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"DB 작업 중..."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">outer()</code> 를 호출하면 <code class="language-plaintext highlighter-rouge">inner()</code> 도 <code class="language-plaintext highlighter-rouge">@Transactional</code> 이 붙어있지만, <strong>스프링은 <code class="language-plaintext highlighter-rouge">inner()</code> 호출 시에 프록시를 거치지 않기 때문에 트랜잭션이 실제로 적용되지 않는다.</strong></p>
+
+<p><strong>해결</strong></p>
+
+<ol>
+  <li>메서드 분리: 내부 호출을 가급적 없애고, 다른 빈(클래스)로 분리시킨다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">UserService</code> -&gt; <code class="language-plaintext highlighter-rouge">InnerService</code> 로 분리 후 의존 주입하여 호출</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">AspectJ Compile-Time Weaving</code> (CTW) 사용
+    <ul>
+      <li>프록시 기반이 아닌, 바이트 레벨에서 weaving 을 한다.<br />
+ (일반적인 Spring Boot 에서는 거의 사용하지 않는다고 한다.)</li>
+    </ul>
+  </li>
+</ol>
+
+<h5 id="프록시-방식의-한계">프록시 방식의 한계</h5>
+
+<p>Spring AOP 는 런타입 프록시 기반이기 때문에 다음과 같은 제약이 있다.</p>
+
+<ol>
+  <li>프록시 대상이 Spring Container 관리 빈이어야 한다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">@Component</code>, <code class="language-plaintext highlighter-rouge">@Service</code> 등으로 등록되지 않은 객체에는 AOP 가 적용되지 않는다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">final</code> 클래스 / <code class="language-plaintext highlighter-rouge">final</code> 메서드는 프록시 불가 (CGLIB)
+    <ul>
+      <li>CGLIB 은 상속을 통해 프록시를 만들기 때문에 상속이 불가능하면 프록시를 만들지 못한다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">private</code> 메서드에는 <code class="language-plaintext highlighter-rouge">Advice</code> 적용 불가
+    <ul>
+      <li>Spring AOP 는 기본적으로 <code class="language-plaintext highlighter-rouge">public</code> 메서드 호출만을 대상으로 한다.</li>
+      <li><code class="language-plaintext highlighter-rouge">private</code>, <code class="language-plaintext highlighter-rouge">static</code> 메서드는 AOP 대상이 안된다.</li>
+    </ul>
+  </li>
+  <li>프록시 생성 시점 이후에 생성된 객체에는 적용이 불가능하다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Bean</code> 이 컨테이너에 등록될 때 프록시가 만들어지기 때문에 런타임중에 새로 생성한 객체에는 적용이 되지 않는다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="spring-boot-에서-aop-사용-시-주의점">Spring Boot 에서 AOP 사용 시 주의점</h4>
+
+<p>위와 같은 문제점 때문에 다음 사항들을 주의해야 한다.</p>
+
+<ol>
+  <li>프록시 전략 설정
+    <ul>
+      <li>기본적으로 JDK Dynamic Proxy 를 사용</li>
+      <li><code class="language-plaintext highlighter-rouge">JDK Dynamic Proxy</code> 가 안될 경우, 즉 인터페이스가 없는 경우에는 <code class="language-plaintext highlighter-rouge">CGLIB Proxy</code> 로 자동 전환</li>
+      <li>강제로 <code class="language-plaintext highlighter-rouge">CGLIB</code> 을 사용하도록 하게 하고 싶다면, 다음을 추가한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">spring</span><span class="o">.</span><span class="na">aop</span><span class="o">.</span><span class="na">proxy</span><span class="o">-</span><span class="n">target</span><span class="o">-</span><span class="kd">class</span><span class="err">:</span> <span class="nc">true</span></code></pre></figure>
+
+<ol>
+  <li>AOP 는 빈 초기화 이후에 동작
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Bean</code> 초기화 시점(<code class="language-plaintext highlighter-rouge">@PostConstructor</code>) 에는 프록시가 완전히 적용되지 않을 수 있다.</li>
+    </ul>
+  </li>
+  <li>트랜잭션, 보안, 캐시 등도 전부 AOP 기반
+    <ul>
+      <li>내부 호출이나 <code class="language-plaintext highlighter-rouge">final</code> 문제로 인해 <code class="language-plaintext highlighter-rouge">@Transactional</code>, <code class="language-plaintext highlighter-rouge">@Cacheable</code> 등이 안 먹히는 경우가 대부분 AOP 구조 때문이다.</li>
+    </ul>
+  </li>
+</ol>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/03/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-48%EC%9D%BC%EC%B0%A8-spring-core-aop.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

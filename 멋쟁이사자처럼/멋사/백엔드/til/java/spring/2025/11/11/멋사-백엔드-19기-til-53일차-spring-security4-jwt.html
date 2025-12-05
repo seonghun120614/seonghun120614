@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-11T04:41:12+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-11-11T04:41:12+00:00","datePublished":"2025-11-11T04:41:12+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 53일차 Spring Security4 JWT</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Nov 11, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+
+<ul>
+  <li><a href="#jwt">JWT</a>
+    <ul>
+      <li><a href="#jwt-구조">JWT 구조</a></li>
+      <li><a href="#jwt-인증-흐름">JWT 인증 흐름</a></li>
+      <li><a href="#spring-security-에서의-jwt-구현-시-관련된-필터">Spring Security 에서의 JWT 구현 시 관련된 필터</a></li>
+    </ul>
+  </li>
+  <li><a href="#jwt-구현">JWT 구현</a>
+    <ul>
+      <li><a href="#onceperrequestfilter">OncePerRequestFilter</a></li>
+      <li><a href="#jwtproperties">JwtProperties</a></li>
+      <li><a href="#jwttokenizer">JwtTokenizer</a></li>
+      <li><a href="#dofilterinternal">doFilterInternal</a></li>
+      <li><a href="#jwtauthenticationtoken">JwtAuthenticationToken</a>
+        <ul>
+          <li><a href="#테스트-authorization-의-헤더는-없지만-아이디와-비밀번호는-전부-맞을때-refresh-token-과-access-token-을-반환">테스트: 회원가입</a></li>
+          <li><a href="#테스트-받은-헤더를-토대로-login-을-다시-진행">테스트: 받은 헤더를 토대로 login 을 다시 진행</a></li>
+          <li><a href="#테스트-받은-헤더를-토대로-welcom-요청">테스트: 받은 헤더를 토대로 welcom 요청</a></li>
+          <li><a href="#테스트-토큰이-없다면-403">테스트: 토큰이 없다면 403</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="jwt">JWT</h3>
+
+<p>JWT 는 클라이언트와 서버 간에 인증 정보를 주고받기 위해 사용되는 토큰 기반 인증방식이며, 서명에는 단방향 암호화 알고리즘을 사용하게 된다.</p>
+
+<h4 id="jwt-구조">JWT 구조</h4>
+
+<p>JWT 는 .으로 구분되어져 있는 3개의 파트로 구분한다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Header</code>
+    <ul>
+      <li>알고리즘 및 토큰 타입 지정</li>
+    </ul>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Payload</code></li>
+</ol>
+
+<p>실제로 담을 데이터가 들어가게 되며, 클레임이라는 구조적인 데이터가 보통 들어가며, 이는 단순히 <code class="language-plaintext highlighter-rouge">Base64URL</code> 인코딩이 들어간다. 이는 누구나 열어볼 수 있다.</p>
+
+<p><strong>Claim</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sub</code>: 유저 식별자(ID)</li>
+  <li><code class="language-plaintext highlighter-rouge">iat</code>: 발행 시간</li>
+  <li><code class="language-plaintext highlighter-rouge">exp</code>: 만료 시간</li>
+  <li><code class="language-plaintext highlighter-rouge">roles</code>: 권한 정보</li>
+</ul>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Signature</code></li>
+</ol>
+
+<p>서버가 <strong>Secret Key</strong>로 서명한 값이 들어가며, 토큰 위변조 방지를 위해 넣게 된다. 이는 위 Header 에서 쓰이는 알고리즘에 따라 암호화되어 들어가게 된다.</p>
+
+<blockquote>
+  <p>시크릿 키는 서명을 만들 때 사용하는 비밀값인데, 이는 환경변수에 저장되거나 개발 환경일 때는 보통 <code class="language-plaintext highlighter-rouge">application.yml</code> 에 저장되어서 주입받게 된다.</p>
+</blockquote>
+
+<h4 id="jwt-인증-흐름">JWT 인증 흐름</h4>
+
+<ol>
+  <li>사용자가 로그인 요청</li>
+  <li>서버가 로그인 성공 시 JWT 생성하여 반환</li>
+  <li>클라이언트는 JWT 를 저장</li>
+  <li>API 요청 시 <code class="language-plaintext highlighter-rouge">Authorization</code> 헤더에 JWT 포함시켜 보내어 인가 수행</li>
+</ol>
+
+<h4 id="spring-security-에서의-jwt-구현-시-관련된-필터">Spring Security 에서의 JWT 구현 시 관련된 필터</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">AuthenticationFilter</code>: 로그인 요청을 가로채어 ID/PW 검증 후 JWT 를 발급하도록 만들어야 함</li>
+  <li><code class="language-plaintext highlighter-rouge">JwtAuthenticationFilter</code>: 모드 요청마다 <code class="language-plaintext highlighter-rouge">Authorization</code> 헤더의 <code class="language-plaintext highlighter-rouge">JWT</code> 유효성 검증을 해야 함, 만약 유효하다면 <code class="language-plaintext highlighter-rouge">SecurityContextHolder</code> 에 <code class="language-plaintext highlighter-rouge">Authentication</code> 생성</li>
+  <li><code class="language-plaintext highlighter-rouge">AuthenticationEntryPoint</code>: 인증 실패 시 <code class="language-plaintext highlighter-rouge">401 Unauthorized</code> 응답으로 처리</li>
+  <li><code class="language-plaintext highlighter-rouge">AccessDeniedHandler</code>: 인가 실패 시 <code class="language-plaintext highlighter-rouge">403 Forbidden</code> 응답으로 처리</li>
+  <li><code class="language-plaintext highlighter-rouge">TokenProvider</code>: JWT 생성/검증 기능을 담당</li>
+</ul>
+
+<p>이제 구현을 해보자.</p>
+
+<h3 id="jwt-구현">JWT 구현</h3>
+
+<p>JWT 를 하기 전에 보통 JWT 는 중간에 탈취하면 위험해진다. 이를 방지하기 위한 차선책으로 보통 JWT 토큰의 유효 시간을 부여하게 되며, <code class="language-plaintext highlighter-rouge">Access Token</code> 이라고 불리는 토큰에는 만료 시간을 보통 5-30분으로 하게 된다.</p>
+
+<p>하지만, 유저가 계속 이를 재발급해야 하는 사용자 경험 때문에 <code class="language-plaintext highlighter-rouge">Refresh Token</code> 이라는 것을 따로 만들어 이를 토대로 <code class="language-plaintext highlighter-rouge">Access Token</code> 의 갱신을 신경 안써도 서비스를 원할히 이용할 수 있도록 한다. 보통 갱신 토큰도 만료 시간이 있는데, 7일 이상 30일까지도 가는 경우가 있다.</p>
+
+<p>이 <code class="language-plaintext highlighter-rouge">Access Token</code> 은 보통 유저가 가지며, <code class="language-plaintext highlighter-rouge">Refresh Token</code> 은 서버가 가지게 된다(<code class="language-plaintext highlighter-rouge">Refresh Token</code> 을 유저가 가질 때도 있다).</p>
+
+<p>여기서는 <code class="language-plaintext highlighter-rouge">Access Token</code> 를 유저만 가질 때를 볼 것이다.</p>
+
+<h4 id="onceperrequestfilter">OncePerRequestFilter</h4>
+
+<p>보통 일반적인 필터는 <code class="language-plaintext highlighter-rouge">GenericFilterBean</code> 를 상속받아 구현하면 된다. 내부 코드는 알아서 파보길 바란다. 여기서는 다 다룰 수가 없다. 필터의 <code class="language-plaintext highlighter-rouge">doFilterInternal</code> 을 구현해주어야 한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtFilter</span> <span class="kd">extends</span> <span class="nc">OncePerRequestFilter</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doFilterInternal</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+	                                <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+	                                <span class="nc">FilterChain</span> <span class="n">filterChain</span><span class="o">)</span>
+			<span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이때, 할 동작으로는 request 의 데이터를 추출하는 것일거다. 헤더쪽에 <code class="language-plaintext highlighter-rouge">Authorization</code> 에 보통 <code class="language-plaintext highlighter-rouge">Bearer</code> 로 토큰이 들어가게 된다.</p>
+
+<p>이는 HTTP 표준(RPC)과 OAuth 2.0 규격에서 정한 관습인데, 헤더 쪽에 들어갈 데이터의 스킴을 어떻게 쓸지를 규정해놨다. 보통 <code class="language-plaintext highlighter-rouge">Basic (유저이름 및 패스워드)</code> 은 <code class="language-plaintext highlighter-rouge">Basic</code> 기본 인증 방식을 쓰도록 하며, 토큰 기반 인증 방식은 <code class="language-plaintext highlighter-rouge">Bearer (토큰)</code> 으로 명시하도록 scheme 가 짜여져 있다.</p>
+
+<p>따라서 다음과 같이 코드를 짜자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">String</span> <span class="nf">getRawToken</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">JwtException</span> <span class="o">{</span>
+  <span class="nc">String</span> <span class="n">authHeader</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">authHeader</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">authHeader</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"Bearer "</span><span class="o">))</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="k">return</span> <span class="n">authHeader</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="s">"Bearer "</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">doFilterInternal</code> 은 다음을 추가한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">String</span> <span class="n">rawToken</span> <span class="o">=</span> <span class="n">getRawToken</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">rawToken</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">rawToken</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+  <span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+  <span class="k">return</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 이 <code class="language-plaintext highlighter-rouge">rawToken</code> 으로 토큰화 되어있는 JWT 를 복호화 해줘야 한다. 이때 <code class="language-plaintext highlighter-rouge">JwtTokenizer</code> 클래스가 필요할 수 있다. tokenizer 가 알아야 할 값은 시크릿 키이다. 임의로 발급되어 저장된 Access Secret Key 와 Refresh Secret Key 두 개의 비밀 키가 필요할 것이다. 보통 이는 환경변수로 가져올 수 있고, 아니면 개발 단계에서는 <code class="language-plaintext highlighter-rouge">application.yml</code> 에서 들고와도 된다.</p>
+
+<h4 id="jwtproperties">JwtProperties</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtProperties</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">issuer</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">accessKey</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">refreshKey</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="kt">long</span> <span class="n">accessExpirationMs</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">long</span> <span class="n">refreshExpirationMs</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getAccessKeyBytes</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">accessKey</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getRefreshKeyBytes</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">refreshKey</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>여기서 보통 Mac 과 Linux 는 대부분 <code class="language-plaintext highlighter-rouge">UTF-8</code> 의 인코딩 방식을 사용하니 가져올 때 charset 을 그렇게 지정해주자. 이 뿐 아니라 만료 기간도 필요할 수 있으니 이 또한 설정 파일을 토대로 수정되도록 <code class="language-plaintext highlighter-rouge">Value</code> 를 써서 주입시켜주자. 이제 이를 주입받는 <code class="language-plaintext highlighter-rouge">JwtTokenizer</code> 를 선언한다.</p>
+
+<h4 id="jwttokenizer">JwtTokenizer</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtTokenizer</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">JwtProperties</span> <span class="n">jwtProperties</span><span class="o">;</span>
+
+  <span class="c1">// ...</span>
+<span class="o">}</span></code></pre></figure>
+<p>ㄴ</p>
+
+<p>토크나이저는 일단 토큰을 생성하는 기능이 있어야 한다. 생성할 때는 다음과 같은 데이터가 전부 필수가 아니지만 있어야 한다.</p>
+
+<ul>
+  <li>Header
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">alg</code></li>
+      <li><code class="language-plaintext highlighter-rouge">type</code></li>
+    </ul>
+  </li>
+  <li>Payload
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sub</code>: 유저 식별자(ID)</li>
+      <li><code class="language-plaintext highlighter-rouge">iat</code>: 발행 시간</li>
+      <li><code class="language-plaintext highlighter-rouge">exp</code>: 만료 시간</li>
+      <li><code class="language-plaintext highlighter-rouge">roles</code>: 권한 정보</li>
+      <li>추가 유저 정보</li>
+    </ul>
+  </li>
+  <li>Signature
+    <ul>
+      <li>시크릿 키</li>
+    </ul>
+  </li>
+</ul>
+
+<p>따라서 위를 인자로 받아주는 토큰을 생성하는 함수를 만들어주자. 만들기 전에 이를 만들어주는 jwt 의존성을 추가해준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">implementation</span> <span class="err">'</span><span class="n">io</span><span class="o">.</span><span class="na">jsonwebtoken</span><span class="o">:</span><span class="n">jjwt</span><span class="o">-</span><span class="nl">api:</span><span class="mf">0.12</span><span class="o">.</span><span class="mi">6</span><span class="err">'</span>  <span class="c1">// JWT 표준 API 인터페이스</span>
+<span class="n">runtimeOnly</span> <span class="err">'</span><span class="n">io</span><span class="o">.</span><span class="na">jsonwebtoken</span><span class="o">:</span><span class="n">jjwt</span><span class="o">-</span><span class="nl">impl:</span><span class="mf">0.12</span><span class="o">.</span><span class="mi">6</span><span class="err">'</span>  <span class="c1">// JWT 생성/검증 로직 구현체</span>
+<span class="n">runtimeOnly</span> <span class="err">'</span><span class="n">io</span><span class="o">.</span><span class="na">jsonwebtoken</span><span class="o">:</span><span class="n">jjwt</span><span class="o">-</span><span class="nl">jackson:</span><span class="mf">0.12</span><span class="o">.</span><span class="mi">6</span><span class="err">'</span> <span class="c1">// JSON 직렬화/역직렬화를 위한 Jackson 기반 모듈</span></code></pre></figure>
+
+<p>이제 토큰을 생성하는 함수를 정의하자. 토큰은 . 을 기준으로 <code class="language-plaintext highlighter-rouge">header</code>, <code class="language-plaintext highlighter-rouge">payload</code>, <code class="language-plaintext highlighter-rouge">signature</code> 의 String 으로 되어있기 때문에 반환은 String 으로 해준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">String</span> <span class="nf">tokenize</span><span class="o">(</span>
+    <span class="kt">long</span> <span class="n">expiration</span><span class="o">,</span>
+    <span class="nc">String</span> <span class="n">loginId</span><span class="o">,</span>
+    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">roles</span><span class="o">,</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">secretKey</span>
+<span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// ...</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">Jwts</code> 에는 각종 유틸 함수들이 들어가 있다. builder 로 JWT 를 생성하도록 할 수 있으며, 다양한 옵션들을 넣을 수 있다(헤더도 넣을 수 있는 것으로 알고 있다).</p>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">signWith</code> 을 할 때는 <code class="language-plaintext highlighter-rouge">signature</code> 가 들어가야하며 <code class="language-plaintext highlighter-rouge">byte[] key</code> 가 들어가면 안되고, SecretKey 가 들어가야 한다. <code class="language-plaintext highlighter-rouge">Keys</code> 유틸성 함수를 통해 단방향 암호화 알고리즘을 사용해 생성해주자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nc">SecretKey</span> <span class="nf">createSecretKey</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="nc">Keys</span><span class="o">.</span><span class="na">hmacShaKeyFor</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">String</span> <span class="nf">tokenize</span><span class="o">(</span>
+    <span class="kt">long</span> <span class="n">expiration</span><span class="o">,</span>
+    <span class="nc">String</span> <span class="n">loginId</span><span class="o">,</span>
+    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">roles</span><span class="o">,</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">secretKey</span>
+<span class="o">)</span> <span class="o">{</span>
+  <span class="nc">Date</span> <span class="n">expiry</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">expiration</span><span class="o">);</span>
+  <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">issuer</span><span class="o">(</span><span class="n">jwtProperties</span><span class="o">.</span><span class="na">getIssuer</span><span class="o">())</span>
+              <span class="o">.</span><span class="na">expiration</span><span class="o">(</span><span class="n">expiry</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">claim</span><span class="o">(</span><span class="s">"loginId"</span><span class="o">,</span> <span class="n">loginId</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">claim</span><span class="o">(</span><span class="s">"roles"</span><span class="o">,</span> <span class="n">roles</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">signWith</span><span class="o">(</span><span class="n">createSecretKey</span><span class="o">(</span><span class="n">secretKey</span><span class="o">))</span>
+              <span class="o">.</span><span class="na">compact</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 토큰 생성이 끝났다. access, refresh 별로 나눠주자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">String</span> <span class="nf">accessTokenize</span><span class="o">(</span>
+    <span class="nc">String</span> <span class="n">loginId</span><span class="o">,</span>
+    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">roles</span>
+<span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="nf">tokenize</span><span class="o">(</span><span class="n">jwtProperties</span><span class="o">.</span><span class="na">getAccessExpirationMs</span><span class="o">(),</span>
+                  <span class="n">loginId</span><span class="o">,</span>
+                  <span class="n">roles</span><span class="o">,</span>
+                  <span class="n">jwtProperties</span><span class="o">.</span><span class="na">getAccessKeyBytes</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">refreshTokenize</span><span class="o">(</span>
+    <span class="nc">String</span> <span class="n">loginId</span><span class="o">,</span>
+    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">roles</span>
+<span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="nf">tokenize</span><span class="o">(</span><span class="n">jwtProperties</span><span class="o">.</span><span class="na">getRefreshExpirationMs</span><span class="o">(),</span>
+                  <span class="n">loginId</span><span class="o">,</span>
+                  <span class="n">roles</span><span class="o">,</span>
+                  <span class="n">jwtProperties</span><span class="o">.</span><span class="na">getRefreshKeyBytes</span><span class="o">());</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>토큰화 하는게 끝났다면 토큰을 다시 파싱하여 plain 형태로 되돌리는 것도 필요하다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nc">Claims</span> <span class="nf">parse</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">JwtException</span> <span class="o">{</span>
+  <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"👾 token({}) 유효 검증 중..."</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">verifyWith</span><span class="o">(</span><span class="n">createSecretKey</span><span class="o">(</span><span class="n">jwtProperties</span><span class="o">.</span><span class="na">getAccessKeyBytes</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">requireIssuer</span><span class="o">(</span><span class="n">jwtProperties</span><span class="o">.</span><span class="na">getIssuer</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">parseSignedClaims</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">getPayload</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">MissingClaimException</span> <span class="o">|</span> <span class="nc">IncorrectClaimException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">BadCredentialsException</span><span class="o">(</span><span class="s">".requiredIssuer 처리 중 오류 "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">UnsupportedJwtException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">BadCredentialsException</span><span class="o">(</span><span class="s">"the jwt argument does not represent a signed Claims JWT"</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IllegalArgumentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">BadCredentialsException</span><span class="o">(</span><span class="s">"the jwt string is null or empty or only whitespace"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 이걸 filter 에서 쓰고, authentication 을 만들어주는 것을 선언하자.</p>
+
+<h4 id="dofilterinternal">doFilterInternal</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtAuthenticationFilter</span> <span class="kd">extends</span> <span class="nc">OncePerRequestFilter</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="no">DEFAULT_ROLES</span>
+			<span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="k">new</span> <span class="nc">SimpleGrantedAuthority</span><span class="o">(</span><span class="s">"ROLE_USER"</span><span class="o">));</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">JwtTokenizer</span> <span class="n">jwtTokenizer</span><span class="o">;</span>
+  
+  <span class="o">...</span>
+
+  	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doFilterInternal</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+	                                <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+	                                <span class="nc">FilterChain</span> <span class="n">filterChain</span><span class="o">)</span>
+			<span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+    
+    <span class="nc">String</span> <span class="n">loginId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="kt">boolean</span> <span class="n">isAuthenticated</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">rawToken</span> <span class="o">=</span> <span class="n">getRawToken</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+    
+    <span class="c1">// ...</span>
+
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="kt">var</span> <span class="n">claims</span> <span class="o">=</span> <span class="n">jwtTokenizer</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">rawToken</span><span class="o">);</span>
+			<span class="n">loginId</span> <span class="o">=</span> <span class="n">claims</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"loginId"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+			<span class="n">isAuthenticated</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+		<span class="o">}</span></code></pre></figure>
+
+<p>여기서 토큰을 파싱할 때 만료된 토큰이라면 여기서 예외를 발생시키게 된다. 따라서 이를 try 문으로 감싸주고 catch 절을 추가해준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExpiredJwtException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">loginId</span> <span class="o">=</span> <span class="n">getLoginIdWithoutAuth</span><span class="o">(</span><span class="n">rawToken</span><span class="o">);</span>
+  <span class="n">refreshTokenRepository</span>
+      <span class="o">.</span><span class="na">findByLoginId</span><span class="o">(</span><span class="n">loginId</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">BadCredentialsException</span><span class="o">(</span><span class="s">"없는 사용자"</span><span class="o">));</span>
+  <span class="c1">// refreshToken 검증을 위한 추가 처리</span>
+  <span class="nc">String</span> <span class="n">accessToken</span> <span class="o">=</span> <span class="n">jwtTokenizer</span><span class="o">.</span><span class="na">accessTokenize</span><span class="o">(</span><span class="n">loginId</span><span class="o">,</span> <span class="no">DEFAULT_ROLES</span><span class="o">);</span>
+  <span class="n">response</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="nc">HttpServletResponse</span><span class="o">.</span><span class="na">SC_OK</span><span class="o">);</span>
+  <span class="n">response</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Bearer "</span> <span class="o">+</span> <span class="n">accessToken</span><span class="o">);</span>
+  <span class="n">isAuthenticated</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span></code></pre></figure>
+
+<p>이때 여기서는 그냥 단순히 <code class="language-plaintext highlighter-rouge">refreshToken</code> 이 있는지 없는지만을 확인하고 넘어가며, 나중에 이에 대한 추가적인 인증 처리가 저기에 필요할 것이다. 또한 저기서 rawToken 에 대한 인증이 없을 때, <code class="language-plaintext highlighter-rouge">loginId</code> 만을 빼오게 할 수 있다. 이는 따로 함수로 만들어서 한다(<code class="language-plaintext highlighter-rouge">ObjectMapper</code> 가 필요할 것이다). 이제 auth 를 만들어 컨텍스트에 저장해주고 넘겨주자.</p>
+
+<h4 id="jwtauthenticationtoken">JwtAuthenticationToken</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Getter</span>
+<span class="nd">@Builder</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtAuthenticationToken</span> <span class="kd">implements</span> <span class="nc">Authentication</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="nc">Object</span> <span class="n">principal</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">Object</span> <span class="n">credentials</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">Object</span> <span class="n">details</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">;</span>
+	<span class="nd">@Setter</span>
+	<span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isAuthenticated</span><span class="o">;</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">principal</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위와 같이 만들어준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+  <span class="nc">Authentication</span> <span class="n">auth</span> <span class="o">=</span> <span class="nc">JwtAuthenticationToken</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                                              <span class="o">.</span><span class="na">principal</span><span class="o">(</span><span class="n">loginId</span><span class="o">)</span>
+                                              <span class="o">.</span><span class="na">credentials</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span>
+                                              <span class="o">.</span><span class="na">authorities</span><span class="o">(</span><span class="no">DEFAULT_ROLES</span><span class="o">)</span>
+                                              <span class="o">.</span><span class="na">isAuthenticated</span><span class="o">(</span><span class="n">isAuthenticated</span><span class="o">)</span>
+                                              <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+  <span class="nc">SecurityContextHolder</span><span class="o">.</span><span class="na">getContext</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">setAuthentication</span><span class="o">(</span><span class="n">auth</span><span class="o">);</span>
+  <span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>이제 필터는 다 만들었으므로 이를 추가해주자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">				<span class="o">.</span><span class="na">addFilterAfter</span><span class="o">(</span><span class="n">jwtAuthenticationFilter</span><span class="o">,</span> <span class="nc">LogoutFilter</span><span class="o">.</span><span class="na">class</span><span class="o">)</span></code></pre></figure>
+
+<p>이 이후에는 json 의 loginId, password 를 처리하도록 해주는 security3 포스팅을 보고 이를 <strong>“잘”</strong> 들고온다. 이제 테스트를 수행하자.</p>
+
+<h5 id="테스트-회원가입">테스트: 회원가입</h5>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl <span class="nt">-L</span> <span class="nt">-i</span> <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{"loginId":"test","password":"1234"}'</span> <span class="se">\</span>
+http://localhost:8080/login</code></pre></figure>
+
+<p>본인은 그냥 application 에 repo를 들고와서 임의로 값을 넣었다.</p>
+
+<h5 id="테스트-받은-헤더를-토대로-welcom-요청">테스트: 받은 헤더를 토대로 welcom 요청</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">curl</span> <span class="o">-</span><span class="no">L</span> <span class="o">-</span><span class="n">i</span> <span class="err">\</span>
+     <span class="o">-</span><span class="no">H</span> <span class="s">"Content-Type: application/json"</span> <span class="err">\</span>
+     <span class="o">-</span><span class="no">H</span> <span class="s">"Authorization: Bearer (Bearer token)"</span> <span class="err">\</span>
+     <span class="nl">http:</span><span class="c1">//localhost:8080/welcome</span></code></pre></figure>
+
+<h5 id="테스트-토큰이-없다면-403">테스트: 토큰이 없다면 403</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">curl</span> <span class="o">-</span><span class="no">L</span> <span class="o">-</span><span class="n">i</span> <span class="err">\</span>
+     <span class="o">-</span><span class="no">H</span> <span class="s">"Content-Type: application/json"</span> <span class="err">\</span>
+     <span class="nl">http:</span><span class="c1">//localhost:8080/welcome</span></code></pre></figure>
+
+<p>실패 요청은 알아서 해보길 바란다.</p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/11/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-53%EC%9D%BC%EC%B0%A8-spring-security4-jwt.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
