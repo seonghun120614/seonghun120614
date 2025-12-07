@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 27일차 JavaScript 데이터 타입</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 27일차 JavaScript 데이터 타입 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 27일차 JavaScript 데이터 타입" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-23T23:59:56+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 27일차 JavaScript 데이터 타입" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-09-23T23:59:56+00:00","datePublished":"2025-09-23T23:59:56+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 27일차 JavaScript 데이터 타입","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 27일차 JavaScript 데이터 타입</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Sep 23, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Javascript</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#node-js-를-통한-터미널-실행">Node JS 를 통한 터미널 실행</a>
+    <ul>
+      <li><a href="#let-const">let, const</a></li>
+      <li><a href="#데이터-타입">데이터 타입</a>
+        <ul>
+          <li><a href="#number">Number</a></li>
+          <li><a href="#string">String</a></li>
+          <li><a href="#boolean">Boolean</a></li>
+          <li><a href="#undefined">Undefined</a></li>
+        </ul>
+      </li>
+      <li><a href="#비교-연산자">비교 연산자</a></li>
+      <li><a href="#js-함수">JS 함수</a></li>
+      <li><a href="#js-객체">JS 객체</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>여기선 자바와 그렇게 다르지 않은 문법들은 다루지 않는다 예를 들어 for, 산술 연산, 삼항 연산, 조건문 등이다.</p>
+
+<h3 id="node-js-를-통한-터미널-실행">Node JS 를 통한 터미널 실행</h3>
+
+<p>터미널을 키고 node 를 치자.</p>
+
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh">node</code></pre></figure>
+
+<p>이제 명령어들을 입력 가능하다. 기본적으로 javascript 는 인터프리터언어이기에 한 문장씩 읽고 실행하고 한다.</p>
+
+<h4 id="let-const">let, const</h4>
+
+<p>let 은 변수, const 는 상수 예약어이다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="mi">101</span><span class="p">;</span> <span class="c1">// Uncaught TypeError: Assignment to constant variable.</span></code></pre></figure>
+
+<blockquote>
+  <p>명령어를 칠 때마다 undefined 라는 것을 볼 수 있는데 js 에서는 undefined 라는 타입이 있다. 함수 호출이나 let, const 등 특정 코드를 실행하는 것을 입력할 때마다 함수의 반환값을 출력하는데 그게 undefined 인 것이다. 즉, const, let, console.log 는 반환으로 undefined 이지만, 대입연산자 = 은 대입 후에 자기 자신을 반환하는 것을 볼 수 있다.</p>
+</blockquote>
+
+<h4 id="데이터-타입">데이터 타입</h4>
+
+<h5 id="number">Number</h5>
+
+<p>Javascript 는 숫자를 전부 통일해놨다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">age</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">pi</span> <span class="o">=</span> <span class="mf">3.14</span><span class="p">;</span></code></pre></figure>
+
+<h5 id="string">String</h5>
+
+<p>백틱을 통해서 변수를 집어넣을 수 있다. String.format 과도 유사하다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Seonghun</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="s2">`Hello, </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">!`</span><span class="p">;</span></code></pre></figure>
+
+<h5 id="boolean">Boolean</h5>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">isActive</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">hasPermission</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span></code></pre></figure>
+
+<h5 id="undefined">Undefined</h5>
+
+<p>값이 할당되지 않은 상태임을 나타내는 타입인데, 변수를 선언만 하고 값을 넣지 않으면 자동으로 undefined 가 된다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">x</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// undefined</span></code></pre></figure>
+
+<h4 id="비교-연산자">비교 연산자</h4>
+
+<p>비교연산자에서 <code class="language-plaintext highlighter-rouge">===</code> 이 있는데, 이는 값 뿐 아니라 값과 타입까지 비교하며 엄격한 비교이다. <code class="language-plaintext highlighter-rouge">!==</code> 도 마찬가지이다. 이게 굉장히 헷갈리는데, 다음과 같은 상황이다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="mi">5</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">5</span><span class="dl">"</span>      <span class="c1">// true, 문자열을 숫자로 변환해서 비교</span>
+<span class="kc">null</span> <span class="o">==</span> <span class="kc">undefined</span> <span class="c1">// true, 특별 규칙 적용</span>
+
+<span class="mi">5</span> <span class="o">===</span> <span class="mi">5</span>       <span class="c1">// true, 값도 같고 타입도 같음</span>
+<span class="mi">5</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">5</span><span class="dl">"</span>     <span class="c1">// false, 값은 같아 보여도 타입(Number vs String)이 다름</span>
+<span class="kc">true</span> <span class="o">===</span> <span class="mi">1</span>    <span class="c1">// false, Boolean vs Number</span>
+<span class="kc">null</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="c1">// false, 타입이 다름</span></code></pre></figure>
+
+<p>기본적으로 Number 과 String 이 각각 5를 표현한다면 이는 <code class="language-plaintext highlighter-rouge">==</code> 으로는 참이 되게 된다. 따라서 <code class="language-plaintext highlighter-rouge">==</code> 보다는 <code class="language-plaintext highlighter-rouge">===</code>이 더 좋다.</p>
+
+<h4 id="js-함수">JS 함수</h4>
+
+<p>자바스크립트는 함수 자체를 일급 객체로 다룬다. 즉, 함수는 변수에 할당할 수 있고, 다른 함수의 인자로 전달할 수 있으며, 함수의 반환값으로도 사용할 수 있다.</p>
+
+<p>마치 자바에서 <code class="language-plaintext highlighter-rouge">BiFunction</code>, <code class="language-plaintext highlighter-rouge">Function</code>, <code class="language-plaintext highlighter-rouge">Runnable</code> 등등과도 유사한 기능들을 주게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 함수 선언식</span>
+<span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">add</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>  <span class="c1">// 8</span>
+
+<span class="c1">// 함수 표현식</span>
+<span class="kd">const</span> <span class="nx">multiply</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>  <span class="c1">// 20</span></code></pre></figure>
+
+<p>따라서 밑의 표현식과 같이 변수에 할당을 할 수 있다. 또 자바에서는 -&gt; 의 표현식으로 가능한데, 이 또한 js 에서는 =&gt; 로 쓸 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 기본 형태</span>
+<span class="kd">const</span> <span class="nx">subtract</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// 간단한 형태</span>
+<span class="kd">const</span> <span class="nx">double</span> <span class="o">=</span> <span class="nx">n</span> <span class="o">=&gt;</span> <span class="nx">n</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="c1">// 여러 줄</span>
+<span class="kd">const</span> <span class="nx">greet</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="s2">`안녕하세요, </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">님!`</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">message</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<h4 id="js-객체">JS 객체</h4>
+
+<p>마치 json 을 쓰는 것처럼 선언할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 객체 생성</span>
+<span class="kd">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">김철수</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="na">city</span><span class="p">:</span> <span class="dl">'</span><span class="s1">서울</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">isStudent</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">};</span>
+
+<span class="c1">// 속성 접근</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>     <span class="c1">// 김철수</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">[</span><span class="dl">'</span><span class="s1">age</span><span class="dl">'</span><span class="p">]);</span>   <span class="c1">// 25</span>
+
+<span class="c1">// 속성 수정</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">26</span><span class="p">;</span>
+
+<span class="c1">// 속성 추가</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">email</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">kim@example.com</span><span class="dl">'</span><span class="p">;</span></code></pre></figure>
+
+<p>신기한 것은 js 에서는 구조 분해 할당이라는 것이 있어서 객체를 손 쉽게 각각 변수에 할당시키게 할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">username</span><span class="p">:</span> <span class="dl">'</span><span class="s1">john</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">john@email.com</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">age</span><span class="p">:</span> <span class="mi">30</span>
+<span class="p">};</span>
+
+<span class="c1">// 구조 분해 할당</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">age</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">user</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">username</span><span class="p">);</span>  <span class="c1">// john</span>
+
+<span class="c1">// 함수 파라미터에서 구조 분해</span>
+<span class="kd">function</span> <span class="nx">printUser</span><span class="p">({</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">age</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">username</span><span class="p">}</span><span class="s2">님은 </span><span class="p">${</span><span class="nx">age</span><span class="p">}</span><span class="s2">살입니다.`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">printUser</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span></code></pre></figure>
+
+<p><strong>getter &amp; setter</strong></p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">_name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">김철수</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">_age</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+
+    <span class="c1">// Getter</span>
+    <span class="kd">get</span> <span class="nx">name</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">name getter 호출</span><span class="dl">'</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_name</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="c1">// Setter</span>
+    <span class="kd">set</span> <span class="nx">name</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">name setter 호출</span><span class="dl">'</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">이름은 2글자 이상이어야 합니다.</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_name</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="kd">get</span> <span class="nx">age</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_age</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="kd">set</span> <span class="nx">age</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">나이는 0보다 커야 합니다.</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_age</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 사용</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>  <span class="c1">// getter 호출</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">이영희</span><span class="dl">'</span><span class="p">;</span>    <span class="c1">// setter 호출</span>
+<span class="nx">user</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">;</span>          <span class="c1">// 에러 메시지</span></code></pre></figure>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/javascript/2025/09/23/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-27%EC%9D%BC%EC%B0%A8-JS-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
