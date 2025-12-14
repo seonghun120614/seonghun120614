@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 61일차 Docker(2)</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 61일차 Docker(2) | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 61일차 Docker(2)" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-24T06:54:06+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 61일차 Docker(2)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-11-24T06:54:06+00:00","datePublished":"2025-11-24T06:54:06+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 61일차 Docker(2)","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 61일차 Docker(2)</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Nov 24, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Docker</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#docker-network">Docker Network</a></li>
+  <li><a href="#기본-네트워크-타입들">기본 네트워크 타입들</a>
+    <ul>
+      <li><a href="#bridge-driver">bridge driver</a></li>
+      <li><a href="#host-driver">host driver</a></li>
+      <li><a href="#none-driver">none driver</a></li>
+      <li><a href="#overlay-driver">overay driver</a></li>
+    </ul>
+  </li>
+  <li><a href="#포트-매핑">포트 매핑</a></li>
+  <li><a href="#docker-dns">Docker DNS</a>
+    <ul>
+      <li><a href="#컨테이너-이름-기반-통신dns">컨테이너 이름 기반 통신(DNS)</a></li>
+      <li><a href="#컨테이너-호스트명-설정">컨테이너 호스트명 설정</a></li>
+    </ul>
+  </li>
+  <li><a href="#포트-바인딩-vs-expose">포트 바인딩 vs EXPOSE</a></li>
+  <li><a href="#docker-network-명령어-정리">Docker Network 명령어 정리</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="docker-network">Docker Network</h3>
+
+<p>컨테이너끼리 혹은 컨테이너와 외부 간에 통신을 가능하도록 하는 가상 네트워크 환경임을 보았다. 도커가 자체적으로 가상 NIC, 가상 스위치, 라우팅 등을 구축한다.</p>
+
+<h3 id="기본-네트워크-타입들">기본 네트워크 타입들</h3>
+
+<h4 id="bridge-driver">bridge driver</h4>
+
+<p>docker run 시 아무 설정이 없다면 자동으로 붙는 네트워크이며, 단일 서버 내 컨테이너끼리 통신이 가능하다. NAT 기반으로 외부 &lt;-&gt; 컨테이너 간에 통신을 제어한다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker network <span class="nb">ls</span>
+<span class="c"># bridge / host / none 등이 보임</span>
+
+docker run <span class="nt">-d</span> <span class="nt">--name</span> db <span class="nt">--network</span> my_net mysql
+docker run <span class="nt">-d</span> <span class="nt">--name</span> app <span class="nt">--network</span> my_net myapp</code></pre></figure>
+
+<p>my_net 이라는 사용자 정의 네트워크를 만들어 컨테이너들을 등록한다.</p>
+
+<p><strong>사용</strong></p>
+<ul>
+  <li>단일 호스트 환경에서 여러 컨테이너를 함께 운영할 때</li>
+  <li>컨테이너끼리 서로 통신은 필요하지만, 기본적인 격리는 유지하고 싶을 때</li>
+  <li>개발 또는 테스트 환경처럼 일반적인 워크로드에서 기본 설정을 그대로 사용하고 싶을 때</li>
+</ul>
+
+<h4 id="host-driver">host driver</h4>
+
+<p>컨테이너가 호스트의 네트워크 스택을 그대로 사용할 때, 호스트와 컨테이너의 포트 구분이 없이 사라진다. 성능은 가장 빠르다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># localhost:80 &lt;- nginx 바로 동작</span>
+docker run <span class="nt">--network</span> host nginx</code></pre></figure>
+
+<ul>
+  <li>네트워크 성능(레이턴시/처리량)이 매우 중요한 서비스</li>
+  <li><strong>NAT(Network Address Translation)</strong> 오버헤드를 없애고 싶은 경우</li>
+  <li>컨테이너가 호스트의 IP를 그대로 사용해야 하는 특수한 상황</li>
+</ul>
+
+<blockquote>
+  <p>포트 충돌 관리가 힘듦</p>
+</blockquote>
+
+<h4 id="none-driver">none driver</h4>
+
+<p>네트워크가 없는 컨테이너를 만들고 싶을때 사용하며, 외부 연결과 완전히 차단해야 할 때 사용한다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker run <span class="nt">--network</span> none myimage</code></pre></figure>
+
+<h4 id="overlay-driver">overlay driver</h4>
+
+<p>여러 서버에 걸친 컨테이너 끼리 통신이 가능하다. Docker Swarm, Kubernetes 등이 사용하는 방식이다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># overlay 네트워크는 Swarm이나 Kubernetes 클러스터 환경에서 사용</span>
+<span class="c"># 단일 호스트에서는 의미가 없음</span>
+
+<span class="c"># Docker Swarm 초기화 필요</span>
+docker swarm init
+
+<span class="c"># 그 다음 overlay 네트워크 생성 가능</span>
+docker network create <span class="nt">-d</span> overlay myoverlay
+
+<span class="c"># Swarm 서비스로 배포</span>
+docker service create <span class="se">\</span>
+  <span class="nt">--name</span> web <span class="se">\</span>
+  <span class="nt">--network</span> myoverlay <span class="se">\</span>
+  <span class="nt">--replicas</span> 3 <span class="se">\</span>
+  nginx </code></pre></figure>
+
+<ul>
+  <li>여러 물리 서버(호스트)를 하나의 가상 네트워크로 묶음</li>
+  <li>VXLAN 기술 사용</li>
+  <li>단일 호스트 개발 환경에서는 거의 안 씀</li>
+</ul>
+
+<blockquote>
+  <p>컨테이너를 만든 후 만든 컨테이너에 대한 docker inspect 를 사용으로 IP를 볼 수 있다.<br />
+docker inspect web1 | grep IPAddress</p>
+  <h1 id="출력-ipaddress-1721702">출력: “IPAddress”: “172.17.0.2”</h1>
+</blockquote>
+
+<h3 id="포트-매핑">포트 매핑</h3>
+
+<p>컨테이너는 기본적으로 외부에서 직접 접근할 수 없는 격리된 공간에서 실행되는데, 외부에서 컨테이너에 접근하려면 포트 매핑을 통해 호스트의 특정 포트를 컨테이너 내부 포트와 연결해줘야 한다.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nt">-p</span> <span class="o">[</span>호스트IP:]호스트포트:컨테이너포트[/프로토콜]
+
+<span class="c"># 예시</span>
+<span class="nt">-p</span> 8080:80              <span class="c"># 호스트 8080 -&gt; 컨테이너 80</span>
+<span class="nt">-p</span> 127.0.0.1:8080:80    <span class="c"># localhost:8080만 접근 가능</span>
+<span class="nt">-p</span> 3306:3306/tcp        <span class="c"># TCP 명시 (기본값)</span>
+<span class="nt">-p</span> 53:53/udp            <span class="c"># UDP 포트 매핑</span>
+<span class="nt">-p</span> 8080-8090:8080-8090  <span class="c"># 포트 범위 매핑</span></code></pre></figure>
+
+<p>p 옵션을 여럿 써서 외부에 다수의 포트와 연결시킬 수도 있다.</p>
+
+<blockquote>
+  <p>포트를 연결시키기 전에 <code class="language-plaintext highlighter-rouge">netstat -tuln | grep 8080</code> 으로 사용하고 있는지 확인해준다.</p>
+</blockquote>
+
+<h3 id="docker-dns">Docker DNS</h3>
+
+<p>컨테이너가 많아질수록 IP 가 계속 바뀌고, 포트 매핑 만으로는 서비스 간의 연결을 관리하기 힘들다. 도커는 이를 해결하기 위해 내장 DNS 기반 서비스 디스커버리 기능을 제공하며, 특히 사용자 정의 bridge 네트워크를 사용할 때 자동으로 컨테이너 이름을 DNS 로 등록하여 IP 를 몰라도 서로 통신할 수 있게 된다.</p>
+
+<h4 id="컨테이너-이름-기반-통신dns">컨테이너 이름 기반 통신(DNS)</h4>
+
+<p>Docker 의 user-defined bridge 네트워크는 자체 DNS 서버를 내장하고 있으며, 이 DNS 서버는 같은 네트워크에 속한 컨테이너 이름을 IP 로 실시간으로 변환해준다.</p>
+
+<ul>
+  <li>각 컨테이너는 <code class="language-plaintext highlighter-rouge">--name</code> 으로 지정된 이름으로 접근이 가능</li>
+  <li>같은 네트워크 내에서만 DNS 해석 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">/etc/resolv.conf</code> 에 등록된 Docker DNS(127.0.0.11) 가 조회 수행</li>
+  <li>(컨테이너 이름) = (서비스 이름(Service Discovery))</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker network create app-network
+
+docker run <span class="nt">-d</span> <span class="se">\</span>
+  <span class="nt">--name</span> db <span class="se">\</span>
+  <span class="nt">--network</span> app-network <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>pass <span class="se">\</span>
+  mysql:8.0
+
+docker run <span class="nt">-d</span> <span class="se">\</span>
+  <span class="nt">--name</span> webapp <span class="se">\</span>
+  <span class="nt">--network</span> app-network <span class="se">\</span>
+  <span class="nt">-p</span> 8080:8080 <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">DB_HOST</span><span class="o">=</span>db <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">DB_PORT</span><span class="o">=</span>3306 <span class="se">\</span>
+  myapp:latest</code></pre></figure>
+
+<p>이렇게 DNS 의 식별자로 <code class="language-plaintext highlighter-rouge">--name</code> 을 지정하고 있는 것을 볼 수 있다.</p>
+
+<h4 id="컨테이너-호스트명-설정">컨테이너 호스트명 설정</h4>
+
+<p><code class="language-plaintext highlighter-rouge">--hostname</code> 옵션을 사용하여 컨테이너 내부에서 보이는 시스템 호스트명을 설정할 수 있다(bash 함수의 <code class="language-plaintext highlighter-rouge">hostname</code> 을 말함).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker run <span class="nt">-d</span> <span class="se">\</span>
+  <span class="nt">--name</span> webapp <span class="se">\</span>
+  <span class="nt">--hostname</span> webapp.local <span class="se">\</span>
+  <span class="nt">--network</span> my-bridge <span class="se">\</span>
+  nginx
+
+docker <span class="nb">exec </span>webapp <span class="nb">hostname</span>
+<span class="c"># webapp.local 가 출력</span>
+
+docker <span class="nb">exec </span>webapp <span class="nb">cat</span> /etc/resolv.conf
+<span class="c"># 하지만 DNS 는 다름</span>
+<span class="c"># webapp ??.??.??.??</span></code></pre></figure>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">docker-compose</code> 에서는 container_name 이 있으면 <code class="language-plaintext highlighter-rouge">container_name</code> 을 따르고, 없으면 <code class="language-plaintext highlighter-rouge">service_name</code> 을 따르게 된다.</p>
+</blockquote>
+
+<p>보통 <code class="language-plaintext highlighter-rouge">container_name</code> 사용은 되도록 피하는게 좋다고 한다. compose 스케일링이 이름이 중복되어서 불가능하게 되고, 기본 네이밍 규칙이 깨져 관리가 어려우며, 네트워크 alias 자동 새엉 기능을 방해하기 때문이다. 따라서 서비스 이름 기반 DNS 를 사용하며 <code class="language-plaintext highlighter-rouge">container_name</code> 은 지정 안하는게 좋다.</p>
+
+<h3 id="포트-바인딩-vs-expose">포트 바인딩 vs EXPOSE</h3>
+
+<p><strong>EXPOSE</strong></p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker"><span class="k">FROM</span><span class="s"> nginx</span>
+<span class="k">EXPOSE</span><span class="s"> 80</span></code></pre></figure>
+
+<p>위는 실제로 포트가 열리는게 아니라 메타데이터로써 알리는 용도일 뿐이다.</p>
+
+<p><strong>포트바인딩</strong></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker run <span class="nt">-p</span> 8080:80 nginx</code></pre></figure>
+
+<p>위는 실제로 호스트 컴퓨터의 8080 으로 들어온 것들을 도커 엔진 쪽의 80 번 포트로 포워딩 해주게 된다. 이때 컨테이너는 안에 80 번을 열어놔야 한다(nginx 는 기본적으로 80번이 열려있다).</p>
+
+<h3 id="docker-network-명령어-정리">Docker Network 명령어 정리</h3>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker"><span class="c"># 네트워크 생성</span>
+docker network create my-network
+
+<span class="c"># 네트워크 조회</span>
+docker network ls
+docker network inspect my-network
+
+<span class="c"># 실행 중인 컨테이너를 네트워크에 연결/해제</span>
+docker network connect my-network container_name
+docker network disconnect my-network container_name
+
+<span class="c"># 네트워크 삭제</span>
+docker network rm my-network</code></pre></figure>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-61%EC%9D%BC%EC%B0%A8-docker(2).html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

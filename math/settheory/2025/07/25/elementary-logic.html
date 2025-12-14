@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>Elementary Logic</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Elementary Logic | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Elementary Logic" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="🚧 작업중" />
+<meta property="og:description" content="🚧 작업중" />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/math/settheory/2025/07/25/elementary-logic.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/math/settheory/2025/07/25/elementary-logic.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-07-25T16:47:26+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Elementary Logic" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-07-25T16:47:26+00:00","datePublished":"2025-07-25T16:47:26+00:00","description":"🚧 작업중","headline":"Elementary Logic","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/math/settheory/2025/07/25/elementary-logic.html"},"url":"https://seonghun120614.github.io/seonghun120614/math/settheory/2025/07/25/elementary-logic.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/math/settheory/2025/07/25/elementary-logic.html">
+        <h2 class="post-title">Elementary Logic</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jul 25, 2025</div><ul class="post-categories"><li>Math</li><li>SetTheory</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+<p>🚧 작업중</p>
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#statement">명제 Statement</a>
+    <ul>
+      <li><a href="#simple-statement--compound-statement">Simple Statement &amp; Compound Statement</a></li>
+    </ul>
+  </li>
+  <li><a href="#truth-table">Truth Table</a></li>
+  <li><a href="#logically-equivalent">Logically Equivalent</a></li>
+  <li><a href="#conditional-truth-table">Conditional Truth Table</a></li>
+  <li><a href="#biconditional-truth-table">Biconditional Truth Table</a></li>
+  <li><a href="#tautology">Tautology</a>
+    <ul>
+      <li><a href="#implication">Implication</a>
+        <ul>
+          <li><a href="#theorem">Theorem</a></li>
+        </ul>
+      </li>
+      <li><a href="#equivalence">Equivalence</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="statement">Statement</h3>
+
+<p>논리는 타당하지 않은 논증으로부터 타당한 논증을 구별하는 데 쓰이는 원리와 방법을 익히는 것이다. 논리를 논하기 위해서는 <strong>참, 거짓</strong>으로 구분 할 수 있는 문장인 Statement 부터 보아야 한다.</p>
+
+<h4 id="simple-statement--compound-statement">Simple Statement &amp; Compound Statement</h4>
+
+<p>일반적으로 참, 거짓의 분기가 1회로 끝나는 문장을 Simple Statement 라고 하며, 단순 명제가 결합된 것을 Compound Statement 라고 한다.</p>
+
+<p>단순 명제는 보통 영소문자로 두어 명제를 <strong>정의</strong>하고, 이 단순 명제들을 결합자를 통해 결합하면 영대문자로 나타내는 복합명제가 되는데 결합자는 다음과 같다:</p>
+
+<p><strong>Connectives</strong></p>
+<ul>
+  <li>$\lnot$ : not, 부정, 아니다의 의미</li>
+  <li>$\land$: and, 그리고</li>
+  <li>$\lor$: or, 또는</li>
+  <li>$\rightarrow$: if…then, 이면, 라면</li>
+  <li>$\leftrightarrow$: if…and only if…, 이면 그리고 그때에만</li>
+</ul>
+
+<p>복합 명제에서 부분 부분의 명제들을 보통 <strong>Component</strong> 라고 부르며, 이러한 복합 명제에 대한 참, 거짓 여부를 판단하고 싶을 때 <strong>Truth Table(진리표)</strong>를 사용하면 쉽게 검토할 수 있다.</p>
+
+<h3 id="truth-table">Truth Table</h3>
+
+<p>각각의 결합자들을 사용한 복합 명제에 대해 진리표를 그려보자.</p>
+
+<p>$\lnot p$
+| p | ¬p |
+|—|—-|
+| T | F  |
+| F | T  |</p>
+
+<p>$p\land q$
+| p | q | p ∧ q |
+|—|—|——–|
+| T | T |   T    |
+| T | F |   F    |
+| F | T |   F    |
+| F | F |   F    |</p>
+
+<p>$p\lor q$
+| p | q | p ∨ q |
+|—|—|——–|
+| T | T |   T    |
+| T | F |   T    |
+| F | T |   T    |
+| F | F |   F    |</p>
+
+<p>여기서 각각의 가능한 경우, 성분들의 가능한 참, 거짓의 조합을 <strong>Logical Possibilities(논리적 가능성)</strong> 라고 하며, and, or 에 대한 논리적 가능성은 4가지, not 에 대한 논리적 가능성은 2가지 이다.</p>
+
+<h3 id="logically-equivalent">Logically Equivalent</h3>
+
+<p>단순 명제 p, q 이거나 합성명제인 P, Q에 대한 모든 논리적 가능성의 경우 진리값이 같으면 P, Q는 <strong>Logically Equivalent(논리적 동치)</strong> 또는 그냥 동치라고 한다. $P\equiv Q$ 로 나타내게 된다.</p>
+
+<p>예를 들어 다음 복합 명제끼리 equivalent 임을 볼 수 있다.</p>
+
+\[p\lor q \equiv \lnot(\lnot p\land \lnot q)\]
+
+<blockquote>
+  <p>진리표를 그려보면 각각의 logical possibilities 에 대해 모든 결과 값이 동일함을 볼 수 있다.</p>
+</blockquote>
+
+<h3 id="conditional-truth-table">Conditional Truth Table</h3>
+
+<p>‘이면’ 을 나타내는 $\rightarrow$ 기호는 <strong>Conditional(조건부)</strong> 기호라고 부르며, $p\rightarrow q$ 의 진리표는 다음과 같다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>p</th>
+      <th>q</th>
+      <th>¬q</th>
+      <th>p ∧ ¬q</th>
+      <th>p → q := ¬(p ∧ ¬q)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T</td>
+      <td>T</td>
+      <td>F</td>
+      <td>F</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>F</td>
+      <td>T</td>
+      <td>T</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>T</td>
+      <td>F</td>
+      <td>F</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>F</td>
+      <td>T</td>
+      <td>F</td>
+      <td>T</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>여기서 p 이면 q 이다. 라는 것은 전자의 명제가 참일 경우에만 따지는데, p가 거짓인 경우에는 그런 경우를 관심으로 두지 않기 때문에 논하는 것은 무의미하다. 따라서 생각조차 하지 않는데, 이를테면 다음과 같은 명제이다:</p>
+
+<blockquote>
+  <p>저 사람이 태양이면 나는 바람이다.</p>
+</blockquote>
+
+<p>사람이 태양일리 없으므로 이런 명제는 생각조차하지 않는다. 하지만 이 두 논리적 가능성은 결과적으로 참이라고 둔다(정의다).</p>
+
+<h3 id="biconditional-truth-table">Biconditional Truth Table</h3>
+
+<p>쌍화살표 라고 보통 많이 보았을텐데, <strong>Biconditional(쌍조건부)</strong>라고 읽고, 기호로 $p\leftrightarrow q$ 로 쓸 수 있다. $(p \rightarrow q) \land (p \leftarrow q)$ 와도 같다. 진리표는:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>p</th>
+      <th>q</th>
+      <th>p → q</th>
+      <th>p ← q</th>
+      <th>p ↔ q</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>F</td>
+      <td>F</td>
+      <td>T</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>T</td>
+      <td>T</td>
+      <td>F</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>F</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tautology">Tautology</h3>
+
+<p>모든 논리적 가능성에 대해 참인 것을 Tautology(항진)이라고 한다.</p>
+
+<p>다음은 다 항진일 것이다.</p>
+<ul>
+  <li>$p \lor ~p$</li>
+  <li>$p \leftrightarrow p$</li>
+</ul>
+
+<p>항진은 기호로 보통 소문자 t로 둔다.</p>
+
+<h4 id="implication">Implication</h4>
+
+<p>$P \rightarrow Q$ 가 t일 때, $P \implies Q$ 라고 하고, P 는 Q를 함의한다. 라고 읽는다. 여기서 화살표 기호의 결합력이 or, and 의 결합력보다 더 느슨하므로 보통 $p \rightarrow (p\lor q)$ 을 $p \rightarrow p\lor q$ 로 쓴다. 또한 $\lnot$ 은 $\lor, \land$ 보다 쎄다.</p>
+
+<blockquote>
+  <p>결합력 순위 $\lnot &gt; \land, \lor &gt; \rightarrow, \leftarrow, \leftrightarrow$<br />
+위와 같이 진리표를 그려나가야 한다.</p>
+</blockquote>
+
+<p>어쨋든 함의가 나왔다는 것은 그 복합 명제가 무조건 항진임을 뜻한다.</p>
+
+<h5 id="theorem">Theorem</h5>
+
+<ul>
+  <li>Law of Addition(Add.): $p \implies p \lor q$</li>
+  <li>Laws of Simplification(Simp.): $p\land q \implies p$, $p\land q \implies q$</li>
+  <li>Disjunctive Syllogism(D.S.): $(p\lor q) \land \lnot p \implies q$</li>
+</ul>
+
+<h4 id="equivalence">Equivalence</h4>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<p>######</p>
+
+<hr />
+
+<h2 id="-관련-출처">🔗 관련 출처</h2>
+<ul>
+  <li><a href=""></a></li>
+</ul>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/math/settheory/2025/07/25/elementary-logic.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/math/settheory/2025/07/25/elementary-logic.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

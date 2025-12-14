@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 21일차 SQL 심화</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 21일차 SQL 심화 | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 21일차 SQL 심화" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-16T00:59:03+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 21일차 SQL 심화" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-09-16T00:59:03+00:00","datePublished":"2025-09-16T00:59:03+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 21일차 SQL 심화","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 21일차 SQL 심화</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Sep 16, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Database</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#sql-명령-정리">SQL 명령 정리</a></li>
+  <li><a href="#index-깊이-있게-다루기">INDEX 깊이 있게 다루기</a>
+    <ul>
+      <li><a href="#explain">EXPLAIN</a></li>
+      <li><a href="#fulltext-index">FULLTEXT INDEX</a>
+        <ul>
+          <li><a href="#match--against-구문">MATCH … AGAINST 구문</a></li>
+          <li><a href="#제약사항">제약사항</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#data-types-심화">Data Types 심화</a>
+    <ul>
+      <li><a href="#date-and-time-types-in-sql">Date and Time Types in SQL</a></li>
+      <li><a href="#default-values">Default Values</a></li>
+      <li><a href="#large-object-types">Large-Object Types</a></li>
+      <li><a href="#user-defined-types">User-Defined Types</a>
+        <ul>
+          <li><a href="#domain">Domain</a></li>
+          <li><a href="#generating-unique-key-values">Generating Unique Key Values</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#jdbc">JDBC</a>
+    <ul>
+      <li><a href="#connecting-to-the-db">Connecting to the DB</a></li>
+      <li><a href="#statement">Statement</a></li>
+      <li><a href="#exception">Exception</a></li>
+      <li><a href="#preparedstatement">PreparedStatement</a></li>
+      <li><a href="#callable-statements">Callable Statements</a>
+        <ul>
+          <li><a href="#자동-생성된-키-가져오기">자동 생성된 키 가져오기</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="sql-명령-정리">SQL 명령 정리</h3>
+
+<ul>
+  <li>CREATE TABLE: 테이블 생성</li>
+  <li>ALTER TABLE: 테이블 구조 변경</li>
+  <li>DROP TABLE: 테이블 삭제</li>
+  <li>RENAME: 이름 변경</li>
+  <li>TRUNCATE: 테이블의 모든 데이터 삭제</li>
+  <li>COMMENT: 테이블에 설명 추가</li>
+</ul>
+
+<h3 id="index-깊이-있게-다루기">INDEX 깊이 있게 다루기</h3>
+
+<p>인덱스는 테이블의 검색 속도를 향상시키기 위해 특정 컬럼에 대해 생성하는 자료구조이다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- 복합 인덱스 생성</span>
+<span class="k">create</span> <span class="k">index</span> <span class="n">emp_name_sal_idx</span>
+<span class="k">on</span> <span class="n">employees</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">salary</span><span class="p">);</span>
+
+<span class="c1">-- 인덱스 확인</span>
+<span class="k">show</span> <span class="k">index</span> <span class="k">from</span> <span class="n">employees</span><span class="p">;</span>
+
+<span class="c1">-- 인덱스 삭제</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">employees</span>
+<span class="k">drop</span> <span class="k">index</span> <span class="n">emp_name_sal_idx</span><span class="p">;</span></code></pre></figure>
+
+<blockquote>
+  <p>유니크 값이 많은 컬럼이 효율적이다.</p>
+</blockquote>
+
+<p>이제 인덱스 실행 계획을 보자.</p>
+
+<h4 id="explain">EXPLAIN</h4>
+
+<p>쿼리의 성능을 분석하고 병목 구간을 찾기 위해 사용하는 구문이다. db 가 테이블 스캔 방식이나 인덱스 사용 여부, 조인 순서 등을 어떻게 결정했는지 확인이 가능하다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- 인덱스 사용 전</span>
+<span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">employees</span> 
+<span class="k">WHERE</span> <span class="n">hire_date</span> <span class="o">=</span> <span class="s1">'2005-01-01'</span><span class="p">;</span>
+
+<span class="c1">-- 인덱스 생성</span>
+<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">emp_hire_idx</span> <span class="k">ON</span> <span class="n">employees</span><span class="p">(</span><span class="n">hire_date</span><span class="p">);</span>
+
+<span class="c1">-- 인덱스 사용 후</span>
+<span class="k">EXPLAIN</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">employees</span> 
+<span class="k">WHERE</span> <span class="n">hire_date</span> <span class="o">=</span> <span class="s1">'2005-01-01'</span><span class="p">;</span></code></pre></figure>
+
+<blockquote>
+  <p>여기서 index 로 설정된 열의 값을 where 절에서 변질시키면 안된다. 예를들어서 index 가 있는 name 이라는 속성을 where 절에 썼다고 해보자. 그러면 substring(name, 1, 1) 등으로 이를 변질시키면 index 를 사용하지 못하게 된다. LIKE 를 써서 이를 변질시키지 말고 해야한다.</p>
+</blockquote>
+
+<h4 id="fulltext-index">FULLTEXT INDEX</h4>
+
+<p>문자열 컬럼(CHAR, VARCHAR, TEXT)를 대상으로 빠른 키워드 검색을 지원하는 인덱스이다. <code class="language-plaintext highlighter-rouge">LIKE '%keyword%'</code> 보다 훨씬 효율적이고, 자연어 처리 기반으로 동작하며, 단어 단위로 인덱스를 생성한다.</p>
+
+<blockquote>
+  <p>MySQL 5.6 이상에서 InnoDB 엔진에서도 FULLTEXT 지원</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- 테이블 생성할 때 생성</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">t1</span> <span class="p">(</span>
+    <span class="nb">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="n">id</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="n">username</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="n">password</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="nb">text</span> <span class="n">introduction</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">fulltext</span> <span class="n">idx_intro</span> <span class="p">(</span><span class="n">introduction</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- 테이블 생성 후 인덱스 생성</span>
+<span class="k">create</span> <span class="n">fulltext</span> <span class="k">index</span> <span class="n">idx_intro</span>
+<span class="k">on</span> <span class="n">t1</span><span class="p">(</span><span class="n">introduction</span><span class="p">)</span></code></pre></figure>
+
+<h5 id="match--against-구문">MATCH … AGAINST 구문</h5>
+
+<p>fulltext 로 인덱스를 생성했다면 해당 컬럼에 대한 검색을 수행할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- 자연어 모드</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t1</span>
+<span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">introduction</span><span class="p">)</span>
+<span class="n">against</span><span class="p">(</span><span class="s1">'hello, '</span><span class="p">);</span>
+
+<span class="c1">-- boolean 모드</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t1</span>
+<span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">introduction</span><span class="p">)</span>
+<span class="n">against</span><span class="p">(</span><span class="s1">'+hello -name'</span> <span class="k">in</span> <span class="nb">boolean</span> <span class="k">mode</span><span class="p">);</span>
+
+<span class="c1">-- query expansion 모드</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">article</span>
+<span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">introduction</span><span class="p">)</span>
+<span class="n">against</span><span class="p">(</span><span class="s1">'database'</span> <span class="k">with</span> <span class="n">query</span> <span class="n">expansion</span><span class="p">);</span></code></pre></figure>
+
+<ul>
+  <li><strong>Natural Language Mode</strong>: 단어의 등장 빈도(TF-IDF) 기반으로 점수 계산 -&gt; 연관도 높은 순으로 결과를 반환</li>
+  <li><strong>Boolean Mode</strong>: +(필수 포함), -(제외), *(와일드카드), “(정확히 일치)</li>
+  <li><strong>Query Expansion</strong>: 첫 검색 결과의 연관 단어들을 다시 확장하여 검색(추천 검색과 유사)</li>
+</ul>
+
+<h5 id="제약사항">제약사항</h5>
+
+<p>이러한 FULLTEXT 는 다음과 같은 제약사항을 따른다.</p>
+
+<ul>
+  <li><strong>ft_min_word_len</strong> 보다 짧으면 인덱싱이 안됨
+    <ul>
+      <li>최소 단어 길이 변수는 MySQL 서버 시스템 변수를 따라가며 기본값은 4로 되어 있다.</li>
+      <li>DB 서버 재시작 후 다시 적용해야 한다(rebuilding 필요)</li>
+    </ul>
+  </li>
+  <li>기본적으로 불용어(a, an, the, …)등은 기본적으로 무시한다</li>
+  <li>collation 의 문자 정렬 규칙에 따라 대소문자 구분 여부를 정할 수 있다.
+    <ul>
+      <li><strong>utf8_general_ci</strong>: 대소문자는 구분하지 않음</li>
+      <li><strong>utf8_bin</strong> 계열: 대소문자 구분</li>
+    </ul>
+  </li>
+  <li>영어/라틴 문자 중심으로 설계가 되어서 한국어/일본어/중국어 등등의 언어들은 n-gram 파서를 활성화해야 한다.</li>
+</ul>
+
+<p><strong>collation</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- Collations 확인</span>
+<span class="k">show</span> <span class="k">full</span> <span class="n">columns</span> <span class="k">from</span> <span class="n">t1</span><span class="p">;</span>
+
+<span class="c1">-- 변경</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">t1</span>
+<span class="k">modify</span> <span class="n">introduction</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">collate</span> <span class="n">utf8_bin</span><span class="p">;</span></code></pre></figure>
+
+<p><strong>n-gram 사용</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- MySQL 5.7 부터 지원</span>
+<span class="k">create</span> <span class="n">fulltext</span> <span class="k">index</span> <span class="n">idx_test</span>
+<span class="k">on</span> <span class="n">t1</span><span class="p">(</span><span class="n">introduction</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">parser</span> <span class="n">ngram</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="data-types-심화">Data Types 심화</h3>
+
+<h4 id="date-and-time-types-in-sql">Date and Time Types in SQL</h4>
+
+<ul>
+  <li><strong>date</strong>: 연도, 월, 일</li>
+  <li><strong>time</strong>: 시, 분, 초, time(p) 사용 시 초의 소수 자릿수를 지정 가능 또한 time with timezone 을 사용시 시간대 정보도 함께 저장 가능</li>
+  <li><strong>timestamp</strong>: 날짜와 시간을 결합, timestamp(p) 도 사용가능(기본값 6), timestamp with timezone 을 지정 시 시간대 정보도 함께 저장</li>
+</ul>
+
+<p><strong>중요</strong></p>
+<blockquote>
+  <p>MySQL 은 <strong>datetime</strong> 타입을 제공해저서 <strong>timestamp with timezone</strong> 과 같은 기능을 얻을 수 있다.</p>
+</blockquote>
+
+<h4 id="default-values">Default Values</h4>
+
+<p>default 는 속성에 기본값을 지정하도록 하는 제약조건이다. create 문에서 지정할 수 있으며, 다음과 같이 선언한다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">student</span>
+<span class="p">(</span>
+  <span class="n">ID</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+  <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+  <span class="n">dept_name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">tot_cred</span> <span class="nb">numeric</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">default</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+<span class="p">);</span></code></pre></figure>
+
+<p>tot_cred 속성의 기본값은 0이기에 레코드를 삽입할 때, 값을 제공하지 않으면 자동으로 0으로 설정된다.</p>
+
+<h4 id="large-object-types">Large-Object Types</h4>
+
+<p>사진, 고해상도 의료 이미지, 동영상 등과 같은 큰 데이터 항목을 도메인으로 갖는 속성을 저장하고 싶을 때는 다음을 사용한다:</p>
+
+<ul>
+  <li><strong>CLOB</strong>: 문자 데이터용 대형 객체</li>
+  <li><strong>BLOB</strong>: 이진 데이터용 대형 객체</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">book_review</span> <span class="k">CLOB</span><span class="p">(</span><span class="mi">10</span><span class="n">KB</span><span class="p">)</span>
+<span class="n">image</span> <span class="nb">BLOB</span><span class="p">(</span><span class="mi">10</span><span class="n">MB</span><span class="p">)</span>
+<span class="n">movie</span> <span class="nb">BLOB</span><span class="p">(</span><span class="mi">2</span><span class="n">GB</span><span class="p">)</span></code></pre></figure>
+
+<p>여기서 이들을 결과로 내보낼때 대형 객체를 메모리 상에 올리는 것은 현실적으로 불가능하기에 이 대신 <strong>Locator</strong> 라는 것을 주고 로케이터를 통해 어플리케이션이 작성된 호스트 언어에서 객체를 참조하는 형태로 조작하게 된다.</p>
+
+<blockquote>
+  <p>운영체제의 read 와 유사하다.</p>
+</blockquote>
+
+<h4 id="user-defined-types">User-Defined Types</h4>
+
+<p>SQL 은 두 가지 형태의 사용자 정의 데이터 타입을 지원한다.</p>
+
+<ul>
+  <li><strong>distinct type</strong></li>
+  <li><strong>structured data type</strong>: 중첩된 레코드 구조, 배열, 멀티셋 등</li>
+</ul>
+
+<p><strong>distinct type</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">type</span> <span class="n">Dollars</span> <span class="k">as</span> <span class="nb">numeric</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span>
+<span class="k">create</span> <span class="k">type</span> <span class="n">Pounds</span> <span class="k">as</span> <span class="nb">numeric</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">final</span><span class="p">;</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">department</span>
+<span class="p">(</span>
+  <span class="n">dept_name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+  <span class="n">building</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span>
+  <span class="n">budget</span> <span class="n">Dollars</span>
+<span class="p">);</span></code></pre></figure>
+
+<blockquote>
+  <p>개념적으로 서로 달라야 하지만 타입은 유사한 것들은 distinct type 을 쓰자.</p>
+</blockquote>
+
+<p>단점으로는 위 예시에서는 (department.budget + 20) 이라는 표현식이 <strong>strong type checking</strong> 때문에 허용되지 않는 표현식이다. 따라서 다음 식을 통해 바꾸는 것을 수행해줘야 한다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">cast</span><span class="p">(</span><span class="n">department</span><span class="p">.</span><span class="n">budget</span> <span class="k">as</span> <span class="nb">numeric</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span></code></pre></figure>
+
+<p>이렇게 하면 숫자로 바꿔서 결과를 낼 수 있지만 이를 다시 저장할 때는 또 바꿔줘야 한다.</p>
+
+<h5 id="domain">Domain</h5>
+
+<p>이 대안으로 domain 을 만들 수 있는데,</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">domain</span> <span class="n">DDollars</span> <span class="k">as</span> <span class="nb">numeric</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">;</span></code></pre></figure>
+
+<p>DDollars 는 다음 차이점이 있다.</p>
+
+<p><strong>Domain 특징</strong></p>
+<ul>
+  <li>Dollars 와는 달리 not null 제약조건을 추가가능, primary key 로 정의 가능</li>
+  <li>강력한 타입이 아니기 때문에 기본 타입이 호환되는 한 한 도메인 타입의 값을 다른 도메인 타입에 할당할 수 있음</li>
+</ul>
+
+<p><strong>예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- 범위 제한</span>
+<span class="k">create</span> <span class="k">domain</span> <span class="n">YearlySalary</span> <span class="nb">numeric</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">constraint</span> <span class="n">salary_value_test</span> <span class="k">check</span><span class="p">(</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">29000</span><span class="p">.</span><span class="mi">00</span><span class="p">);</span>
+
+<span class="c1">-- 특정 값으로의 제한</span>
+<span class="k">create</span> <span class="k">domain</span> <span class="n">degree_level</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">constraint</span> <span class="n">degree_level_test</span>
+<span class="k">check</span> <span class="p">(</span><span class="n">value</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'Bachelors'</span><span class="p">,</span> <span class="s1">'Masters'</span><span class="p">,</span> <span class="s1">'Doctorate'</span><span class="p">));</span></code></pre></figure>
+
+<h4 id="generating-unique-key-values">Generating Unique Key Values</h4>
+
+<p>표준 SQL 에서는 다음과 같이 값을 unique 하게 생성하여 저장할 수 있도록 하는 옵션이 있다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">ID</span> <span class="n">number</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="k">generated</span> <span class="n">always</span> <span class="k">as</span> <span class="k">identity</span></code></pre></figure>
+
+<p>여기서 주의할 점은 이는 숫자형 키 값에 대해서만 작동한다.</p>
+
+<p><strong>generated as identity</strong></p>
+<ul>
+  <li>PostgreSQL: <code class="language-plaintext highlighter-rouge">SERIAL</code> 을 쓴다.</li>
+  <li>MySQL: <code class="language-plaintext highlighter-rouge">AUTO_INCREMENT</code> 를 쓴다.</li>
+</ul>
+
+<h3 id="jdbc">JDBC</h3>
+
+<p>이제 이 sql 서버를 구동중이고 이를 다루는 다양한 기술들 중 JDBC를 본다.</p>
+
+<p>기본적으로 sql 만으로는 표현할 수 있는 것에 한계가 있기 때문에 이러한 쿼리를 작성하려고 하면 embedded 하여 사용해야 한다. 또한, 비선언적 작업은 SQL 만으로 수행할 수 없다. 따라서 보고서를 출력하거나, 사용자와 상호작용하거나, 쿼리를 GUI 에 전달하는 등의 작업이다. 나머지 구성 요소는 범용 프로그래밍 언어로 작성되므로 통합된 어플리케이션을 만드려면 SQL 과 범용 프로그래밍 언어를 결합할 수단이 필요하다.</p>
+
+<p>이때 JDBC를 활용하여 SQL 과 소통을 할 수 있다.</p>
+
+<h4 id="connecting-to-the-db">Connecting to the DB</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// https://mvnrepository.com/artifact/mysql/mysql-connector-java</span>
+<span class="n">implementation</span> <span class="err">'</span><span class="nl">mysql:</span><span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="nl">java:</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">33</span><span class="err">'</span></code></pre></figure>
+
+<p>우선 위를 gradle.build 에 넣어 mysql driver 를 추가하자.</p>
+
+<p>Java 에서 <code class="language-plaintext highlighter-rouge">java.sql</code> 패키지에서는 db 와 연결할 수 있는 커넥션이라는 인터페이스를 제공한다. 여기서 커넥션의 설정을 DriverManager 로 설정하고 설정된 Connection 을 가져올 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Connection</span> <span class="o">=</span> <span class="nc">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span>
+    <span class="s">"jdbc:mysql://localhost:3306/hr"</span><span class="o">,</span> <span class="c1">// url</span>
+    <span class="n">userid</span><span class="o">,</span> <span class="c1">// user</span>
+    <span class="n">passwd</span> <span class="c1">// password</span>
+<span class="o">);</span></code></pre></figure>
+
+<ul>
+  <li>url 매개변수: 서버가 실행중인 url, 포트 번호, db 이름 을 차례대로 입력해주면 해당 DB로 넘어가게 된다. db 는 생략되도 된다.</li>
+  <li>user 매개변수: 문자열을 넣고 db 사용자 id 를 입력</li>
+  <li>password 매개변수: 유저에 대한 비밀번호이다. 보통은 Java 에 직접치지 않고 따로 저장하여 운용한다.</li>
+</ul>
+
+<blockquote>
+  <p>오라클 프로토콜은 jdbc:oracle:thin 이다.</p>
+</blockquote>
+
+<h4 id="statement">Statement</h4>
+
+<p>DB 연결이 됐다면, 이제 SQL 문을 실행할 준비가 된 것이다.</p>
+
+<p>java 에서는 이 DB에게 명령을 내리기 위해 Statement 클래스가 있는데, 이를 통해서 전송하고 실행할 수 있게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+<span class="n">stmt</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="s">"insert into instructor values(’77987’,’Kim’,’Physics’,98000)"</span><span class="o">);</span></code></pre></figure>
+
+<p>Statement 는</p>
+<ul>
+  <li>executeQuery()</li>
+  <li>executeUpdate()</li>
+</ul>
+
+<p>메서드를 가지고 있어 이를 호출할 수 있는데 query 로 메서드를 실행하면 ResultSet 을 반환하며, 쿼리문이 아닌 문장은 결과 집합을 반환하지 않고 int 를 반환하게 된다. 이때는 삽입, 갱신, 삭제 된 튜플 수를 반환하게 된다.</p>
+
+<blockquote>
+  <p>업데이트 값이 너무 많아 int 값 범위를 벗어날 때, executeLargeUpdate() 를 쓸 수 있다.</p>
+</blockquote>
+
+<h4 id="exception">Exception</h4>
+
+<p>SQL 메서드를 실행할 때에는 반드시 예외처리를 해주어야 하는데, <code class="language-plaintext highlighter-rouge">SQLException</code> 의 처리를 통해 try-catch 를 해주면 되겠다.</p>
+
+<p>또한, Connection, Statement, 기타 JDBC를 여는 객체는 시스템 자원을 소모하기 때문에 프로그래머는 반드시 close() 를 호출해주어야 한다. 이때는 try-resource-with 과 함께 사용한다.</p>
+
+<h4 id="preparedstatement">PreparedStatement</h4>
+
+<p>Statement 만 계속 사용하면 특정 sql 문장을 여러개 사용하고 싶을때, 수행하고 싶은 만큼의 문장들을 선언해주어야 한다. 이를 방지하기 위해 java 에서는 PreparedStatement 를 제공해준다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">conn</span><span class="p">.</span><span class="n">prepareStatement</span><span class="p">(</span><span class="nv">"insert into instructor values(?,?,?,?)"</span><span class="p">);</span></code></pre></figure>
+
+<p>? 를 파싱하여 다른 값들로 대체하여 넣을 수 있도록 해준다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">pStmt</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nv">"88877"</span><span class="p">);</span>
+<span class="n">pStmt</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nv">"Perry"</span><span class="p">);</span>
+<span class="n">pStmt</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="nv">"Finance"</span><span class="p">);</span>
+<span class="n">pStmt</span><span class="p">.</span><span class="n">setInt</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">125000</span><span class="p">);</span>
+<span class="n">pStmt</span><span class="p">.</span><span class="n">executeUpdate</span><span class="p">();</span>
+<span class="n">pStmt</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nv">"88878"</span><span class="p">);</span>
+<span class="n">pStmt</span><span class="p">.</span><span class="n">executeUpdate</span><span class="p">();</span></code></pre></figure>
+
+<p>마지막에서는 1번 파라미터만 88878 로 바꾸고 나머지는 동일하게 한 후 실행하게 할 수 있다.</p>
+
+<h4 id="callable-statements">Callable Statements</h4>
+
+<p>DBMS 측에 선언된 함수와 프로시저에 대한 수행을 하라고도 할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">CallableStatement</span> <span class="n">cStmt1</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">prepareCall</span><span class="p">(</span><span class="nv">"{? = call some_function(?)}"</span><span class="p">);</span>
+<span class="n">CallableStatement</span> <span class="n">cStmt2</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">prepareCall</span><span class="p">(</span><span class="nv">"{call some_procedure(?,?)}"</span><span class="p">);</span></code></pre></figure>
+
+<h5 id="자동-생성된-키-가져오기">자동 생성된 키 가져오기</h5>
+
+<p>add, update, delete 와 같은 처리는 반환 값이 굳이 없어도 되지만(boolean 으로 처리 완료를 나타내는 값을 반환하기도 한다), 가끔 DB 자체에서 생성하는 고유한 ID 들은 프로그래밍 단에서는 ID를 생성하지 않기 때문에 가져올 수 없다. 이 기본키가 가장 중요한 값인데, 이를 가져오지 못하면 저장한 행에 대해 후처리를 할 수가 없다. 이를 위해서  <code class="language-plaintext highlighter-rouge">Statement</code> 에서는 <code class="language-plaintext highlighter-rouge">RETURN_GENERATED_KEYS</code> 를 제공하고 있다.</p>
+
+<p>사용법은 다음과 같다:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">public</span> <span class="n">Long</span> <span class="n">insertAndGetId</span><span class="p">(</span><span class="n">String</span> <span class="n">email</span><span class="p">,</span> <span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="n">String</span> <span class="n">password</span><span class="p">)</span> <span class="err">{</span>
+    <span class="n">String</span> <span class="k">sql</span> <span class="o">=</span> <span class="nv">"INSERT INTO user (email, name, password) VALUES (?, ?, ?)"</span><span class="p">;</span>
+    <span class="n">Long</span> <span class="n">generatedId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+
+    <span class="n">try</span> <span class="p">(</span><span class="k">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">getConnection</span><span class="p">();</span>
+         <span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">prepareStatement</span><span class="p">(</span><span class="k">sql</span><span class="p">,</span> 
+                <span class="k">Statement</span><span class="p">.</span><span class="n">RETURN_GENERATED_KEYS</span><span class="p">))</span> <span class="err">{</span>
+
+        <span class="n">ps</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">email</span><span class="p">);</span>
+        <span class="n">ps</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+        <span class="n">ps</span><span class="p">.</span><span class="n">setString</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+
+        <span class="nb">int</span> <span class="n">updateCount</span> <span class="o">=</span> <span class="n">ps</span><span class="p">.</span><span class="n">executeUpdate</span><span class="p">();</span>
+
+        <span class="o">//</span> <span class="err">생성된</span> <span class="err">키</span> <span class="err">가져오기</span>
+        <span class="n">if</span> <span class="p">(</span><span class="n">updateCount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="err">{</span>
+            <span class="n">try</span> <span class="p">(</span><span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="p">.</span><span class="n">getGeneratedKeys</span><span class="p">())</span> <span class="err">{</span>
+                <span class="n">if</span> <span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="k">next</span><span class="p">())</span> <span class="err">{</span>
+                    <span class="n">generatedId</span> <span class="o">=</span> <span class="n">rs</span><span class="p">.</span><span class="n">getLong</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="err">}</span>
+            <span class="err">}</span>
+        <span class="err">}</span>
+    <span class="err">}</span> <span class="n">catch</span> <span class="p">(</span><span class="k">SQLException</span> <span class="n">e</span><span class="p">)</span> <span class="err">{</span>
+        <span class="n">e</span><span class="p">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+    <span class="err">}</span>
+
+    <span class="k">return</span> <span class="n">generatedId</span><span class="p">;</span>
+<span class="err">}</span></code></pre></figure>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/database/2025/09/16/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-21%EC%9D%BC%EC%B0%A8-sql-%EC%8B%AC%ED%99%94.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

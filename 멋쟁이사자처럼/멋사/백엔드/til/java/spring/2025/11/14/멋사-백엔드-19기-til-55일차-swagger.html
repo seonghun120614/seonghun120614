@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 55일차 Swagger</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 55일차 Swagger | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 55일차 Swagger" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-14T00:33:45+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 55일차 Swagger" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-11-14T00:33:45+00:00","datePublished":"2025-11-14T00:33:45+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 55일차 Swagger","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 55일차 Swagger</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Nov 14, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Spring</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#swagger">Swagger</a>
+    <ul>
+      <li><a href="#api-문서화">API 문서화</a></li>
+      <li><a href="#swagger-및-openapi-개념-정리">Swagger 및 OpenAPI 개념 정리</a></li>
+      <li><a href="#swagger-구성-요소">Swagger 구성 요소</a></li>
+      <li><a href="#swagger-장점">Swagger 장점</a></li>
+      <li><a href="#swagger-dependency">Swagger Dependency</a></li>
+      <li><a href="#swagger-applicationyml-설정">Swagger application.yml 설정</a>
+        <ul>
+          <li><a href="#api-docs-기능-설정">api-docs 기능 설정</a></li>
+          <li><a href="#swagger-ui-기능-설정">swagger-ui 기능 설정</a></li>
+        </ul>
+      </li>
+      <li><a href="#swagger-configuration">Swagger Configuration</a>
+        <ul>
+          <li><a href="#info-model">Info Model</a></li>
+          <li><a href="#server-model">Server Model</a></li>
+          <li><a href="#components-model">Components Model</a></li>
+        </ul>
+      </li>
+      <li><a href="#swagger-controller">Swagger Controller</a>
+        <ul>
+          <li><a href="#api-method-설명-등록">API Method 설명 등록</a></li>
+        </ul>
+      </li>
+      <li><a href="#swagger-dto-class">Swagger DTO Class</a></li>
+      <li><a href="#swagger-security">Swagger Security</a></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="swagger">Swagger</h3>
+
+<p>소프트웨어 간에 상호작용을 하기 위해 제공하는게 바로 API 문서다. API 수가 많아지만 이런 문서 작성도 굉장히 버겁게 된다. 이런 문서를 자동화 할 수 있는 것이 바로 Swagger 이다.</p>
+
+<h4 id="api-문서화">API 문서화</h4>
+
+<p>개발자가 API 를 이해하고 사용할 수 있도록 구조, 요청 / 응답 방식, 인증, 오류 등을 정리한 문서이며 문서가 없거나 불완전하면 코드 분석, 문의 등 비효율이 발생하게 된다. 명확한 문서는 개발자 경험과 유지보수 효율을 높일 것이다.</p>
+
+<p><strong>주요 요소</strong></p>
+<ul>
+  <li>end point: URL, HTTP 메서드(GET/POST/PUT/DELETE)</li>
+  <li>reuqest: 필요 파라미터, 헤더</li>
+  <li>response: 응답 데이터 구조, HTTP status code</li>
+  <li>Examples 요청/응답: 실제 호출 예시, 예상 결과</li>
+  <li>Error Code 설명: 발생 가능한 오류 코드 및 해결 방법</li>
+</ul>
+
+<h4 id="swagger-및-openapi-개념-정리">Swagger 및 OpenAPI 개념 정리</h4>
+
+<p>Swagger 는 API 문서를 자동 생성/관리하는 도구이며 OpenAPI Specification 표준 기반으로 API 명세를 정의하고, 작성된 명세를 활용하여 문서, 테스트 UI, 코드 생성 등을 자동화할 수 있게 된다.</p>
+
+<p><strong>OpenAPI Specification(OAS)</strong></p>
+<ul>
+  <li>RESTful API 를 기술하는 표준 포맷</li>
+  <li>YAML/JSON 형식으로 API 구조 정의</li>
+  <li>대부분의 언어/프레임워크에서 활용 가능</li>
+  <li>Swagger UI, Redoc 등을 통해 문서 자동 생성 가능</li>
+</ul>
+
+<h4 id="swagger-구성-요소">Swagger 구성 요소</h4>
+
+<ul>
+  <li>Swagger UI
+    <ul>
+      <li>브라우저 API 문서의 시각적 제공</li>
+      <li>API를 직접 테스트할 수 있는 인터랙티브 UI</li>
+    </ul>
+  </li>
+  <li>Swagger Editor
+    <ul>
+      <li>API 명세(YAML/JSON)를 작성하는 온라인 편집기</li>
+      <li>실시간 미리보기</li>
+    </ul>
+  </li>
+  <li>Swagger Codegen
+    <ul>
+      <li>API 명세를 기반하여 클라이언트 SDK, 서버 스텁 코드 자동 생성</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="swagger-장점">Swagger 장점</h4>
+
+<p>주요기능으로는 다음과 같다:</p>
+
+<p><strong>자동화된 API 문서 생성</strong>
+Swagger 는 어플리케이션 코드에 작성한 애노테이션을 기반으로 API 문서를 자동으로 생성하는데, 별도의 작업 없이도 엔드포인트, 파라미터, 응답 구조 등이 자동으로 반영되기 때문에 문서를 직접 작성하던 시대와 비교하면 압도적으로 효율적이다.</p>
+
+<p><strong>인터랙티브 API 테스트 기능 제공</strong>
+Swagger UI는 단순 문서가 아니라 브라우저에게 바로 API 를 호출해볼 수 있는 살아있는 테스트 환경을 제공하기 때문에 개발/QA/기획자가 <code class="language-plaintext highlighter-rouge">Postman</code>, <code class="language-plaintext highlighter-rouge">curl</code> 기능 없이 바로 API 를 검증할 수 있다는 큰 장점이 있다.</p>
+
+<p><strong>언어 및 프레임워크 독립적 구조</strong>
+Swagger/OAS는 특정 언어나 프레임워크에 종속되지 않는다. Java(Spring), Node.js, Python(FastAPI), Golang 등 어떤 환경에서도 동일한 방식으로 문서를 작성하고 공유할 수 있어 팀 간 표준화가 수월하다.</p>
+
+<p><strong>표준화된 API 명세(JSON/YAML) 제공</strong>
+API 구조를 JSON 또는 YAML 로 표현하는 Open API Specification(OAS) 를 그대로 따르게 된다. 이를 통해 도구 간 호환성이 높고, 외부 시스템과의 연동이나 API 관리 플랫폼에서도 바로 사용할 수 있다.</p>
+
+<h4 id="swagger-dependency">Swagger Dependency</h4>
+
+<figure class="highlight"><pre><code class="language-gradle" data-lang="gradle"><span class="n">implementation</span> <span class="s1">'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'</span></code></pre></figure>
+
+<h4 id="swagger-applicationyml-설정">Swagger application.yml 설정</h4>
+
+<h5 id="api-docs-기능-설정">api-docs 기능 설정</h5>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml"><span class="na">springdoc</span><span class="pi">:</span>
+  <span class="na">api-docs</span><span class="pi">:</span>
+    <span class="na">path</span><span class="pi">:</span> <span class="s">/api-docs</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span></code></pre></figure>
+
+<p>springdoc 은 swagger 에서 전용으로 사용하는 key block 이다. api-docs 는 API 명세를 JSON 형태로 보여준다. <code class="language-plaintext highlighter-rouge">/api-docs</code> 로 설정했으므로 scheme 뒤에 path 자리에 <code class="language-plaintext highlighter-rouge">/api-docs</code> 를 써준다면 JSON 형태로 볼 수 있다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-api-docs.png" alt="assets/img/swagger-api-docs.png" /></p>
+
+<h5 id="swagger-ui-기능-설정">swagger-ui 기능 설정</h5>
+
+<figure class="highlight"><pre><code class="language-yml" data-lang="yml">  <span class="na">swagger-ui</span><span class="pi">:</span>
+    <span class="na">path</span><span class="pi">:</span> <span class="s">/swagger-ui.html</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">operations-sorter</span><span class="pi">:</span> <span class="s">method</span>
+    <span class="na">tags-sorter</span><span class="pi">:</span> <span class="s">alpha</span>
+    <span class="na">display-request-duration</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">default-consumes-media-type</span><span class="pi">:</span> <span class="s">application/json</span>
+  <span class="na">default-produces-media-type</span><span class="pi">:</span> <span class="s">application/json</span></code></pre></figure>
+
+<p>swagger-ui 는 JSON 형태 외의 html 형태로 유저에게 시각적으로 보여준다. 웹사이트가 기본적으로 꾸며져 있기 때문에 따로 우리가 디자인하지 않아도 된다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">operations-sorter</code>: <code class="language-plaintext highlighter-rouge">method(GET, POST, PUT, DELETE)</code> 순으로 정렬, <code class="language-plaintext highlighter-rouge">alpha</code> 로도 설정 가능하다.</li>
+  <li><code class="language-plaintext highlighter-rouge">tags-sorter</code>: 나중에 설명 할 기능의 tag 의 <code class="language-plaintext highlighter-rouge">alpha</code>, 알파벳 순으로 정렬한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">display-request-duration</code>: swagger-ui 기능에는 서버에 요청을 쉽게 보낼 수 있는 기능이 있는데, 요청을 보낼 때 요청의 소요 시간을 표시하게 된다.</li>
+</ul>
+
+<h4 id="swagger-configuration">Swagger Configuration</h4>
+
+<p>Configuration 에 굳이 안해도 annotation 으로도 할 수 있지만, 컨트롤러 쪽의 위에 텍스트가 대량으로 쳐져서 컨트롤러 클래스의 코드를 볼 때 어디를 봐야할 지 한 눈에 안들어올 수 있으므로, 필자는 Configuration 에 등록하도록 했다. annotation 으로도 공부해보는 것을 추천한다.</p>
+
+<p>우선 Info model 부터 보자.</p>
+
+<h5 id="info-model">Info Model</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">io.swagger.v3.oas.models.info.Info</span><span class="o">;</span></code></pre></figure>
+
+<p>models 패키지를 import 해야 한다(annotations 을 import 하면 동작 안한다).</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OpenApiConfig</span> <span class="o">{</span>
+	<span class="nd">@Bean</span>
+	<span class="kd">public</span> <span class="nc">OpenAPI</span> <span class="nf">customOpenAPI</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="nf">OpenAPI</span><span class="o">()</span>
+				<span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="k">new</span> <span class="nc">Info</span><span class="o">()</span>
+						      <span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="s">"쇼핑몰 API문서"</span><span class="o">)</span>
+						      <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="s">"1.0.0"</span><span class="o">)</span>
+						      <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"쇼핑몰 프로젝트의 REST API "</span><span class="o">)</span>
+						      <span class="o">.</span><span class="na">contact</span><span class="o">(</span><span class="k">new</span> <span class="nc">Contact</span><span class="o">()</span>
+								               <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"김개발"</span><span class="o">)</span>
+								               <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="s">"dev@shop.com"</span><span class="o">)</span>
+								               <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">"https://shop.com"</span><span class="o">))</span>
+						      <span class="o">.</span><span class="na">license</span><span class="o">(</span><span class="k">new</span> <span class="nc">License</span><span class="o">()</span>
+								               <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"Apache 2.0"</span><span class="o">)</span>
+								               <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">"https://www.apache.org/licenses/LICENSE-2.0.html"</span><span class="o">)));</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>코드 자체가 html 구조의 indent 와 비슷하게 되며, 의미 또한 유사하다. 각 new 하는 객체들은 model 을 나타내며, 모델 각각은 API 를 설명하기 위해 메타데이터들을 가지고 있게 된다. Bean 으로 등록되는 OpenAPI 는 swagger-ui 의 문서를 추상화 한 형태이다.</p>
+
+<p><img src="https://github.com/OAI/OpenAPI-Specification/blob/3.0.4/versions/3.0.4.md" alt="OpenAPI Specification" /></p>
+
+<p>위 문서는 참고용이다. security config 처럼 builder 형태로 chaining 하며 데이터를 입력하며, OpenAPI 에는 <code class="language-plaintext highlighter-rouge">info</code>, <code class="language-plaintext highlighter-rouge">servers</code>, <code class="language-plaintext highlighter-rouge">components</code> 등의 메서드를 통해 메타데이터들을 집어넣을 수 있다. 위를 우선 실행시키고 <code class="language-plaintext highlighter-rouge">swagger-ui/index.html</code> path 로 접속하면 다음과 같이 변경되어 있음을 볼 수 있다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-info-config.png" alt="assets/img/swagger-ui-info-config.png" /></p>
+
+<p>다음은 입력하여 알려주는게 좋다.</p>
+
+<ul>
+  <li>title</li>
+  <li>version</li>
+  <li>contact</li>
+  <li>license</li>
+</ul>
+
+<h5 id="server-model">Server Model</h5>
+
+<p>servers 에 여러 환경을 등록하면 Swagger UI에서 드롭다운으로 선택 가능하다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">.</span><span class="na">servers</span><span class="o">(</span><span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">Server</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">"http://localhost:8080"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"로컬 개발 서버"</span><span class="o">),</span>
+        <span class="k">new</span> <span class="nf">Server</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">"https://dev-api.shop.com"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"개발 서버"</span><span class="o">),</span>
+        <span class="k">new</span> <span class="nf">Server</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">"https://api.shop.com"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"운영 서버"</span><span class="o">)</span>
+<span class="o">));</span></code></pre></figure>
+
+<p>가독성을 위해 indent 는 좀 줄였다. 우리 서버는 개발, 테스트, 운영의 URI 가 다르기 때문에 위처럼 명시해줄 수도 있다. 이를 실행하면 다음처럼 뜨게 된다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-servers.png" alt="assets/img/swagger-ui-servers.png" /></p>
+
+<p>주의할 점은 server 가 아니라 servers 라서 iterable 한 객체를 넣어줘야 한다.</p>
+
+<h5 id="components-model">Components Model</h5>
+
+<p>보안 스키마도 설정할 수 있는데 <code class="language-plaintext highlighter-rouge">components</code> 메서드를 통해 설정할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">.</span><span class="na">components</span><span class="o">(</span><span class="k">new</span> <span class="nc">Components</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">addSecuritySchemes</span><span class="o">(</span><span class="s">"bearerAuth"</span><span class="o">,</span>  <span class="c1">// 이름은 자유롭게</span>
+                <span class="k">new</span> <span class="nf">SecurityScheme</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">SecurityScheme</span><span class="o">.</span><span class="na">Type</span><span class="o">.</span><span class="na">HTTP</span><span class="o">)</span>  <span class="c1">// HTTP 인증</span>
+                        <span class="o">.</span><span class="na">scheme</span><span class="o">(</span><span class="s">"bearer"</span><span class="o">)</span>                 <span class="c1">// Bearer 토큰 방식</span>
+                        <span class="o">.</span><span class="na">bearerFormat</span><span class="o">(</span><span class="s">"JWT"</span><span class="o">)</span>              <span class="c1">// JWT 포맷</span>
+                        <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"JWT 토큰을 입력하세요 (Bearer 제외)"</span><span class="o">)))</span>
+<span class="c1">// 전역으로 보안 적용 (모든 API에 JWT 필요)</span>
+<span class="o">.</span><span class="na">addSecurityItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">SecurityRequirement</span><span class="o">().</span><span class="na">addList</span><span class="o">(</span><span class="s">"bearerAuth"</span><span class="o">));</span></code></pre></figure>
+
+<p>Components 에는 <code class="language-plaintext highlighter-rouge">addSecuritySchemes</code> 메서드가 있어서 여기에 <code class="language-plaintext highlighter-rouge">SecurityScheme</code> 하나씩 넣어주면 된다. 이를 넣어주기만 하면 안되고, <code class="language-plaintext highlighter-rouge">bearerAuth</code> 로 등록된 것들을 <code class="language-plaintext highlighter-rouge">SecurityItem</code> 으로 사용이 가능하다. <code class="language-plaintext highlighter-rouge">addSecurityItem</code> 으로 전역적인 보안 설정이 가능하며, 여기에 <code class="language-plaintext highlighter-rouge">SecurityRequirement</code> 모델로 bearerAuth 의 이름을 가지는 <code class="language-plaintext highlighter-rouge">SecurityScheme</code> 를 불러오도록 하자. 최종적으로 실행해보자.</p>
+
+<p><a href="/seonghun120614/assets/img/swagger-ui-authorize.png">assets/img/swagger-ui-authorize.png</a></p>
+
+<p>위처럼 뜨게 되며, 클릭시 JWT 토큰을 입력할 수 있는 창도 뜨게 된다.</p>
+
+<p><a href="/seonghun120614/assets/img/swagger-ui-bearerAuth.png">assets/img/swagger-ui-bearerAuth.png</a></p>
+
+<p>나중에 여기서 JWT 토큰을 입력하여 요청을 보내볼 것이다.</p>
+
+<h4 id="swagger-controller">Swagger Controller</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Controller</code> 에 API 들이 들어갈텐데, 이 부분이 가장 문서에서 중요한 데이터일 것이다. 우선 <code class="language-plaintext highlighter-rouge">Tag</code> 를 보자.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-tags.png" alt="assets/img/swagger-ui-tags.png" /></p>
+
+<p>위처럼 API 단위로 태그를 달 수 있고, 태그들에 따라 UI 에서 분류가 되어 위와 같이 보여지게 된다. 태그는 아래와 같이 코드를 짤 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Tag</span><span class="o">(</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="s">"User Management API"</span><span class="o">,</span>
+		<span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 관리 관련 API 입니다. 생성, 조회, 수정, 삭제 기능을 제공합니다."</span>
+<span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserControllerDocs</span> <span class="o">{</span></code></pre></figure>
+
+<p>태그는 <code class="language-plaintext highlighter-rouge">@Target({METHOD, TYPE, ANNOTATION_TYPE})</code> 이기 때문에, 클래스와 메서드에 붙일 수 있다. 이제 메서드를 꾸며보자.</p>
+
+<h5 id="api-method-설명-등록">API Method 설명 등록</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Operation</span><span class="o">(</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s">"모든 사용자 조회"</span><span class="o">,</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"데이터베이스에 등록된 모든 사용자 정보를 조회합니다."</span>
+<span class="o">)</span>
+<span class="c1">// ...</span>
+<span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">getAllUsers</span><span class="o">();</span></code></pre></figure>
+
+<p>설명 등록을 위해서 <code class="language-plaintext highlighter-rouge">@Operation</code> 애노테이션을 사용할 수 있고, 아래와 같이 위치되게 된다. API 를 열면 가장 최상위에 보여질 텍스트가 된다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-controller.png" alt="assets/img/swagger-ui-controller.png" /></p>
+
+<p>API 에 응답도 예시로 줄 수 있는데, <code class="language-plaintext highlighter-rouge">@ApiResponses</code> 를 사용하면 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@ApiResponses</span><span class="o">({</span>
+        <span class="nd">@ApiResponse</span><span class="o">(</span>
+                <span class="n">responseCode</span> <span class="o">=</span> <span class="s">"200"</span><span class="o">,</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s">"조회 성공"</span><span class="o">,</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="nd">@Content</span><span class="o">(</span>
+                        <span class="n">mediaType</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">,</span>
+                        <span class="n">schema</span> <span class="o">=</span> <span class="nd">@Schema</span><span class="o">(</span><span class="n">implementation</span> <span class="o">=</span> <span class="nc">UserResponse</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">)</span>
+        <span class="o">),</span>
+        <span class="nd">@ApiResponse</span><span class="o">(</span>
+                <span class="n">responseCode</span> <span class="o">=</span> <span class="s">"500"</span><span class="o">,</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s">"서버 내부 오류"</span><span class="o">,</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="nd">@Content</span><span class="o">()</span> <span class="c1">// 빈 응답</span>
+        <span class="o">)</span>
+<span class="o">})</span></code></pre></figure>
+
+<p>위에서 ApiResponse 에 content 부분은 아래 사진의 중간에 보이는 Media Type이 나오는 부분이다. schema 를 클릭하면 <code class="language-plaintext highlighter-rouge">@Schema</code> 로 등록했던 <code class="language-plaintext highlighter-rouge">UserResponse.class</code> 에 들어갈 데이터 타입들을 볼 수 있다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-apiresponses.png" alt="assets/img/swagger-ui-apiresponses.png" /></p>
+
+<p>조금 더 복잡한 요청이 있는 API를 보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Operation</span><span class="o">(</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s">"사용자 배치 생성"</span><span class="o">,</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"여러 사용자를 한 번에 생성합니다."</span>
+<span class="o">)</span>
+<span class="nd">@RequestBody</span><span class="o">(</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"생성할 사용자 목록"</span><span class="o">,</span>
+        <span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="nd">@Content</span><span class="o">(</span>
+                <span class="n">mediaType</span> <span class="o">=</span> <span class="s">"application/json"</span><span class="o">,</span>
+                <span class="n">schema</span> <span class="o">=</span> <span class="nd">@Schema</span><span class="o">(</span><span class="n">implementation</span> <span class="o">=</span> <span class="nc">UserRequest</span><span class="o">.</span><span class="na">class</span><span class="o">),</span>
+                <span class="n">examples</span> <span class="o">=</span> <span class="o">{</span>  <span class="c1">// 여러 예시 제공</span>
+                        <span class="nd">@ExampleObject</span><span class="o">(</span>
+                                <span class="n">name</span> <span class="o">=</span> <span class="s">"2명 생성"</span><span class="o">,</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="s">"[{\"name\":\"홍길동\",\"email\":\"hong@test.com\",\"age\":25},"</span> <span class="o">+</span>
+                                        <span class="s">"{\"name\":\"김철수\",\"email\":\"kim@test.com\",\"age\":30}]"</span>
+                        <span class="o">),</span>
+                        <span class="nd">@ExampleObject</span><span class="o">(</span>
+                                <span class="n">name</span> <span class="o">=</span> <span class="s">"1명 생성"</span><span class="o">,</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="s">"[{\"name\":\"이영희\",\"email\":\"lee@test.com\",\"age\":28}]"</span>
+                        <span class="o">)</span>
+                <span class="o">}</span>
+        <span class="o">)</span>
+<span class="o">)</span>
+<span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">createUsers</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">UserRequest</span><span class="o">&gt;</span> <span class="n">requests</span><span class="o">);</span></code></pre></figure>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-post-request.png" alt="assets/img/swagger-ui-post-request.png" /></p>
+
+<p>이제 DTO 에서 <code class="language-plaintext highlighter-rouge">@Schema</code> 로 애노테이션을 달아줘서 example 과 설명을 달아보자.</p>
+
+<h4 id="swagger-dto-class">Swagger DTO Class</h4>
+
+<p>DTO 클래스는 API 요청에 빼놓을 수 없는 중요 데이터이다. 이를 토대로 송수신하며, 여기에서도 사용자에게 어떤 요청 데이터를 보내야 할지 어떤 응답이 올 지를 보여줄 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">record</span> <span class="nf">UserResponse</span><span class="o">(</span>
+		<span class="nd">@Schema</span><span class="o">(</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 ID"</span><span class="o">,</span>
+				<span class="n">example</span> <span class="o">=</span> <span class="s">"1"</span>
+		<span class="o">)</span>
+		<span class="nc">Long</span> <span class="n">id</span><span class="o">,</span>
+
+		<span class="nd">@Schema</span><span class="o">(</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 이름"</span><span class="o">,</span>
+				<span class="n">example</span> <span class="o">=</span> <span class="s">"홍길동"</span>
+		<span class="o">)</span>
+		<span class="nc">String</span> <span class="n">name</span><span class="o">,</span>
+
+		<span class="nd">@Schema</span><span class="o">(</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 이메일"</span><span class="o">,</span>
+				<span class="n">example</span> <span class="o">=</span> <span class="s">"email@email.com"</span>
+		<span class="o">)</span>
+		<span class="nc">String</span> <span class="n">email</span><span class="o">,</span>
+
+		<span class="nd">@Schema</span><span class="o">(</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"나이"</span><span class="o">,</span>
+				<span class="n">example</span> <span class="o">=</span> <span class="s">"1"</span>
+		<span class="o">)</span>
+		<span class="nc">Integer</span> <span class="n">age</span><span class="o">,</span>
+
+		<span class="nd">@Schema</span><span class="o">(</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"활성화 여부"</span><span class="o">,</span>
+				<span class="n">example</span> <span class="o">=</span> <span class="s">"true"</span>
+		<span class="o">)</span>
+		<span class="nc">Boolean</span> <span class="n">active</span><span class="o">,</span>
+
+		<span class="nd">@Schema</span><span class="o">(</span>
+				<span class="n">description</span> <span class="o">=</span> <span class="s">"생성 일시"</span><span class="o">,</span>
+				<span class="n">example</span> <span class="o">=</span> <span class="s">"2099-01-01T10:00:00"</span>
+		<span class="o">)</span>
+		<span class="nc">LocalDateTime</span> <span class="n">createdAt</span>
+<span class="o">)</span> <span class="o">{</span> <span class="o">}</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">@Schema</code> 를 달아주면 <code class="language-plaintext highlighter-rouge">ExampleValue</code> 에는 example 에 해당하는 값이 들어가게 된다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-schema.png" alt="assets/img/swagger-ui-schema.png" /></p>
+
+<p><strong>수치형 데이터 Schema 예제</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Schema</span><span class="o">(</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"사용자 나이"</span><span class="o">,</span>
+        <span class="n">example</span> <span class="o">=</span> <span class="s">"25"</span><span class="o">,</span>
+        <span class="n">minimum</span> <span class="o">=</span> <span class="s">"1"</span><span class="o">,</span>
+        <span class="n">maximum</span> <span class="o">=</span> <span class="s">"150"</span>
+<span class="o">)</span></code></pre></figure>
+
+<p><strong>정규표현식 Schema 예제</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Schema</span><span class="o">(</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"휴대폰 번호"</span><span class="o">,</span>
+        <span class="n">example</span> <span class="o">=</span> <span class="s">"010-1234-5678"</span><span class="o">,</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="s">"^010-\\d{4}-\\d{4}$"</span>
+<span class="o">)</span></code></pre></figure>
+
+<h4 id="swagger-security">Swagger Security</h4>
+
+<p>이전에 Configuration 에 선언했던 security schema 로 <code class="language-plaintext highlighter-rouge">bearerAuth</code> 를 등록했었다. 전역 보안 설정을 풀고 특정 메서드에서만 <code class="language-plaintext highlighter-rouge">bearerAuth</code> 를 사용하여 JWT 인증을 해야 실행할 수 있도록 해보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Operation</span><span class="o">(</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s">"사용자 배치 생성"</span><span class="o">,</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s">"여러 사용자를 한 번에 생성합니다."</span><span class="o">,</span>
+        <span class="n">deprecated</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span>
+        <span class="n">hidden</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span>
+        <span class="n">security</span> <span class="o">=</span> <span class="nd">@SecurityRequirement</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bearerAuth"</span><span class="o">)</span>
+<span class="o">)</span></code></pre></figure>
+
+<p>사용자를 대량으로 생성하는 API 에 <code class="language-plaintext highlighter-rouge">@Operation</code> 의 security 속성을 넣어 <code class="language-plaintext highlighter-rouge">SecurityRequirement</code> 애노테이션을 사용하여 넣어줄 수 있다. 그러면 다음과 같이 API 에 자물쇠가 걸리는 것을 볼 수 있다.</p>
+
+<p><img src="/seonghun120614/assets/img/swagger-ui-security.png" alt="assets/img/swagger-ui-security.png" /></p>
+
+<p>위처럼 문서만 작성한 것이지 Security 로 authorize 기능을 넣어줘야 된다. 지금은 기능이 없고 껍데기만 작성된 것이다.</p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/spring/2025/11/14/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-55%EC%9D%BC%EC%B0%A8-swagger.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>National Number</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>National Number | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="National Number" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/math/analysis/2025/07/25/national-number.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/math/analysis/2025/07/25/national-number.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-07-25T06:44:36+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="National Number" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-07-25T06:44:36+00:00","datePublished":"2025-07-25T06:44:36+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"National Number","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/math/analysis/2025/07/25/national-number.html"},"url":"https://seonghun120614.github.io/seonghun120614/math/analysis/2025/07/25/national-number.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/math/analysis/2025/07/25/national-number.html">
+        <h2 class="post-title">National Number</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jul 25, 2025</div><ul class="post-categories"><li>Math</li><li>Analysis</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#페아노-공리계">페아노 공리계(PA)</a>
+    <ul>
+      <li><a href="#정의">정의</a></li>
+      <li><a href="#axiom">Axiom</a></li>
+      <li><a href="#귀납적-정의">귀납적 정의</a></li>
+    </ul>
+  </li>
+  <li><a href="#덧셈-정의">덧셈 정의</a>
+    <ul>
+      <li><a href="#lemma-1">Lemma 1</a></li>
+      <li><a href="#lemma-2">Lemma 2</a></li>
+      <li><a href="#prop-commutative-rule">Prop. Commutative Rule</a></li>
+      <li><a href="#prop-associative-rule">Prop. Associative Rule</a></li>
+      <li><a href="#prop-cancellation-law">Prop. Cancellation Law</a></li>
+      <li><a href="#양수-정의">양수 정의</a>
+        <ul>
+          <li><a href="#prop-1">Prop. 1</a></li>
+          <li><a href="#corollary-1">Corollary 1</a></li>
+          <li><a href="#lemma-1-1">Lemma 1</a></li>
+        </ul>
+      </li>
+      <li><a href="#자연수의-순서-정의">자연수의 순서 정의</a>
+        <ul>
+          <li><a href="#prop-1-1">Prop. 1</a></li>
+          <li><a href="#props">Props.</a></li>
+          <li><a href="#prop-trichotomy">Prop. Trichotomy</a></li>
+        </ul>
+      </li>
+      <li><a href="#prop-strong-principle-of-induction">Prop. Strong Principle of Induction</a></li>
+      <li><a href="#prop-principle-of-backwards-induction">Prop. Principle of Backwards Induction</a></li>
+    </ul>
+  </li>
+  <li><a href="#곱셈-정의">곱셈 정의</a>
+    <ul>
+      <li><a href="#lemma-1-2">Lemma 1</a></li>
+      <li><a href="#lemma-2-1">Lemma 2</a></li>
+      <li><a href="#prop-distributive-law">Prop. Distributive Law</a></li>
+      <li><a href="#prop-associative-law">Prop. Associative Law</a></li>
+      <li><a href="#prop-order-preserving">Prop. Order-preserving</a></li>
+      <li><a href="#corollary-cancellation-law">Corollary. Cancellation Law</a></li>
+      <li><a href="#prop-euclids-division-lemma">Prop. Euclid’s Division Lemma</a></li>
+      <li><a href="#자연수의-거듭제곱-정의">자연수의 거듭제곱 정의</a></li>
+    </ul>
+  </li>
+  <li><a href="#practice">Practice</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>선행 학습으로 집합론과 수리논리학이 필요 할 수 있다.</p>
+
+<h3 id="페아노-공리계">페아노 공리계</h3>
+
+<h4 id="정의">정의</h4>
+<ul>
+  <li><strong>National Number</strong> $:= \mathbb{N}$</li>
+  <li><strong>Successor Operation</strong> $:= ++$</li>
+</ul>
+
+<h4 id="axiom">Axiom</h4>
+
+<ol>
+  <li>
+    <p>시작 수 정의<br />
+$0 \in \mathbb{N}$</p>
+  </li>
+  <li>
+    <p>0에서 시작하는 <strong>‘셈(Succession / Counting)’</strong>을 정의<br />
+$\forall n \in \mathbb{N}, n++ \in \mathbb{N}$<br />
+즉, 모든 자연수는 <strong>Successor</strong> 를 갖는다.</p>
+  </li>
+  <li>
+    <p>공리 1, 2 만으로는 컴퓨터의 overflow 가 되는 수 체계에서는 0으로 되돌아가는 것이 맞지 않음, <strong>Wrap-around</strong> 를 방지<br />
+$\nexists n \in \text{s.t. }n++ = 0$</p>
+  </li>
+  <li>
+    <p>공리 1, 2, 3 만으로는 0, 1 에서의 1++ 가 다시 1이 되는 수체계가 있을 수 있다. 1 = 2 = 3 = … 의 문제 발생을 방지<br />
+$\forall n, m \in \mathbb{N}, n++=m++ \implies n=m$<br />
+이는 수가 그 자체로 자기 자신임을 함축하는 공리이며 유일성이 무너지지 않게 보장한다.</p>
+  </li>
+  <li>
+    <p><strong>Principle of Mathematical Induction</strong><br />
+$0 \in A \land \forall n \in \mathbb{N}, (n \in A \implies n++ \in A) \implies \forall n \in \mathbb{N}, n \in A$<br />
+즉, 어떤 집합이 0을 포함하고 그 후속자를 포함한다면, 해당 집합은 자연수 집합이다.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><em>0이 자연수라고 보는 것은 관점의 차이이다.</em></p>
+</blockquote>
+
+<p>위 공리 1 ~ 5 를 만족하는 수체계 $\mathbb{N}$ 이 존재하고, $\mathbb{N}$ 의 원소를 자연수라고 한다.</p>
+
+<h4 id="귀납적-정의">귀납적 정의</h4>
+
+<p>페아노의 공리계 안에서 정의 가능한 논리 구조로 재귀적인 수열을 정의할 때도 이를 쓴다.</p>
+
+<p>각 자연수 $n$ 에 대해 $f_n: \mathbb{N} \rightarrow \mathbb{N}$ 의 함수가 존재하고, $c \in \mathbb{N}$ 일 때,</p>
+<ul>
+  <li>$a_0 := c$</li>
+  <li>$a_{n++} := f_n(a_n)$</li>
+</ul>
+
+<p>을 만족하게 할 수 있다. 즉, 귀납적으로 수열을 정의할 수 있고, 그 수열의 원소 $a_n$는 <strong>‘유일’하게</strong> 결정이 된다.</p>
+
+<h3 id="덧셈-정의">덧셈 정의</h3>
+
+<p>$+:= \mathbb{N}\times\mathbb{N}\mapsto\mathbb{N}$</p>
+<ul>
+  <li>$0+a = a$</li>
+  <li>$(a++)+b = (a+b)++$</li>
+</ul>
+
+<h4 id="lemma-1">Lemma 1</h4>
+<p>\(\begin{align*}
+&amp;\forall n \in \mathbb{N},\ n + 0 = n \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+0 + 0 &amp;= 0 &amp;(\because\ 0 \in \mathbb{N}) \\
+\text{Assume } k + 0 &amp;= k &amp;\text{ (Inductive Hypothesis)} \\
+(k++) + 0 &amp;= (k + 0)++ \\
+&amp;= k++ \\
+\\
+\therefore (k++) + 0 &amp;= k++ &amp;&amp;\blacksquare
+\end{align*}\]
+
+<h4 id="lemma-2">Lemma 2</h4>
+<p>\(\begin{align*}
+&amp;\forall n, m \in \mathbb{N},\ n + (m++) = (n + m)++ \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+0 + (m++) &amp;= m++ = (0 + m)++  &amp;(\because 0 + m := m) \\
+\text{Assume } k + (m++) &amp;= (k + m)++ &amp;\text{ (Inductive Hypothesis)} \\
+(k++) + (m++) &amp;= (k + (m++))++ &amp;\\
+&amp;= ((k + m)++)++ &amp;\\
+\\
+\therefore \forall n, m \in \mathbb{N},\ n + (m++) &amp;= (n + m)++ &amp;\blacksquare\\
+\end{align*}\]
+
+<h4 id="prop-commutative-rule">Prop. Commutative Rule</h4>
+<p>\(\begin{align*}
+&amp;\forall n, m \in \mathbb{N}, n + m = m + n \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+0 + m &amp;= m + 0 \\
+\text{Assume } k + m &amp;= m + k \\
+(k++) + m &amp;= m + (k++) \\
+&amp;=(k + m)++ \\
+&amp;=(m + k)++ \\
+&amp;=m + (k++) \\
+\\
+\therefore \forall n, m \in \mathbb{N}, n + m &amp;= m + n &amp;\blacksquare
+\end{align*}\]
+
+<h4 id="prop-associative-rule">Prop. Associative Rule</h4>
+<p>\(\begin{align*}
+&amp;\forall a, b, c \in \mathbb{N}, (a+b)+c = a+(b+c) \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+(0 + b) + c &amp;= b + c = 0 + (b + c) \\
+\text{Assume } (k + b) + c &amp;= k + (b + c) \\
+((k++) + b) + c &amp;= ((k + b)++) + c \\
+&amp;=((k + b) + c)++ \\
+&amp;=(k + (b + c))++ \\
+&amp;=(k++) + (b + c) \\
+\\
+\therefore \forall a, b, c \in \mathbb{N}, (a+b)+c &amp;= a+(b+c) &amp;\blacksquare
+\end{align*}\]
+
+<h4 id="prop-cancellation-law">Prop. Cancellation Law</h4>
+<p>\(\begin{align*}
+&amp;\forall a, b, c \in \mathbb{N}, a + b = a + c \implies b = c \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+b \neq c \rightarrow a + b &amp;\neq a + c &amp;(\text{Reductio ad Absurdum}) \\
+0 + b = b &amp;\neq c = 0 + c \\
+\text{Assume } k + b &amp;\neq k + c \\
+(k++) + b = (k + b)++ &amp;\neq (k + c)++ = (k++) + c \\
+\\
+\therefore \forall a, b, c \in \mathbb{N}, a + b = a + c &amp;\implies b = c &amp;\blacksquare
+\end{align*}\]
+
+<h4 id="양수-정의">양수 정의</h4>
+
+<p>자연수 n 이 양수(positive) 일 필요충분조건은 n이 0이 아닐때이다. 편의 상 양수를 $\mathbb{Z}^+$ 라고 하자.</p>
+
+<h5 id="prop-1">Prop. 1</h5>
+<p>\(\begin{align*}
+&amp;a\in\mathbb{\mathbb{Z}^+} \land b\in\mathbb{N} \implies a+b \in \mathbb{Z}^+ \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+a+0 = a &amp;\in \mathbb{Z}^+ \\
+\text{Assume } a + k &amp;\in \mathbb{Z}^+ \\
+a + (k++) = (a + k)++ &amp;\in \mathbb{Z}^+ &amp;(\because \text{Axiom 3}) \\
+\\
+\therefore a\in\mathbb{\mathbb{Z}^+} \land b\in\mathbb{N} &amp;\implies a+b \in \mathbb{Z}^+ &amp;\blacksquare\\
+\end{align*}\]
+
+<h5 id="corollary-1">Corollary 1</h5>
+<p>\(\begin{align*}
+&amp;\forall a, b \in \mathbb{N}, a + b = 0 \implies a = 0 \land b = 0 \\
+&amp;\text{p.f)} \\
+\end{align*}\)</p>
+
+\[\begin{align*}
+a \neq 0 \lor b \neq 0 &amp;\rightarrow a + b \neq 0 &amp;(\text{Reductio ad Absurdum}) \\
+a \neq 0 \lor b \neq 0 &amp;\rightarrow a \in \mathbb{Z}^+ \lor b \in \mathbb{Z}^+ \\
+&amp;\rightarrow a + b \in \mathbb{Z}^++ &amp;(\because \text{Prop. 1}) \\
+&amp;\rightarrow a + b \neq 0 \\
+\\
+\therefore \forall a, b \in \mathbb{N}, a + b = 0 &amp;\implies a = 0 \land b = 0 &amp;\blacksquare
+\end{align*}\]
+
+<h5 id="lemma-1-1">Lemma 1</h5>
+<p>\(\begin{align*}
+&amp;\forall a \in \mathbb{Z}^+ \implies \exists! b \in \mathbb{N}, b++ = a \\
+&amp;\text{p.f)}
+\end{align*}\)</p>
+
+\[\begin{align*}
+\textbf{Existence:} \\
+\forall a \in \mathbb{Z}^+ , &amp;\exists b \in \mathbb{N} \\
+&amp;\exists 0 \in \mathbb{N}, 0++ = 1 \\
+\text{Assume for k}\quad &amp;\exists c \in \mathbb{N}, c++ = k \\
+&amp;\exists c++ \in \mathbb{N}, (c++)++ = k++ \\
+\\
+\textbf{Uniqueness:} \\
+&amp;\text{Take } b_1, b_2 \in \mathbb{N}, b_1++ = a \land b_2++ = a \\
+&amp;\text{Then } b_1 = b_2 &amp;(\text{Axiom 4}) \\
+\\
+\therefore \forall a \in \mathbb{Z}^+ &amp;\implies \exists! b \in \mathbb{N}, b++ = a &amp;\blacksquare\\
+\end{align*}\]
+
+<h4 id="자연수의-순서-정의">자연수의 순서 정의</h4>
+
+<p>자연수 n, m에 대해 순서를 정의하자:</p>
+<ul>
+  <li>$n \ge m := a \in \mathbb{N}, n = m + a$<br />
+n 이 m 이상(greater than or equal to) 또는 n 이 m보다 크거나 같다 라고 한다.</li>
+  <li>$n &gt; m := n \ge m \land n \neq m$<br />
+n 이 m 보다 크다 또는 n 이 m 초과 라고 한다.</li>
+</ul>
+
+<h5 id="prop-1-1">Prop. 1</h5>
+<p>\(\begin{align*}
+&amp;\forall n \in \mathbb{N}, n++ &gt; n \\
+&amp;\text{p.f)}
+\end{align*}\)</p>
+
+\[\begin{align*}
+0++ = (0 + 0)++ = 0 + 0++ &amp;&gt; 0 \\
+\text{Assume } k++ &amp;&gt; k \\
+(k++)++ = (k+a)++ = k++ + a &amp;&gt; k++ \\
+\\
+\therefore \forall n \in \mathbb{N}, n++ &gt; n
+\end{align*}\]
+
+<h5 id="props">Props.</h5>
+<p>\(\begin{align*}
+&amp;\text{Reflexive }&amp; a \geq a\\
+&amp;\text{Transitive }&amp; a \geq b \land b \geq c &amp;\implies a\geq c \\
+&amp;\text{Anti-symmetric }&amp; a \geq b \land b \geq a &amp;\implies a=b\\
+&amp;\text{Order-preserving }&amp; a \geq b &amp;\iff a + c \geq b + c\\
+&amp;\text{Prop. 2 }&amp; a &lt; b &amp;\iff a++ \leq b\\
+&amp;\text{Prop. 3 }&amp; a &lt; b &amp;\iff \exists d \in \mathbb{Z}^+, b = a + d\\
+\end{align*}\)</p>
+
+\[\begin{align*}
+&amp;\text{p.f)}\\
+&amp;\textbf{Reflexive} \\
+&amp;a = a + 0 \geq a &amp;\blacksquare \\
+\\
+&amp;\textbf{Transitive} \\
+&amp;(a = b + d) \land (b = c + e) \\
+&amp;\implies a = c + e + d \\
+&amp;\implies a \geq c &amp;\blacksquare \\
+\\
+&amp;\textbf{Anti-symmetric} \\
+&amp;\iff a = b + d \land b = a + e \\
+&amp;\iff a = a + e + d \land b = b + d + e\\
+&amp;\iff a \geq a + d \\
+&amp;\iff a = b &amp;\blacksquare\\
+\\
+&amp;\textbf{Order-preserving} \\
+&amp;\iff a = b + d \land b \geq a \\
+&amp;\iff b \geq b + d &amp; \tag{i}\\
+&amp;\iff ((d \neq 0) \lor (d = 0)) \land (b \geq b + d) \\
+&amp;\iff ((d \neq 0) \land (b \geq b + d)) \lor ((d = 0) \land (b \geq b + d))\\
+&amp;\iff \bot \lor ((d = 0) \land (d = 0) \land (b \geq b + d)) \\
+&amp;\iff (d = 0) \land t \\
+&amp;\iff d = 0 \\
+&amp;\iff a = b &amp;\blacksquare \\
+\\
+&amp;\textbf{Prop. 2, Prop. 3} \\
+&amp;\iff (b = a + d) \land (b \neq a) \\
+&amp;\iff (b = a + d) \land (b = a + d \neq a)\\
+\\
+&amp;\because d \neq 0 \text{ By, Positive Number Lemma 1, we can take }\\
+&amp;\exists! c \in \mathbb{N},\quad s.t.\quad c++ = d\\
+&amp;\text{Also, Prop. 3 is naturally proved by above right proposition. }\quad \blacksquare\\
+\\
+&amp;\iff (b = a + (c++) = (a+c)++ = (a++) + c) \land (b \neq a \equiv t) \\
+&amp;\iff b = (a++) + c = a + (c++) \\
+&amp;\iff a++ \leq b &amp; \blacksquare \\
+\end{align*}\]
+
+<p>이제 $a &gt; b$ 를 $a = b + p\quad (p \in \mathbb{Z}^+)$ 로 둘 수 있다.</p>
+
+<h5 id="prop-trichotomy">Prop. Trichotomy</h5>
+<p>삼분법이라고 한다. 하나가 참이면 다른 명제 두 개가 참이 아니며 어떤 상황에서든 하나만 참이 되는 명제다. <code class="language-plaintext highlighter-rouge">xor</code>의 확장 버전이지만 조금 다른 버전이다.
+\(\begin{align*}
+&amp;\forall a, b \in \mathbb{N}, \\
+&amp;\text{Let } P_1 := a &gt; b, P_2 := a = b, P_3 := a &lt; b\\
+&amp;\text{then }\bigvee_{i=1}^3 \left( P_i \land \bigwedge_{j \neq i} \lnot P_j \right)
+\end{align*}\)</p>
+
+<p>셋 중 하나만 참을 요약해서 표현한 것이다.</p>
+
+\[\begin{align*}
+p.f) \\
+&amp;\text{i) } P_1 \equiv t, \\
+&amp;a = b + p &gt; b&amp;(P_2 \equiv \bot)\\
+&amp;\text{prove by Reductio ad Absurdum}\\
+&amp;P_3 := a &lt; b := b = a + q = b + (p + q) \implies \bot &amp;(p+q \neq 0)\\
+\\
+&amp;\text{ii) } P_2 \equiv t, \\
+&amp;a = b \implies \lnot P_1 \land \lnot P_2 &amp;(\because \text{Definition of Positive Number Order})\\
+\\
+&amp;\text{iii) } P_3 \equiv t, \textbf{(trivial)} \\
+&amp;&amp;\blacksquare\\
+\end{align*}\]
+
+<h4 id="prop-strong-principle-of-induction">Prop. Strong Principle of Induction</h4>
+<p>\(\begin{align*}
+&amp;m_0 \in \mathbb{N}, P \text{ is proposition function.}\\
+&amp;\begin{cases}
+&amp; P(m_0) \equiv t \\
+&amp;\forall m(\geq m_0) \in \mathbb{N}, \bigwedge_{m_0 \leq m' &lt; m} P(m') \implies P(m) \\
+\end{cases}\\
+&amp;\forall n(\geq m_0), P(n) \equiv t
+\end{align*}\)
+위가 참이면 모든 자연수 $m(\geq m_0)$에 대한 $P(n)$이 참이다. $m_0$은 보통 0 또는 1로 두고, $P_{m_0}$이 참이라고 해야 의미가 있게 된다. 증명하자.</p>
+
+\[\begin{align*}
+p.f) \\
+&amp;\text{i) } m = m_0,\;P(m_0) \equiv P(m) \equiv t\\
+&amp;\text{ii) } m = k, \bigwedge_{m_0 \leq m' &lt; k} P(m') \implies P(k)\\
+&amp;\implies \bigwedge_{m_0 \leq m' &lt; k} P(m') \land t\\
+&amp;\iff \bigwedge_{m_0 \leq m' &lt; k} P(m') \land P(k)\\
+&amp;\iff \bigwedge_{m_0 \leq m' &lt; k++} P(m') \implies P(k++)\\
+&amp;\therefore P(k) \implies P(k++)\\
+\therefore \forall m(\geq m_0)\in\mathbb{N}, P(m)\equiv t\\
+&amp;&amp;\blacksquare\\
+\end{align*}\]
+
+<h4 id="prop-principle-of-backwards-induction">Prop. Principle of Backwards Induction</h4>
+<p>\(\begin{align*}
+&amp;n \in \mathbb{N},\text{P(m) is proposition function}\\
+&amp;\begin{cases}
+&amp; P(n) \equiv t \\
+&amp; P(m++) \implies P(m)
+\end{cases}\\
+&amp;\forall m(\leq n) \in \mathbb{N}, P(m) \equiv t
+\end{align*}\)
+두 조건을 만족 시 n 이하의 자연수 전부에 대해 참임을 볼 수 있다. 여기서는 n에 대한 귀납법을 사용하면 된다.
+\(\begin{align*}
+&amp;\text{i) }n = 0,\;P(0) \equiv t\\
+&amp;\implies \forall m(\leq 0) \in \mathbb{N}, P(m) \equiv t\\
+&amp;\text{ii) }n = k,\;\forall m(\leq k) \in \mathbb{N}, P(m) \equiv t\\
+&amp;\implies P(m) \land P(k++)\quad(\because n=k+1)\\
+&amp;\implies \forall m(\leq k++) \in \mathbb{N}, P(m) \equiv t\\\\
+&amp;\therefore \begin{cases}
+&amp; P(n) \equiv t \\
+&amp; P(m++) \implies P(m)
+\end{cases}\implies \forall m(\leq n) \in \mathbb{N}, P(m) \equiv t
+&amp;&amp;\blacksquare
+\end{align*}\\\)</p>
+
+<h3 id="곱셈-정의">곱셈 정의</h3>
+<p>$\times := \mathbb{N}\times\mathbb{N}\mapsto\mathbb{N}$</p>
+<ul>
+  <li>$0\times m:=0$</li>
+  <li>$(n++)\times m:= (n\times m) + m$</li>
+</ul>
+
+<p>로 정의한다. 여기서 귀납법을 사용하면 두 자연수의 곱이 자연수임을 쉽게 확인 할 수 있다.</p>
+
+<blockquote>
+  <p>두 자연수 $n, m$ 에 대해 $n\times m$ 이 자연수 임을 보이자.<br />
+n = 0 일 때는 자명하다.<br />
+n = k 일 때 $k\times m$이 자연수라고 하자.<br />
+그러면 $(k++) \times m = k \times m + m$ 이므로 $k\times m$ 이 자연수고, $m$이 자연수이기 때문에 전체도 자연수가 된다.</p>
+</blockquote>
+
+<h4 id="lemma-1-2">Lemma 1</h4>
+<p>곱셈의 교환법칙부터 증명하자. 사실 덧셈의 교환법칙 안에 포함되어 있다.</p>
+
+\[\begin{align*}
+&amp;\forall n, m \in \mathbb{N}, n \times m = m \times n\\
+&amp;p.f)\\
+&amp;\text{i) } n = 0,\\
+&amp;\quad \text{1) } m = 0,\;0\times 0=0\times 0\\
+&amp;\quad \text{2) } m = k,\;0\times k=k\times 0=0\\
+&amp;\quad \implies (k++) \times 0=k\times 0+0=0\times k = 0\\
+&amp;\text{ii) } n = i,\\
+&amp;\quad i \times m = m \times i\\
+&amp;\quad \implies i++ \times m = i \times m + m = m \times i + m = m \times i++\\\\
+&amp;\therefore \forall n, m \in \mathbb{N}, n \times m = m \times n
+&amp;&amp;\blacksquare
+\end{align*}\]
+
+<h4 id="lemma-2-1">Lemma 2</h4>
+
+<p>\(\forall n, m \in \mathbb{N},\;n\times m = 0 \iff n=0 \lor m=0\)
+귀류법을 사용해 증명하자. 그러면 n, m 은 0이 아니고, 양의 자연수이다.
+\(\begin{align*}
+&amp;p.f)\\
+&amp;\exists!\;n_{-} \in \mathbb{N},\;s.t.\;n_{-}++ = n\quad(\because \text{Positive Number Lemma 1})\\
+&amp;n\times m = n_{-} \times m + m = 0 \implies m = 0 \equiv c\\
+&amp;\text{By commutativity of multiplication, the other case is contradiction}\\
+&amp;\therefore \forall n, m \in \mathbb{N},\;n\times m = 0 \implies n=0 \lor m=0\\
+&amp;\text{The other arrow is trivial.}&amp;\blacksquare
+\end{align*}\)</p>
+
+<h4 id="prop-distributive-law">Prop. Distributive Law</h4>
+
+\[\forall a, b, c \in \mathbb{N},\; a(b+c) = ab + ac \land (b+c)a = ba + ca\]
+
+\[\begin{align*}
+&amp;\text{i) } c = 0,\\
+&amp;a(b+0) = ab = ab + 0 = ab + a0 \\
+&amp;\text{ii) } a(b+c) = ab + ac \\
+&amp;\implies a(b+(c++)) = a((b+c)++) = a(b+c) + a = ab + ac + a = ab + a(c++)\\
+&amp;\blacksquare
+\end{align*}\]
+
+<h4 id="prop-associative-law">Prop. Associative Law</h4>
+
+\[\forall a, b, c \in \mathbb{N},\;(a\times b)\times c = a\times (b\times c)\]
+
+\[\begin{align*}
+&amp;\text{i) } b = 0, (a\times 0) \times c = 0 = 0 \times c = a\times (0\times c)\\
+&amp;\text{ii) } b = k, (a\times k) \times c = a\times(k\times c)\\
+&amp;\implies (a\times(k++))\times c = (a\times k + a) \times c = (a\times k)\times c + a \times c = a \times (k \times c) + a \times c = a\times(k++ \times c)\\
+\blacksquare
+\end{align*}\]
+
+<h4 id="prop-order-preserving">Prop. Order-preserving</h4>
+
+\[\forall a, b \in \mathbb{N}, \forall c \in \mathbb{Z^+}\;a &lt; b \implies ac &lt; bc\]
+
+\[\begin{align*}
+a &lt; b&amp;\implies \exists k \in \mathbb{Z^+},\; a + k = b\quad(\because\text{Positive Number Prop.3})\\
+&amp;\implies (a+k)c = bc\\
+&amp;\implies \exists kc \in \mathbb{Z^+},\;ac + kc = bc\\
+&amp;\implies ac &lt; bc\\
+\blacksquare
+\end{align*}\]
+
+<h4 id="corollary-cancellation-law">Corollary. Cancellation Law</h4>
+
+\[\forall a, b, c \in \mathbb{N}, ac = bc \land c \neq 0 \implies a = b\]
+
+\[\begin{align*}
+&amp;\text{p.f)}\\
+&amp;\text{i) }c = 0++, a(0++) = b(0++) \implies a = b\\
+&amp;\text{ii) }c = k, ak = bk \implies a = b\\
+&amp;\implies a(k++) = b(k++) \implies ak + a = bk + a = bk + b = b(k++)\\
+\blacksquare
+\end{align*}\]
+
+<blockquote>
+  <p>앞으로 n++ = n + 1 임을 이용한다.</p>
+</blockquote>
+
+<h4 id="prop-euclids-division-lemma">Prop. Euclid’s Division Lemma</h4>
+<p>\(\forall n\in\mathbb{N}, q\in\mathbb{Z^+},\;\exists m, r \in \mathbb{N},\;(0\leq r &lt; q) \land (n = mq + r)\)</p>
+
+<p>n에 대한 귀납법을 사용하자.</p>
+
+\[\begin{align*}
+&amp;\text{p.f)}\\
+&amp;\text{i) } n = 0,\;0 = 0q + 0\\
+&amp;\text{ii) } n = k,\;k = m_0q + r_0\quad(0\leq r_0 &lt; q)\\
+&amp;\implies k+1 = m_0q + r_0 + 1 = m_0q + r_1\quad(\because 0 \leq r_1 = r_0 + 1 &lt; q+1)\\
+&amp;\begin{cases}
+&amp; r_1 = q \implies k+1 = (m_0+1)q + 0\\
+&amp; r_1 &lt; q \implies k+1 = m_0q + r_1
+\end{cases}\\
+\blacksquare
+\end{align*}\]
+
+<h4 id="자연수의-거듭제곱-정의">자연수의 거듭제곱 정의</h4>
+<p>\(\begin{align*}
+&amp;\forall m \in \mathbb{N}\\
+&amp;m^0 := 1,\;0^0 = 1 \\
+&amp;m^{n++} := m^n \times m
+\end{align*}\)</p>
+
+<p>거듭제곱을 귀납적으로 정의한다.</p>
+
+<h3 id="practice">Practice</h3>
+
+<ol>
+  <li>$\forall a, b \in \mathbb{N}, (a+b)^2 = a^2 + 2ab = b^2$</li>
+</ol>
+
+<p>Distributive law를 사용하자.
+\(\begin{align*}
+(a+b)^2 = a(a+b) + b(a+b) = a^2 + ab + ba + b^2 = a^2 + 2ab + b^2
+\end{align*}\)</p>
+
+<p>다음은 집합론인데 따로 분야를 나눠서 다루므로 넘어간다. 이제 자연수에서 기본적인 곱셈과 덧셈에 대한 연산은 증명없이 전부 자연스럽게 넘어간다.</p>
+
+<hr />
+
+<h2 id="-관련-출처">🔗 관련 출처</h2>
+<ul>
+  <li><a href="">Tao 해석학 I</a></li>
+</ul>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/math/analysis/2025/07/25/national-number.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/math/analysis/2025/07/25/national-number.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

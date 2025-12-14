@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 23일차 ThreadLocal 과 Serializable</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 23일차 ThreadLocal 과 Serializable | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 23일차 ThreadLocal 과 Serializable" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-21T06:57:28+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 23일차 ThreadLocal 과 Serializable" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-09-21T06:57:28+00:00","datePublished":"2025-09-21T06:57:28+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 23일차 ThreadLocal 과 Serializable","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 23일차 ThreadLocal 과 Serializable</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Sep 21, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#threadlocal">ThreadLocal</a>
+    <ul>
+      <li><a href="#member-variables">Member Variables</a></li>
+      <li><a href="#threadlocalmap">ThreadLocalMap</a></li>
+    </ul>
+  </li>
+  <li><a href="#sealed">sealed</a></li>
+  <li><a href="#serializable-의-재현성">Serializable 의 재현성</a></li>
+  <li><a href="#dto-와-dao">DTO 와 DAO</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>프로젝트 진행에 있어 다양한 자바의 내장 클래스들을 살펴보면서 코드를 업그레이드 하기 위해 본다.</p>
+
+<h3 id="threadlocal">ThreadLocal</h3>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span></code></pre></figure>
+
+<ul>
+  <li>T 타입을 가지는 스레드 로컬 변수를 구현한다.</li>
+  <li>각 스레드마다 독립적인 값을 저장하는 것이 핵심이며,</li>
+  <li>다른 스레드와 공유되지 않는다</li>
+</ul>
+
+<blockquote>
+  <p>이때 스레드마다 하나의 ThreadLocal 을 가진다는 말은 거짓이다. 1:n 의 관계다</p>
+</blockquote>
+
+<h4 id="member-variables">Member Variables</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="no">TRACE_VTHREAD_LOCALS</span> <span class="o">=</span> <span class="n">traceVirtualThreadLocals</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">threadLocalHashCode</span> <span class="o">=</span> <span class="n">nextHashCode</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">AtomicInteger</span> <span class="n">nextHashCode</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">HASH_INCREMENT</span> <span class="o">=</span> <span class="mh">0x61c88647</span><span class="o">;</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">threadLocalHashCode</code>: 각 ThreadLocal 인스턴스 별 고유 해시 값 -&gt; 해시 맵에서 key 로 사용하게 된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">nextHashCode</code> &amp; <code class="language-plaintext highlighter-rouge">HASH_INCREMENT</code>: 해시 충돌 최소화를 위한 고유값을 생성
+    <ul>
+      <li>여기서 <code class="language-plaintext highlighter-rouge">HASH_INCREMENT</code> 의 <code class="language-plaintext highlighter-rouge">0x61c88647</code> 은 황금 비율 상수이며, 연속 생성되는 <code class="language-plaintext highlighter-rouge">ThreadLocal</code> 에서도 충돌을 최소화하는 상수이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>HASH_INCREMENT</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">nextHashCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">nextHashCode</span><span class="o">.</span><span class="na">getAndAdd</span><span class="o">(</span><span class="no">HASH_INCREMENT</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>위 메서드에서 <code class="language-plaintext highlighter-rouge">HASH_INCREMENT</code> 를 통해 다음 <code class="language-plaintext highlighter-rouge">hashCode</code> 를 가져오는것을 볼 수 있는데 연속되게 생성되는 <code class="language-plaintext highlighter-rouge">ThreadLocal</code> 속에서 <code class="language-plaintext highlighter-rouge">hashCode</code> 값의 충돌을 최소화 하려면 누적하여 더해지는 값마다 다른 값을 나타내게 해야 하며, 이때 <code class="language-plaintext highlighter-rouge">HashMap</code> 에서는 동일 값에 대한 충돌이 없이 잘 퍼지도록 설계할 수 있게 된다.</p>
+
+<p>따라서 <code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 에서 키 값에 대한 황금비를 계속 더하며 슬롯 충돌을 최소화하게 되며, 2의 제곱 크기의 배열에서 고유 ID 가 균등하게 퍼지도록 해준다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="no">T</span> <span class="nf">initialValue</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">S</span><span class="o">&gt;</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="no">S</span><span class="o">&gt;</span> <span class="nf">withInitial</span><span class="o">(</span><span class="nc">Supplier</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="no">S</span><span class="o">&gt;</span> <span class="n">supplier</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">SuppliedThreadLocal</span><span class="o">&lt;&gt;(</span><span class="n">supplier</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>기본 초기값은 null 이 되지만, <code class="language-plaintext highlighter-rouge">SuppliedThreadLocal</code> 팩터리 패턴으로 초기화를 할 수 있다. 우리는 <code class="language-plaintext highlighter-rouge">withInitial</code> 을 통해 초기화 할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="no">T</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="no">T</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Thread</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">ThreadLocalMap</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getMap</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ThreadLocalMap</span><span class="o">.</span><span class="na">Entry</span> <span class="n">e</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">getEntry</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unchecked"</span><span class="o">)</span>
+            <span class="no">T</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="no">T</span><span class="o">)</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="nf">setInitialValue</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>값 읽기에 해당하는 메서드이다. 두 번째 메서드는 <code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 에서 값 검색을 하며, 없으면 <code class="language-plaintext highlighter-rouge">initialValue()</code> 로 초기화 하여 저장하게 된다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="no">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">set</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">(),</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="nc">Thread</span> <span class="n">t</span><span class="o">,</span> <span class="no">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">ThreadLocalMap</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getMap</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">map</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="k">else</span> <span class="nf">createMap</span><span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>현재 스레드의 값을 토대로 <code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 의 값을 변경하게 된다. 여기서 this 가 의미하는 것이 바로 <code class="language-plaintext highlighter-rouge">hashCode</code> 가 되게 된다.</p>
+
+<p>결국에는 <code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 이 핵심인데, 이를 더 살펴보자.</p>
+
+<h4 id="threadlocalmap">ThreadLocalMap</h4>
+
+<p>이 클래스는 <code class="language-plaintext highlighter-rouge">ThreadLocal</code> 안에 선언되어 있는 <code class="language-plaintext highlighter-rouge">static class</code> 이다. 밖에서는 그래서 참조를 할 수 없고, <code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 은 논리 스레드 마다 적어도 하나씩 존재함을 알 수 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 은 핵심 클래스 <code class="language-plaintext highlighter-rouge">Entry</code> 를 가진다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span> <span class="kd">extends</span> <span class="nc">WeakReference</span><span class="o">&lt;</span><span class="nc">ThreadLocal</span><span class="o">&lt;?&gt;&gt;</span> <span class="o">{</span>
+    <span class="nc">Object</span> <span class="n">value</span><span class="o">;</span>
+    <span class="nc">Entry</span><span class="o">(</span><span class="nc">ThreadLocal</span><span class="o">&lt;?&gt;</span> <span class="n">k</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span> <span class="kd">super</span><span class="o">(</span><span class="n">k</span><span class="o">);</span> <span class="n">value</span> <span class="o">=</span> <span class="n">v</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>엔트리는 <code class="language-plaintext highlighter-rouge">ThreadLocalMap</code> 의 슬롯을 추상화한 클래스이며, Key 를 약한 참조를 통해 ThreadLocal 객체가 없다면 null 을 반환한다. 이를 <strong><a href="#stale-entry">stale entry</a></strong> 라고 한다.</p>
+
+<p>특이한 것은 <code class="language-plaintext highlighter-rouge">ThreadLocal</code> 객체 그 자체로 Key 가 됨을 알 수 있다. 그렇다면 이게 어떻게 동작하는지 의문인데, 해당 key 는 <code class="language-plaintext highlighter-rouge">ThreadLocal</code> 에서의 hashCode 로 식별함을 볼 수 있었다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">threadLocalHashCode</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">table</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span></code></pre></figure>
+
+<ul>
+  <li>key.threadLocalHashCode: 스레드 로컬 객체가 가진 고유 해시코드</li>
+  <li>
+    <p>table.length - 1: 스레드 로컬 맵 내부 배열 크기를 통해 해시 값을 배열 인덱스로 변환</p>
+  </li>
+  <li>key.threadLocalHashCode &amp; (table.length - 1): % 대신 &amp; 를 쓰는 이유는 table.length 가 2의 제곱이기 때문에 1을 뺀 값은 비트가 전부 1이 되고, 이는 % 의 결과랑 &amp;의 결과랑 같게 된다.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">userId</span> <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"user1"</span><span class="o">);</span>
+<span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">counter</span> <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="mi">0</span><span class="o">);</span>
+
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">userId</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>  <span class="c1">// "user1"</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">get</span><span class="o">());</span> <span class="c1">// 0</span>
+
+    <span class="n">userId</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">"userA"</span><span class="o">);</span>
+    <span class="n">counter</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">42</span><span class="o">);</span>
+
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">userId</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>  <span class="c1">// "userA"</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">get</span><span class="o">());</span> <span class="c1">// 42</span>
+<span class="o">});</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
+
+<h3 id="sealed">sealed</h3>
+
+<p>Java 17 문법에서 도입된 문법으로 봉인된이라는 의미를 가진다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="n">sealed</span> <span class="kd">class</span> <span class="nc">Reference</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span>
+    <span class="n">permits</span> <span class="nc">PhantomReference</span><span class="o">,</span> <span class="nc">SoftReference</span><span class="o">,</span> <span class="nc">WeakReference</span><span class="o">,</span> <span class="nc">FinalReference</span> <span class="o">{</span></code></pre></figure>
+
+<p>클래스 혹은 인터페이스가 상속 또는 구현 될 수 있는 범위를 제한하는 문법이다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">permits</code> 예약어를 통해서 이를 상속하거나 구현하는 클래스의 범위를 제한시켜 명시적으로 지정된 클래스들만이 이를 사용할 수 있게 된다.</p>
+
+<blockquote>
+  <p>Reference<T> 는 GC 와 밀접히 연결된 핵심 클래스라 임의의 사용자가 마음대로 상속해서 써버리게 되면 GC 시스템이 깨질 수 있기에 봉인해놓은 것.</T></p>
+</blockquote>
+
+<h3 id="serializable-의-재현성">Serializable 의 재현성</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Serializable</code> 을 구현한다고 해서, 재현성을 얻는 것은 아니다. 클래스의 구조가 바뀌거나 JVM 이 자동으로 새 <code class="language-plaintext highlighter-rouge">serialVersionUID</code> 을 계산하는데, 이 값은 JVM 마다 컴파일 환경마다 달라질 수 있기 때문에 그 때마다 <code class="language-plaintext highlighter-rouge">InvalidClassException</code> 의 예외가 발생할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">어떤</span> <span class="n">값</span><span class="o">;</span></code></pre></figure>
+
+<p>해당 값을 멤버 변수로 추가만 해준다면 역직렬화, 직렬화를 재현할 수 있게 되며, 클래스 구조가 조금 바뀌더라도 가능하게 된다.</p>
+
+<blockquote>
+  <p>무조건 static final 로 선언하자.</p>
+</blockquote>
+
+<h3 id="dto-와-dao">DTO 와 DAO</h3>
+
+<p><code class="language-plaintext highlighter-rouge">DAO</code> 는 <code class="language-plaintext highlighter-rouge">Data Access Object</code> 의 약자로, 실제로 DB 에 접근할 수 있는 권한을 가지는 객체이다. 즉, 얘는 실제 <code class="language-plaintext highlighter-rouge">Connection</code> 인터페이스를 가지고 있으며, 이 기능들을 제공해주는 애여야 함을 개념적으로 알 수 있다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">DAO</code> 는 보통 <code class="language-plaintext highlighter-rouge">infrastructure</code> 패키지에 위치되어서 데이터베이스 접근을 전담하는 객체로 있는게 좋다.</p>
+
+<ul>
+  <li>domain 쪽은 비즈니스 로직의 중심</li>
+  <li>infrastructure 는 DB, 외부 API, 메시지 브로커 등 구체적 기술 의존성이 들어가는 곳</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">DTO</code> 는 Data Transfer Object 이다. 데이터를 전달하기 위한 용도로만 쓰며, 불변이 특징인 객체이다. 따라서 보통 record 로 작성하면 편하며, equals, hashCode 등은 필수이다.</p>
+
+<blockquote>
+  <p>필자는 보통 Service &lt;-&gt; Controller 사이만 DTO 를 사용하고 Service 에서는 비즈니스 엔티티와 DTO 를 혼용하여 사용하였지만,<br />
+이는 전역적으로 사용하는 클래스라 따로 빼는게 좋다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<h6 id="stale-entry">Stale Entry</h6>
+
+<p>오래되거나 최신 상태가 아닌, 더 이상 유효하지 않은 데이터나 항목을 의미한다.</p>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/2025/09/21/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-23%EC%9D%BC%EC%B0%A8-threadlocal-%EA%B3%BC-serializable.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

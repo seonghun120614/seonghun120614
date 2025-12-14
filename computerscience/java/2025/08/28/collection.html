@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>Collection</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Collection | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Collection" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/28/collection.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/28/collection.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-28T05:11:47+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Collection" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-08-28T05:11:47+00:00","datePublished":"2025-08-28T05:11:47+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Collection","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/28/collection.html"},"url":"https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/28/collection.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/computerscience/java/2025/08/28/collection.html">
+        <h2 class="post-title">Collection</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Aug 28, 2025</div><ul class="post-categories"><li>ComputerScience</li><li>Java</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#collection">Collection</a>
+    <ul>
+      <li><a href="#collections-활용">Collections 활용</a></li>
+      <li><a href="#list-interface-에-대한-collections-활용">List Interface 에 대한 Collections 활용</a>
+        <ul>
+          <li><a href="#copyonwritearraylist">CopyOnWriteArrayList</a></li>
+        </ul>
+      </li>
+      <li><a href="#set-interface-에-대한-collections-활용">Set Interface 에 대한 Collections 활용</a>
+        <ul>
+          <li><a href="#treeset">TreeSet</a></li>
+          <li><a href="#enumset">EnumSet</a></li>
+          <li><a href="#linkedhashset">LinkedHashSet</a></li>
+        </ul>
+      </li>
+      <li><a href="#queue-interface-에-대한-collections-활용">Queue Interface 에 대한 Collections 활용</a>
+        <ul>
+          <li><a href="#">LinkedList</a></li>
+          <li><a href="#priorityqueue">PriorityQueue</a></li>
+          <li><a href="#blockingqueue-interface">BlockingQueue Interface</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="collection">Collection</h3>
+
+<p>참고: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html">Java API</a></p>
+
+<h4 id="collections-활용">Collections 활용</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clear</code>: c의 모든 요소에 대해 제거한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">retainAll</code>: c의 최대 공통 부분을 찾는다(교집합)</li>
+  <li><code class="language-plaintext highlighter-rouge">collection1.contains(collection2)</code>: 해당 원소가 포함되는지 찾는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Iterator&lt;E&gt; iterator()</code>: 순회용 <code class="language-plaintext highlighter-rouge">Iterator</code> 를 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Object[] toArray()</code>: 배열로 변환한다.</li>
+</ul>
+
+<h4 id="list-interface-에-대한-collections-활용">List Interface 에 대한 Collections 활용</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Collections.sort(list)</code>: 주어진 리스트를 오름차순으로 정리한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.rotate(list, movement)</code>: movement 만큼 오른쪽으로 2칸 회전한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.shuffle(list)</code>: 원소들을 무작위로 섞는다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.fill(list, 0)</code>: list를 0으로 채운다.</li>
+  <li>⭐️ <code class="language-plaintext highlighter-rouge">Collections.synchronizedList(new ArrayList&lt;&gt;())</code>: 동기화된 list 를 생성한다.</li>
+  <li>⭐️ <code class="language-plaintext highlighter-rouge">Collections.unmodifiableList(list)</code>: 읽기 전용 리스트를 만든다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.frequency(list, element)</code>: element 의 빈도를 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.max() / .min()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.swap(list, idx1, idx2)</code>: idx1 과 idx2 자리의 값을 교환한다.</li>
+</ul>
+
+<h5 id="copyonwritearraylist">CopyOnWriteArrayList</h5>
+
+<p>동기화와 읽기 위주의 최적화를 제공하는 리스트이다. 멀티스레드 환경에서 읽기가 많을 때 사용한다.</p>
+
+<h4 id="set-interface-에-대한-collections-활용">Set Interface 에 대한 Collections 활용</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Collections.synchronizedSet(set)</code>: set을 받아 동기화되는 <code class="language-plaintext highlighter-rouge">Set</code> 을 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Collections.unmodifiableSet(set)</code>: set을 받아 읽기 전용 <code class="language-plaintext highlighter-rouge">Set</code> 을 만든다.</li>
+</ul>
+
+<blockquote>
+  <p>unmodifiableXXXX 와 같이 쓰기 보다<br />
+그냥 unmodifiableCollection 을 쓰면 된다.<br />
+synchronized 도 마찬가지이다.</p>
+</blockquote>
+
+<h5 id="treeset">TreeSet</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Set</code> 인터페이스를 구현하는 클래스이며, ordered 의 특징을 가진다. <code class="language-plaintext highlighter-rouge">Comparator</code> 을 통해 정렬 순서를 정할 수 있다. 내부적으로는 이진 트리 기반의 레드-블랙 트리가 쓰인다.</p>
+
+<h5 id="enumset">EnumSet</h5>
+
+<p>enum 타입 전용의 <code class="language-plaintext highlighter-rouge">Set</code> 을 생성한다. enum 요소를 Set 으로 관리할 때 효율적이다.</p>
+
+<h5 id="linkedhashset">LinkedHashSet</h5>
+
+<p><code class="language-plaintext highlighter-rouge">HashSet</code> 인데 순서를 가지고 싶은 경우 사용한다.</p>
+
+<h4 id="queue-interface-에-대한-collections-활용">Queue Interface 에 대한 Collections 활용</h4>
+
+<p>FIFO 구조를 가지는 인터페이스이며,</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">BlockingDeque</code></li>
+  <li><code class="language-plaintext highlighter-rouge">BlockingQueue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Deque</code></li>
+  <li><code class="language-plaintext highlighter-rouge">TransferQueue</code></li>
+</ul>
+
+<p>의 하위 인터페이스가 있다. 위에서의 <code class="language-plaintext highlighter-rouge">add</code>, <code class="language-plaintext highlighter-rouge">remove</code> 와는 좀 다르게 다음 행위를 한다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">offer(e)</code>: e 요소를 추가한다. 실패 시 <code class="language-plaintext highlighter-rouge">false</code> 를 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">poll()</code>: 요소를 제거한다. 비어 있으면 <code class="language-plaintext highlighter-rouge">null</code> 을 반환한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">peek()</code>: 다음 요소를 확인하며 비어 있으면 <code class="language-plaintext highlighter-rouge">null</code> 을 반환한다.</li>
+</ul>
+
+<p>구현체를 보자.</p>
+
+<h5 id="linkedlist">LinkedList</h5>
+
+<p>여러 개의 <code class="language-plaintext highlighter-rouge">Node</code> 가 연결되어서 저장되는 구조로 확장이 용이하다.</p>
+
+<ul>
+  <li>읽기 성능 느림</li>
+  <li>첫 요소(<code class="language-plaintext highlighter-rouge">addFirst()</code>, <code class="language-plaintext highlighter-rouge">removeFirst()</code>)</li>
+  <li>마지막 요소(<code class="language-plaintext highlighter-rouge">addLast()</code>, <code class="language-plaintext highlighter-rouge">removeLast()</code>)</li>
+</ul>
+
+<h5 id="priorityqueue">PriorityQueue</h5>
+
+<p>우선순위 큐라고 부르며, <code class="language-plaintext highlighter-rouge">Comparable</code> 을 구현하여 사용하거나 <code class="language-plaintext highlighter-rouge">Comparator</code> 기반의 정렬을 한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">mathScore</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">englishScore</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Student</span><span class="o">(</span><span class="kt">int</span> <span class="n">mathScore</span><span class="o">,</span> <span class="kt">int</span> <span class="n">englishScore</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">mathScore</span> <span class="o">=</span> <span class="n">mathScore</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">englishScore</span> <span class="o">=</span> <span class="n">englishScore</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">obj</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">obj</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+        <span class="nc">Student</span> <span class="n">other</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Student</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">mathScore</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">mathScore</span> <span class="o">&amp;&amp;</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">englishScore</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">englishScore</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Objects</span><span class="o">.</span><span class="na">hash</span><span class="o">(</span><span class="n">mathScore</span><span class="o">,</span> <span class="n">englishScore</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Queue</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PriorityQueue</span><span class="o">&lt;&gt;((</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">o1</span><span class="o">.</span><span class="na">mathScore</span> <span class="o">==</span> <span class="n">o2</span><span class="o">.</span><span class="na">mathScore</span><span class="o">)</span>
+                <span class="k">return</span> <span class="n">o1</span><span class="o">.</span><span class="na">englishScore</span> <span class="o">-</span> <span class="n">o2</span><span class="o">.</span><span class="na">englishScore</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">o1</span><span class="o">.</span><span class="na">mathScore</span> <span class="o">-</span> <span class="n">o2</span><span class="o">.</span><span class="na">mathScore</span><span class="o">;</span>
+        <span class="o">});</span>
+
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Student</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="mi">85</span><span class="o">));</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Student</span><span class="o">(</span><span class="mi">75</span><span class="o">,</span> <span class="mi">95</span><span class="o">));</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Student</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="mi">80</span><span class="o">));</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Student</span><span class="o">(</span><span class="mi">60</span><span class="o">,</span> <span class="mi">70</span><span class="o">));</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Student</span><span class="o">(</span><span class="mi">75</span><span class="o">,</span> <span class="mi">85</span><span class="o">));</span>
+
+        <span class="c1">// Queue 출력 (poll로 순서 확인)</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">Student</span> <span class="n">s</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Math: "</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="na">mathScore</span> <span class="o">+</span> <span class="s">", English: "</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="na">englishScore</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="blockingqueue-interface">BlockingQueue Interface</h5>
+
+<p>큐가 비어있다면 <code class="language-plaintext highlighter-rouge">take()</code> 에서 대기하고 꽉 차면 <code class="language-plaintext highlighter-rouge">put()</code> 에서 대기한다.<br />
+이를 <strong>blocking</strong> 이라고 한다.</p>
+
+<p><strong>구현체</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ArrayBlockingQueue</code>: 고정 크기 배열 기반</li>
+  <li><code class="language-plaintext highlighter-rouge">LinkeBlockingQueue</code>: 링크드 노드라 크기 유연</li>
+  <li><code class="language-plaintext highlighter-rouge">PriorityBlockingQueue</code>: 우선순위 큐 + 블로킹</li>
+  <li><code class="language-plaintext highlighter-rouge">DelayQueue</code>: 일정 시간 후에 요소가 처리되는 큐</li>
+  <li><code class="language-plaintext highlighter-rouge">SynchronousQueue</code>: 요소가 들어오면 바로 Consumer 에게 전달</li>
+</ul>
+
+<p><strong>Blocking</strong></p>
+
+<p>큐가 가득 차 있으면 새로운 요소를 넣을 수 없게 된다.<br />
+그 순간 <code class="language-plaintext highlighter-rouge">put()</code> 을 호출한 스레드는 블로킹이 되어 대기 큐로 이동하며,<br />
+큐에 공간이 생길 시 자동으로 다시 <code class="language-plaintext highlighter-rouge">ready queue</code> 로 가서 실행될<br />
+준비를 하게 된다. <code class="language-plaintext highlighter-rouge">take()</code> 도 동일</p>
+
+<p>실제로 코드를 보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.concurrent.ArrayBlockingQueue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.BlockingQueue</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">Producer</span> <span class="kd">implements</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">BlockingQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Producer</span><span class="o">(</span><span class="nc">BlockingQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Producer: "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">" 생성"</span><span class="o">);</span>
+                <span class="n">queue</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">i</span><span class="o">);</span> <span class="c1">// 큐가 꽉 차면 블로킹</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span> <span class="c1">// 생산 속도 조절</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Consumer</span> <span class="kd">implements</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">BlockingQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Consumer</span><span class="o">(</span><span class="nc">BlockingQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Integer</span> <span class="n">data</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span> <span class="c1">// 큐가 비면 블로킹</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Consumer: "</span> <span class="o">+</span> <span class="n">data</span> <span class="o">+</span> <span class="s">" 소비"</span><span class="o">);</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">// 소비 속도 조절</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BlockingQueueExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">BlockingQueue</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">2</span><span class="o">);</span> <span class="c1">// 최대 2개 저장 가능</span>
+
+        <span class="nc">Thread</span> <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Producer</span><span class="o">(</span><span class="n">queue</span><span class="o">));</span>
+        <span class="nc">Thread</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">Consumer</span><span class="o">(</span><span class="n">queue</span><span class="o">));</span>
+
+        <span class="n">producer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">consumer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/28/collection.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/computerscience/java/2025/08/28/collection.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

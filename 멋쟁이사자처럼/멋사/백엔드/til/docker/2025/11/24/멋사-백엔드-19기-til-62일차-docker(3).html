@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 62일차 Docker(3)</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 62일차 Docker(3) | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 62일차 Docker(3)" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="작성중" />
+<meta property="og:description" content="작성중" />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-24T06:54:50+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 62일차 Docker(3)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-11-24T06:54:50+00:00","datePublished":"2025-11-24T06:54:50+00:00","description":"작성중","headline":"[멋사 백엔드 19기] TIL 62일차 Docker(3)","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 62일차 Docker(3)</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Nov 24, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Docker</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+<p>작성중</p>
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#docker-compose">Docker Compose</a>
+    <ul>
+      <li><a href="#docker-compose-기본-구조">Docker Compose 기본 구조</a>
+        <ul>
+          <li><a href="#docker-network-설정">Docker Network 설정</a></li>
+          <li><a href="#docker-volume-설정">Docker Volume 설정</a></li>
+          <li><a href="#docker-compose-build-블럭">Docker Compose Build 블럭</a></li>
+          <li><a href="#docker-compose-환경변수-연동">Docker Compose 환경변수 연동</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#docker-실습-multi-container-구성하기">Docker 실습: Multi-container 구성하기</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="docker-compose">Docker Compose</h3>
+
+<p>Docker Compose는 여러 개의 컨테이너로 구성된 애플리케이션을 정의하고 실행하기 위한 도구이다.</p>
+
+<p><strong>핵심 특징</strong></p>
+<ul>
+  <li>YAML 파일 기반: <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> 파일 하나로 전체 애플리케이션 스택을 정의</li>
+  <li>선언적 방식: “어떻게” 실행할지가 아닌 “무엇을” 실행할지 정의</li>
+  <li>단일 명령어: <code class="language-plaintext highlighter-rouge">docker-compose up</code> 하나로 모든 서비스 실행</li>
+  <li>환경 일관성: 개발/테스트/프로덕션 환경 간 일관된 구성 유지</li>
+</ul>
+
+<p>웹 애플리케이션(프론트엔드 + 백엔드 + DB + Redis)을 배포한다고 가정해보자.</p>
+
+<p><code class="language-plaintext highlighter-rouge">docker run</code> 만 사용할 경우:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker network create app-network</code></pre></figure>
+
+<p><strong>mysql 서버</strong></p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">docker run -d \
+  --name mysql \
+  --network app-network \
+  -e MYSQL_ROOT_PASSWORD=root123 \
+  -e MYSQL_DATABASE=myapp \
+  -v mysql-data:/var/lib/mysql \
+  -p 3306:3306 \
+  mysql:8.0</code></pre></figure>
+
+<p><strong>Redis 서버</strong></p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">docker run -d \
+  --name redis \
+  --network app-network \
+  -v redis-data:/data \
+  -p 6379:6379 \
+  redis:7-alpine</code></pre></figure>
+
+<p><strong>백서버</strong></p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">docker run -d \
+  --name backend \
+  --network app-network \
+  -e DB_HOST=mysql \
+  -e DB_PASSWORD=root123 \
+  -e REDIS_HOST=redis \
+  -p 8080:8080 \
+  myapp-backend:latest</code></pre></figure>
+
+<p><strong>프론트서버</strong></p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">docker run -d \
+  --name frontend \
+  --network app-network \
+  -e BACKEND_URL=http://backend:8080 \
+  -p 3000:3000 \
+  myapp-frontend:latest</code></pre></figure>
+
+<p>위와 같이 명령어가 길고 복잡하며, 다른 팀원들에게서는 다르게 실행될 수도 있어 재현성이 부족하다는 단점이 있고, 순서 관리가 힘들며, 환경 변수 관리에 혼란(여러 곳에 흩어짐)이 있게 된다. bash script 로 이를 커버 할 수 있지만 bash script 의 코드를 해석해야한다는 불편함과 코드 로직을 직접 전부 짜야하는 단점이 있다.</p>
+
+<p>이를 해결하고자 Docker Compose 가 나왔다.</p>
+
+<h4 id="docker-compose-기본-구조">Docker Compose 기본 구조</h4>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    
+  database:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: secret</code></pre></figure>
+
+<p>버전은 굳이 명시 안해도 알아서 자동으로 찾아온다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">services</code>: 실행시킬 컨테이너들을 넣을 수 있는 실행 동작을 추상화한 블럭인 듯하며, 실행 단위라고 봐도 무방하다. 실행 단위마다 최소 하나의 이미지가 들어가야 한다.</li>
+  <li><code class="language-plaintext highlighter-rouge">image</code>: 이미지 명과 태그가 들어가는 자리이다. 해당 이미지로 컨테이너를 실행하게 된다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ports</code>: 서비스가 어떤 포트로 포워딩이 될지를 정하는 곳이다.</li>
+  <li><code class="language-plaintext highlighter-rouge">environment</code>: 환경변수를 설정할 수 있는 블록이고, <code class="language-plaintext highlighter-rouge">key: value</code> 로도 되고, <code class="language-plaintext highlighter-rouge">- key:value</code> 로도 된다.</li>
+</ul>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">container_name</code> 도 있는데 이는 잘 쓰이지 않는다. scaling 할 때 불편함 때문</p>
+</blockquote>
+
+<h5 id="docker-network-설정">Docker Network 설정</h5>
+
+<p>서비스끼리의 네트워크를 설정해보자.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">services:
+  web:
+    image: nginx
+    networks:
+      - frontend
+      - backend
+  
+  api:
+    image: myapi
+    networks:
+      - backend
+  
+  db:
+    image: postgres
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge</code></pre></figure>
+
+<p>기본적으로 <code class="language-plaintext highlighter-rouge">networks</code> 라는 블록이 없으면 <code class="language-plaintext highlighter-rouge">docker-compose</code> 내부의 서비스들은 한 네트워크에 배치가 되어 서로 소통을 할 수 있게 된다. 만약 네트워크를 따로 설정해주고 싶다면 위처럼 <code class="language-plaintext highlighter-rouge">networks</code> 블록을 사용하여 network 를 생성할 수 있다.</p>
+
+<h5 id="docker-volume-설정">Docker Volume 설정</h5>
+
+<p>데이터를 영구적으로 저장하기 위한 볼륨을 지정해보자.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">services:
+  db:
+    image: postgres:14
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+  
+  web:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_content:/usr/share/nginx/html
+
+volumes:
+  db_data:
+    driver: local
+  static_content:</code></pre></figure>
+
+<p>volumes 를 통해 <code class="language-plaintext highlighter-rouge">Named Volume</code> 을 지정하고 있음을 볼 수 있고, 이를 위 <code class="language-plaintext highlighter-rouge">services</code> 에서 쓰고 있음을 볼 수 있다. 또한 마지막 : 의 구분자로 <code class="language-plaintext highlighter-rouge">read-only</code> 를 주고 있는것도 볼 수 있을 것이다.</p>
+
+<h5 id="docker-compose-build-블럭">Docker Compose Build 블럭</h5>
+
+<p>서비스에 build 블럭을 쓸 수도 있다.</p>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">services:
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+      args:
+        - NODE_VERSION=18
+        - APP_ENV=development
+      cache_from:
+        - myapp:latest
+    image: myapp:dev
+    ports:
+      - "3000:3000"</code></pre></figure>
+
+<h5 id="docker-compose-환경변수-연동">Docker Compose 환경변수 연동</h5>
+
+<figure class="highlight"><pre><code class="language-docker" data-lang="docker">services:
+  db:
+    image: postgres:14
+    env_file:
+      - .env
+      - .env.local
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DBNAME:-myapp}</code></pre></figure>
+
+<p>위처럼 bash script 의 문법을 가져가면 된다. 민감한 정보는 <code class="language-plaintext highlighter-rouge">env</code> 파일로 다루고, <code class="language-plaintext highlighter-rouge">.env</code> 파일은 일반적인 설정이며 <code class="language-plaintext highlighter-rouge">.gitignore</code> 에 추가하도록 한다.</p>
+
+<h3 id="docker-실습-multi-container-구성하기">Docker 실습: Multi-container 구성하기</h3>
+
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/docker/2025/11/24/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-62%EC%9D%BC%EC%B0%A8-docker(3).html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>

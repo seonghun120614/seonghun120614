@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>[멋사 백엔드 19기] TIL 33일차 Java Network Programming - UDP</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[멋사 백엔드 19기] TIL 33일차 Java Network Programming - UDP | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="[멋사 백엔드 19기] TIL 33일차 Java Network Programming - UDP" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-10-02T01:04:15+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[멋사 백엔드 19기] TIL 33일차 Java Network Programming - UDP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2025-10-02T01:04:15+00:00","datePublished":"2025-10-02T01:04:15+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"[멋사 백엔드 19기] TIL 33일차 Java Network Programming - UDP","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html"},"url":"https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script></head><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("dark-toggle");
+        
+            // 이미 실행한 적 있는지 확인
+            const hasToggled = localStorage.getItem("darkModeInitialized");
+        
+            if (!hasToggled && toggle && toggle.checked) {
+                toggleDarkMode();
+                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
+            }
+        });
+    </script>
+
+    <body>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="/seonghun120614/assets/portfolio.png"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Developer.</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script><div class="post-container">
+    <a class="post-link" href="/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html">
+        <h2 class="post-title">[멋사 백엔드 19기] TIL 33일차 Java Network Programming - UDP</h2>
+    </a>
+    
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Oct 2, 2025</div><ul class="post-categories"><li>멋쟁이사자처럼</li><li>멋사</li><li>백엔드</li><li>TIL</li><li>Java</li><li>Network</li></ul></div>
+
+    <div class="post">
+        <!--more-->
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href="#udp">UDP</a>
+    <ul>
+      <li><a href="#예외처리">예외처리</a></li>
+      <li><a href="#실습-코드들">실습 코드들</a>
+        <ul>
+          <li><a href="#udp-echo">UDP Echo</a></li>
+          <li><a href="#udp-client">UDP Client</a></li>
+          <li><a href="#udp-broadcast">UDP Broadcast</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#심화">심화</a>
+    <ul>
+      <li><a href="#transport-layer">Transport Layer</a>
+        <ul>
+          <li><a href="#tcp">TCP</a></li>
+          <li><a href="#udp-1">UDP</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#java-파일-경로-다루기">Java 파일 경로 다루기</a>
+    <ul>
+      <li><a href="#path-paths">Path, Paths</a></li>
+      <li><a href="#path-를-file-로-변환하기">Path 를 File 로 변환하기</a>
+        <ul>
+          <li><a href="#파일-쓰기">파일 쓰기</a></li>
+          <li><a href="#경로-결합-및-해석">경로 결합 및 해석</a></li>
+        </ul>
+      </li>
+      <li><a href="#subpath">subPath()</a></li>
+      <li><a href="#uri">URI</a>
+        <ul>
+          <li><a href="#round-trip-guarantee">Round-trip Guarantee</a></li>
+        </ul>
+      </li>
+      <li><a href="#watchserver-api">WatchServer API</a>
+        <ul>
+          <li><a href="#예외-상황">예외 상황</a></li>
+          <li><a href="#watchkey">WatchKey</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<h3 id="udp">UDP</h3>
+
+<p><strong>User Datagram Protocol</strong> 의 약자로, 전송 계층 프로토콜 중의 하나이다. 여기서 TCP 는 데이터 단위가 패킷이었지만, UDP 만이 따로 보내는 데이터 단위를 Datagram 이라고 부른다.</p>
+
+<p>특징으로는</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Connection</code> 이 없이(<strong>3-Way Handshaking</strong> 없이) 전송한다</li>
+  <li>속도가 빠름</li>
+  <li>신뢰성이 낮음</li>
+  <li>데이터그램이 가볍다
+    <ul>
+      <li>헤더 크가기 8 바이트(TCP 는 최소 20 바이트)</li>
+    </ul>
+  </li>
+  <li>1:n 의 브로드 캐스팅이 가능하다</li>
+</ul>
+
+<h4 id="예외처리">예외처리</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">IOException</code>: 네트워크 연결 실패, 데이터 전송 중 오류 등 대부분의 입출력 문제</li>
+  <li><code class="language-plaintext highlighter-rouge">UnknownHostException</code>: 호스트 이름(도메인)을 IP 주소로 변환할 수 없을 때 (DNS 조회 실패)</li>
+  <li><code class="language-plaintext highlighter-rouge">SocketTimeoutException</code>: 지정된 시간 내에 연결 또는 데이터 읽기가 완료되지 않았을 때</li>
+  <li><code class="language-plaintext highlighter-rouge">ConnectException</code>: 서버가 해당 포트에서 대기하고 있지 않거나 연결을 거부했을 때</li>
+</ul>
+
+<h4 id="실습-코드들">실습 코드들</h4>
+
+<h5 id="udp-echo">UDP Echo</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.DatagramPacket</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.DatagramSocket</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UDPEchoServer</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">PORT</span> <span class="o">=</span> <span class="mi">7777</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">BUFFER_SIZE</span> <span class="o">=</span> <span class="mi">8192</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">(</span><span class="kt">var</span> <span class="n">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramSocket</span><span class="o">(</span><span class="no">PORT</span><span class="o">))</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"UDP Echo Server Starting..."</span><span class="o">);</span>
+			<span class="kt">var</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="no">BUFFER_SIZE</span><span class="o">];</span>
+
+			<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+				<span class="c1">// 클라이언트가 보낸 메시지를 받음</span>
+				<span class="kt">var</span> <span class="n">packet</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+				<span class="n">socket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+
+				<span class="kt">var</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">packet</span><span class="o">.</span><span class="na">getData</span><span class="o">(),</span> <span class="mi">0</span><span class="o">,</span> <span class="n">packet</span><span class="o">.</span><span class="na">getLength</span><span class="o">());</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"받은 메시지 &gt; "</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
+
+				<span class="c1">// 클라이언트에게 받은 메시지를 다시 보냄</span>
+				<span class="kt">var</span> <span class="n">responseMessage</span> <span class="o">=</span> <span class="s">"Echo &gt; "</span> <span class="o">+</span> <span class="n">message</span><span class="o">;</span>
+				<span class="kt">byte</span><span class="o">[]</span> <span class="n">responseBuffer</span> <span class="o">=</span> <span class="n">responseMessage</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+
+				<span class="kt">var</span> <span class="n">datagramPacket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span>
+						<span class="n">responseBuffer</span><span class="o">,</span>
+						<span class="n">responseMessage</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span>
+						<span class="n">packet</span><span class="o">.</span><span class="na">getAddress</span><span class="o">(),</span>
+						<span class="n">packet</span><span class="o">.</span><span class="na">getPort</span><span class="o">());</span>
+
+				<span class="n">socket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">datagramPacket</span><span class="o">);</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"전송 완료: "</span> <span class="o">+</span> <span class="n">responseMessage</span><span class="o">);</span>
+			<span class="o">}</span>
+
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="udp-client">UDP Client</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UDPEchoClient</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">SERVER_HOST</span> <span class="o">=</span> <span class="s">"localhost"</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">SERVER_PORT</span> <span class="o">=</span> <span class="mi">7777</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">BUFFER_SIZE</span> <span class="o">=</span> <span class="mi">8192</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">(</span><span class="kt">var</span> <span class="n">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramSocket</span><span class="o">();</span>
+		     <span class="kt">var</span> <span class="n">keyboard</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">))</span> <span class="o">{</span>
+
+			<span class="kt">var</span> <span class="n">address</span> <span class="o">=</span> <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="no">SERVER_HOST</span><span class="o">);</span>
+			<span class="kt">var</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="no">BUFFER_SIZE</span><span class="o">];</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"서버에게 보낼 메시지를 입력해주세요."</span><span class="o">);</span>
+
+			<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+				<span class="kt">var</span> <span class="n">message</span> <span class="o">=</span> <span class="n">keyboard</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+
+				<span class="k">if</span> <span class="o">(</span><span class="s">"quit"</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">message</span><span class="o">))</span> <span class="k">break</span><span class="o">;</span>
+
+				<span class="kt">var</span> <span class="n">sendData</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+				<span class="kt">var</span> <span class="n">sendPacket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">sendData</span><span class="o">,</span> <span class="n">sendData</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">address</span><span class="o">,</span> <span class="no">SERVER_PORT</span><span class="o">);</span>
+
+				<span class="n">socket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">sendPacket</span><span class="o">);</span>
+
+				<span class="kt">var</span> <span class="n">datagramPacket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+				<span class="n">socket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">datagramPacket</span><span class="o">);</span>
+
+				<span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">datagramPacket</span><span class="o">.</span><span class="na">getData</span><span class="o">(),</span> <span class="mi">0</span><span class="o">,</span> <span class="n">datagramPacket</span><span class="o">.</span><span class="na">getLength</span><span class="o">());</span>
+			<span class="o">}</span>
+
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h5 id="udp-broadcast">UDP Broadcast</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UDPBroadcast</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">DatagramSocket</span> <span class="n">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramSocket</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">socket</span><span class="o">.</span><span class="na">setBroadcast</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+            <span class="nc">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"브로드캐스트 메시지입니다!"</span><span class="o">;</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+
+            <span class="c1">// 브로드캐스트 주소 (255.255.255.255)</span>
+            <span class="nc">InetAddress</span> <span class="n">broadcastAddress</span> <span class="o">=</span>
+                <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="s">"255.255.255.255"</span><span class="o">);</span>
+
+            <span class="nc">DatagramPacket</span> <span class="n">packet</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span>
+                <span class="n">buffer</span><span class="o">,</span>
+                <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">,</span>
+                <span class="n">broadcastAddress</span><span class="o">,</span>
+                <span class="mi">9876</span>
+            <span class="o">);</span>
+
+            <span class="n">socket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"브로드캐스트 메시지 전송 완료"</span><span class="o">);</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="심화">심화</h3>
+
+<p>Transport Layer 의 프로토콜로, OSI 7계층중 4계층에 위치한다.</p>
+
+<p><img src="/seonghun120614/assets/img/osi_model_7_layers.png" alt="osi_model_7_layers.png" /></p>
+
+<p>기본적으로 신뢰성이 있는 바이트 스트림 전송을 보장하며, IP 는 단순 패킷을 목적지까지 <code class="language-plaintext highlighter-rouge">최선형 전달(best-effort delivery)</code> 만 제공하므로 <strong>손실, 중복, 순서 뒤바뀜</strong> 문제가 발생하지만, TCP 는 이러한 문제를 해결하여 Application Layer 가 안정적인 통신을 수행할 수 있도록 한다.</p>
+
+<p>OSI 계층의 관점에서 더 살펴보자.</p>
+
+<h4 id="transport-layer">Transport Layer</h4>
+
+<p>어플리케이션(5-7 계층)과 네트워크(1-3 계층) 사이의 중개자 역할을 하는 이 계층은 <strong>프로세스 간 통신(IPC)</strong> 를 책임진다.</p>
+
+<p>단순히 컴퓨터와 컴퓨터 사이가 아니라 컴퓨터 내부의 프로세스와 상대방의 특정 프로세스를 연결하는 통로를 만든다. 이 통로를 통과하는 전송 계층의 데이터 단위는 <code class="language-plaintext highlighter-rouge">Segement</code> 이다.</p>
+
+<p><strong>역할</strong></p>
+<ul>
+  <li>전송 제어: 큰 데이터를 쪼개서(segment) 보내고, 다시 조립 가능한가?
+    <ul>
+      <li>파일 전송 중 “HelloWorld” 를 보내고, 세그먼트 단위가 “Hello”, “World” 로 쪼개짐</li>
+      <li>수신 측에서 순서가 꼬여 “WorldHello” 로 받아버리면서 데이터 무결성이 깨짐</li>
+    </ul>
+  </li>
+  <li>오류 제어: 데이터가 중간에 손상되거나 유실되면 재전송 요구(<code class="language-plaintext highlighter-rouge">ACK</code>, <code class="language-plaintext highlighter-rouge">NAK</code>, <code class="language-plaintext highlighter-rouge">Checksum</code> 등)가 가능한가?
+    <ul>
+      <li>전송 중 <strong>bit-flip</strong>(1이 0으로 변하는 현상)이 생겨 은행 송금 중 10,000 원이 100,000 원으로 잘못 도착</li>
+      <li>문서 전송 중 “결재 승인” -&gt; “결재 취소” 로 바뀜</li>
+    </ul>
+  </li>
+  <li>흐름 제어: 송신 측이 수신 측의 처리 속도를 고려하여 전송량을 조잘할 수 있는가?
+    <ul>
+      <li>클라이언트가 대용량 로그 파일을 초고속으로 전송해버림</li>
+      <li>서버는 디스크 I/O 가 느려서 못 따라감</li>
+      <li>결국 데이터 일부 손실(받을 수 있는 공간이 없으면 버려버림)</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="tcp">TCP</h5>
+
+<ul>
+  <li><strong>연결 지향(Connection-Oriented)</strong>: 데이터를 전송하기 전 <strong>3-Way Handshake</strong> 로 연결을 성립시킨다.</li>
+  <li><strong>신뢰성 보장(Reliable)</strong>: 손실, 중복, 순서 꼬임을 모두 해결</li>
+  <li><strong>흐름 제어(Flow Control)</strong>: 수신 측의 처리 속도에 맞춰 전송 속도를 조절(Window Size)</li>
+  <li><strong>혼잡 제어(Congestion Control)</strong>: 네트워크가 붕괴되지 않도록 전송량을 자동 조절(<strong>AIMD</strong> 등 알고리즘)</li>
+  <li><strong>스트림 기반(Stream-Oriented)</strong>: 바이트 단위의 연속적 데이터 스트림으로 메시지 경계가 없음</li>
+</ul>
+
+<p><strong>세그먼트 내부 구조</strong></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">0       7 8     15 16    23 24     31
++--------+--------+--------+--------+
+|  Source Port    | Destination Port|
++--------+--------+--------+--------+
+|          Sequence Number          |
++--------+--------+--------+--------+
+|      Acknowledgment Number        |
++--------+--------+--------+--------+
+|Off.|Res. |Flags |      Window     |
++--------+--------+--------+--------+
+|    Checksum     |  Urgent Pointer |
++--------+--------+--------+--------+
+|     Options (0~40B, 존재할 경우)     |
++-----------------------------------+
+|               Data ...            |</code></pre></figure>
+
+<ul>
+  <li><strong>Source Port(16bit) / Destination Port(16bit)</strong>: 어떤 어플리케이션과 통신할지를 식별</li>
+  <li><strong>Sequence Number(32bit)</strong>: 바이트 스트림 순서 식별</li>
+  <li><strong>Acknowledgement Number(32bit)</strong>: 다음에 기대하는 바이트 번호</li>
+  <li><strong>Data Offset(4bit)</strong>: 헤더 길이를 나타냄 (예: 32비트 워드)</li>
+  <li><strong>Reversed(6bit)</strong>: 확장용, 예약 필드, 미래에 쓰일 필드</li>
+  <li><strong>Flags(6bit - 9bit)</strong>: SYN, ACK, FIN, RST 등 제어 플래그(URG, PSH, …)</li>
+  <li><strong>Window Size(16bit)</strong>: 흐름 제어</li>
+  <li><strong>Checksum(16bit)</strong>: 오류 검출을 위한 체크섬</li>
+</ul>
+
+<p><strong>연결 절차</strong></p>
+<ul>
+  <li><strong>3-Way Handsake</strong>: SYN -&gt; SYN+ACK -&gt; ACK</li>
+  <li>시퀀스 번호 기반으로 세그먼트 전송
+    <ul>
+      <li>손실 시 <code class="language-plaintext highlighter-rouge">ACK flag</code> 사용하여 재전송 요청</li>
+      <li>윈도우 기반으로 속도 조절</li>
+    </ul>
+  </li>
+  <li><strong>4-Way Handsake</strong>: FIN -&gt; ACK -&gt; FIN -&gt; ACK</li>
+</ul>
+
+<p><strong>사용 범위</strong></p>
+<ul>
+  <li>웹, 파일 전송, 이메일 등으로 신뢰성이 필요할 때 사용</li>
+  <li>프로그래머가 직접 재전송, 순서 보장, 흐름 제어를 구현할 필요가 없음</li>
+  <li>HTTP(S), FTP, SMTP, SSH 등</li>
+</ul>
+
+<p><strong>단점</strong></p>
+<ul>
+  <li>헤더 크기가 최소 20 바이트</li>
+  <li>느림</li>
+</ul>
+
+<h5 id="udp-1">UDP</h5>
+
+<p>UDP 는 Handsake 가 없어, 그냥 데이터 그램(세그먼트) 을 내보내게 된다. 이때 보내는 데이터들에서는 순서 보장이 안되며, 중복을 허용하게 된다. 보낸 메시지가 그대로 하나의 데이터그램이 되며 나가게 된다. TCP 와는 달리 <strong>전송 제어, 오류 제어, 흐름 제어</strong>가 없어서 데이터 무결성은 보장할 수 없다.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[ Source Port | Destination Port | Length | Checksum ]</code></pre></figure>
+
+<blockquote>
+  <p>단순 포트, 길이, 체크섬만 있고, 순서, 재전송, 흐름 제어가 없다.</p>
+</blockquote>
+
+<p><strong>연결 절차</strong></p>
+<ul>
+  <li>연결 과정은 없고,</li>
+  <li>그냥 <code class="language-plaintext highlighter-rouge">sendTo()</code>, <code class="language-plaintext highlighter-rouge">recvFrom()</code> 으로만 받기만 한다.</li>
+</ul>
+
+<p><strong>사용 범위</strong></p>
+<ul>
+  <li>데이터 그램이 TCP 의 세그먼트 보다는 헤더가 작아서 빠르며</li>
+  <li>실시간 통신에 유리하다(손실 몇 개는 무시해도 무관)</li>
+  <li>DNS, VoIP, 온라인 게임, 영상 스트리밍</li>
+</ul>
+
+<p><strong>장점</strong></p>
+<ul>
+  <li>빠름</li>
+</ul>
+
+<h3 id="java-파일-경로-다루기">Java 파일 경로 다루기</h3>
+
+<p>Java 7 에서 부터는 <code class="language-plaintext highlighter-rouge">java.nio.file</code> 패키지를 통해 파일 경로를 다룰 수 있다.</p>
+
+<h4 id="path-paths">Path, Paths</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="o">;</span></code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">import</code> 를 통해 <code class="language-plaintext highlighter-rouge">Path</code> 를 가져올 수 있지만, <code class="language-plaintext highlighter-rouge">Path</code> 는 인터페이스만 제공을 하기 때문에 실제 구현체는 <code class="language-plaintext highlighter-rouge">Paths</code> 라는 유틸 클래스로 생성해줄 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Path</span> <span class="n">relativePath</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"file/test.txt"</span><span class="o">);</span>
+<span class="nc">Path</span> <span class="n">absolutePath</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"(경로 입력)/Desktop/network/file/test.txt"</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상대경로 : "</span> <span class="o">+</span> <span class="n">relativePath</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"절대경로 : "</span> <span class="o">+</span> <span class="n">absolutePath</span><span class="o">);</span></code></pre></figure>
+
+<p>또한 경로는 존재하지 않는 경로에 대해서도 경로를 정할 수 있다. 무슨 말이냐면 <code class="language-plaintext highlighter-rouge">foo</code> 파일이 없음에도 불구하고, 해당 경로를 생성시킬 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"file/foo"</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">path</span><span class="o">);</span></code></pre></figure>
+
+<p>아무 오류 없이 정상적으로 출력됨을 볼 수 있다. 이를 <code class="language-plaintext highlighter-rouge">Path</code> 가 가진 메서드들을 통해 정보를 출력해볼 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Path</span> <span class="n">relativePath</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"file/test.txt"</span><span class="o">);</span>
+<span class="nc">Path</span> <span class="n">absolutePath</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"~/Desktop/network/file/test.txt"</span><span class="o">);</span>
+<span class="nc">Path</span> <span class="n">absentPath</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"hihi"</span><span class="o">);</span>
+
+<span class="nc">Path</span><span class="o">[]</span> <span class="n">paths</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Path</span><span class="o">[]</span> <span class="o">{</span><span class="n">relativePath</span><span class="o">,</span> <span class="n">absolutePath</span><span class="o">,</span> <span class="n">absentPath</span><span class="o">};</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="nc">Path</span> <span class="n">path</span> <span class="o">:</span> <span class="n">paths</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">try</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"파일명 : "</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="na">getFileName</span><span class="o">());</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"부모 디렉터리 : "</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="na">getParent</span><span class="o">());</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"절대 경로 : "</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="na">toAbsolutePath</span><span class="o">());</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"존재 여부 : "</span> <span class="o">+</span> <span class="nc">Files</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">path</span><span class="o">));</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"파일 크기 : "</span> <span class="o">+</span> <span class="nc">Files</span><span class="o">.</span><span class="na">size</span><span class="o">(</span><span class="n">path</span><span class="o">)</span> <span class="o">+</span> <span class="s">" bytes"</span><span class="o">);</span>
+	<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+	<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>해당 파일의 존재 여부는 <code class="language-plaintext highlighter-rouge">Files</code> 유틸을 통해 존재하는지, size 가 얼마인지 등을 알 수 있고, 존재하지 않는 파일들에 대해서의 접근해야지만 얻을 수 있는 정보(<code class="language-plaintext highlighter-rouge">Path.toFile()</code>, <code class="language-plaintext highlighter-rouge">Files.size()</code> 등등) 에 대해 <code class="language-plaintext highlighter-rouge">NoSuchFileException</code> 이 뜸을 볼 수 있다.</p>
+
+<p><strong>출력</strong></p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">파일명 : test.txt
+부모 디렉터리 : file
+절대 경로 : /Users/(username)/Desktop/network/file/test.txt
+존재 여부 : true
+파일 크기 : 91 bytes
+
+파일명 : test.txt
+부모 디렉터리 : ~/Desktop/network/file
+절대 경로 : /Users/(username)/Desktop/network/~/Desktop/network/file/test.txt
+존재 여부 : false
+java.nio.file.NoSuchFileException: ~/Desktop/network/file/test.txt
+
+파일명 : hihi
+부모 디렉터리 : null
+절대 경로 : /Users/(username)/Desktop/network/hihi
+존재 여부 : false
+java.nio.file.NoSuchFileException: hihi</code></pre></figure>
+
+<h4 id="path-를-file-로-변환하기">Path 를 File 로 변환하기</h4>
+
+<p>이제 해당 <code class="language-plaintext highlighter-rouge">Path</code> 를 파일로 변환시키는 방법을 살펴보자. <code class="language-plaintext highlighter-rouge">Path</code> 인터페이스의 <code class="language-plaintext highlighter-rouge">toFile</code> 메서드를 통해 파일을 얻을 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+
+<span class="o">...</span>
+
+<span class="nc">File</span> <span class="n">file</span> <span class="o">=</span> <span class="n">relativePath</span><span class="o">.</span><span class="na">toFile</span><span class="o">();</span></code></pre></figure>
+
+<h5 id="파일-쓰기">파일 쓰기</h5>
+
+<p>파일을 생성할 때는 무조건 운영체제의 권한이 필요로 하게 됨을 알고 있자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"data/output.txt"</span><span class="o">);</span>
+
+<span class="c1">// 디렉터리가 없다면 생성</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">createDirectories</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">getParent</span><span class="o">());</span>
+
+<span class="c1">// 파일에 문자열 쓰기</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">path</span><span class="o">,</span>
+			<span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"World"</span><span class="o">),</span>
+			<span class="nc">StandardOpenOption</span><span class="o">.</span><span class="na">CREATE</span><span class="o">,</span>
+			<span class="nc">StandardOpenOption</span><span class="o">.</span><span class="na">TRUNCATE_EXISTING</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"파일 저장 완료: "</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="na">toAbsolutePath</span><span class="o">());</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Files.createDirectories</code>: 해당 부모 경로가 없다면 쭉 생성해준다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Files.write</code>: 파일에 내용을 쓴다.</li>
+  <li><code class="language-plaintext highlighter-rouge">StandardOpenOption</code>: <code class="language-plaintext highlighter-rouge">OpenOption</code> 인터페이스를 구현하는 열거형 클래스이다. 옵션들은 밑에 정리해두었다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>옵션</th>
+      <th>설명</th>
+      <th>예시 사용 상황</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>READ</strong></td>
+      <td>파일을 읽기 전용으로 연다.</td>
+      <td><code class="language-plaintext highlighter-rouge">Files.newInputStream(path, READ)</code></td>
+    </tr>
+    <tr>
+      <td><strong>WRITE</strong></td>
+      <td>파일을 쓰기 전용으로 연다.</td>
+      <td><code class="language-plaintext highlighter-rouge">Files.newOutputStream(path, WRITE)</code></td>
+    </tr>
+    <tr>
+      <td><strong>APPEND</strong></td>
+      <td>파일의 끝에 데이터를 덧붙인다. (기존 내용 유지)</td>
+      <td>로그 파일 추가 기록</td>
+    </tr>
+    <tr>
+      <td><strong>TRUNCATE_EXISTING</strong></td>
+      <td>기존 파일이 존재하면 내용을 모두 비운 후 새로 쓴다.</td>
+      <td>파일 새로 덮어쓰기</td>
+    </tr>
+    <tr>
+      <td><strong>CREATE</strong></td>
+      <td>파일이 없으면 새로 만든다.</td>
+      <td>기본적인 파일 생성 시</td>
+    </tr>
+    <tr>
+      <td><strong>CREATE_NEW</strong></td>
+      <td>파일이 이미 존재하면 예외 발생.</td>
+      <td>중복 파일 방지 시</td>
+    </tr>
+    <tr>
+      <td><strong>DELETE_ON_CLOSE</strong></td>
+      <td>스트림을 닫을 때 파일을 자동 삭제.</td>
+      <td>임시 파일 처리</td>
+    </tr>
+    <tr>
+      <td><strong>SPARSE</strong></td>
+      <td>희소 파일(sparse file)로 생성. (대용량 비어있는 공간 절약)</td>
+      <td>대형 파일 테스트</td>
+    </tr>
+    <tr>
+      <td><strong>SYNC</strong></td>
+      <td>모든 데이터와 메타데이터를 디스크에 즉시 기록 (성능 ↓, 안정성 ↑)</td>
+      <td>DB나 로그의 안정적 쓰기</td>
+    </tr>
+    <tr>
+      <td><strong>DSYNC</strong></td>
+      <td>데이터만 디스크에 즉시 기록 (메타데이터는 나중에)</td>
+      <td>빠른 데이터 안정화</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">Files</code> 와 <code class="language-plaintext highlighter-rouge">Paths</code> 의 메서드들은 다른 포스트에서 심도있게 다룬다.</p>
+</blockquote>
+
+<h5 id="경로-결합-및-해석">경로 결합 및 해석</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Path</code> 의 <code class="language-plaintext highlighter-rouge">resolve()</code> 를 통해 경로를 얽힘 없이 자동으로 합쳐주고, <code class="language-plaintext highlighter-rouge">normalize()</code> 를 통해 현재 경로에서 불필요한 즉, 중복된 이름 요소 혹은, <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">..</code> 등을 제거한 경로를 만들 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.nio.file.Path</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PathJoin</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Path</span> <span class="n">base</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/Users/user1/Desktop"</span><span class="o">);</span>
+		<span class="nc">Path</span> <span class="n">child</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="s">"network/file.txt"</span><span class="o">);</span>  <span class="c1">// 결합</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"결합된 경로: "</span> <span class="o">+</span> <span class="n">child</span><span class="o">);</span>
+
+		<span class="nc">Path</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/Users/user1/Desktop/network/../file.txt"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"정규화 전: "</span> <span class="o">+</span> <span class="n">p</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"정규화 후: "</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">normalize</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="subpath">subPath()</h4>
+
+<p>API: <code class="language-plaintext highlighter-rouge">Path subpath(int beginIndex, int endIndex);</code></p>
+
+<p>의 형태이고, 0부터 count 까지의 범위이다. endIndex 는 exclusive 하기 때문에 제외된다.</p>
+
+<blockquote>
+  <p>/Users/user1/Desktop/hello/example/test.txt<br />
+/: 0<br />
+/Users/: 1<br />
+/Users/user1/: 2</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Path</span> <span class="n">base</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/Users/user1/Desktop"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"서브 경로: "</span> <span class="o">+</span> <span class="n">base</span><span class="o">.</span><span class="na">subpath</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">));</span>
+
+<span class="c1">// 서브 경로: Desktop</span></code></pre></figure>
+
+<h4 id="uri">URI</h4>
+
+<p><code class="language-plaintext highlighter-rouge">URI</code> 는 <code class="language-plaintext highlighter-rouge">Uniform Resource Identifier</code> 의 약자로, 자원에 대해 통합 자원 식별자를 매길 수 있게 한다. 이름 그대로 식별자 용도이다. 보통 다음과 같은 형태를 가지게 된다.</p>
+
+<blockquote>
+  <p>file:///Users/user1/Desktop/file.txt<br />
+scheme://example.com:8080/path?query#fragment</p>
+</blockquote>
+
+<p>여기서 <code class="language-plaintext highlighter-rouge">file://</code> 은 로컬 파일 시스템 스킴이고 그 뒤에는 경로가 따라온다.</p>
+
+<p><strong>Scheme</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">file:///</code>: 로컬 파일 시스템</li>
+  <li><code class="language-plaintext highlighter-rouge">http://</code>: HTTP 프로토콜</li>
+  <li><code class="language-plaintext highlighter-rouge">ftp://</code>: FTP 프로토콜</li>
+  <li><code class="language-plaintext highlighter-rouge">jar:file:///</code>: JAR 파일 내부</li>
+</ul>
+
+<p>이러한 스킴을 정하는 것은 <strong>파일 시스템 제공자(FileSystemProvider)</strong> 에 의해 관리되고, 그 제공자가 사용하는 스킴으로 URI 를 만들게 된다.</p>
+
+<p>기본적으로 프로바이더는 OS 의 파일 시스템을 의미하기 때문에 <code class="language-plaintext highlighter-rouge">Path.toUri()</code> 의 경우에는 다음과 같은 특징을 가지게 된다:</p>
+
+<ul>
+  <li><strong>absolute path</strong> 형태로 변환</li>
+  <li><code class="language-plaintext highlighter-rouge">query(?)</code>, <code class="language-plaintext highlighter-rouge">fragment(#)</code> 부분 없음</li>
+  <li>authority(<code class="language-plaintext highlighter-rouge">//server</code> 같은 부분)는 구현에 따라 다름</li>
+  <li>파일이 디렉터리라면 <code class="language-plaintext highlighter-rouge">/</code> 로 끝남</li>
+</ul>
+
+<blockquote>
+  <p>shceme: 프로토콜<br />
+fragment: 문서 내의 특정 위치<br />
+authority: 서버 주소와 포트</p>
+</blockquote>
+
+<h5 id="round-trip-guarantee">Round-trip Guarantee</h5>
+
+<p><code class="language-plaintext highlighter-rouge">Path.of(p.toUri()).equals(p.toAbsolutePath())</code> 가 보장된다는 의미이다. 즉, Path 를 URI 로 바꿨다가 다시 URI 에서 Path 로 바꾸어도 같은 절대 경로가 되어야 한다는 의미이다.</p>
+
+<blockquote>
+  <p>단, 같은 JVM 안에서만 이 보장이 유효함</p>
+</blockquote>
+
+<h4 id="watchserver-api">WatchServer API</h4>
+
+<p><code class="language-plaintext highlighter-rouge">java.nio.file.Path</code> 인터페이스 안에는 디렉터리 변경 감시 기능(파일 변경 이벤트 감시) 관련 메서드가 존재한다.</p>
+
+<p>자바의 <code class="language-plaintext highlighter-rouge">WatchService API</code> 와 함께 동작하며, 파일 시스템에서 파일 생성, 수정, 삭제 이벤트를 감시할 수 있도록 한다.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">WatchKey</span> <span class="nf">register</span><span class="o">(</span><span class="nc">WatchService</span> <span class="n">watcher</span><span class="o">,</span>
+				  <span class="nc">WatchEvent</span><span class="o">.</span><span class="na">Kind</span><span class="o">&lt;?&gt;[]</span> <span class="n">events</span><span class="o">,</span>
+				  <span class="nc">WatchEvent</span><span class="o">.</span><span class="na">Modifier</span><span class="o">...</span> <span class="n">modifiers</span><span class="o">)</span> <span class="n">throwsIOException</span><span class="o">;</span></code></pre></figure>
+
+<p>위가 기본 API 이고, <code class="language-plaintext highlighter-rouge">@Overriding</code> 이 되어 있고, <code class="language-plaintext highlighter-rouge">Watchable</code> 인터페이스에도 있게 된다(아마 인터페이스를 <code class="language-plaintext highlighter-rouge">@Override</code> 한 이유는 굳이 <code class="language-plaintext highlighter-rouge">Watchable</code> 까지 들어가서 명세서를 보도록 안하기 위함이 아닐까 싶다 배울점).</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Path</code>: 감시할 디렉터리의 경로</li>
+  <li><code class="language-plaintext highlighter-rouge">WatchService</code>: 이벤트를 모아주는 이벤트 통지 시스템</li>
+  <li><code class="language-plaintext highlighter-rouge">WatchKey</code>: 등록된 디렉터리 1곳을 대표하는 키 (이를 토대로 이벤트를 꺼냄)</li>
+  <li><code class="language-plaintext highlighter-rouge">WatchEvent.Kind</code>: 어떤 종류의 이벤트를 감시할지를 지정
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">ENTRY_CREATE</code>: 새 파일이 생성되거나 디렉터리에 들어옴</li>
+      <li><code class="language-plaintext highlighter-rouge">ENTRY_DELETE</code>: 파일이 삭제되거나 디렉터리에서 나감</li>
+      <li><code class="language-plaintext highlighter-rouge">ENTRY_MODIFY</code>: 파일이 수정됨 (내용/속성 변경)</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">WatchEvent.Modifier</code>: 이 디렉터리를 감시하되, 어떤 특별한 조건이나 방식으로 감시할 지를 정의
+    <ul>
+      <li>이 구체적인 구현체 인자는 OS 또는 파일시스템 제공자(provider)가 제공하므로 해당 OS 에 맞는 <code class="language-plaintext highlighter-rouge">Modifier</code> 를 가져와야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">WatchEven.Modifier</code> 는 deprecated</p>
+</blockquote>
+
+<p><strong>Mac OS / Linux 예시</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.sun.nio.file.SensitivityWatchEventModifier</span><span class="o">;</span>
+
+<span class="n">dir</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">watcher</span><span class="o">,</span>
+             <span class="k">new</span> <span class="nc">WatchEvent</span><span class="o">.</span><span class="na">Kind</span><span class="o">&lt;?&gt;[]{</span><span class="no">ENTRY_CREATE</span><span class="o">,</span> <span class="no">ENTRY_MODIFY</span><span class="o">,</span> <span class="no">ENTRY_DELETE</span><span class="o">},</span>
+             <span class="nc">SensitivityWatchEventModifier</span><span class="o">.</span><span class="na">HIGH</span><span class="o">);</span></code></pre></figure>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">LOW</code>: 10초에 한 번 정도 검사 (부하 적음)</li>
+  <li><code class="language-plaintext highlighter-rouge">MEDIUM</code>: 2초 정도 간격으로 검사</li>
+  <li><code class="language-plaintext highlighter-rouge">HIGH</code>: 거의 실시간 감지 (CPU 부하 큼)</li>
+</ul>
+
+<blockquote>
+  <p>여러개의 <code class="language-plaintext highlighter-rouge">Modifier</code> 옵션을 넣을 수 있게 가변 인자로 선언되어 있지만 대부분은 한 개만 쓴다고 하며, 최근 들어서 JDK 21 은 해당 Modifier 옵션을 지정하지 않는 것으로 두고, OS 가 알아서 주기적으로 검사하도록 하게 한다. 따라서 이 인자는 비워도 된다.</p>
+</blockquote>
+
+<h5 id="예외-상황">예외 상황</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">UnsupportedOperationException</code>: 지원되지 않는 Modifier 전달</li>
+  <li><code class="language-plaintext highlighter-rouge">ClosedWatchServiceException</code></li>
+  <li><code class="language-plaintext highlighter-rouge">NotDirectoryException</code></li>
+  <li><code class="language-plaintext highlighter-rouge">IOException</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SecurityException</code></li>
+</ul>
+
+<h5 id="watchkey">WatchKey</h5>
+
+<p>이제 실제 활용을 해보자.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">try</span> <span class="o">(</span><span class="nc">WatchService</span> <span class="n">watcher</span> <span class="o">=</span> <span class="nc">FileSystems</span><span class="o">.</span><span class="na">getDefault</span><span class="o">().</span><span class="na">newWatchService</span><span class="o">())</span> <span class="o">{</span>
+
+	<span class="nc">Path</span> <span class="n">dir</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/Users/user1/Desktop/network/file"</span><span class="o">);</span>
+
+	<span class="k">if</span> <span class="o">(!</span><span class="nc">Files</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">(</span><span class="n">dir</span><span class="o">))</span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"지정한 경로가 디렉터리가 아닙니다: "</span> <span class="o">+</span> <span class="n">dir</span><span class="o">);</span>
+
+	<span class="n">dir</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">watcher</span><span class="o">,</span>
+					<span class="nc">StandardWatchEventKinds</span><span class="o">.</span><span class="na">ENTRY_CREATE</span><span class="o">,</span>
+					<span class="nc">StandardWatchEventKinds</span><span class="o">.</span><span class="na">ENTRY_DELETE</span><span class="o">,</span>
+					<span class="nc">StandardWatchEventKinds</span><span class="o">.</span><span class="na">ENTRY_MODIFY</span><span class="o">);</span>
+
+	<span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="nc">WatchKey</span> <span class="n">key</span> <span class="o">=</span> <span class="n">watcher</span><span class="o">.</span><span class="na">poll</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+
+			<span class="k">for</span> <span class="o">(</span><span class="nc">WatchEvent</span><span class="o">&lt;?&gt;</span> <span class="n">event</span> <span class="o">:</span> <span class="n">key</span><span class="o">.</span><span class="na">pollEvents</span><span class="o">())</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"이벤트: "</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">kind</span><span class="o">()</span> <span class="o">+</span> <span class="s">" | 파일: "</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">context</span><span class="o">());</span>
+
+			<span class="k">if</span> <span class="o">(!</span><span class="n">key</span><span class="o">.</span><span class="na">reset</span><span class="o">())</span> <span class="k">break</span><span class="o">;</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"감시 스레드가 인터럽트 되었습니다."</span><span class="o">);</span>
+			<span class="k">break</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<ol>
+  <li>OS 의 파일시스템이 제공하는 새로운 <code class="language-plaintext highlighter-rouge">WatchService</code> 를 가져온다.</li>
+  <li>감시할 디렉토리를 <code class="language-plaintext highlighter-rouge">Path</code> 로 설정하고, 디렉터리인지 확인해준다.</li>
+  <li><code class="language-plaintext highlighter-rouge">Path.register</code> 을 통해 감시 서비스에 등록해준다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">StandardWatchEventKinds</code> 의 <code class="language-plaintext highlighter-rouge">ENTRY_CREATE</code>, <code class="language-plaintext highlighter-rouge">ENTRY_MODIFY</code>, <code class="language-plaintext highlighter-rouge">ENTRY_DELETE</code> 전부 등록해준다.</li>
+      <li>즉, 해당 종류들을 감시하는 것을 등록한다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">poll()</code> 을 통해 로그를 들고온다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">watcher.poll(10, TimeUnit.SECONDS);</code> 동기로 가져오기 때문에 10초까지 이벤트가 없다면 null 을 반환하게 된다.</li>
+      <li>무한 블로킹을 하지 않고 일정 시간 기다린 후 반환하는 <strong><a href="#동기-vs-비동기">제한 블로킹</a></strong> 구조를 사용</li>
+      <li>내부적으로는 <strong><a href="#">폴링 스레드</a></strong>를 통해 따로 처리하는 스레드가 있음(개발자는 이를 볼 수 없음)</li>
+    </ul>
+  </li>
+  <li>가져온 key 가 null 이면
+    <ul>
+      <li>이벤트가 진행된게 없기 때문에 수행 종료</li>
+    </ul>
+  </li>
+  <li>이벤트가 발생하고 <code class="language-plaintext highlighter-rouge">pollEvents()</code>로 처리하면, 그 순간 <code class="language-plaintext highlighter-rouge">WatchKey</code>는 일시적으로 비활성 상태가 된다.
+    <ul>
+      <li>이때 이벤트 가 발생된 자원은 <code class="language-plaintext highlighter-rouge">event.context()</code> 를 통해 확인하고</li>
+      <li>이벤트 종류를 <code class="language-plaintext highlighter-rouge">event.kind()</code> 로 확인한다.</li>
+    </ul>
+  </li>
+  <li>마지막으로 <code class="language-plaintext highlighter-rouge">reset()</code> 을 통해 다시 이벤트를 감시할 수 있도록 한다.
+    <ul>
+      <li>만약 <code class="language-plaintext highlighter-rouge">false</code> 를 리턴했다면, 디렉터리가 삭제되었거나 <code class="language-plaintext highlighter-rouge">WatchService</code> 가 닫힌 경우이기에 빠져나간다.</li>
+    </ul>
+  </li>
+</ol>
+
+<blockquote>
+  <p>사실 상 만약 Interrupt 를 try 내부에서 처리하고 싶다면 다음 구문을 넣어야 한다: <code class="language-plaintext highlighter-rouge">if (Thread.currentThread().isInterrupted()) break;</code> 기본적으로 비동기 식이기 때문에 처리가 늦어진 이유가 interrupt 발생 때문이라면(외부 다른 스레드에서 현재 스레드의 종료, 시스템 신호나 JVM 종료 요청 때문에 종료 의 경우 혹은 예외 발생) <code class="language-plaintext highlighter-rouge">break</code> 를 하게 되는 코드인데, 이는 이미 <code class="language-plaintext highlighter-rouge">catch</code> 로 <code class="language-plaintext highlighter-rouge">InterruptedException</code> 을 처리할 수 있도록 하게 하였으니 필요 없는 옛구문이다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<h6 id="동기-vs-비동기">동기 vs 비동기</h6>
+
+<ul>
+  <li><strong>완전 비동기</strong>: 메서드 호출 즉시 반환하고, 결과를 나중에 <code class="language-plaintext highlighter-rouge">Callback</code> 이나 <code class="language-plaintext highlighter-rouge">Future</code> 로 처리</li>
+  <li><strong>완전 동기</strong>: 메서드 호출 시 결과가 나올 때까지 블로킹</li>
+  <li><strong>제한 블로킹</strong>: 무한 블로킹하지 않고 일정 시간 기다린 후에 반환하는 구조</li>
+</ul>
+
+<p>위에서는 <code class="language-plaintext highlighter-rouge">take()</code> 보다는 <code class="language-plaintext highlighter-rouge">poll()</code> 방식을 사용하였고, timeout 까지 지정하여 제한 블로킹 형태로 되었다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">take()</code>: 비동기는 아님, 호출 스레드 자체를 블로킹</li>
+  <li><code class="language-plaintext highlighter-rouge">poll()</code>: 즉시 반환(non-blocking) 비동기임</li>
+  <li><code class="language-plaintext highlighter-rouge">poll(int, TimeUnit)</code>: 지정 시간 동안 대기 후 반환, 제한 블로킹이며 완전 비동기는 아님</li>
+</ul>
+
+<h6 id="polling-thread">Polling Thread</h6>
+
+<p>폴링 뜻은 주기적으로 상태를 확인하는 방식이다. 따라서 CPU 자원을 계속 소모하면서 이벤트가 없을 때도 반복적으로 확인하는 동작을 한다(OS 네이티브 이벤트를 쓰는 경우는 CPU 소모가 거의 없음).</p>
+
+<p>자바에서는 <code class="language-plaintext highlighter-rouge">WatchService</code> 에서 OS 가 지원하는 이벤트 감지 기능을 활용할 수도 있고, 일부 플랫폼에서는 자체 폴링 스레드를 사용하기도 한다. 어쨋든 간에 폴링 스레드는 <code class="language-plaintext highlighter-rouge">WatchService</code> 내부에서 주기적으로 실행되는 흐름이다.</p>
+
+<p>여기 나오는 예시는 다음 동작을 한다.</p>
+<ol>
+  <li>등록된 디렉터리를 주기적으로 체크</li>
+  <li>변경 사항이 있으면 이벤트 큐에 넣음</li>
+  <li><code class="language-plaintext highlighter-rouge">poll()</code> 이나 <code class="language-plaintext highlighter-rouge">take()</code> 호출 스레드는 이 큐에서 이벤트를 가져오게 됨</li>
+</ol>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/%EB%A9%8B%EC%9F%81%EC%9D%B4%EC%82%AC%EC%9E%90%EC%B2%98%EB%9F%BC/%EB%A9%8B%EC%82%AC/%EB%B0%B1%EC%97%94%EB%93%9C/til/java/network/2025/10/02/%EB%A9%8B%EC%82%AC-%EB%B0%B1%EC%97%94%EB%93%9C-19%EA%B8%B0-til-33%EC%9D%BC%EC%B0%A8-Java-Network-Programming-UDP.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/computerscience">Computer Science</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/math">Math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/categories/softwareengineering">Software Engineering</a>
+                        </li>
+                        
+                    </ul>
+                </nav><p class="about-footer condensed">&copy;
+                    2025</p><div class="about-footer condensed">
+                    <p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p>
+                </div>
+            </footer>
+        </main>
+        
+        <script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+        
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
