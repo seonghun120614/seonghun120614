@@ -1,0 +1,22 @@
+{% assign runner_lang = include.lang | default: "python" %}
+{% assign runner_code = include.code | default: "" %}
+
+<div class="code-runner-widget" data-lang="{{ runner_lang }}">
+  <div class="code-runner-header">
+    <select class="code-runner-lang-select">
+      <option value="71" {% if runner_lang == "python" %}selected{% endif %}>Python 3</option>
+      <option value="63" {% if runner_lang == "javascript" %}selected{% endif %}>JavaScript</option>
+      <option value="62" {% if runner_lang == "java" %}selected{% endif %}>Java</option>
+      <option value="54" {% if runner_lang == "cpp" %}selected{% endif %}>C++</option>
+      <option value="60" {% if runner_lang == "go" %}selected{% endif %}>Go</option>
+      <option value="46" {% if runner_lang == "bash" %}selected{% endif %}>Bash</option>
+    </select>
+    <button class="code-runner-run-btn">&#9654; Run</button>
+    <button class="code-runner-key-btn" title="API Key 설정">&#128273;</button>
+  </div>
+  <textarea class="code-runner-source">{{ runner_code }}</textarea>
+  <div class="code-runner-output">
+    <span class="code-runner-output-label">Output</span>
+    <pre class="code-runner-result"></pre>
+  </div>
+</div>

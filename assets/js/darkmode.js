@@ -3,10 +3,10 @@ function toggleDarkMode() {
 
     var body = document.querySelector("body");
     if (body.classList.contains(DARK_CLASS)) {
-        setCookie('theme', 'light');
+        setCookie('theme', 'light', 365);
         body.classList.remove(DARK_CLASS);
     } else {
-        setCookie('theme', 'dark');
+        setCookie('theme', 'dark', 365);
         body.classList.add(DARK_CLASS);
     }
 }
@@ -24,11 +24,10 @@ function setCookie(name, value, days) {
 function deleteCookie(name) { setCookie(name, '', -1); }
 
 
-const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 var theme = getCookie('theme');
 
-if ( theme === null ) theme = 'dark';
-if ( userPrefersDark || theme === 'dark') {
+if ( theme === null ) theme = 'light';
+if ( theme === 'dark') {
     var checkDarkDone = false;
     function checkDark() {
         if (!checkDarkDone) {

@@ -26,7 +26,7 @@ plugins:
 
 plainwhite:
   name: Seonghun Park
-  tagline: Developer.
+  tagline: Java Developer
   date_format: "%b %-d, %Y"
   html_lang: "kor"
   analytics-id: "G-RQTWJRLWGD"
@@ -45,13 +45,8 @@ plainwhite:
   navigation:
     - title: About Me
       url: "/seonghun120614/about"
-    - title: Computer Science
-      url: "/seonghun120614/categories/computerscience"
-    - title: Math
-      url: "/seonghun120614/categories/math"
-    - title: Software Engineering
-      url: "/seonghun120614/categories/softwareengineering"
-
+    - title: Posts
+      url: "/seonghun120614/"
 
   condensed_mobile:
     - home

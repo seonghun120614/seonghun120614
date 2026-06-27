@@ -2,24 +2,46 @@
 layout: default
 ---
 {% include math.html %}
+<style>
+.post-title {
+    font-size: 21px !important;
+    line-height: 1.4em !important;
+}
+.post-categories {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+.post-categories li {
+    float: none !important;
+    margin-right: 0 !important;
+    background: #f2f2f2 !important;
+    color: #666 !important;
+    padding: 2px 11px !important;
+    border-radius: 999px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.02em;
+}
+body.dark .post-categories li {
+    background: #252525 !important;
+    color: #999 !important;
+}
+</style>
 {%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
 <div class="post-container">
     <a class="post-link" href="{{ page.url | relative_url }}">
         <h2 class="post-title">{{ page.title | escape }}</h2>
     </a>
-    
+
     <div class="post-meta">
-        <div class="post-date"><i class="icon-calendar"></i>{{ page.date | date:
-            date_format }}</div>
+        <div class="post-date"><i class="icon-calendar"></i>{{ page.date | date: date_format }}</div>
 
         {%- if page.categories.size > 0 -%}
-
         <ul class="post-categories">
             {%- for tag in page.categories -%}
             <li>{{ tag }}</li>
             {%- endfor -%}
         </ul>
-
         {%- endif -%}
     </div>
 
@@ -52,3 +74,52 @@ layout: default
     mermaid.initialize({startOnLoad:true});
     window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
 </script>
+
+{% if page.code_runner %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<style>
+.code-runner-widget { border: 1px solid #ddd; border-radius: 6px; overflow: hidden; margin: 1.5em 0; }
+body.dark .code-runner-widget { border-color: #444; }
+.code-runner-header { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f5f5f5; }
+body.dark .code-runner-header { background: #2a2a2a; }
+.code-runner-lang-select { padding: 3px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.85rem; }
+.code-runner-run-btn { padding: 4px 14px; background: #4a90e2; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+.code-runner-run-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.code-runner-key-btn { padding: 4px 8px; background: transparent; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.85rem; color: #666; margin-left: auto; }
+body.dark .code-runner-key-btn { border-color: #555; color: #aaa; }
+.code-runner-key-btn:hover { background: #eee; }
+body.dark .code-runner-key-btn:hover { background: #3a3a3a; }
+.code-runner-output { border-top: 1px solid #ddd; background: #fafafa; }
+body.dark .code-runner-output { border-color: #444; background: #1e1e1e; }
+.code-runner-output-label { display: block; padding: 4px 12px; font-size: 0.75rem; color: #888; }
+.code-runner-result { margin: 0; padding: 8px 12px 12px; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; min-height: 2em; color: #333; background: transparent; border: none; box-shadow: none; }
+body.dark .code-runner-result { color: #f0f0f0; }
+.CodeMirror { height: auto; min-height: 80px; max-height: 400px; font-size: 0.88rem; }
+/* API Key 모달 */
+#j0-key-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.j0-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+.j0-box { position: relative; background: #fff; border-radius: 10px; padding: 28px 32px; width: min(420px, 90vw); box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+body.dark .j0-box { background: #1e1e2e; color: #f0f0f0; }
+.j0-box h3 { margin: 0 0 10px; font-size: 1rem; }
+.j0-box p { margin: 0 0 14px; font-size: 0.88rem; line-height: 1.6; color: #555; }
+.j0-note { font-size: 0.78rem !important; color: #999 !important; margin-bottom: 10px !important; }
+body.dark .j0-box p { color: #aaa; }
+.j0-box a { color: #4a90e2; }
+#j0-key-input { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 0.9rem; font-family: monospace; margin-bottom: 14px; }
+body.dark #j0-key-input { background: #2a2a3a; border-color: #555; color: #f0f0f0; }
+.j0-actions { display: flex; gap: 8px; }
+.j0-actions button { padding: 6px 16px; border-radius: 5px; border: none; cursor: pointer; font-size: 0.88rem; }
+#j0-save { background: #4a90e2; color: #fff; }
+#j0-cancel { background: #eee; color: #333; }
+body.dark #j0-cancel { background: #3a3a4a; color: #ccc; }
+#j0-clear { background: transparent; color: #e05; border: 1px solid #e05 !important; margin-left: auto; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/go/go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/shell/shell.min.js"></script>
+<script src="{{ "/assets/js/code-runner.js" | relative_url }}"></script>
+{% endif %}

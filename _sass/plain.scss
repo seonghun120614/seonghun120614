@@ -21,6 +21,15 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #eef2ff, #fdf4ff, #f0f9ff, #fff7ed);
+  background-size: 400% 400%;
+  animation: bgShift 20s ease infinite;
+}
+
+@keyframes bgShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 img,
@@ -276,25 +285,27 @@ main {
   }
   ul {
     list-style: none;
-    margin-left: 1em;
-    padding-left: 1.2em;
-    border-left: 1px solid #d0d0d0;
+    margin-left: 0.5em;
+    padding-left: 1.4em;
   }
-  
+
   ul li {
     position: relative;
-    margin: 0.5em 0;
-    padding-left: 0.5em;
+    margin: 0.45em 0;
+    padding-left: 0.2em;
     font-weight: 500;
-    color: #222;
+    color: #333;
   }
-  
+
   ul li::before {
-    content: "›";
+    content: "";
     position: absolute;
     left: -1em;
-    font-size: 0.8em;
-    color: #666;
+    top: 0.68em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #ccc;
   }
   a {
     color: $linkColor;
@@ -323,14 +334,20 @@ main {
       }
     }
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: Raleway, sans-serif;
-    line-height: 3em;
+    line-height: 1.4em;
+    margin-top: 2em;
+    margin-bottom: 0.4em;
+  }
+  h2 {
+    font-size: 1.3rem;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #ebebeb;
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: #444;
   }
   pre.highlight-dark,
   code {
@@ -340,7 +357,7 @@ main {
   }
   pre {
     background-color: #f8f8ff;
-    color: #f8f8f2;
+    color: #333;
     font-family: "Fira Code", "Courier New", monospace;
     font-size: 0.95rem;
     line-height: 1.6;
@@ -398,6 +415,106 @@ table {
 
 footer {
   display: none;
+}
+
+/* ── Animated Background ───────────────────────────────────────── */
+
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    #f0f4ff 0%,
+    #ffffff 35%,
+    #f5f0ff 65%,
+    #edf5ff 100%
+  );
+  background-size: 300% 300%;
+  animation: bgCanvasShift 28s ease-in-out infinite;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.bg-orb-1 {
+  width: 700px; height: 700px;
+  top: -180px;  left: -150px;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(190, 210, 255, 0.55) 0%,
+    rgba(210, 220, 255, 0.2)  40%,
+    transparent 70%
+  );
+  animation: bgOrb1 60s ease-in-out infinite alternate;
+}
+
+.bg-orb-2 {
+  width: 550px; height: 550px;
+  bottom: -120px; right: -80px;
+  background: radial-gradient(
+    circle at 60% 60%,
+    rgba(215, 195, 255, 0.5)  0%,
+    rgba(200, 185, 255, 0.18) 40%,
+    transparent 70%
+  );
+  animation: bgOrb2 75s ease-in-out infinite alternate;
+}
+
+.bg-orb-3 {
+  width: 420px; height: 420px;
+  top: 45%; left: 42%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(180, 225, 255, 0.38) 0%,
+    rgba(190, 215, 255, 0.12) 45%,
+    transparent 68%
+  );
+  animation: bgOrb3 50s ease-in-out infinite alternate;
+}
+
+.bg-orb-4 {
+  width: 310px; height: 310px;
+  top: 18%; right: 28%;
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(255, 205, 235, 0.35) 0%,
+    rgba(255, 210, 240, 0.1)  40%,
+    transparent 68%
+  );
+  animation: bgOrb4 65s ease-in-out infinite alternate;
+}
+
+body.dark .bg-canvas { display: none; }
+
+@keyframes bgCanvasShift {
+  0%   { background-position: 0%   0%; }
+  33%  { background-position: 100% 0%; }
+  66%  { background-position: 100% 100%; }
+  100% { background-position: 0%   100%; }
+}
+
+@keyframes bgOrb1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(130px, 190px) scale(1.14); }
+}
+@keyframes bgOrb2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-140px, -120px) scale(1.2); }
+}
+@keyframes bgOrb3 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(90px, -110px) scale(0.86); }
+}
+@keyframes bgOrb4 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-80px, 100px) scale(1.1); }
 }
 @media screen and (max-width: $mobileW) {
   .about {

@@ -3,24 +3,52 @@ layout: post
 title:  "[멋사 백엔드 19기] TIL 70일차 Kubernetes"
 date:   2025-12-04 14:52:48 +0900
 categories: 멋쟁이사자처럼 멋사 백엔드 TIL DevOps
+image: /assets/img/kubernetes.png
+code_runner: true
 ---
 
 <!--more-->
 
 ## 📂 목차
-- [Kubernetes 구성요소]()
-- []()
+- [Kubernetes 구성요소](#kubernetes-구성요소)
+  - [Control Plane 구성요소](#control-plane-구성요소)
+  - [Worker Node 구성요소](#worker-node-구성요소)
+  - [Kubernetes Object(리소스) 구성요소](#kubernetes-object리소스-구성요소)
+    - [Workload 오브젝트](#workload-오브젝트)
+    - [Service 구성요소](#service-구성요소)
+    - [Volume](#volume)
+    - [Config & Secret](#config--secret)
+    - [Networking 구성요소](#networking-구성요소)
+    - [Security 요소](#security-요소)
+- [Deployment](#deployment)
+  - [Kubectl 로 명령 실습](#kubectl-로-명령-실습)
+- [Service](#service)
+  - [Service 타입](#service-타입)
+  - [Service 실습](#service-실습)
+    - [Endpoints](#endpoints)
+    - [로드밸런싱 확인](#로드밸런싱-확인)
+    - [전체 아키텍처 요약](#전체-아키텍처-요약)
+- [ConfigMap & Secret](#configmap--secret)
+  - [ConfigMap](#configmap)
+  - [Secret](#secret)
+    - [Secret 베스트 프랙티스](#secret-베스트-프랙티스)
+- [Volume](#volume-1)
+  - [Ephemeral Volume 임시 볼륨](#ephemeral-volume-임시-볼륨)
+  - [Persistent Volume 영속성 볼륨](#persistent-volume-영속성-볼륨)
+  - [Persistent Volume Claim 생성](#persistent-volume-claim-생성)
+  - [Deployment 에서 PVC 사용하기](#deployment-에서-pvc-사용하기)
+- [Node](#node)
 
 ---
 
 ## 📚 본문
 
-### Kubernetes 구성요소
+{% include code-runner.html lang="python" code="print('Hello, World!')" %}
 
+### Kubernetes 구성요소
 쿠버네티스(Kubernetes, K8s)는 컨테이너 오케스트레이션 플랫폼으로, 컨테이너 기반 애플리케이션을 배포·스케일링·관리·복구하는 표준 도구다. 이를 구성하는 요소는 크게 마스터 노드(Control Plane) 와 워커 노드(Worker Node, Node), 그리고 오브젝트(Object)로 나뉜다.
 
 #### Control Plane 구성요소
-
 마스터 노드라고 불리며 나중에 터미널에서는 `kubectl` 의 명령어를 사용하여 여기에 접근한다. 마스터 노드 내에도 여러 구성 요소가 있다:
 
 **API Server(kube-apiserver)**
@@ -47,7 +75,6 @@ categories: 멋쟁이사자처럼 멋사 백엔드 TIL DevOps
 - Control Plane 의 유일한 DB
 
 #### Worker Node 구성요소
-
 보통 우리가 일반적으로 노드라고 부르는 요소들이다.
 
 **kubelet**
@@ -64,55 +91,40 @@ categories: 멋쟁이사자처럼 멋사 백엔드 TIL DevOps
 - Docker, `containerd`, `CRI-O` 등 사용 가능
 
 #### Kubernetes Object(리소스) 구성요소
-
 쿠버네티스는 모든 것들을 Object(YAML 선언) 로 관리한다.
 
 ##### Workload 오브젝트
-
 - **Pod**: 컨테이너 1개 이상을 묶은 최소 배포 단위
-
 - **Deployment**: ReplicaSet + 롤링 업데이트/롤백 제공
     - **ReplicaSet**: Pod의 개수를 일정하게 유지하는 컨트롤러
-
 - **StatefulSet**: 고정된 ID 의 Pod 관리(ex. DB, Kafka, Redis Cluster)
-
 - **DaemonSet**: 각 **노드마다 1개**씩 Pod 배치
-
 - **Job**: 한 번 수행 후 종료되는 작업
     - **CronJob**: 스케줄 기반 Job 배치
 
 ##### Service 구성요소
-
 - **Service**: Pod 들의 안정적인 접근 엔트포인트(Load Balancing)
-
 - **Type**: ClusterIP, NodePort, LoadBalancer, ExternalName 4가지의 유형이 있다.
-
 - **Ingress**: HTTP / HTTPS 라우팅, 도메인 기반, 경로 기반 라우팅 제공, Ingress Controller 필요
-
 - **Endpoint / EndpointSlice**: Service 가 실제 연결해야 하는 Pod 의 IP 목록을 저장
 
 ##### Volume
-
 Pod 내부에서 사용하는 일시적인 스토리지이다.
 
 - **PersistentVolume(PV)**: 관리자가 제공하는 저장소
 - **PersistentVolumeClaim(PVC)**: Pod 가 PV 를 요청하는 선언적 방식
-
 - **StorageClass**: 동적 볼륨 프로비저닝(클라우드에서 자동 PV 생성)
 
 ##### Config & Secret
-
 - **ConfigMap**: 환경 변수, 설정파일 등 민감하지 않은 설정 값 저장
 - **Secret**: 패스워드, 토큰 등 민감한 데이터 저장, Base64 인코딩되어 저장
 
 ##### Networking 구성요소
-
 - **Pod Network(CNI)**: Pod 간 통신을 위함, Calico, Flannel, Cilium 등
 - **Service Network**: kube-proxy 가 Load Balancing 을 처리
 - **Cluster Network**: 모든 Pod 는 서로 통신 가능해야한다는 규칙
 
 ##### Security 요소
-
 - **RBAC**: 사용자/서비스 계정의 권한 관리
 - **ServiceAccount**: Pod 내부에서 API Server 접근 시 사용하는 계정
 - **NetworkPolicy**: Pod 간 네트워크 트래픽 제어 방화벽
@@ -123,7 +135,6 @@ Pod 내부에서 사용하는 일시적인 스토리지이다.
 위들 중에 몇 개만 본다.
 
 ### Deployment
-
 Deployment 는 선언적으로 Pod 를 관리하는 가장 흔한 워크로드 오브젝트이다. 주로 다음을 위해 사용하게 된다:
 
 - replica 유지
@@ -171,7 +182,6 @@ kubectl get pods -l app=hello-nginx # deployment 에 의해 구동된 pod 확인
 위처럼 구동하면 하나의 Pod 가 띄워지게 되며 `localhost:<포트>` 로 접속할 수 있게 된다.
 
 #### Kubectl 로 명령 실습
-
 `kubectl apply -f <파일>` 을 통해 deployment 를 띄운 것을 보았다. 다음 명령도 실행할 수 있다
 
 **Scailing**
@@ -189,7 +199,6 @@ kubectl set image deployment/hello-nginx nginx-container=nginx:1.16.1
 {% endhighlight %}
 
 ### Service
-
 Kubernetes 에서 Pod 는 일회용 리소스이다. Pod 를 삭제 혹은 재시작을 하면 다시 새로운 IP 가 할당되며, 스케일링 될 대에도 새로운 IP 들이 생성되게 된다. 이러한 엔드포인트의 변동성 때문에 Pod IP 를 직접 사용한다면 프론트 엔드가 백엔드 Pod IP 를 스케일링 되거나 리로딩 될 때 다시 바꿔줘야 하는 문제가 생기며, Pod 가 재시작될 때마다 IP 가 달라져 설정 정보를 바꿔줘야 하며, 여러 Pod 에 트래픽을 분산 할 방법이 없게 된다.
 
 따라서 Service 라는 리소스를 통해 Pod 앞에 위치하는 네트워크를 추상화한 계층을 추가하여 다음의 구조를 가져간다.
@@ -303,7 +312,7 @@ http://a1b2c3-xyz.elb.amazonaws.com
 
 - AWS, GCP, Azure 등의 클라우드 환경에서만 동작
 
-#### 실습
+#### Service 실습
 
 여기서는 자주 사용하는 NodePort 를 보자.
 
@@ -611,9 +620,7 @@ rules:
     verbs: ["get"]
 {% endhighlight %}
 
-
 ### Volume
-
 쿠버네티스의 Pod 와 컨테이너는 기본적으로 휘발성 스토리지를 사용하는 것을 알고 있을 것이다. 이를 휘발되지 않도록 하는게 Volume 이며 이를 사용하면:
 
 - 데이터 영속화(Persistence) 가 가능

@@ -15,8 +15,9 @@ cat <<'EOF' > "$FILENAME"
 ---
 layout: post
 title:  TITLE_PLACEHOLDER
+image: /assets/img/
 date:   DATE_PLACEHOLDER
-categories: CATEGORIES_PLACEHOLDER
+categories: 
 ---
 
 <!--more-->

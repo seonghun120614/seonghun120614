@@ -3,6 +3,32 @@
 
     <head>
         {%- include head.html -%}
+        <style>
+            section.about {
+                justify-content: flex-start !important;
+                padding-top: 8vh;
+            }
+            .sidebar-bottom {
+                margin-top: auto;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            .sidebar-bottom p { margin: 0; }
+            nav.navigation ul a {
+                border-bottom: none !important;
+                padding: 0.4rem 0 !important;
+                font-size: 0.88rem !important;
+                color: #999 !important;
+                letter-spacing: 0.03em;
+                transition: color 0.15s;
+            }
+            nav.navigation ul a:hover { color: #222 !important; }
+            body.dark nav.navigation ul a { color: #666 !important; }
+            body.dark nav.navigation ul a:hover { color: #eee !important; }
+        </style>
     </head>
 
     {%- if site.plainwhite.condensed_mobile contains page.layout -%}
@@ -11,21 +37,13 @@
     {% assign condensed_class = "" %}
     {%- endif -%}
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggle = document.getElementById("dark-toggle");
-        
-            // 이미 실행한 적 있는지 확인
-            const hasToggled = localStorage.getItem("darkModeInitialized");
-        
-            if (!hasToggled && toggle && toggle.checked) {
-                toggleDarkMode();
-                localStorage.setItem("darkModeInitialized", "true"); // 최초 실행 기록
-            }
-        });
-    </script>
-
     <body>
+        <div class="bg-canvas" aria-hidden="true">
+            <div class="bg-orb bg-orb-1"></div>
+            <div class="bg-orb bg-orb-2"></div>
+            <div class="bg-orb bg-orb-3"></div>
+            <div class="bg-orb bg-orb-4"></div>
+        </div>
         <div id="scroll-progress"></div>
         <main class="container">
             <section class="about">
@@ -35,10 +53,10 @@
                             {% if site.plainwhite.portfolio_image_dark and
                             site.plainwhite.dark_mode %}
                             <img class="light"
-                                src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image }}"
+                                src="https://avatars.githubusercontent.com/u/58248012?v=4"
                                 alt="{{ site.plainwhite.name }}" />
                             <img class="dark"
-                                src="{{site.baseurl }}/{{ site.plainwhite.portfolio_image_dark }}"
+                                src="https://avatars.githubusercontent.com/u/58248012?v=4"
                                 alt="{{ site.plainwhite.name }}" />
                             {% else %}
                             <img
@@ -69,71 +87,12 @@
                         </a>
                     </li>
                     {%- endif -%}
-                    {%- if site.plainwhite.social_links.gitlab -%}
-                    <li>
-                        <a
-                            href="https://gitlab.com/{{ site.plainwhite.social_links.gitlab }}"
-                            target="_blank" rel="noopener" aria-label="gitlab">
-                            <i class="icon-gitlab"></i>
-                        </a>
-                    </li>
-
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.linkedIn -%}
-                    <li>
-                        <a
-                            href="https://www.linkedin.com/{{ site.plainwhite.social_links.linkedIn }}"
-                            target="_blank" rel="noopener"
-                            aria-label="linkedIn">
-                            <i class="icon-linkedin-squared"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.twitter -%}
-                    <li>
-                        <a
-                            href="https://twitter.com/{{ site.plainwhite.social_links.twitter }}"
-                            target="_blank" rel="noopener" aria-label="twitter">
-                            <i class="icon-twitter-squared"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.instagram -%}
-                    <li>
-                        <a
-                            href="https://instagram.com/{{ site.plainwhite.social_links.instagram }}"
-                            target="_blank" rel="noopener"
-                            aria-label="instagram">
-                            <i class="icon-instagram"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.facebook -%}
-                    <li>
-                        <a
-                            href="https://facebook.com/{{ site.plainwhite.social_links.facebook }}"
-                            target="_blank" rel="noopener"
-                            aria-label="facebook">
-                            <i class="icon-facebook-squared"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
                     {%- if site.plainwhite.social_links.youtube -%}
                     <li>
                         <a
                             href="https://youtube.com/{{ site.plainwhite.social_links.youtube }}"
                             target="_blank" rel="noopener" aria-label="youtube">
                             <i class="icon-youtube"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.pinterest -%}
-                    <li>
-                        <a
-                            href="https://pinterest.com/{{ site.plainwhite.social_links.pinterest }}"
-                            target="_blank" rel="noopener"
-                            aria-label="pinterest">
-                            <i class="icon-pinterest-squared"></i>
                         </a>
                     </li>
                     {%- endif -%}
@@ -152,26 +111,6 @@
                             href="https://flickr.com/{{ site.plainwhite.social_links.flickr }}"
                             target="_blank" rel="noopener" aria-label="flickr">
                             <i class="icon-flickr"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.telegram -%}
-                    <li>
-                        <a
-                            href=" https://t.me/{{ site.plainwhite.social_links.telegram }}"
-                            target="_blank" rel="noopener"
-                            aria-label="telegram">
-                            <i class="icon-telegram"></i>
-                        </a>
-                    </li>
-                    {%- endif -%}
-                    {%- if site.plainwhite.social_links.soundcloud -%}
-                    <li>
-                        <a
-                            href=" https://soundcloud.com/{{ site.plainwhite.social_links.soundcloud }}"
-                            target="_blank" rel="noopener"
-                            aria-label="soundcloud">
-                            <i class="icon-soundcloud"></i>
                         </a>
                     </li>
                     {%- endif -%}
@@ -207,10 +146,9 @@
                     </ul>
                 </nav>
                 {%- endif -%}
-                <p class="about-footer {{condensed_class}}">&copy;
-                    {{ "now" | date: "%Y" }}</p>
-                {%- if site.plainwhite.dark_mode -%}
-                <div class="about-footer {{condensed_class}}">
+                <div class="sidebar-bottom about-footer {{condensed_class}}">
+                    <p>&copy; {{ "now" | date: "%Y" }}</p>
+                    {%- if site.plainwhite.dark_mode -%}
                     <p>Dark Mode
                         <i class="icon-moon"></i>
                         <label class="switch" for="dark-toggle">
@@ -221,8 +159,8 @@
                                 onclick="toggleDarkMode()"></span>
                         </label>
                     </p>
+                    {%- endif -%}
                 </div>
-                {%- endif -%}
                 {% endcapture %}
                 {{ footer }}
             </section>
@@ -233,10 +171,6 @@
                 {{ footer }}
             </footer>
         </main>
-        {% if site.plainwhite.dark_mode %}
-        <script type="text/javascript" src="{{ "/assets/js/darkmode.js" | relative_url }}"></script>
-        {% endif %}
-
         {%- if site.plainwhite.analytics_id -%}
         <script async
             src="https://www.googletagmanager.com/gtag/js?id={{ site.plainwhite.analytics_id }}"></script>

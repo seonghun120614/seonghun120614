@@ -1,6 +1,154 @@
 ---
 layout: default
 ---
+<style>
+.post-title {
+    font-size: 21px !important;
+    line-height: 1.4em !important;
+}
+.post-categories {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+.post-categories li {
+    float: none !important;
+    margin-right: 0 !important;
+    background: #f2f2f2 !important;
+    color: #666 !important;
+    padding: 2px 11px !important;
+    border-radius: 999px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.02em;
+}
+body.dark .post-categories li {
+    background: #252525 !important;
+    color: #999 !important;
+}
+ul.posts > li {
+    padding: 2rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+ul.posts > li:last-child { border-bottom: none; }
+body.dark ul.posts > li { border-bottom-color: #222; }
+
+/* Post card with thumbnail */
+.post-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+.post-thumb {
+    width: 110px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+.post-thumb:hover { opacity: 1; }
+body.dark .post-thumb { opacity: 0.75; }
+body.dark .post-thumb:hover { opacity: 0.95; }
+.post-card-body { flex: 1; min-width: 0; }
+
+/* Search bar 재디자인 */
+.posts-labelgroup {
+    border-bottom: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px;
+    padding-bottom: 0 !important;
+}
+#posts-label {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px !important;
+    width: 100%;
+}
+body.dark #posts-label { border-bottom-color: #2a2a2a !important; }
+
+.search-container { position: relative; }
+.search-section {
+    display: flex !important;
+    align-items: center !important;
+    background: #f7f7f7 !important;
+    border: 1px solid #ebebeb !important;
+    border-radius: 10px !important;
+    padding: 0 12px !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.search-section:focus-within {
+    border-color: #bbb !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+    background: #fff !important;
+}
+.search-section i {
+    font-size: 13px !important;
+    color: #bbb !important;
+    padding: 0 8px 0 0 !important;
+}
+.search-section input {
+    font-size: 0.88rem !important;
+    color: #444 !important;
+    height: 36px !important;
+    background: transparent !important;
+}
+.search-section input::placeholder { color: #ccc; }
+body.dark .search-section {
+    background: #1e1e1e !important;
+    border-color: #2a2a2a !important;
+}
+body.dark .search-section:focus-within {
+    border-color: #444 !important;
+    background: #252525 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+body.dark .search-section input { color: #ccc !important; }
+body.dark .search-section i { color: #555 !important; }
+
+/* Filter tabs */
+.filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 14px 0 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+body.dark .filter-tabs { border-bottom-color: #222; }
+.filter-btn {
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    color: #999;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    font-family: inherit;
+}
+.filter-btn:hover {
+    border-color: #aaa;
+    color: #444;
+}
+.filter-btn.active {
+    background: #222;
+    border-color: #222;
+    color: #fff;
+}
+body.dark .filter-btn {
+    border-color: #333;
+    color: #555;
+}
+body.dark .filter-btn:hover {
+    border-color: #666;
+    color: #aaa;
+}
+body.dark .filter-btn.active {
+    background: #f0f0f0;
+    border-color: #f0f0f0;
+    color: #111;
+}
+</style>
 
 {%- if page.title -%}
 <h1 class="page-heading">Category: {{ page.title }}</h1>
@@ -9,6 +157,16 @@ layout: default
 <!-- {{ content }} -->
 
 {%- if site.posts.size > 0 -%}
+
+{%- assign folders = "" | split: "" -%}
+{%- for post in site.posts -%}
+  {%- assign parts = post.path | split: "/" -%}
+  {%- assign folder = parts[1] -%}
+  {%- unless folders contains folder -%}
+    {%- assign folders = folders | push: folder -%}
+  {%- endunless -%}
+{%- endfor -%}
+
 <ul class="posts">
     <li class="posts-labelgroup" id="posts-labelgroup">
         <h1 id="posts-label">posts</h1>
@@ -25,36 +183,67 @@ layout: default
         {% endif %}
     </li>
 
-    {%- for post in site.posts -%}
-    <li>
-        {%- assign date_format = site.plainwhite.date_format | default:
-        "%b %-d, %Y" -%}
-        <a class="post-link" href="{{ post.url | relative_url }}">
-            <h2 class="post-title">{{ post.title | escape }}</h2>
-        </a>
-        <div class="post-meta">
-            <div class="post-date">
-                <i class="icon-calendar"></i>
-                {{ post.date | date: date_format }}
-            </div>
-            {%- if post.categories.size > 0-%}
-            <ul class="post-categories">
-                {%- for tag in post.categories -%}
-                <li>{{ tag }}</li>
-                {%- endfor -%}
-            </ul>
-            {%- endif -%}
+    <li style="padding: 0 0 0.5rem 0; border: none !important;">
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All</button>
+            {%- for folder in folders -%}
+            <button class="filter-btn" data-filter="{{ folder }}">{{ folder }}</button>
+            {%- endfor -%}
         </div>
-        <div class="post">
-            {%- if site.show_excerpts -%}
-            {{ post.excerpt }}
-            {%- endif -%}
+    </li>
+
+    {%- for post in site.posts -%}
+    {%- assign parts = post.path | split: "/" -%}
+    {%- assign folder = parts[1] -%}
+    {%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
+    {%- assign thumb = post.image | default: "/assets/img/default.png" -%}
+    <li data-folder="{{ folder }}">
+        <div class="post-card">
+            <a href="{{ post.url | relative_url }}">
+                <img class="post-thumb" src="{{ thumb | relative_url }}" alt="{{ post.title | escape }}" />
+            </a>
+            <div class="post-card-body">
+                <a class="post-link" href="{{ post.url | relative_url }}">
+                    <h2 class="post-title">{{ post.title | escape }}</h2>
+                </a>
+                <div class="post-meta">
+                    <div class="post-date">
+                        <i class="icon-calendar"></i>
+                        {{ post.date | date: date_format }}
+                    </div>
+                    {%- if post.categories.size > 0 -%}
+                    <ul class="post-categories">
+                        {%- for tag in post.categories -%}
+                        <li>{{ tag }}</li>
+                        {%- endfor -%}
+                    </ul>
+                    {%- endif -%}
+                </div>
+                <div class="post">
+                    {%- if site.show_excerpts -%}
+                    {{ post.excerpt }}
+                    {%- endif -%}
+                </div>
+            </div>
         </div>
     </li>
     {%- endfor -%}
 </ul>
 
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('ul.posts > li[data-folder]').forEach(li => {
+            li.style.display = (filter === 'all' || li.dataset.folder === filter) ? '' : 'none';
+        });
+    });
+});
+</script>
+
 <p class="feed-subscribe"><svg class="svg-icon orange">
-		<use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
-	</svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p>
+        <use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use>
+    </svg><a href="{{ "/feed.xml" | relative_url }}">Subscribe</a></p>
 {%- endif -%}

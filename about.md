@@ -4,56 +4,295 @@ title: About
 permalink: /about/
 ---
 
-<table style="width: auto; border-collapse: collapse; align-items= left;">
-  <tr>
-    <td style="padding-right: 20px; vertical-align: top;">
-      <img src="{{ site.baseurl }}/assets/img/profile.jpg" alt="이미지 설명" width="200">
-    </td>
+<style>
+.ab { max-width: 660px; margin: 0 auto; padding-top: 5rem; }
 
-  </tr>
-</table>
+.ab-profile {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-bottom: 36px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid #e8e8e8;
+}
+body.dark .ab-profile { border-bottom-color: #2e2e2e; }
 
-# Seonghun Park
+.ab-profile img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  flex-shrink: 0;
+}
 
-## 💼 관심 분야: Math, Computer, Statistics, AI
+.ab-profile h1 {
+  margin: 0 0 6px 0;
+  font-size: 1.5rem;
+  border: none;
+}
 
-## 자기소개
-컴퓨터 비전과 웹 개발을 좋아하는 개발자입니다.
-백엔드 서버 구성과 AI 모델 구현 경험을 보유하고 있으며,
-새로운 기술 학습과 프로젝트 수행에 최선을 다하는 개발자입니다.
+.ab-profile p {
+  margin: 0;
+  color: #777;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+body.dark .ab-profile p { color: #888; }
 
-## Skills
-- **언어:** Python, JavaScript, Java  
-- **프레임워크/라이브러리:** PyTorch, React, Django/DRF  
-- **도구:** Docker, Git, Linux, Jupyter Notebook  
-- **역량:** 병렬 처리, 모델 최적화, 웹 개발, 데이터 시각화
+.ab-section { margin-bottom: 32px; }
 
-## Project
+/* Skills grid */
+.ab-skills { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
 
-### NU Short Term Program (2024. 01 — 2024. 02):
+.ab-skill-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
 
-- 노섬브리아 대학교 단기 프로그램에서 투명 물체 위치 파악 프로젝트를 진행
-- PyTorch를 사용하여 ResNet의 핵심 아이디어를 U-Net 구조에 통합 구현
-- 단기 프로젝트에서 최상위를 달성
+.ab-skill-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bbb;
+  min-width: 90px;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
 
-### MyCanvas (2023. 09 - 2023. 12)
+.ab-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
-- 대학 데이터 구조 과목에서 진행된 간단한 그림 그리기 애플리케이션 개발 프로젝트
-- 도형의 공통된 특징을 Template Method Pattern 으로 작성 및 방향성 제시
+.ab-tag {
+  background: #f4f4f4;
+  color: #444;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+body.dark .ab-tag { background: #252525; color: #ccc; }
 
-### ICCV 2023 DFAD (2023. 09 — 2023. 10):
+.ab-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin: 0 0 12px 0;
+}
 
-- 리눅스 서버에서 Jupyter Notebook 을 활용하여 약 150만 개의 이미지를 병렬 처리
-- 훈련 속도 문제를 해결하기 위해 `pytorch` 의 `amp` 를 활용
-- `cv` 를 활용한 fake image 푸리에 변환을 이용하여 특징 추출 경험
+/* Projects */
+.ab-projects { list-style: none; padding: 0; margin: 0; }
 
-### Show Your Data (2024. 06 - 2024. 08):
+.ab-project { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+body.dark .ab-project { border-bottom-color: #252525; }
+.ab-project:last-child { border-bottom: none; }
 
-- Python의 rest_framework 를 활용하여 REST 구현
-- React로 front 의 입력 처리 및 비동기 응답으로 로딩 화면 구현
-- Python의 Matplotlib 을 활용해 엑셀 데이터 시각화 기능 구현
-- binary string 을 통한 이미지 전송 구현
-- Docker 를 사용한 back/front 구분 및 컨테이너화
+.ab-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
 
-### 멋쟁이사자처럼 부트캠프 (2025. 08 -)
+.ab-project-name { font-weight: 600; font-size: 0.95rem; }
+.ab-project-date { font-size: 0.76rem; color: #bbb; white-space: nowrap; }
 
+.ab-project ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 14px;
+  color: #666;
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+.ab-project ul li {
+  position: relative;
+  padding-left: 4px;
+}
+.ab-project ul li::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 0.72em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #ccc;
+  transform: translateY(-50%);
+}
+body.dark .ab-project ul { color: #888; }
+body.dark .ab-project ul li::before { background-color: #555; }
+</style>
+
+<div class="ab">
+
+<div class="ab-profile">
+  <img src="{{ site.baseurl }}/assets/img/profile.jpg" alt="Seonghun Park" />
+  <div>
+    <h1>Seonghun Park</h1>
+    <p>도구의 사용법을 넘어, 원리를 파헤쳐 한계를 돌파하는 백엔드 개발자입니다.<br>
+    AI 모델링부터 프론트엔드까지 풀스택 환경을 거치며, 사용자 경험 개선에 초점을 맞춰 동기부여를 찾습니다.</p>
+  </div>
+</div>
+
+<div class="ab-skills">
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Interests</span>
+    <div class="ab-tags">
+      <span class="ab-tag">Math</span>
+      <span class="ab-tag">Computer Science</span>
+      <span class="ab-tag">Statistics</span>
+      <span class="ab-tag">Deep Learning</span>
+      <span class="ab-tag">Machine Learning</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Languages</span>
+    <div class="ab-tags">
+      <span class="ab-tag">Java</span>
+      <span class="ab-tag">Python</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Backend</span>
+    <div class="ab-tags">
+      <span class="ab-tag">Spring Boot</span>
+      <span class="ab-tag">Django / DRF</span>
+      <span class="ab-tag">FastAPI</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Frontend</span>
+    <div class="ab-tags">
+      <span class="ab-tag">React (Vite, Next.js)</span>
+      <span class="ab-tag">HTML / CSS / JS</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">AI / ML</span>
+    <div class="ab-tags">
+      <span class="ab-tag">PyTorch</span>
+      <span class="ab-tag">TensorFlow</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Infra / DevOps</span>
+    <div class="ab-tags">
+      <span class="ab-tag">Docker</span>
+      <span class="ab-tag">GitHub Actions</span>
+      <span class="ab-tag">AWS (EC2, S3)</span>
+      <span class="ab-tag">GCP Compute Engine</span>
+      <span class="ab-tag">Prometheus · Grafana</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Certifications</span>
+    <div class="ab-tags">
+      <span class="ab-tag">정보처리기사</span>
+      <span class="ab-tag">ADsP</span>
+    </div>
+  </div>
+  <div class="ab-skill-row">
+    <span class="ab-skill-label">Language</span>
+    <div class="ab-tags">
+      <span class="ab-tag">한국어 — Native</span>
+      <span class="ab-tag">English — IELTS 5.5</span>
+    </div>
+  </div>
+</div>
+
+<div class="ab-section">
+  <p class="ab-label">Projects</p>
+  <ul class="ab-projects">
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">캡스톤 디자인</span>
+        <span class="ab-project-date">2026.02 — 현재</span>
+      </div>
+      <ul>
+        <li>Zero-shot NER 관련 논문 서칭 및 오픈소스 분석을 통해 모델 주도 선정, 공식 문서 활용하여 Multi-task (NER + Classification) Fine-tuning 수행</li>
+        <li>Active Learning 기반 Human-in-the-loop 라벨링 시스템 구축으로 데이터 라벨링 자동화, 노동집약적 작업 해소</li>
+      </ul>
+    </li>
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">Information Security</span>
+        <span class="ab-project-date">2026.02 — 2026.06</span>
+      </div>
+      <ul>
+        <li>Docker 컨테이너 환경에서 HIDS 역할의 Snort 엔진 구축, 커스텀 Rule 작성을 통해 비정상 패킷 탐지 및 실시간 알림 모니터링 체계 구현</li>
+        <li>64/32bit Ubuntu 환경의 취약 바이너리 대상 Stack Buffer Overflow 모의 해킹 수행, 메모리 보호 기법(ASLR·NX) 우회 및 RET 주소 변조를 통한 익스플로잇 실습</li>
+      </ul>
+    </li>
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">멋쟁이사자처럼 부트캠프</span>
+        <span class="ab-project-date">2025.08 — 2026.01</span>
+      </div>
+      <ul>
+        <li>Spring Security Filter Chain 동작 원리를 블로그 정리 및 단계별 재구현으로 심층 학습, 커스텀 보안 필터 구현 역량 확보</li>
+        <li>Kubernetes Service(ClusterIP/LoadBalancer) 활용한 무중단 트래픽 라우팅 및 Pod 다중화로 High Availability 확보</li>
+        <li>Prometheus + Grafana 연동으로 Discord Bot API의 응답 지연·호출량·에러율 실시간 모니터링 체계 구축</li>
+        <li>Swagger(OpenAPI) 기반 REST API 명세 자동화로 협업 효율성 향상 및 문서 표준화</li>
+        <li>AWS S3 SDK 기반 객체 업로드·다운로드 파이프라인 구현</li>
+        <li>GCP Compute Engine 및 AWS EC2 환경에서 GitHub Actions 기반 CI/CD 파이프라인 구축</li>
+        <li>DB 스키마 SQL 스크립트를 Dockerfile 빌드 단계에 통합하여 컨테이너 초기화 시 DB 자동 프로비저닝 환경 구성</li>
+      </ul>
+    </li>
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">Web Programming Course – Show Your Data</span>
+        <span class="ab-project-date">2024.06 — 2024.08</span>
+      </div>
+      <ul>
+        <li>Python Django <code>rest_framework</code> 활용 REST API 구현</li>
+        <li>React(Vite) 프론트엔드 입력 처리 및 비동기 로딩 화면 구현</li>
+        <li>Matplotlib 활용 엑셀 데이터 시각화, Docker로 Back/Front 컨테이너화</li>
+      </ul>
+    </li>
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">NU Short Term Program – Transparent Image Segmentation</span>
+        <span class="ab-project-date">2024.01 — 2024.02</span>
+      </div>
+      <ul>
+        <li>노섬브리아 대학교 단기 프로그램에서 투명 물체 위치 파악 프로젝트 진행</li>
+        <li>PyTorch로 ResNet의 핵심 아이디어를 U-Net 구조에 통합 구현, 최상위 성과 달성</li>
+      </ul>
+    </li>
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">Data Structure Course – MyCanvas</span>
+        <span class="ab-project-date">2023.09 — 2023.12</span>
+      </div>
+      <ul>
+        <li>자료구조 수업 그림판 애플리케이션 개발 프로젝트</li>
+        <li>도형의 공통 특징을 Template Method Pattern으로 설계 및 구현</li>
+      </ul>
+    </li>
+
+    <li class="ab-project">
+      <div class="ab-project-header">
+        <span class="ab-project-name">Undergraduate Researcher – ICCV 2023 DFAD</span>
+        <span class="ab-project-date">2023.09 — 2023.10</span>
+      </div>
+      <ul>
+        <li>리눅스 서버에서 Jupyter Notebook으로 약 150만 개의 이미지 병렬 처리</li>
+        <li>훈련 속도 문제 해결을 위해 PyTorch <code>amp</code> 활용</li>
+        <li>Fake image 푸리에 변환을 통한 특징 추출 경험</li>
+      </ul>
+    </li>
+
+  </ul>
+</div>
+
+</div>
