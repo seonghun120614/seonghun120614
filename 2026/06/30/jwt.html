@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+    <head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+<link rel="icon" href="/seonghun120614/assets/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="/seonghun120614/assets/css/style.css">
+<title>JWT</title>
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>JWT | Seonghun’s Blog</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="JWT" />
+<meta name="author" content="Seonghun Park" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Spring Boot - JWT 구현 복습" />
+<meta property="og:description" content="Spring Boot - JWT 구현 복습" />
+<link rel="canonical" href="https://seonghun120614.github.io/seonghun120614/2026/06/30/jwt.html" />
+<meta property="og:url" content="https://seonghun120614.github.io/seonghun120614/2026/06/30/jwt.html" />
+<meta property="og:site_name" content="Seonghun’s Blog" />
+<meta property="og:image" content="https://seonghun120614.github.io/seonghun120614/assets/img/jwt.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-06-30T09:00:42+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://seonghun120614.github.io/seonghun120614/assets/img/jwt.png" />
+<meta property="twitter:title" content="JWT" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Seonghun Park"},"dateModified":"2026-06-30T09:00:42+00:00","datePublished":"2026-06-30T09:00:42+00:00","description":"Spring Boot - JWT 구현 복습","headline":"JWT","image":"https://seonghun120614.github.io/seonghun120614/assets/img/jwt.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://seonghun120614.github.io/seonghun120614/2026/06/30/jwt.html"},"url":"https://seonghun120614.github.io/seonghun120614/2026/06/30/jwt.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/seonghun120614/assets/js/darkmode.js"></script>
+
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQTWJRLWGD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RQTWJRLWGD');
+</script><style>
+            section.about {
+                justify-content: flex-start !important;
+                padding-top: 8vh;
+            }
+            .sidebar-bottom {
+                margin-top: auto;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            .sidebar-bottom p { margin: 0; }
+            nav.navigation ul a {
+                border-bottom: none !important;
+                padding: 0.4rem 0 !important;
+                font-size: 0.88rem !important;
+                color: #999 !important;
+                letter-spacing: 0.03em;
+                transition: color 0.15s;
+            }
+            nav.navigation ul a:hover { color: #222 !important; }
+            body.dark nav.navigation ul a { color: #666 !important; }
+            body.dark nav.navigation ul a:hover { color: #eee !important; }
+        </style>
+    </head><body>
+        <div class="bg-canvas" aria-hidden="true">
+            <div class="bg-orb bg-orb-1"></div>
+            <div class="bg-orb bg-orb-2"></div>
+            <div class="bg-orb bg-orb-3"></div>
+            <div class="bg-orb bg-orb-4"></div>
+        </div>
+        <div id="scroll-progress"></div>
+        <main class="container">
+            <section class="about">
+                <div class="about-header condensed">
+                    <div class="about-title">
+                        <a href="/seonghun120614/">
+                            
+                            <img class="light"
+                                src="https://avatars.githubusercontent.com/u/58248012?v=4"
+                                alt="Seonghun Park" />
+                            <img class="dark"
+                                src="https://avatars.githubusercontent.com/u/58248012?v=4"
+                                alt="Seonghun Park" />
+                            
+                        </a>
+                        <h2 id="title">
+                            <a href="/seonghun120614/">Seonghun Park</a>
+                        </h2>
+                    </div><p class="tagline">Java Developer</p></div>
+                
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/">Posts</a>
+                        </li>
+                        
+                    </ul>
+                </nav><div class="sidebar-bottom about-footer condensed">
+                    <p>&copy; 2026</p><p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p></div>
+                
+            </section>
+            <section class="content">
+                <script>
+window.MathJax = {
+    tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+    renderActions: {
+        addMenu: []
+    }
+    }
+};
+</script>
+
+<script type="text/javascript"
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<style>
+.post-title {
+    font-size: 21px !important;
+    line-height: 1.4em !important;
+}
+.post-categories {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+.post-categories li {
+    float: none !important;
+    margin-right: 0 !important;
+    background: #f2f2f2 !important;
+    color: #666 !important;
+    padding: 2px 11px !important;
+    border-radius: 999px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.02em;
+}
+body.dark .post-categories li {
+    background: #252525 !important;
+    color: #999 !important;
+}
+</style><div class="post-container">
+    <a class="post-link" href="/seonghun120614/2026/06/30/jwt.html">
+        <h2 class="post-title">JWT</h2>
+    </a>
+
+    <div class="post-meta">
+        <div class="post-date"><i class="icon-calendar"></i>Jun 30, 2026</div></div>
+
+    <div class="post">
+        <!--more-->
+<p>Spring Boot - JWT 구현 복습</p>
+
+<h2 id="-목차">📂 목차</h2>
+<ul>
+  <li><a href=""></a></li>
+  <li><a href=""></a></li>
+</ul>
+
+<hr />
+
+<h2 id="-본문">📚 본문</h2>
+
+<p>JWT 는 로그인 구현을 위한 유명한 토큰 기반 인증 방식이다. 우선 이를 위해 <code class="language-plaintext highlighter-rouge">UserPasswordAuthentication</code> 을 이용해 JWT 발급을 위한 필터를 개발한다</p>
+
+<h3 id="jwt-발급login">JWT 발급(login)</h3>
+
+<h4 id="1-customusernamepasswordfilter-구현">1. CustomUsernamePasswordFilter 구현</h4>
+
+<p><code class="language-plaintext highlighter-rouge">AbstractAuthenticaitonProcessingFilter</code> 를 구현하자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomUsernamePasswordFilter</span> <span class="kd">extends</span> <span class="nc">AbstractAuthenticationProcessingFilter</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">USERNAME_KEY</span> <span class="o">=</span> <span class="s">"username"</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">PASSWORD_KEY</span> <span class="o">=</span> <span class="s">"password"</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">RequestMatcher</span> <span class="no">DEFAULT_PATH_REQUEST_MATCHER</span> <span class="o">=</span> <span class="nc">PathPatternRequestMatcher</span>
+            <span class="o">.</span><span class="na">withDefaults</span><span class="o">().</span><span class="na">matcher</span><span class="o">(</span><span class="nc">HttpMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span> <span class="s">"/api/login"</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="nf">CustomUsernamePasswordFilter</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="no">DEFAULT_PATH_REQUEST_MATCHER</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">CustomUsernamePasswordFilter</span><span class="o">(</span><span class="nc">AuthenticationManager</span> <span class="n">authenticationManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="no">DEFAULT_PATH_REQUEST_MATCHER</span><span class="o">,</span> <span class="n">authenticationManager</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">AuthenticationManager</code> 은 JWT 를 검증하는 주체이다. <code class="language-plaintext highlighter-rouge">authenticationManager</code> 는 나중에 만들고 <code class="language-plaintext highlighter-rouge">attemptAuthentication()</code> 을 구현하자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nc">Authentication</span> <span class="nf">attemptAuthentication</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                            <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Filtering</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"POST"</span><span class="o">))</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AuthenticationServiceException</span><span class="o">(</span><span class="s">"Authentication method not supported: "</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">());</span>
+
+    <span class="c1">// Parsing</span>
+    <span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="no">USERNAME_KEY</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="no">PASSWORD_KEY</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">username</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">password</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="n">username</span> <span class="o">=</span> <span class="n">password</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+
+    <span class="c1">// TODO: Auth - Manager 가 가공 할 만한 수준의 Authentication(authRequest) 으로 전환</span>
+
+    <span class="c1">// Allow subclasses to set the details property</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">getAuthenticationManager</span><span class="o">().</span><span class="na">authenticate</span><span class="o">(</span><span class="n">authRequest</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>여기서 마지막에는 <code class="language-plaintext highlighter-rouge">getAuthenticationManager</code> 를 통해 <code class="language-plaintext highlighter-rouge">authenticate</code> 를 하는 것을 볼 수 있다. 이제 <code class="language-plaintext highlighter-rouge">AuthenticationManager</code> 가 다룰 수 있는 <code class="language-plaintext highlighter-rouge">Authentication</code> 을 구현하자.</p>
+
+<h4 id="2-customusernamepasswordauthentication-구현">2. CustomUsernamePasswordAuthentication 구현</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Getter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UsernamePasswordAuthentication</span> <span class="kd">extends</span> <span class="nc">UsernamePasswordAuthenticationToken</span> <span class="o">{</span>
+    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">;</span>
+    <span class="nc">Object</span> <span class="n">credentials</span><span class="o">;</span> <span class="c1">// passwd</span>
+    <span class="nc">Object</span> <span class="n">principal</span><span class="o">;</span>
+    <span class="nd">@Setter</span><span class="o">(</span><span class="nc">AccessLevel</span><span class="o">.</span><span class="na">PRIVATE</span><span class="o">)</span>
+    <span class="kt">boolean</span> <span class="n">authenticated</span><span class="o">;</span>
+
+    <span class="c1">// Options</span>
+    <span class="nc">Object</span> <span class="n">details</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위에서 <code class="language-plaintext highlighter-rouge">Authentication</code> 의 생명주기에서 초반에는 <code class="language-plaintext highlighter-rouge">authenticated</code> 를 <code class="language-plaintext highlighter-rouge">false</code> 로 놓고 생성되게 하자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 인증전</span>
+<span class="kd">public</span> <span class="nf">UsernamePasswordAuthentication</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">principal</span><span class="o">,</span>
+                                        <span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">credentials</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">principal</span><span class="o">,</span> <span class="n">credentials</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="c1">// 인증 후</span>
+<span class="kd">public</span> <span class="nf">UsernamePasswordAuthentication</span><span class="o">(</span><span class="nc">Object</span> <span class="n">principal</span><span class="o">,</span>
+                                        <span class="nd">@Nullable</span> <span class="nc">Object</span> <span class="n">credentials</span><span class="o">,</span>
+                                        <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">principal</span><span class="o">,</span> <span class="n">credentials</span><span class="o">,</span> <span class="n">authorities</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>name, details 는 본인 서비스에 맞게 넣으면 된다. 이제 <code class="language-plaintext highlighter-rouge">AuthenticationManager</code> 를 구현하자.</p>
+
+<h4 id="3-authenticationmanager">3. AuthenticationManager</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserPasswordAuthenticationManager</span> <span class="kd">implements</span> <span class="nc">AuthenticationManager</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DaoAuthenticationProvider</span> <span class="n">daoAuthenticationProvider</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Authentication</span> <span class="nf">authenticate</span><span class="o">(</span><span class="nc">Authentication</span> <span class="n">authentication</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">AuthenticationException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">daoAuthenticationProvider</span><span class="o">.</span><span class="na">authenticate</span><span class="o">(</span><span class="n">authentication</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>필요한건 표준 정의된 빈으로 주입받도록 하자. 이때 <code class="language-plaintext highlighter-rouge">DaoAuthenticationProvider</code> 는 <code class="language-plaintext highlighter-rouge">UserDetailsService</code> 를 주입받는다. 따라서 <code class="language-plaintext highlighter-rouge">UserDetailsService</code>를 재구현하여 우리 DB 를 이용해 username, password 를 넣어주자.</p>
+
+<h4 id="4-userdetailsservice">4. UserDetailsService</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomUserDetailsService</span> <span class="kd">implements</span> <span class="nc">UserDetailsService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserRepository</span> <span class="n">userRepository</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">UserDetails</span> <span class="nf">loadUserByUsername</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">UsernameNotFoundException</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findByNickname</span><span class="o">(</span><span class="n">username</span><span class="o">)</span>
+                                  <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">UsernameNotFoundException</span><span class="o">(</span><span class="s">"The user could not be found or the user has no GrantedAuthority"</span><span class="o">));</span>
+
+        <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="na">getRoles</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+                                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">Role:</span><span class="o">:</span><span class="n">getRole</span><span class="o">)</span>
+                                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">RoleEnum:</span><span class="o">:</span><span class="n">toString</span><span class="o">)</span>
+                                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">SimpleGrantedAuthority:</span><span class="o">:</span><span class="k">new</span><span class="o">)</span>        <span class="c1">// String → GrantedAuthority</span>
+                                                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toSet</span><span class="o">());</span>
+
+        <span class="k">return</span> <span class="nc">CustomUserDetails</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getNickname</span><span class="o">())</span>
+                                <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getPassword</span><span class="o">())</span>
+                                <span class="o">.</span><span class="na">authorities</span><span class="o">(</span><span class="n">authorities</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">accountNonExpired</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">accountNonLocked</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">credentialsNonExpired</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">enabled</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>다시 돌아가서 <code class="language-plaintext highlighter-rouge">UsernamePasswordAuthenticationManager</code> 가 authenticate 를 할 때 위 객체를 이용해서 <code class="language-plaintext highlighter-rouge">retrieveUser</code> 를 통해 db 에서 유저를 가져올 수 있을 것이다.</p>
+
+<h4 id="5-전체-흐름">5. 전체 흐름</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nc">Authentication</span> <span class="nf">attemptAuthentication</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                            <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Filtering</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">"POST"</span><span class="o">))</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AuthenticationServiceException</span><span class="o">(</span><span class="s">"Authentication method not supported: "</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">());</span>
+
+    <span class="c1">// Parsing</span>
+    <span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="no">USERNAME_KEY</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="no">PASSWORD_KEY</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">username</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">password</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="n">username</span> <span class="o">=</span> <span class="n">password</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+
+    <span class="c1">// Auth - Manager 가 가공 할 만한 수준의 Authentication 으로 전환</span>
+    <span class="nc">UsernamePasswordAuthentication</span> <span class="n">authRequest</span>
+            <span class="o">=</span> <span class="k">new</span> <span class="nc">UsernamePasswordAuthentication</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">getAuthenticationManager</span><span class="o">().</span><span class="na">authenticate</span><span class="o">(</span><span class="n">authRequest</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">UserPasswordAuthentication</code> 을 통해 검증을 수행하고 <code class="language-plaintext highlighter-rouge">AuthenticationManager</code> 를 이용해서 인증을 수행하면 authenticated <code class="language-plaintext highlighter-rouge">UserPasswordAuthentication</code> 을 얻게 된다.</p>
+
+<p>여기까지가 로그인의 과정이다. 이제 <code class="language-plaintext highlighter-rouge">successfulAuthentication</code> 을 보자.</p>
+
+<h4 id="6-successfulauthentication">6. successfulAuthentication</h4>
+
+<p>이미 구현되어 있는 추상 메서드는 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">successfulAuthentication</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="nc">FilterChain</span> <span class="n">chain</span><span class="o">,</span>
+			<span class="nc">Authentication</span> <span class="n">authResult</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ServletException</span> <span class="o">{</span>
+    <span class="nc">SecurityContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">securityContextHolderStrategy</span><span class="o">.</span><span class="na">createEmptyContext</span><span class="o">();</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">setAuthentication</span><span class="o">(</span><span class="n">authResult</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">securityContextHolderStrategy</span><span class="o">.</span><span class="na">setContext</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">securityContextRepository</span><span class="o">.</span><span class="na">saveContext</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">isDebugEnabled</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="nc">LogMessage</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Set SecurityContextHolder to %s"</span><span class="o">,</span> <span class="n">authResult</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">rememberMeServices</span><span class="o">.</span><span class="na">loginSuccess</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">authResult</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">eventPublisher</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">eventPublisher</span><span class="o">.</span><span class="na">publishEvent</span><span class="o">(</span><span class="k">new</span> <span class="nc">InteractiveAuthenticationSuccessEvent</span><span class="o">(</span><span class="n">authResult</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">()));</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">successHandler</span><span class="o">.</span><span class="na">onAuthenticationSuccess</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">authResult</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>검증했던 authResult 가 우리가 정의했던 <code class="language-plaintext highlighter-rouge">UsernamePasswordAuthentication</code> 이다. 그리고 이를 securityContextHolder 의 저장 방식에 따라 저장하고 있고, 그 뒤로 <code class="language-plaintext highlighter-rouge">rememberMeServices</code> 와 성공 후에 어디로 가야할지를 정하는 <code class="language-plaintext highlighter-rouge">successHandler</code> 가 있다. 여기서 remember 는 STATELESS 에 맞지 않으므로 과감히 뺀다</p>
+
+<h4 id="7-successhandler">7. SuccessHandler</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UsernamePasswordAuthenticationSuccessHandler</span> <span class="kd">implements</span> <span class="nc">AuthenticationSuccessHandler</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAuthenticationSuccess</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                        <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                        <span class="nc">FilterChain</span> <span class="n">chain</span><span class="o">,</span>
+                                        <span class="nc">Authentication</span> <span class="n">authentication</span>
+    <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ServletException</span> <span class="o">{</span>
+        <span class="nc">AuthenticationSuccessHandler</span><span class="o">.</span><span class="na">super</span><span class="o">.</span><span class="na">onAuthenticationSuccess</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">chain</span><span class="o">,</span> <span class="n">authentication</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAuthenticationSuccess</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                        <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                        <span class="nc">Authentication</span> <span class="n">authentication</span>
+    <span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">ServletException</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>두 가지 재정의되어야 하는 메서드가 있다. 서비스에 맞게 사용하자. 아래 메서드를 재정의하자. 성공 시에는 JWT 토큰을 발급받아야 한다. 그러기 위해서는 JwtProvider 를 선언해주자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">String</span> <span class="nf">createAccessToken</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span>
+                                <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">createToken</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">authorities</span><span class="o">,</span> <span class="n">jwtConfig</span><span class="o">.</span><span class="na">accessExpireTime</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">createRefreshToken</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span>
+                                    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">createToken</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">authorities</span><span class="o">,</span> <span class="n">jwtConfig</span><span class="o">.</span><span class="na">accessExpireTime</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">String</span> <span class="nf">createToken</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span>
+                            <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">,</span>
+                            <span class="kt">long</span> <span class="n">expireSeconds</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Date</span> <span class="n">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">();</span>
+    <span class="nc">Date</span> <span class="n">expiry</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">(</span><span class="n">now</span><span class="o">.</span><span class="na">getTime</span><span class="o">()</span> <span class="o">+</span> <span class="n">expireSeconds</span> <span class="o">*</span> <span class="mi">1000</span><span class="o">);</span>
+
+    <span class="nc">String</span> <span class="n">roles</span> <span class="o">=</span> <span class="n">authorities</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">GrantedAuthority:</span><span class="o">:</span><span class="n">getAuthority</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">joining</span><span class="o">(</span><span class="s">","</span><span class="o">));</span>
+
+    <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">subject</span><span class="o">(</span><span class="n">username</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">claim</span><span class="o">(</span><span class="s">"roles"</span><span class="o">,</span> <span class="n">roles</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">issuedAt</span><span class="o">(</span><span class="n">now</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">expiration</span><span class="o">(</span><span class="n">expiry</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">signWith</span><span class="o">(</span><span class="n">key</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">compact</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이제 토큰을 만들러 가자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAuthenticationSuccess</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                    <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                    <span class="nc">Authentication</span> <span class="n">authentication</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">authentication</span><span class="o">.</span><span class="na">getPrincipal</span><span class="o">();</span>
+    <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span> <span class="o">=</span> <span class="n">authentication</span><span class="o">.</span><span class="na">getAuthorities</span><span class="o">();</span>
+
+    <span class="nc">String</span> <span class="n">accessToken</span> <span class="o">=</span> <span class="n">jwtProvider</span><span class="o">.</span><span class="na">createAccessToken</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">authorities</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">refreshToken</span> <span class="o">=</span> <span class="n">jwtProvider</span><span class="o">.</span><span class="na">createRefreshToken</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">authorities</span><span class="o">);</span>
+
+    <span class="c1">// TODO: Create Cookie</span>
+    
+    <span class="c1">// TODO: Header 에 추가</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>쿠키를 만드는 클래스를 만들고 책임을 위임하자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CookieHandler</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">CookieConfig</span> <span class="n">cookieConfig</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">ResponseCookie</span> <span class="nf">createCookie</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">value</span><span class="o">,</span> <span class="kt">long</span> <span class="n">maxAge</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">ResponseCookie</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span>
+                             <span class="o">.</span><span class="na">httpOnly</span><span class="o">(</span><span class="n">cookieConfig</span><span class="o">.</span><span class="na">httpOnly</span><span class="o">())</span>
+                             <span class="o">.</span><span class="na">secure</span><span class="o">(</span><span class="n">cookieConfig</span><span class="o">.</span><span class="na">secure</span><span class="o">())</span>
+                             <span class="o">.</span><span class="na">sameSite</span><span class="o">(</span><span class="n">cookieConfig</span><span class="o">.</span><span class="na">sameSite</span><span class="o">())</span>
+                             <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="n">cookieConfig</span><span class="o">.</span><span class="na">path</span><span class="o">())</span>
+                             <span class="o">.</span><span class="na">maxAge</span><span class="o">(</span><span class="n">maxAge</span><span class="o">)</span>
+                             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>다시 돌아와서 쿠키를 만들고 response 에 넣어주자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAuthenticationSuccess</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                    <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                    <span class="nc">Authentication</span> <span class="n">authentication</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="kt">var</span> <span class="n">accessCookie</span> <span class="o">=</span> <span class="n">cookieHandler</span><span class="o">.</span><span class="na">createCookie</span><span class="o">(</span><span class="s">"access_token"</span><span class="o">,</span>
+                                                                <span class="n">accessToken</span><span class="o">,</span>
+                                                                <span class="n">jwtProvider</span><span class="o">.</span><span class="na">getAccessExpirySeconds</span><span class="o">());</span>
+    <span class="kt">var</span> <span class="n">refreshCookie</span> <span class="o">=</span> <span class="n">cookieHandler</span><span class="o">.</span><span class="na">createCookie</span><span class="o">(</span><span class="s">"refresh_token"</span><span class="o">,</span>
+                                                    <span class="n">refreshToken</span><span class="o">,</span>
+                                                    <span class="n">jwtProvider</span><span class="o">.</span><span class="na">getRefreshExpirySeconds</span><span class="o">());</span>
+
+    <span class="n">response</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">SET_COOKIE</span><span class="o">,</span> <span class="n">accessCookie</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">SET_COOKIE</span><span class="o">,</span> <span class="n">refreshCookie</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이제 로직을 전부 다 짰다. 주의할 점은 다음과 같다.</p>
+
+<blockquote>
+  <p>@ConfigurationProperties(prefix = “cookie”)<br />
+public record CookieConfig(<br />
+        boolean httpOnly,<br />
+        boolean secure,     // Local, Prod: false, https 발급시 true<br />
+        String sameSite,    // Local, Prod: Lax, https 발급시 None<br />
+        String path<br />
+) {}</p>
+</blockquote>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">FailureHandler</code> 를 보자.</p>
+
+<h4 id="8-failurehandler">8. FailureHandler</h4>
+
+<h4 id="9-">9. ()</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">JwtAuthenticationFilter</span>
+        <span class="kd">extends</span> <span class="nc">AbstractAuthenticationProcessingFilter</span> <span class="o">{</span>
+
+    <span class="kd">protected</span> <span class="nf">JwtAuthenticationFilter</span><span class="o">(</span>
+            <span class="nc">String</span> <span class="n">defaultFilterProcessesUrl</span><span class="o">,</span>
+            <span class="nc">AuthenticationManager</span> <span class="n">authenticationManager</span>
+    <span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">defaultFilterProcessesUrl</span><span class="o">,</span> <span class="n">authenticationManager</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>###</p>
+
+<hr />
+
+<h2 id="️-용어">✒️ 용어</h2>
+
+<p>######</p>
+
+<hr />
+
+<h2 id="-관련-출처">🔗 관련 출처</h2>
+<ul>
+  <li><a href=""></a></li>
+</ul>
+
+    </div><div id="disqus_thread" style="margin-top:25px"></div>
+    <script>
+    var disqus_config = function () {
+        this.page.url = 'https://seonghun120614.github.io/seonghun120614/2026/06/30/jwt.html';
+        this.page.identifier = 'https://seonghun120614.github.io/seonghun120614/2026/06/30/jwt.html';
+    };
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://seonghun.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+  </script>
+    <noscript>Please enable JavaScript to view the <a
+            href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+            powered by Disqus.</a></noscript></div>
+<script>
+    mermaid.initialize({startOnLoad:true});
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
+
+
+            </section>
+            <footer class="condensed">
+                <ul class="social about-footer condensed"><li>
+                        <a
+                            href="https://github.com/seonghun120614"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="github">
+                            <i class="icon-github-circled"></i>
+                        </a>
+                    </li><li>
+                        <a
+                            href="mailto:seonghun120614@gmail.com"
+                            target="_blank" rel="noopener" aria-label="email">
+                            <i class="icon-mail-alt"></i>
+                        </a>
+                    </li></ul><nav class="navigation about-footer condensed">
+                    <ul>
+                        
+                        <li>
+                            <a href="/seonghun120614/about">About Me</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/seonghun120614/">Posts</a>
+                        </li>
+                        
+                    </ul>
+                </nav><div class="sidebar-bottom about-footer condensed">
+                    <p>&copy; 2026</p><p>Dark Mode
+                        <i class="icon-moon"></i>
+                        <label class="switch" for="dark-toggle">
+                            <input id="dark-toggle" type="checkbox"
+                                class="dark-mode-toggle"
+                                aria-label="Toggle dark mode">
+                            <span class="slider round"
+                                onclick="toggleDarkMode()"></span>
+                        </label>
+                    </p></div>
+                
+            </footer>
+        </main>
+        <script src="/seonghun120614/assets/js/simple-jekyll-search.min.js"></script>
+        <script src="/seonghun120614/assets/js/search.js"></script>
+        
+        <script>
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+            });
+        </script>
+    </body>
+</html>
