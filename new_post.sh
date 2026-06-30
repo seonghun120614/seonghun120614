@@ -18,6 +18,7 @@ title:  TITLE_PLACEHOLDER
 image: /assets/img/
 date:   DATE_PLACEHOLDER
 categories: 
+code_runner: false
 ---
 
 <!--more-->
