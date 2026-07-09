@@ -20,6 +20,7 @@ code_runner: false
 - [단일 서버 채팅접속자 관리](#단일-서버-채팅접속자-관리)
     - [ConcurrentWebSocketSessionDecorator 동시성 관리](#concurrentwebsocketsessiondecorator-동시성-관리)
     - [(옵션) CORS 체크](#옵션-cors-체크)
+    - [(옵션) Virtual Thread 사용](#)
 
 ---
 
@@ -463,5 +464,41 @@ public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 ```
 
 다 허용하면 안되고 배포할 때에는 제한시키자.
+
+##### (옵션) Virtual Thread 사용
+
+```yml
+spring:
+  threads:
+    virtual:
+      enabled: true
+```
+
+Java 21 부터는 virtual thread 를 사용할 수 있는데, 대규모 I/O 처리가 필요한 애플리케이션의 성능을 극대화할 수 있다.
+
+```java
+@Configuration
+public class ExecutorConfig {
+    @Bean
+    public Executor websocketExecutor() {
+        return Executors.newVirtualThreadPerTaskExecutor();
+    }
+}
+```
+
+실행 관련 컨피그를 따로 만들어주자(순환참조 문제).
+
+```java
+@Override
+protected void handleTextMessage(WebSocketSession session,
+                                    TextMessage message
+) throws Exception {
+    log.info(">>> {}: {}", session.getId(), message.toString());
+    websocketExecutor.execute(() -> broadcast("[" + session.getId() + "]" + message.getPayload()));
+}
+```
+
+이제 메시지를 보낼 때 virtual thread 를 이용해 작업을 수행하도록 바꿔만 주면 끝이다. 자세한 코드는 아래를 살펴보기를 바란다.
+
 
 [Spring WebSocket](https://github.com/seonghun120614/Spring-WebSocket)
